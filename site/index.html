@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clean India Model Coach</title>
+  <meta name="description" content="Science-fair preparation for Clean India Mission and Waste Management: model tour, presentation walkthrough, viva practice, voice and self-scoring.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">♻️</span>
+      <div>
+        <div class="brand-title">Clean India Model Coach</div>
+        <div class="brand-sub" id="brandSub"></div>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <a href="#home" data-tab="home">🏠 Home</a>
+      <a href="#model" data-tab="model">🗺️ Model</a>
+      <a href="#walk" data-tab="walk">🧭 Walkthrough</a>
+      <a href="#viva" data-tab="viva">❓ Viva</a>
+      <a href="#voice" data-tab="voice">🎙️ Voice</a>
+      <a href="#score" data-tab="score">📊 Score</a>
+      <a href="#ask" data-tab="ask">📝 Ask Ma'am</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="tab-home" class="tab">
+      <div class="hero card">
+        <div>
+          <h1 id="heroTopic"></h1>
+          <p id="heroWho" class="muted"></p>
+          <p class="countdown" id="countdown"></p>
+        </div>
+        <div class="progress-tiles" id="progressTiles"></div>
+      </div>
+
+      <h2>How the website works</h2>
+      <div class="grid3">
+        <a class="card link-card" href="#model"><b>🗺️ 1. Learn the model</b><span>Tap every part of your model: what it is, the science behind it, what to say, and what NOT to say.</span></a>
+        <a class="card link-card" href="#walk"><b>🧭 2. Walk through it</b><span>Practise explaining the model in order. Say it in your own words first, then check the sample.</span></a>
+        <a class="card link-card" href="#viva"><b>❓ 3. Viva practice</b><span>One question at a time. Answer first, then see what a good answer covers.</span></a>
+        <a class="card link-card" href="#voice"><b>🎙️ 4. Voice &amp; expression</b><span>Record yourself, listen back, and check how fast you speak.</span></a>
+        <a class="card link-card" href="#score"><b>📊 5. Score yourself</b><span>Mark yourself out of 50 after each full practice run.</span></a>
+        <a class="card link-card" href="#ask"><b>📝 6. Ask Ma'am</b><span>Questions to confirm with Rajnish Ma'am before the fair.</span></a>
+      </div>
+
+      <h2>Marking scheme — 50 marks</h2>
+      <div class="marks" id="marksList"></div>
+
+      <h2>My three quotes</h2>
+      <div class="quotes" id="quotesList"></div>
+
+      <h2>Plan until the fair</h2>
+      <ol class="plan" id="planList"></ol>
+    </section>
+
+    <!-- MODEL MAP -->
+    <section id="tab-model" class="tab" hidden>
+      <h2>My model — tap a number</h2>
+      <p class="muted small">One green wooden base, all on one level: Smart City on the left, the centre park display in the middle, Smart Village on the right, and the waste/water/energy demonstrations at the front. <span class="pill ask">Ask Ma'am</span> means you should confirm that part with your teacher before explaining it.</p>
+      <div class="map-wrap">
+        <div class="map" id="map">
+          <img src="model.jpg" alt="Pictorial photo of the Clean India model on a green base" id="mapImg">
+        </div>
+        <p class="tiny muted">The photo is pictorial, so your real model may look slightly different.</p>
+      </div>
+      <div class="chips" id="compChips"></div>
+      <article class="card detail" id="compDetail"></article>
+    </section>
+
+    <!-- WALKTHROUGH -->
+    <section id="tab-walk" class="tab" hidden>
+      <div class="walk-head">
+        <h2>Presentation walkthrough</h2>
+        <div class="timer-box">
+          <span id="walkTimer" class="timer">00:00</span>
+          <button class="btn" id="walkStart">▶ Start timer</button>
+          <button class="btn ghost" id="walkReset">↺</button>
+        </div>
+      </div>
+      <p class="muted small">Order: Opening → theory → <b>City → Transport → Centre → Dustbins → Village → Water → Energy → Conclusion</b>. Say each step in your own words <b>first</b>, then peek at the sample if you need to.</p>
+      <div class="walk">
+        <ol class="steps" id="stepList"></ol>
+        <article class="card step-card" id="stepCard"></article>
+      </div>
+    </section>
+
+    <!-- VIVA -->
+    <section id="tab-viva" class="tab" hidden>
+      <h2>Viva practice — one question at a time</h2>
+      <div class="filters">
+        <label>Topic <select id="vivaTopic"></select></label>
+        <label>Level <select id="vivaLevel">
+          <option value="all">All levels</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select></label>
+        <button class="btn" id="vivaNext">Next question →</button>
+      </div>
+      <article class="card viva-card" id="vivaCard"></article>
+      <p class="small muted" id="vivaStats"></p>
+    </section>
+
+    <!-- VOICE -->
+    <section id="tab-voice" class="tab" hidden>
+      <h2>Voice &amp; expression practice</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>🎙️ Record yourself</h3>
+          <p class="small muted">Record one section (for example, the biogas plant) and listen back. Are you too fast? Can you hear your pauses?</p>
+          <div class="rec-row">
+            <button class="btn" id="recBtn">● Record</button>
+            <span class="timer" id="recTimer">00:00</span>
+          </div>
+          <div id="paceBox" class="pace" hidden>
+            <div><b id="wpm">0</b> words per minute</div>
+            <div class="small muted" id="paceHint"></div>
+            <p class="transcript" id="liveText"></p>
+          </div>
+          <ul class="recs" id="recList"></ul>
+          <p class="tiny muted" id="recNote"></p>
+        </div>
+        <div class="card">
+          <h3>🔊 Voice tips</h3>
+          <ul id="voiceTips" class="tips"></ul>
+          <h3>🙂 Expression tips</h3>
+          <ul id="exprTips" class="tips"></ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>How to read the sample lines</h3>
+        <p class="sample"><strong>bold</strong> = stress this word &nbsp; <span class="pause">/</span> = short pause</p>
+        <div class="quotes" id="quotesList2"></div>
+      </div>
+    </section>
+
+    <!-- SCORE -->
+    <section id="tab-score" class="tab" hidden>
+      <h2>Self-score after a full practice</h2>
+      <div class="card">
+        <div id="scoreSliders"></div>
+        <div class="score-total">Total: <b id="scoreTotal">0</b> / 50</div>
+        <label class="block">What will I improve next time?
+          <textarea id="scoreNote" rows="2" placeholder="e.g. slow down at the hydrogen train, look at the judge more"></textarea>
+        </label>
+        <button class="btn" id="scoreSave">Save this practice</button>
+      </div>
+      <h3>My practice history</h3>
+      <div id="scoreHistory" class="card"></div>
+    </section>
+
+    <!-- ASK MA'AM -->
+    <section id="tab-ask" class="tab" hidden>
+      <h2>Confirm with Rajnish Ma'am</h2>
+      <p class="muted small">Don't guess these. Ask your teacher, write her answer here (it saves on this device), then press <b>Copy all answers</b> and send them to your mentor so the website content can be updated.</p>
+      <div id="askList"></div>
+      <button class="btn" id="askCopy">📋 Copy all answers</button>
+      <span class="small muted" id="askCopied"></span>
+
+      <h2>Sources I checked</h2>
+      <ul id="sourceList" class="small"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">Built by the TechnoTaau Team for Avni's science fair · To change any text, edit <code>site/content.js</code></footer>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

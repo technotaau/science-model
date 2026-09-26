@@ -260,7 +260,81 @@ table.hist th, table.hist td { border-bottom: 1px solid var(--line); padding: 6p
 .ask-item { margin-bottom: 12px; border-left: 6px solid var(--ask); }
 .ask-item b { display: block; margin-bottom: 6px; }
 
+/* ---------- project report ---------- */
+.report-head { text-align: center; padding: 18px 12px 8px; border-top: 8px solid var(--brand); background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 14px; }
+.report-kicker { font-size: .8rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; color: var(--muted); }
+.report-head h1 { margin: .2em 0 .1em; color: var(--ok-ink); }
+.report-sub { margin: 0; font-size: 1.05rem; }
+.report-who { margin: 8px 0 0; color: var(--muted); font-size: .95rem; }
+.report h2 { margin-top: 0; font-size: 1.2rem; }
+.report-img { width: 100%; height: auto; border-radius: 10px; display: block; }
+.parts-zone { margin-top: 14px; }
+.parts-zone h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.parts { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.parts th, .parts td { text-align: left; vertical-align: top; padding: 6px; border-bottom: 1px solid var(--line); }
+.parts th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.parts td:first-child { white-space: nowrap; font-weight: 800; }
+.parts .tbc { color: var(--ask-ink); font-style: italic; }
+.pledge { font-size: 1.1rem; font-family: "Baloo 2", sans-serif; background: var(--ok-bg); border-left: 6px solid var(--ok); border-radius: 10px; padding: 10px 14px; }
+.report .quote { font-size: 1.02rem; margin-bottom: 8px; }
+.qr-mini { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+.qr-mini img { width: 84px; height: 84px; background: #fff; padding: 4px; border-radius: 6px; }
+.prog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 8px 0; }
+
+/* QR stall card */
+.qr-card { width: min(100%, 360px); margin: 0 auto 20px; background: #fff; color: #111827; border: 3px solid #15803d; border-radius: 18px; padding: 18px; text-align: center; box-shadow: var(--shadow); }
+.qr-card-top { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 1.15rem; color: #14532d; }
+.qr-img { width: 80%; height: auto; margin: 10px auto; display: block; }
+.qr-card-cta { font-weight: 900; font-size: 1.2rem; }
+.qr-card-who { font-size: .9rem; color: #374151; margin-top: 6px; }
+
+/* ---------- visitor mode (judges scanning the QR) ---------- */
+body.visitor .tabs, body.visitor .owner-only, body.visitor .teacher-only, body.visitor #qrCard, body.visitor .no-print { display: none !important; }
+body.visitor .brand-sub::after { content: " · Visitor view"; }
+
+@media screen and (max-width: 600px) {
+  .parts, .parts tbody, .parts tr, .parts td { display: block; width: 100%; }
+  .parts tr:first-child { display: none; }
+  .parts tr { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; margin-bottom: 8px; }
+  .parts td { border: 0; padding: 2px 0; }
+  .parts td:first-child { white-space: normal; font-size: 1rem; }
+  .parts td[data-label]::before { content: attr(data-label) ": "; font-weight: 800; color: var(--muted); font-size: .8rem; text-transform: uppercase; }
+}
+
+/* ---------- printing ---------- */
 @media print {
-  .top, .foot, .btn, .subtabs { display: none !important; }
-  body { background: #fff; }
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff !important; color: #000; font-size: 11pt; }
+  :root { --surface: #fff; --bg: #fff; --ink: #000; --muted: #444; --line: #ccc; --shadow: none; }
+  .top, .foot, .btn, .subtabs, .no-print { display: none !important; }
+  main { padding: 0; max-width: none; }
+  .card { box-shadow: none; break-inside: auto; padding: 8px 12px; margin-bottom: 8px; border-radius: 8px; }
+  .report h2 { font-size: 13pt; margin-bottom: 4px; }
+  .report ul, .report ol { margin: 4px 0; padding-left: 1.2em; }
+  .report li { margin-bottom: 2px; }
+  .report-head { padding: 8px; margin-bottom: 8px; }
+  .report-head h1 { font-size: 20pt; }
+  .report-img { max-height: 80mm; width: auto; max-width: 100%; margin: 0 auto; }
+  .grid2 > .card { break-inside: avoid; }
+  #rpProgress .sec { break-inside: auto; }
+  h2, h3 { break-after: avoid; }
+  .parts { font-size: 9pt; }
+  .parts th, .parts td { padding: 3px 4px; }
+  .parts-zone { margin-top: 6px; break-inside: avoid; }
+  .grid2 { gap: 8px; }
+  .quote { padding: 4px 10px; }
+  .sec { padding: 6px 10px; margin-top: 6px; }
+  a { color: inherit; text-decoration: none; }
+  .report-head { box-shadow: none; }
+  .grid2 { grid-template-columns: 1fr 1fr; }
+  .parts tr { break-inside: avoid; }
+  /* printing the report: hide the QR stall card */
+  body.print-report #qrCard, body.print-report .owner-only { display: none !important; }
+  body.print-report.no-progress .teacher-only { display: none !important; }
+  /* printing the QR card: show only the card, large */
+  body.print-qr #report, body.print-qr .owner-only, body.print-qr h2 { display: none !important; }
+  body.print-qr .qr-card { width: 120mm; margin: 10mm auto; border-width: 4px; padding: 10mm; }
+  body.print-qr .qr-card-top { font-size: 18pt; }
+  body.print-qr .qr-card-cta { font-size: 20pt; }
+  body.print-qr .qr-card-who { font-size: 12pt; }
 }

@@ -22,6 +22,7 @@
     </div>
     <nav class="tabs" id="tabs" aria-label="Sections">
       <a href="#home" data-tab="home">🏠 Home</a>
+      <a href="#project" data-tab="project">📘 Project</a>
       <a href="#model" data-tab="model">🗺️ Model</a>
       <a href="#walk" data-tab="walk">🧭 Walkthrough</a>
       <a href="#viva" data-tab="viva">❓ Viva</a>
@@ -55,6 +56,7 @@
         <a class="card link-card" href="#voice"><b>🎙️ 4. Voice Coach</b><span>Listen and repeat, ask questions by voice, check your volume, speed and “um”s, practise hard words, mirror practice and a calming warm-up.</span></a>
         <a class="card link-card" href="#score"><b>📊 5. Score yourself</b><span>Mark yourself out of 50 after each full practice run.</span></a>
         <a class="card link-card" href="#ask"><b>📝 6. Ask Ma'am</b><span>Questions to confirm with Rajnish Ma'am before the fair.</span></a>
+        <a class="card link-card" href="#project"><b>📘 7. Project report</b><span>A clean report to show and print for Rajnish Ma'am, plus a QR card for your stall.</span></a>
       </div>
 
       <h2>Marking scheme — 50 marks</h2>
@@ -65,6 +67,73 @@
 
       <h2>Plan until the fair</h2>
       <ol class="plan" id="planList"></ol>
+    </section>
+
+    <!-- PROJECT REPORT / VISITOR PAGE -->
+    <section id="tab-project" class="tab" hidden>
+      <div class="card no-print owner-only" id="projActions">
+        <h3 style="margin-top:0">📘 Project report &amp; stall QR card</h3>
+        <p class="small muted">Show this page to Rajnish Ma'am, print it as your project report, and print the QR card for your stall. Judges who scan the QR code see <b>only this page</b>, without your practice notes or your practice progress.</p>
+        <div class="viva-row">
+          <button class="btn" id="printReport">🖨️ Print project report</button>
+          <button class="btn act" id="printQR">🖨️ Print QR card</button>
+          <button class="btn ghost" id="copyVisitor">🔗 Copy visitor link</button>
+          <a class="btn ghost" href="?visitor#project" target="_blank" rel="noopener">👀 Preview what judges see</a>
+        </div>
+        <label class="small"><input type="checkbox" id="incProgress" checked> Include my practice progress (for Ma'am) when printing</label>
+        <span class="small muted" id="copyMsg"></span>
+      </div>
+
+      <article class="report" id="report">
+        <header class="report-head">
+          <div class="report-kicker">Science Fair 2026 · Class 6</div>
+          <h1 id="rpTitle"></h1>
+          <p class="report-sub" id="rpSub"></p>
+          <p class="report-who" id="rpWho"></p>
+        </header>
+
+        <div class="grid2 report-top">
+          <section class="card"><h2>🎯 Aim</h2><p id="rpAim"></p></section>
+          <section class="card"><h2>📋 Objectives</h2><ol id="rpObj"></ol></section>
+        </div>
+
+        <section class="card model-card">
+          <h2>🗺️ My model</h2>
+          <img src="model.jpg" alt="Pictorial photo of the Clean India model" class="report-img">
+          <p class="tiny muted">Pictorial photo. All parts are on one green wooden base: Smart City on the left, Centre in the middle, Smart Village on the right, and demonstrations at the front.</p>
+          <div id="rpParts"></div>
+        </section>
+
+        <div class="grid2">
+          <section class="card"><h2>⚡ Working demonstrations</h2><ul id="rpDemos"></ul></section>
+          <section class="card"><h2>🧰 Materials used</h2><ul id="rpMaterials"></ul></section>
+        </div>
+
+        <div class="grid2">
+          <section class="card"><h2>💡 What I learned</h2><ul id="rpLearned"></ul></section>
+          <section class="card">
+            <h2>🤝 My pledge</h2><p class="pledge" id="rpPledge"></p>
+            <h2>💬 My messages</h2><div id="rpQuotes"></div>
+          </section>
+        </div>
+
+        <section class="card teacher-only" id="rpProgress"></section>
+
+        <div class="grid2">
+          <section class="card"><h2>📚 Sources</h2><ul class="small" id="rpSources"></ul></section>
+          <section class="card"><h2>🙏 Thanks to</h2><ul id="rpThanks"></ul>
+            <div class="qr-mini"><img src="qr.svg" alt="QR code to this project page"><span class="small">Scan to open this page</span></div>
+          </section>
+        </div>
+      </article>
+
+      <h2 class="no-print owner-only">🪧 QR card for my stall</h2>
+      <div class="qr-card" id="qrCard">
+        <div class="qr-card-top">♻️ Clean India Mission &amp; Waste Management</div>
+        <img src="qr.svg" alt="QR code linking to the project page" class="qr-img">
+        <div class="qr-card-cta">📱 Scan to explore my model</div>
+        <div class="qr-card-who" id="qrWho"></div>
+      </div>
     </section>
 
     <!-- MODEL MAP -->
@@ -262,7 +331,7 @@
     </section>
   </main>
 
-  <footer class="foot">Built by the TechnoTaau Team for Avni's science fair · To change any text, edit <code>site/content.js</code></footer>
+  <footer class="foot" id="foot">Built by the TechnoTaau Team for Avni's science fair · To change any text, edit <code>site/content.js</code></footer>
 
   <script src="content.js"></script>
   <script src="voice.js"></script>

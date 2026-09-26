@@ -112,6 +112,79 @@ window.SITE = {
   ],
   fillers: ["um", "umm", "uh", "uhh", "hmm", "like", "basically", "actually", "you know", "matlab"],
 
+  /* ---------------- PROJECT REPORT (📘 Project tab, printable, and the page judges see from the QR code) ----------------
+     Avni: check every line matches YOUR real model, and change the pledge to your own words. */
+  project: {
+    title: "Clean India Mission and Waste Management",
+    subtitle: "A Smart City and a Smart Village that keep India clean, healthy and green",
+    aim: "To show how India can become cleaner and healthier through sanitation, separating waste at source, recycling, and clean energy — in both a Smart City and a Smart Village.",
+    objectives: [
+      "To understand the Clean India Mission (Swachh Bharat Abhiyan) and why toilets and sanitation matter.",
+      "To learn how waste can be separated at source and turned into useful resources like compost, biogas and recycled material.",
+      "To show clean-energy ideas — solar, wind, electric vehicles and a hydrogen train — that help reduce carbon emissions.",
+      "To demonstrate simple water filtration and explain how factory wastewater should be treated.",
+      "To encourage every student to follow the 7Rs: Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover."
+    ],
+    zones: {
+      city: "Smart City (left side)",
+      centre: "Centre / Park display (middle)",
+      village: "Smart Village (right side)",
+      front: "Demonstrations (front)"
+    },
+    demos: [
+      "☀️ A real solar panel lights a bulb in sunlight.",
+      "🔌 Pressing the EV-station button makes a green light glow to show charging.",
+      "💧 Dirty water passes through charcoal, stones and cotton and comes out clearer (a first cleaning step — not drinking-safe).",
+      "💡 The plastic-to-energy machine lights a bulb to show the idea of recovering energy from waste that cannot be recycled."
+    ],
+    materials: [
+      "One large green wooden base (the whole model is on one level)",
+      "Cardboard and paper — buildings, two handmade solar panels, hut",
+      "One real solar panel with a bulb/LED",
+      "EV charging station with a toy car, a button and a green light",
+      "Two model electric buses, and a hydrogen train on a railway track",
+      "Charcoal, stones and cotton in a container (water filter)",
+      "Handmade plastic-to-energy machine with a bulb",
+      "One windmill, two flower pots, five coloured dustbins"
+    ],
+    learned: [
+      "Waste becomes a resource when we separate it at source; mixed waste becomes garbage.",
+      "Wet waste can become compost or biogas, and many kinds of dry waste can be recycled.",
+      "Using toilets protects our health and our water — sanitation is a big part of Clean India.",
+      "Solar, wind, electric vehicles and hydrogen trains reduce smoke and carbon emissions, but their full benefit depends on how the electricity or hydrogen is produced.",
+      "Clear-looking water is not always safe to drink.",
+      "Plastic must never be burnt in the open — refusing and reducing plastic is the best solution."
+    ],
+    // Avni: rewrite this in your own words!
+    pledge: "I will separate wet and dry waste at home and in school, carry a cloth bag and my own water bottle, and never litter. Small steps can make a big difference.",
+    thanks: [
+      "Rajnish Ma'am, my science teacher, for her guidance",
+      "Sharda Sarvhitkari Senior Secondary School, Chandigarh"
+    ],
+    // For each part of the model: the science concept, and how it links to Clean India / waste management.
+    // visitor = one simple line shown to judges who scan the QR code.
+    parts: {
+      solar:        { concept: "Solar (photovoltaic) energy — sunlight → electricity", link: "Less coal burnt for electricity → cleaner air, fewer greenhouse gases", visitor: "Two buildings have handmade solar panels; the third has a real panel that lights a bulb in sunlight." },
+      citytoilets:  { concept: "Sanitation and hygiene", link: "Toilets for everyone — a main goal of Swachh Bharat Mission", visitor: "Toilets keep germs away from our water and food." },
+      ev:           { concept: "Battery + electric motor — no tailpipe exhaust", link: "Cleaner air on city roads", visitor: "Press the button — the green light shows the car is charging." },
+      bus:          { concept: "Electric public transport", link: "One bus carries many people → fewer vehicles, less smoke and noise", visitor: "Two electric buses at a bus stand." },
+      train:        { concept: "Hydrogen fuel cell — hydrogen + oxygen → electricity + water", link: "Main onboard by-product is water vapour instead of diesel smoke", visitor: "India's first hydrogen train was flagged off on the Jind–Sonipat route in Haryana in July 2026." },
+      india:        { concept: "Carbon emissions and global warming", link: "Every part of the model shows a way to reduce carbon emissions", visitor: "India at the centre — protecting our country from pollution and global warming." },
+      ladder:       { concept: "", link: "", visitor: "Ask me about this part at my stall!" },
+      windmill:     { concept: "Wind energy — moving air → electricity", link: "Renewable; no smoke while running", visitor: "The windmill shows wind energy." },
+      pots:         { concept: "Photosynthesis — plants take in carbon dioxide", link: "Green spaces make cities healthier", visitor: "Two flower pots in the central park." },
+      plasticman:   { concept: "Reusing waste plastic in road building", link: "Plastic that is hard to recycle becomes part of a road", visitor: "Professor Rajagopalan Vasudevan, the Plastic Man of India, received the Padma Shri in 2018 for using waste plastic in roads." },
+      bins:         { concept: "Waste segregation at source", link: "Separated waste becomes a resource; mixed waste becomes garbage", visitor: "Five colour-coded dustbins for separating waste where it is made." },
+      hut:          { concept: "A smart village uses local resources", link: "Clean, healthy villages are part of Clean India", visitor: "A handmade village home." },
+      digger:       { concept: "", link: "", visitor: "Ask me about this part at my stall!" },
+      villagetoilet:{ concept: "Rural sanitation", link: "Swachh Bharat Mission (Grameen) — toilets in every village", visitor: "Villages need toilets too." },
+      biogas:       { concept: "Anaerobic digestion → biogas (mostly methane)", link: "Turns dung and kitchen waste into cooking gas and manure", visitor: "Turn waste into energy, not pollution." },
+      factory:      { concept: "Industrial wastewater and Effluent Treatment Plants (ETP)", link: "Factory water must be treated before it reaches rivers", visitor: "Sugar and leather industries release dirty water that must be treated." },
+      filter:       { concept: "Filtration — separating particles from water", link: "A first cleaning step; clear water is not always safe water", visitor: "Dirty water passes through charcoal, stones and cotton and comes out clearer." },
+      wte:          { concept: "Waste-to-energy — heat → steam → turbine → generator", link: "Only for waste that cannot be recycled, in special plants with pollution control — never open burning", visitor: "The bulb glows to show energy recovered from waste." }
+    }
+  },
+
   /* ---------------- MARKING SCHEME (50 marks) ---------------- */
   marks: [
     { key: "model", name: "Model", icon: "🏗️",

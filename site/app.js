@@ -38,16 +38,19 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  const tabs = ["home", "model", "walk", "viva", "voice", "score", "ask"];
+  const tabs = ["home", "project", "model", "walk", "viva", "voice", "score", "ask"];
+  // ?visitor in the URL (from the stall QR code) shows only the clean project page
+  const visitor = new URLSearchParams(location.search).has("visitor");
   function route() {
     const [tab, sub] = (location.hash.slice(1) || "home").split("/");
-    const t = tabs.includes(tab) ? tab : "home";
+    const t = visitor ? "project" : tabs.includes(tab) ? tab : "home";
     V.stopSpeaking();
     if (t !== "viva") stopJudge();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
     $$("#tabs a").forEach(a => a.classList.toggle("active", a.dataset.tab === t));
     if (t === "model") showComp(sub && compById[sub] ? sub : currentComp);
     if (t === "home") renderProgress();
+    if (t === "project") renderProjectProgress();
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
     else window.scrollTo(0, 0);
   }
@@ -499,8 +502,89 @@
     $("#sourceList").innerHTML = S.sources.map(s => '<li><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.text) + "</a></li>").join("");
   }
 
+
+  // ---------- project report ----------
+  function renderProject() {
+    const P = S.project, st = S.student;
+    if (!P) return;
+    $("#rpTitle").textContent = P.title;
+    $("#rpSub").textContent = P.subtitle;
+    $("#rpWho").textContent = st.name + " · " + st.className + " · " + st.school + " · Guided by " + st.teacher;
+    $("#qrWho").textContent = st.name + " · " + st.className + " · " + st.school;
+    $("#rpAim").textContent = P.aim;
+    $("#rpObj").innerHTML = P.objectives.map(o => "<li>" + esc(o) + "</li>").join("");
+    const zones = ["city", "centre", "village", "front"];
+    $("#rpParts").innerHTML = zones.map(z => {
+      const comps = S.components.map((c, i) => ({ c, n: i + 1 })).filter(x => x.c.zone === z);
+      if (!comps.length) return "";
+      return '<div class="parts-zone"><h3>' + esc(P.zones[z] || z) + '</h3><div class="hist-wrap"><table class="parts"><tr><th>Part</th><th>Science</th><th>Clean India link</th></tr>' +
+        comps.map(({ c, n }) => {
+          const pt = P.parts[c.id] || {};
+          const pending = !pt.concept;
+          return "<tr><td>" + n + ". " + c.icon + " " + esc(c.name) + "</td>" +
+            (pending
+              ? '<td colspan="2" class="tbc">' + esc(pt.visitor || "Explained in person") + "</td>"
+              : '<td data-label="Science">' + esc(pt.concept) + (visitor && pt.visitor ? '<br><span class="small muted">' + esc(pt.visitor) + "</span>" : "") + '</td><td data-label="Clean India link">' + esc(pt.link) + "</td>") + "</tr>";
+        }).join("") + "</table></div></div>";
+    }).join("");
+    $("#rpDemos").innerHTML = P.demos.map(d => "<li>" + esc(d) + "</li>").join("");
+    $("#rpMaterials").innerHTML = P.materials.map(d => "<li>" + esc(d) + "</li>").join("");
+    $("#rpLearned").innerHTML = P.learned.map(d => "<li>" + esc(d) + "</li>").join("");
+    $("#rpPledge").textContent = "“" + P.pledge + "” — " + st.name.split(" ")[0];
+    $("#rpQuotes").innerHTML = S.quotes.map(q => '<div class="quote"><span>' + renderSample(q).replace(/<span class="pause">\/<\/span>/g, "") + "</span></div>").join("");
+    $("#rpSources").innerHTML = S.sources.map(x => '<li><a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.text) + "</a></li>").join("");
+    $("#rpThanks").innerHTML = P.thanks.map(d => "<li>" + esc(d) + "</li>").join("");
+
+    const visitorURL = location.origin + location.pathname + "?visitor#project";
+    $("#copyVisitor").onclick = async () => {
+      try { await navigator.clipboard.writeText(visitorURL); $("#copyMsg").textContent = " Copied!"; }
+      catch (e) { prompt("Copy this link:", visitorURL); }
+    };
+    const doPrint = cls => {
+      document.body.classList.add(cls);
+      document.body.classList.toggle("no-progress", !$("#incProgress").checked);
+      const done = () => { document.body.classList.remove(cls, "no-progress"); window.removeEventListener("afterprint", done); };
+      window.addEventListener("afterprint", done);
+      window.print();
+      setTimeout(done, 1500);
+    };
+    $("#printReport").onclick = () => doPrint("print-report");
+    $("#printQR").onclick = () => doPrint("print-qr");
+  }
+  // Practice progress summary for the teacher (from this device's saved practice)
+  function renderProjectProgress() {
+    if (visitor || !S.project) return;
+    const done = store.get("stepsDone", {});
+    const steps = S.presentation.filter(p => done[p.id] !== undefined ? done[p.id] : p.done).length;
+    const viva = Object.values(store.get("viva", {}));
+    const vivaPct = viva.length ? Math.round(100 * viva.reduce((a, v) => a + v.got / v.of, 0) / viva.length) : null;
+    const hist = store.get("scores", []);
+    const last = hist[0];
+    const reh = store.get("lastRehearsal", null);
+    const ans = store.get("ask", {});
+    const answered = S.confirmList.filter(a => (ans[a.id] || "").trim());
+    const pending = S.confirmList.filter(a => !(ans[a.id] || "").trim());
+    const tile = (v, l) => '<div class="stat"><b>' + esc(v) + "</b>" + esc(l) + "</div>";
+    $("#rpProgress").innerHTML = "<h2>👩‍🏫 Preparation progress (for " + esc(S.student.teacher) + ")</h2>" +
+      '<div class="prog-grid">' +
+      tile(steps + "/" + S.presentation.length, "presentation steps practised") +
+      tile(viva.length + "/" + S.viva.length, "viva questions practised") +
+      tile(vivaPct === null ? "–" : vivaPct + "%", "key points covered (avg)") +
+      tile(last ? last.total + "/50" : "–", "latest self-score") +
+      tile(reh ? mmss(reh.total) : "–", "last full rehearsal") + "</div>" +
+      (last ? '<p class="small">Latest self-score: ' + S.marks.map(m => m.icon + " " + esc(m.name) + " " + last[m.key] + "/10").join(" · ") + "</p>" : "") +
+      (pending.length ? '<div class="sec ask"><h4>❓ Points I need to confirm with you, Ma\'am</h4><ol>' + pending.map(a => "<li>" + esc(a.q) + "</li>").join("") + "</ol></div>" : "") +
+      (answered.length ? '<div class="sec ok"><h4>✅ Already confirmed</h4><ul>' + answered.map(a => "<li>" + esc(a.q) + " <b>→ " + esc(ans[a.id]) + "</b></li>").join("") + "</ul></div>" : "") +
+      '<p class="tiny muted">Progress is saved on this device.</p>';
+  }
+
   // ---------- init ----------
+  if (visitor) {
+    document.body.classList.add("visitor");
+    $("#foot").textContent = S.student.name + " · " + S.student.className + " · " + S.student.school + " · Built with the TechnoTaau Team";
+  }
   renderHome();
+  renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));
   stepIdx = firstTodo >= 0 ? firstTodo : 0;

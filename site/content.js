@@ -43,7 +43,7 @@ window.SITE = {
     { date: "2026-09-28", label: "Mon 28 Sep", task: "Ask Ma'am the questions. Walkthrough: Dustbins → Plastic Man → Village → Biogas → Water → Plastic-to-Energy → Conclusion." },
     { date: "2026-09-29", label: "Tue 29 Sep", task: "Full run with the timer. Record yourself once. Viva: easy + medium questions." },
     { date: "2026-09-30", label: "Wed 30 Sep", task: "Viva: hard questions and follow-ups. Self-score out of 50." },
-    { date: "2026-10-01", label: "Thu 1 Oct", task: "Two full rehearsals in front of family. Test every demo: solar bulb, EV button, plastic machine. Check hydrogen-train news once." },
+    { date: "2026-10-01", label: "Thu 1 Oct", task: "Two full rehearsals in front of family. Test every demo: solar bulb, EV button, water filter, plastic machine. Check hydrogen-train news once." },
     { date: "2026-10-02", label: "Fri 2 Oct", task: "Fair day (or 3 Oct). Read only your 3 quotes. Carry spare batteries/torch for the solar demo. Smile!" }
   ],
 
@@ -52,20 +52,20 @@ window.SITE = {
   binGuide: [
     { color: "#15803d", text: "#ffffff", name: "GREEN", stream: "Wet waste", examples: "Fruit & vegetable peels, leftover food, tea leaves, flowers", goesTo: "Compost / biogas", status: "verified" },
     { color: "#1d4ed8", text: "#ffffff", name: "BLUE", stream: "Dry waste", examples: "Paper, cardboard, plastic, metal cans, glass bottles", goesTo: "Sorting centre → recycling", status: "verified" },
-    { color: "#111827", text: "#ffffff", name: "BLACK", stream: "Domestic hazardous (special care) waste", examples: "Dead batteries, bulbs & tube lights, broken glass, paint, expired medicines", goesTo: "Collected by authorised agencies", status: "confirm" },
-    { color: "#b91c1c", text: "#ffffff", name: "RED", stream: "Sanitary waste", examples: "Used sanitary pads, diapers (wrapped in paper)", goesTo: "Separate safe disposal", status: "confirm" },
+    { color: "#111827", text: "#ffffff", name: "BLACK", stream: "Domestic hazardous (special care) waste", examples: "Dead batteries, bulbs & tube lights, broken glass, paint containers", goesTo: "Collected by authorised agencies", status: "confirm" },
+    { color: "#b91c1c", text: "#ffffff", name: "RED", stream: "Sanitary waste", examples: "Used sanitary pads & diapers (wrapped in paper); in Chandigarh also used masks, gloves & bandages", goesTo: "Separate safe disposal", status: "confirm" },
     { color: "#facc15", text: "#1f2937", name: "YELLOW", stream: "Biomedical waste (likely)", examples: "Soiled bandages & cotton, body waste from hospitals", goesTo: "Special treatment facility", status: "confirm" }
   ],
   binSystems: [
-    { name: "Chandigarh Municipal Corporation (homes)", detail: "Green = wet · Blue = dry · Black = domestic hazardous · Red = sanitary", src: "Tribune, Feb 2022" },
-    { name: "Solid Waste Management Rules, 2026 (all of India)", detail: "Four streams: Wet · Dry · Sanitary · Special care. Colours are chosen by each city.", src: "PIB / DD News, 2026" },
+    { name: "Chandigarh Municipal Corporation (homes)", detail: "Green = wet · Blue = dry · Black = domestic hazardous · Red = sanitary (and, as per the 2026 draft bye-laws, home medical waste like used masks and bandages). Compulsory with fines since April 2026.", src: "Tribune, 2022 & 2026" },
+    { name: "Solid Waste Management Rules, 2026 (all of India)", detail: "Four streams: Wet · Dry · Sanitary · Special care. For bins in public places the rules say GREEN = wet, BLUE = dry, and RED = sanitary (in public toilets). No colour is set for special care waste or for bins at home.", src: "SWM Rules 2026, Rule 39(51)" },
     { name: "Bio-Medical Waste Rules, 2016 (hospitals)", detail: "Yellow = infectious & body waste · Red = contaminated plastic · White = sharps · Blue = glass & metal implants", src: "BMW Rules 2016" }
   ],
 
   /* ---------------- VOICE COACH ---------------- */
   // Hard words to practise saying clearly. hint = how to say it.
   pronounce: [
-    { word: "Swachh Bharat Abhiyan", hint: "SWUCH  BHAA-rut  ubh-YAAN" },
+    { word: "Swachh Bharat Abhiyan", hint: "SWUCH  BHAA-rut  uh-bhi-YAAN" },
     { word: "Rajagopalan Vasudevan", hint: "raa-jaa-GO-pa-lan  vaa-su-DAY-van" },
     { word: "biodegradable", hint: "by-oh-di-GRAY-duh-bul" },
     { word: "non-biodegradable", hint: "non  by-oh-di-GRAY-duh-bul" },
@@ -82,7 +82,7 @@ window.SITE = {
     { word: "chromium", hint: "KROH-mee-um" },
     { word: "filtration", hint: "fil-TRAY-shun" },
     { word: "sanitation", hint: "san-ih-TAY-shun" },
-    { word: "Padma Shri", hint: "PUD-maa  SHREE" }
+    { word: "Padma Shri", hint: "PUD-muh  SHREE" }
   ],
   // Guided confidence warm-up (spoken by the website)
   warmup: [
@@ -169,7 +169,7 @@ window.SITE = {
       ev:           { concept: "Battery + electric motor — no tailpipe exhaust", link: "Cleaner air on city roads", visitor: "Press the button — the green light shows the car is charging." },
       bus:          { concept: "Electric public transport", link: "One bus carries many people → fewer vehicles, less smoke and noise", visitor: "Two electric buses at a bus stand." },
       train:        { concept: "Hydrogen fuel cell — hydrogen + oxygen → electricity + water", link: "Main onboard by-product is water vapour instead of diesel smoke", visitor: "India's first hydrogen train was flagged off on the Jind–Sonipat route in Haryana in July 2026." },
-      india:        { concept: "Carbon emissions and global warming", link: "Every part of the model shows a way to reduce carbon emissions", visitor: "India at the centre — protecting our country from pollution and global warming." },
+      india:        { concept: "Carbon emissions and global warming", link: "Many parts of the model show ways to reduce carbon emissions", visitor: "India at the centre — protecting our country from pollution and global warming." },
       ladder:       { concept: "", link: "", visitor: "Ask me about this part at my stall!" },
       windmill:     { concept: "Wind energy — moving air → electricity", link: "Renewable; no smoke while running", visitor: "The windmill shows wind energy." },
       pots:         { concept: "Photosynthesis — plants take in carbon dioxide", link: "Green spaces make cities healthier", visitor: "Two flower pots in the central park." },
@@ -202,7 +202,7 @@ window.SITE = {
   /* ---------------- THINGS TO CONFIRM WITH RAJNISH MA'AM ----------------
      Until these are confirmed, the website shows them as “Ask Ma'am”. */
   confirmList: [
-    { id: "bins", q: "Does our model follow Chandigarh's bin system (BLACK = domestic hazardous waste, RED = sanitary waste)? And what does the YELLOW bin stand for — biomedical waste?" },
+    { id: "bins", q: "Does our model follow Chandigarh's bin system (BLACK = domestic hazardous waste, RED = sanitary waste)? And what does the YELLOW bin stand for — biomedical waste? Where do expired medicines go — black or red?" },
     { id: "ladder", q: "What does the LADDER below “Carbon Emission” represent?" },
     { id: "digger", q: "What does the DIGGER FIELD represent — a farm field being dug, a compost pit, a landfill, or something else?" },
     { id: "filter", q: "What is the exact ORDER of the filter layers from TOP to BOTTOM (charcoal, stones, cotton — any sand)?" },
@@ -377,9 +377,9 @@ window.SITE = {
         "Carbon emission means releasing carbon dioxide (CO₂) into the air.",
         "It mostly comes from burning fossil fuels — coal, petrol, diesel — and from burning garbage.",
         "Too much CO₂ traps heat and causes global warming.",
-        "Everything around this map — solar, EVs, hydrogen train, biogas — is meant to reduce carbon emissions."
+        "Many parts around this map — solar, wind, EVs, the hydrogen train, biogas — help reduce carbon emissions."
       ],
-      sample: "In the centre is our *India*. / Below it, I have written *Carbon Emission*. / When we burn coal, petrol, diesel or garbage, / carbon dioxide goes into the air / and our Earth becomes *warmer*. / My whole model shows ways to *reduce* it.",
+      sample: "In the centre is our *India*. / Below it, I have written *Carbon Emission*. / When we burn coal, petrol, diesel or garbage, / carbon dioxide goes into the air / and our Earth becomes *warmer*. / *Many parts* of my model show ways to *reduce* it.",
       how: [
         "Fuels like coal and petrol contain carbon. When they burn, carbon joins with oxygen and makes CO₂.",
         "CO₂ is a greenhouse gas: it lets sunlight in but traps some of the heat, like a blanket."
@@ -411,7 +411,7 @@ window.SITE = {
         "Do not invent a meaning. Once Ma'am tells you, write it here in content.js."
       ],
       point: [
-        "Until confirmed, just point to it when you speak about carbon emission, or skip it."
+        "Until Ma'am confirms, don't point to the ladder or explain it. Talk about carbon emission using the India map and the words ‘Carbon Emission’."
       ],
       ask: ["ladder"]
     },
@@ -423,7 +423,7 @@ window.SITE = {
         "Wind is renewable — it will not run out.",
         "No smoke is produced while it runs."
       ],
-      sample: "This *windmill* shows *wind energy*. / Wind turns the blades, / and a generator inside makes electricity.",
+      sample: "This *windmill* shows *wind energy*. / In a *real* wind turbine, / wind turns the blades, / and a generator inside makes electricity.",
       how: [
         "Wind pushes the blades → the blades turn a shaft → the shaft turns a generator → electricity.",
         "Kinetic energy of wind → mechanical energy → electrical energy."
@@ -458,10 +458,10 @@ window.SITE = {
         "Waste segregation at source means separating waste where it is created — at home, in school, in shops.",
         "GREEN = Wet waste — kitchen waste, peels, leftover food → compost or biogas.",
         "BLUE = Dry waste — paper, plastic, metal, glass → sent for sorting and recycling.",
-        "BLACK = Domestic hazardous waste — batteries, bulbs/tube lights, broken glass, paint, expired medicines (Chandigarh system — confirm with Ma'am).",
-        "RED = Sanitary waste — used sanitary pads and diapers, wrapped in paper (Chandigarh system — confirm with Ma'am).",
+        "BLACK = Domestic hazardous waste — batteries, bulbs/tube lights, broken glass, paint containers (Chandigarh system — confirm with Ma'am).",
+        "RED = Sanitary waste — used sanitary pads and diapers, wrapped in paper; in Chandigarh also used masks, gloves and bandages (Chandigarh system — confirm with Ma'am).",
         "YELLOW = most likely biomedical waste from hospitals and clinics, like soiled bandages (confirm with Ma'am).",
-        "If everything is mixed, recyclable things get dirty and wet waste cannot be composted. Mixed waste ends up in landfills."
+        "If everything is mixed, recyclable things get dirty and wet waste cannot be composted properly. A lot of mixed waste ends up in landfills and open dumps."
       ],
       sample: "These are *five dustbins*. / *Green* is for wet waste, / *blue* for dry waste, / *black* for hazardous waste like batteries and bulbs, / *red* for sanitary waste, / and *yellow* for biomedical waste. / The most important idea is *segregation at source*. / Mixed waste / becomes *garbage*. / Separated waste / becomes a *resource*.",
       how: [
@@ -473,10 +473,11 @@ window.SITE = {
       ],
       deeper: [
         "VERIFIED (Chandigarh): Chandigarh Municipal Corporation uses GREEN for wet waste and BLUE for dry waste, and added BLACK bins for domestic hazardous waste (bulbs, dead batteries, broken glass) and RED bins for sanitary waste (Tribune, February 2022).",
-        "VERIFIED (India): The Solid Waste Management Rules, 2026 (from 1 April 2026) make FOUR-stream segregation compulsory: Wet, Dry, Sanitary and Special care waste. The official announcement names the streams, not the colours — cities choose colours, and many use green, blue, red and black.",
+        "VERIFIED (India): The Solid Waste Management Rules, 2026 (from 1 April 2026) make FOUR-stream segregation compulsory: Wet, Dry, Sanitary and Special care waste. The rules also say bins in public places must be GREEN for wet waste and BLUE for dry waste, and RED bins can be kept in public toilets for sanitary waste. The rules do not fix colours for bins at home, or a colour for special care waste — cities must set up special collection centres for it. Chandigarh uses BLACK bins for it.",
         "VERIFIED (Hospitals): Bio-Medical Waste Management Rules, 2016 use FOUR different colours: YELLOW (body parts, soiled dressings, expired medicines, chemical/lab waste), RED (contaminated plastic like tubes, bottles, IV sets, gloves), WHITE translucent (needles and sharps), BLUE (glassware and metal implants).",
         "Watch out: RED means sanitary waste in Chandigarh homes, but contaminated plastic in hospitals. That is why the same colour can mean different things in different systems.",
-        "Special care waste under the 2026 rules = what Chandigarh calls domestic hazardous waste (medicines, bulbs, batteries, paint containers)."
+        "Special care waste under the 2026 rules (medicines, bulbs, batteries, paint containers) is similar to what Chandigarh calls domestic hazardous waste. But Chandigarh news reports differ on whether expired medicines go in the BLACK or the RED bin — ask Ma'am.",
+        "VERIFIED (Chandigarh 2026): Chandigarh Municipal Corporation made the four-bin system compulsory from April 2026, with fines (challans) for people who do not separate their waste. The 2026 draft bye-laws also put home medical waste like used masks, gloves and bandages in the RED bin."
       ],
       careful: [
         "Say “in Chandigarh's system” when you explain black and red — colours can differ from city to city.",
@@ -508,7 +509,7 @@ window.SITE = {
         "He developed the method around 2001; one of the first plastic roads was laid in 2002 (Jambulingam Street, Chennai).",
         "He shared the technology with the Government of India free of cost instead of selling it.",
         "Benefits: uses plastic that is difficult to recycle, and the plastic coating helps the road resist water, so fewer potholes.",
-        "Plastic roads have been built in many states — reported as over 1 lakh km."
+        "Plastic roads have been built in many states. Government data says more than 43,000 km of village roads were made using waste plastic by July 2025."
       ],
       careful: [
         "Don't say he ‘invented plastic’ or that plastic roads ‘solve the whole plastic problem’. Reducing plastic use is still most important."
@@ -578,7 +579,7 @@ window.SITE = {
         "‘Anaerobic’ = without air/oxygen. ‘Aerobic’ = with oxygen (like composting in an open pit).",
         "It reduces cutting of trees for firewood, and reduces smoke inside kitchens, which harms women and children's lungs.",
         "Methane escaping from rotting waste is a strong greenhouse gas; a biogas plant captures it and uses it.",
-        "The Government's GOBARdhan scheme (under Swachh Bharat Mission Grameen) supports turning cattle dung and organic waste into biogas.",
+        "The Government's GOBARdhan scheme supports turning cattle dung, crop waste and kitchen waste into biogas and manure. It started in 2018 under Swachh Bharat Mission (Grameen). In 2026 it was expanded into a bigger national bioenergy scheme for compressed biogas (CBG), now run by the Ministry of Petroleum and Natural Gas.",
         "Your prepared answer — “What if biogas is not available?” — is good: more firewood and fossil fuels, more smoke and greenhouse gases, and organic waste left to rot."
       ],
       careful: [
@@ -600,7 +601,7 @@ window.SITE = {
       how: [
         "ETP step 1 — Physical: screens remove big solids; settling tanks let mud settle; oil is skimmed off.",
         "ETP step 2 — Biological: useful bacteria ‘eat’ the dissolved organic matter.",
-        "ETP step 3 — Chemical & final cleaning: chemicals remove harmful substances; filtering and disinfection."
+        "ETP step 3 — Final cleaning: filtering and disinfection. (In a real ETP, chemicals are added early, before the bacteria step, to balance the water and remove harmful things like chromium that could harm the useful bacteria.)"
       ],
       deeper: [
         "‘Effluent’ = liquid waste flowing out of a factory.",
@@ -634,7 +635,7 @@ window.SITE = {
         "Charcoal has a huge surface full of tiny holes; many impurities stick to it (adsorption)."
       ],
       deeper: [
-        "To make water safe to drink you need more steps: boiling, chlorination, UV treatment, or RO purifiers — and testing.",
+        "To make water safe to drink you need more steps — and testing. Boiling, chlorination or UV kill germs, but they do not remove dissolved chemicals; RO purifiers can remove many of them. Factory wastewater is usually not made into drinking water — it is treated in an ETP and then reused or safely released.",
         "Filtration removes suspended (floating) particles; it usually cannot remove salt or chemicals that are dissolved.",
         "Activated charcoal is charcoal treated to have even more tiny pores.",
         "Sand is also used in real filters, but only mention it if it is in your model."
@@ -704,9 +705,9 @@ window.SITE = {
     },
     {
       id: "p-wm", title: "Waste Management", done: true, seconds: 30,
-      cover: ["Definition", "Collect → Separate → Transport → Recycle/Treat → Safely Dispose", "What happens if we don't manage waste"],
+      cover: ["Definition", "Separate at source → Collect → Transport → Recycle/Treat → Safely Dispose", "What happens if we don't manage waste"],
       cues: ["🐢 Do NOT rush the 5-step sequence. Count the steps on your fingers if it feels natural.", "👀 Look at the judge for the ‘if not managed’ part."],
-      sample: "Waste management means / *collecting*, / *separating*, / *transporting*, / *recycling or treating*, / and *safely disposing* of waste."
+      sample: "Waste management means / *separating* waste where it is made, / *collecting*, / *transporting*, / *recycling or treating*, / and *safely disposing* of it."
     },
     {
       id: "p-types", title: "Types of Waste", done: true, seconds: 40,
@@ -753,8 +754,8 @@ window.SITE = {
     },
     {
       id: "p-centre", title: "Centre — India & Carbon Emission", comp: "india", done: false, seconds: 35,
-      cover: ["What carbon emission is", "Where it comes from", "Global warming", "Windmill = wind energy", "Everything in the model reduces emissions", "(Ladder — only after Ma'am confirms)"],
-      cues: ["🚶 Move to the centre and stand still.", "⏸ Pause before ‘My whole model shows ways to reduce it’."]
+      cover: ["What carbon emission is", "Where it comes from", "Global warming", "Windmill = wind energy", "Many parts of the model help reduce emissions", "(Ladder — only after Ma'am confirms)"],
+      cues: ["🚶 Move to the centre and stand still.", "⏸ Pause before ‘Many parts of my model show ways to reduce it’."]
     },
     {
       id: "p-bins", title: "Five Dustbins", comp: "bins", done: false, seconds: 35,
@@ -817,16 +818,16 @@ window.SITE = {
       points: ["Separating waste where it is created — home, school, shop", "Into different bins", "Before it is mixed"],
       keywords: ["separate", "home", "source", "bin"], follow: "Why can't the municipality just separate it later?" },
     { topic: "Segregation", level: "medium", q: "Why is it a problem if we mix wet and dry waste?",
-      points: ["Recyclable dry waste becomes dirty and wet — cannot be recycled easily", "Wet waste cannot be composted cleanly", "Mixed waste goes to landfill → smell, methane, leachate", "Workers find it hard and unsafe to sort"],
+      points: ["Recyclable dry waste becomes dirty and wet — cannot be recycled easily", "Wet waste cannot be composted cleanly", "A lot of mixed waste goes to landfills and dumps → smell, methane, dirty liquid (leachate)", "Workers find it hard and unsafe to sort"],
       keywords: ["recycle", "dirty", "landfill", "compost"], follow: "What is a landfill?" },
     { topic: "Segregation", level: "hard", q: "India's new waste rules talk about four types of segregation. What are they?",
       points: ["Solid Waste Management Rules, 2026 (from 1 April 2026)", "Wet waste", "Dry waste", "Sanitary waste", "Special care waste (medicines, bulbs, paint containers)"],
       keywords: ["wet", "dry", "sanitary", "special"], follow: "Where would you throw an old medicine strip or a fused bulb?" },
     { topic: "Your dustbins", level: "medium", q: "Tell me about the black, red and yellow bins in your model.",
-      points: ["Black = domestic hazardous waste (batteries, bulbs, paint, medicines)", "Red = sanitary waste (pads, diapers)", "Yellow = biomedical waste (confirm with Ma'am)", "This follows Chandigarh's bin system — colours can differ between systems"],
+      points: ["Black = domestic hazardous waste (batteries, bulbs, broken glass, paint containers)", "Red = sanitary waste (pads, diapers) — in Chandigarh also used masks and bandages", "Yellow = biomedical waste (confirm with Ma'am)", "This follows Chandigarh's bin system — colours can differ between systems"],
       keywords: ["hazardous", "sanitary", "biomedical", "battery"], follow: "Why must medical waste be kept separate?" },
     { topic: "Your dustbins", level: "hard", q: "Does a red bin mean the same thing everywhere?",
-      points: ["No — colours depend on the system", "In Chandigarh homes, red = sanitary waste", "In hospitals (Bio-Medical Waste Rules 2016), red = contaminated plastic like tubes and gloves", "So always read the label on the bin"],
+      points: ["No — colours depend on the system", "In Chandigarh homes, red = sanitary waste (and used masks, bandages)", "In hospitals (Bio-Medical Waste Rules 2016), red = contaminated plastic like tubes and gloves", "So always read the label on the bin"],
       keywords: ["no", "sanitary", "hospital", "plastic", "depends"], follow: "Where should a used bandage from a clinic go?" },
     { topic: "7Rs", level: "easy", q: "Name the 7Rs in order.",
       points: ["Refuse", "Reduce", "Reuse", "Repair", "Repurpose", "Recycle", "Recover"],
@@ -935,7 +936,7 @@ window.SITE = {
       points: ["Stones: stop bigger particles", "Charcoal: traps some colour, smell and impurities", "Cotton: traps fine particles, holds layers"],
       keywords: ["stone", "charcoal", "cotton", "particle"], follow: "Which layer is at the top in your model, and why?" },
     { topic: "Filtration", level: "medium", q: "The water from your filter looks clean. Can we drink it?",
-      points: ["No — not guaranteed safe", "May still have germs (bacteria, viruses)", "May have dissolved chemicals", "Needs boiling / chlorination / UV / RO and testing"],
+      points: ["No — not guaranteed safe", "May still have germs (bacteria, viruses)", "May have dissolved chemicals", "Germs: boiling / chlorination / UV; dissolved chemicals: RO or special treatment — and testing"],
       keywords: ["no", "germs", "boil", "dissolved"], follow: "What is the difference between filtration and purification?" },
     { topic: "ETP", level: "medium", q: "How can wastewater from sugar or leather industries be treated?",
       points: ["Effluent Treatment Plant (ETP)", "Removes solids, harmful chemicals, impurities", "Physical, biological, chemical steps", "Treated water reused or discharged as per safety standards"],
@@ -997,6 +998,9 @@ window.SITE = {
     { text: "PIB — Hydrogen fuel cell train, ~2,600 passengers", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285240&reg=3&lang=1" },
     { text: "GreenH — Hydrogen production & refuelling station at Jind", url: "https://www.greenh.in/hydrogen-production-hydrogen-refueling-station-at-jind-haryana/" },
     { text: "PIB — New Solid Waste Management Rules, from 1 April 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2219676&reg=3&lang=1" },
+    { text: "Tribune — Chandigarh MC makes 4-bin waste system mandatory (2026)", url: "https://www.tribuneindia.com/news/chandigarh/mc-makes-4-bin-waste-system-mandatory-warns-of-challans/" },
+    { text: "Tribune — Chandigarh MC House approves draft solid waste bye-laws (2026)", url: "https://www.tribuneindia.com/news/chandigarh/chandigarh-mc-house-approves-draft-solid-waste-mgmt-bylaws/" },
+    { text: "Solid Waste Management Rules, 2026 — Gazette text (PIB)", url: "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2026/jan/doc2026129773501.pdf" },
     { text: "Tribune — Chandigarh: after green, blue bins, now black and red (2022)", url: "https://www.tribuneindia.com/news/chandigarh/chandigarh-after-green-blue-waste-bins-now-black-and-red-372864/amp" },
     { text: "DD News — New waste rules from April 1: four-way segregation", url: "https://ddnews.gov.in/en/new-waste-rules-from-april-1-four-way-segregation-mandatory-strict-penalties-for-violations/" },
     { text: "AIIMS — Bio-medical waste colour coding (BMW Rules 2016)", url: "https://www.aiims.edu/images/pdf/Departments_Centers/BiomedicalWaste/Biomedical%20waste%20docs%20nurses.pdf" },

@@ -47,6 +47,71 @@ window.SITE = {
     { date: "2026-10-02", label: "Fri 2 Oct", task: "Fair day (or 3 Oct). Read only your 3 quotes. Carry spare batteries/torch for the solar demo. Smile!" }
   ],
 
+  /* ---------------- DUSTBIN COLOUR GUIDE (shown on the Five Dustbins card) ----------------
+     status "verified" = checked in an official/news source; "confirm" = check with Ma'am */
+  binGuide: [
+    { color: "#15803d", text: "#ffffff", name: "GREEN", stream: "Wet waste", examples: "Fruit & vegetable peels, leftover food, tea leaves, flowers", goesTo: "Compost / biogas", status: "verified" },
+    { color: "#1d4ed8", text: "#ffffff", name: "BLUE", stream: "Dry waste", examples: "Paper, cardboard, plastic, metal cans, glass bottles", goesTo: "Sorting centre → recycling", status: "verified" },
+    { color: "#111827", text: "#ffffff", name: "BLACK", stream: "Domestic hazardous (special care) waste", examples: "Dead batteries, bulbs & tube lights, broken glass, paint, expired medicines", goesTo: "Collected by authorised agencies", status: "confirm" },
+    { color: "#b91c1c", text: "#ffffff", name: "RED", stream: "Sanitary waste", examples: "Used sanitary pads, diapers (wrapped in paper)", goesTo: "Separate safe disposal", status: "confirm" },
+    { color: "#facc15", text: "#1f2937", name: "YELLOW", stream: "Biomedical waste (likely)", examples: "Soiled bandages & cotton, body waste from hospitals", goesTo: "Special treatment facility", status: "confirm" }
+  ],
+  binSystems: [
+    { name: "Chandigarh Municipal Corporation (homes)", detail: "Green = wet · Blue = dry · Black = domestic hazardous · Red = sanitary", src: "Tribune, Feb 2022" },
+    { name: "Solid Waste Management Rules, 2026 (all of India)", detail: "Four streams: Wet · Dry · Sanitary · Special care. Colours are chosen by each city.", src: "PIB / DD News, 2026" },
+    { name: "Bio-Medical Waste Rules, 2016 (hospitals)", detail: "Yellow = infectious & body waste · Red = contaminated plastic · White = sharps · Blue = glass & metal implants", src: "BMW Rules 2016" }
+  ],
+
+  /* ---------------- VOICE COACH ---------------- */
+  // Hard words to practise saying clearly. hint = how to say it.
+  pronounce: [
+    { word: "Swachh Bharat Abhiyan", hint: "SWUCH  BHAA-rut  ubh-YAAN" },
+    { word: "Rajagopalan Vasudevan", hint: "raa-jaa-GO-pa-lan  vaa-su-DAY-van" },
+    { word: "biodegradable", hint: "by-oh-di-GRAY-duh-bul" },
+    { word: "non-biodegradable", hint: "non  by-oh-di-GRAY-duh-bul" },
+    { word: "segregation", hint: "seg-ri-GAY-shun" },
+    { word: "anaerobic digestion", hint: "an-uh-ROH-bik  dy-JES-chun" },
+    { word: "methane", hint: "MEE-thayn" },
+    { word: "effluent treatment plant", hint: "EF-loo-unt  TREET-munt  plant" },
+    { word: "photovoltaic", hint: "foh-toh-vol-TAY-ik" },
+    { word: "renewable", hint: "ri-NEW-uh-bul" },
+    { word: "microorganisms", hint: "my-kroh-OR-guh-ni-zums" },
+    { word: "hydrogen fuel cell", hint: "HY-druh-jun  FEW-ul  sel" },
+    { word: "carbon emission", hint: "KAR-bun  ih-MISH-un" },
+    { word: "greenhouse gases", hint: "GREEN-house  GAS-iz" },
+    { word: "chromium", hint: "KROH-mee-um" },
+    { word: "filtration", hint: "fil-TRAY-shun" },
+    { word: "sanitation", hint: "san-ih-TAY-shun" },
+    { word: "Padma Shri", hint: "PUD-maa  SHREE" }
+  ],
+  // Guided confidence warm-up (spoken by the website)
+  warmup: [
+    { say: "Stand tall. Feet a little apart. Shoulders relaxed. Smile.", secs: 5 },
+    { say: "Breathe in slowly through your nose. One. Two. Three. Four.", secs: 5, breathe: "in" },
+    { say: "Hold. One. Two. Three. Four.", secs: 5, breathe: "hold" },
+    { say: "Breathe out slowly through your mouth. One. Two. Three. Four.", secs: 5, breathe: "out" },
+    { say: "Once more. Breathe in. One. Two. Three. Four.", secs: 5, breathe: "in" },
+    { say: "Hold. One. Two. Three. Four.", secs: 5, breathe: "hold" },
+    { say: "And breathe out. One. Two. Three. Four.", secs: 5, breathe: "out" },
+    { say: "Now wake up your mouth. Repeat after me: Red lorry, yellow lorry.", secs: 6 },
+    { say: "Wet waste, dry waste, wet waste, dry waste.", secs: 6 },
+    { say: "Segregate, recycle, recover. Segregate, recycle, recover.", secs: 6 },
+    { say: "Now say it with a smile: I know my model. I understand my project. I am ready.", secs: 7 },
+    { say: "Great. Look at the judge, smile, and begin with: Jai Hind, Ma'am.", secs: 3 }
+  ],
+  // Reminders that flash in Mirror mode
+  mirrorPrompts: [
+    "👀 Look at the judge",
+    "🙂 Smile naturally",
+    "👉 Point to the model with an open hand",
+    "👀 Now back to the judge",
+    "🐢 Slow down",
+    "⏸ Pause… then continue",
+    "🧍 Stand straight, don't block the model",
+    "🔊 Speak to the farthest person"
+  ],
+  fillers: ["um", "umm", "uh", "uhh", "hmm", "like", "basically", "actually", "you know", "matlab"],
+
   /* ---------------- MARKING SCHEME (50 marks) ---------------- */
   marks: [
     { key: "model", name: "Model", icon: "🏗️",
@@ -64,7 +129,7 @@ window.SITE = {
   /* ---------------- THINGS TO CONFIRM WITH RAJNISH MA'AM ----------------
      Until these are confirmed, the website shows them as “Ask Ma'am”. */
   confirmList: [
-    { id: "bins", q: "What do the BLACK, RED and YELLOW dustbins stand for in our model? (Wet and Dry are clear.)" },
+    { id: "bins", q: "Does our model follow Chandigarh's bin system (BLACK = domestic hazardous waste, RED = sanitary waste)? And what does the YELLOW bin stand for — biomedical waste?" },
     { id: "ladder", q: "What does the LADDER below “Carbon Emission” represent?" },
     { id: "digger", q: "What does the DIGGER FIELD represent — a farm field being dug, a compost pit, a landfill, or something else?" },
     { id: "filter", q: "What is the exact ORDER of the filter layers from TOP to BOTTOM (charcoal, stones, cotton — any sand)?" },
@@ -314,32 +379,39 @@ window.SITE = {
       point: ["A small gesture only; don't spend long here."]
     },
     {
-      id: "bins", zone: "front", icon: "🗑️", name: "Five Dustbins", status: "ask",
-      inModel: "Five bins: Wet (green), Dry (blue), Black, Red, Yellow.",
+      id: "bins", zone: "front", icon: "🗑️", name: "Five Dustbins", status: "ask", binGuide: true,
+      inModel: "Five bins: GREEN (Wet waste), BLUE (Dry waste), BLACK, RED and YELLOW.",
       say: [
-        "Waste segregation at source means separating waste at home / school, where it is created.",
-        "Wet waste (green) — kitchen waste, peels, leftover food → compost or biogas.",
-        "Dry waste (blue) — paper, plastic, metal, glass → sent for sorting and recycling.",
-        "If everything is mixed, recyclable things get dirty and wet waste cannot be composted. Mixed waste goes to landfill.",
-        "Black, Red, Yellow: (explain only after Ma'am confirms their meaning)."
+        "Waste segregation at source means separating waste where it is created — at home, in school, in shops.",
+        "GREEN = Wet waste — kitchen waste, peels, leftover food → compost or biogas.",
+        "BLUE = Dry waste — paper, plastic, metal, glass → sent for sorting and recycling.",
+        "BLACK = Domestic hazardous waste — batteries, bulbs/tube lights, broken glass, paint, expired medicines (Chandigarh system — confirm with Ma'am).",
+        "RED = Sanitary waste — used sanitary pads and diapers, wrapped in paper (Chandigarh system — confirm with Ma'am).",
+        "YELLOW = most likely biomedical waste from hospitals and clinics, like soiled bandages (confirm with Ma'am).",
+        "If everything is mixed, recyclable things get dirty and wet waste cannot be composted. Mixed waste ends up in landfills."
       ],
-      sample: "These are *five dustbins*. / The most important idea is *segregation at source* — / we must separate waste / *where it is made*, / at home or in school. / Mixed waste / becomes *garbage*. / Separated waste / becomes a *resource*.",
+      sample: "These are *five dustbins*. / *Green* is for wet waste, / *blue* for dry waste, / *black* for hazardous waste like batteries and bulbs, / *red* for sanitary waste, / and *yellow* for biomedical waste. / The most important idea is *segregation at source*. / Mixed waste / becomes *garbage*. / Separated waste / becomes a *resource*.",
       how: [
         "Wet waste rots quickly (microorganisms break it down) → compost / biogas.",
         "Dry waste does not rot quickly → sorted at a Material Recovery Facility (MRF) → recycled.",
-        "Harmful waste (medicines, batteries, bulbs, paint, medical waste) is kept separate so it does not poison soil, water or workers."
+        "Hazardous waste (batteries, bulbs, paint, medicines) can leak poisonous chemicals, so authorised agencies collect it separately.",
+        "Sanitary waste carries germs, so it is wrapped and handled separately to protect sanitation workers.",
+        "Biomedical waste from hospitals can spread infection, so it is treated in special facilities."
       ],
       deeper: [
-        "VERIFIED: India's new Solid Waste Management Rules, 2026 (in force from 1 April 2026) make FOUR-stream segregation compulsory: Wet waste, Dry waste, Sanitary waste (diapers, sanitary pads — wrapped separately) and Special care waste (medicines, bulbs, paint containers etc.).",
-        "Hospitals follow different colour rules (Bio-Medical Waste Management Rules, 2016). Under those rules YELLOW is for infectious waste like soiled dressings and body parts, and RED is for contaminated plastic items like tubes, bottles and gloves. (Use this only if Ma'am says your red and yellow bins mean biomedical waste.)",
-        "Bin colours are not the same everywhere — they depend on the city, the institution and the rules followed."
+        "VERIFIED (Chandigarh): Chandigarh Municipal Corporation uses GREEN for wet waste and BLUE for dry waste, and added BLACK bins for domestic hazardous waste (bulbs, dead batteries, broken glass) and RED bins for sanitary waste (Tribune, February 2022).",
+        "VERIFIED (India): The Solid Waste Management Rules, 2026 (from 1 April 2026) make FOUR-stream segregation compulsory: Wet, Dry, Sanitary and Special care waste. The official announcement names the streams, not the colours — cities choose colours, and many use green, blue, red and black.",
+        "VERIFIED (Hospitals): Bio-Medical Waste Management Rules, 2016 use FOUR different colours: YELLOW (body parts, soiled dressings, expired medicines, chemical/lab waste), RED (contaminated plastic like tubes, bottles, IV sets, gloves), WHITE translucent (needles and sharps), BLUE (glassware and metal implants).",
+        "Watch out: RED means sanitary waste in Chandigarh homes, but contaminated plastic in hospitals. That is why the same colour can mean different things in different systems.",
+        "Special care waste under the 2026 rules = what Chandigarh calls domestic hazardous waste (medicines, bulbs, batteries, paint containers)."
       ],
       careful: [
-        "Don't guess what black, red and yellow mean. Confirm with Ma'am first.",
-        "Don't say “all dry waste is non-biodegradable” — paper and cardboard are dry but biodegradable."
+        "Say “in Chandigarh's system” when you explain black and red — colours can differ from city to city.",
+        "Don't say “all dry waste is non-biodegradable” — paper and cardboard are dry but biodegradable.",
+        "Don't mix the hospital meaning of RED (contaminated plastic) with the household meaning (sanitary waste)."
       ],
       point: [
-        "Walk your hand along the bins left to right as you name them.",
+        "Walk your hand along the bins left to right as you name each colour.",
         "Stop, look at the judge, and slowly say the ‘Mixed waste becomes garbage…’ line."
       ],
       ask: ["bins"]
@@ -678,8 +750,11 @@ window.SITE = {
       points: ["Solid Waste Management Rules, 2026 (from 1 April 2026)", "Wet waste", "Dry waste", "Sanitary waste", "Special care waste (medicines, bulbs, paint containers)"],
       keywords: ["wet", "dry", "sanitary", "special"], follow: "Where would you throw an old medicine strip or a fused bulb?" },
     { topic: "Your dustbins", level: "medium", q: "Tell me about the black, red and yellow bins in your model.",
-      points: ["Answer exactly as Rajnish Ma'am confirmed (see ‘Ask Ma'am’ list)", "Mention that bin colours depend on the rules/system followed"],
-      keywords: [], follow: "Why must medical waste be kept separate?" },
+      points: ["Black = domestic hazardous waste (batteries, bulbs, paint, medicines)", "Red = sanitary waste (pads, diapers)", "Yellow = biomedical waste (confirm with Ma'am)", "This follows Chandigarh's bin system — colours can differ between systems"],
+      keywords: ["hazardous", "sanitary", "biomedical", "battery"], follow: "Why must medical waste be kept separate?" },
+    { topic: "Your dustbins", level: "hard", q: "Does a red bin mean the same thing everywhere?",
+      points: ["No — colours depend on the system", "In Chandigarh homes, red = sanitary waste", "In hospitals (Bio-Medical Waste Rules 2016), red = contaminated plastic like tubes and gloves", "So always read the label on the bin"],
+      keywords: ["no", "sanitary", "hospital", "plastic", "depends"], follow: "Where should a used bandage from a clinic go?" },
     { topic: "7Rs", level: "easy", q: "Name the 7Rs in order.",
       points: ["Refuse", "Reduce", "Reuse", "Repair", "Repurpose", "Recycle", "Recover"],
       keywords: ["refuse", "reduce", "reuse", "repair", "repurpose", "recycle", "recover"], follow: "Which R is the best, and why?" },
@@ -849,6 +924,9 @@ window.SITE = {
     { text: "PIB — Hydrogen fuel cell train, ~2,600 passengers", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285240&reg=3&lang=1" },
     { text: "GreenH — Hydrogen production & refuelling station at Jind", url: "https://www.greenh.in/hydrogen-production-hydrogen-refueling-station-at-jind-haryana/" },
     { text: "PIB — New Solid Waste Management Rules, from 1 April 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2219676&reg=3&lang=1" },
+    { text: "Tribune — Chandigarh: after green, blue bins, now black and red (2022)", url: "https://www.tribuneindia.com/news/chandigarh/chandigarh-after-green-blue-waste-bins-now-black-and-red-372864/amp" },
+    { text: "DD News — New waste rules from April 1: four-way segregation", url: "https://ddnews.gov.in/en/new-waste-rules-from-april-1-four-way-segregation-mandatory-strict-penalties-for-violations/" },
+    { text: "AIIMS — Bio-medical waste colour coding (BMW Rules 2016)", url: "https://www.aiims.edu/images/pdf/Departments_Centers/BiomedicalWaste/Biomedical%20waste%20docs%20nurses.pdf" },
     { text: "Swachh Bharat Mission (Grameen) — About", url: "https://swachhbharatmission.ddws.gov.in/about_sbm" },
     { text: "PIB — SBM Grameen factsheet", url: "https://www.pib.gov.in/FactsheetDetails.aspx?Id=148579&reg=48&lang=2" },
     { text: "Rajagopalan Vasudevan (Wikipedia)", url: "https://en.wikipedia.org/wiki/Rajagopalan_Vasudevan" },

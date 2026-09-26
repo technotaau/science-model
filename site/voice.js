@@ -27,9 +27,11 @@
   }
   function pickVoice() {
     if (!voices.length) return null;
+    // prefer voices installed on the device (network voices can stall in Chrome)
+    const pick = f => voices.find(v => f(v) && v.localService) || voices.find(f);
     return voices.find(v => v.voiceURI === settings.voice) ||
-      voices.find(v => /en[-_]IN/i.test(v.lang)) ||
-      voices.find(v => /en[-_]GB/i.test(v.lang)) || voices[0];
+      pick(v => /en[-_]IN/i.test(v.lang)) ||
+      pick(v => /en[-_]GB/i.test(v.lang)) || voices[0];
   }
   // Clean text for speaking: remove *stress* marks, emojis and brackets like (press)
   function clean(t) {
@@ -44,17 +46,26 @@
       if (!synth) { resolve(); return; }
       const t = clean(text);
       if (!t) { resolve(); return; }
-      const u = new SpeechSynthesisUtterance(t);
-      const v = pickVoice();
-      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-IN";
-      u.rate = (opts.rate || settings.rate);
-      u.pitch = 1;
-      let done = false;
-      const fin = () => { if (!done) { done = true; clearInterval(keep); resolve(); } };
-      u.onend = fin; u.onerror = fin;
-      // Chrome sometimes stalls long utterances; nudge it
-      const keep = setInterval(() => { if (!synth.speaking) fin(); }, 1000);
-      synth.speak(u);
+      const my = speakToken;
+      // One utterance per sentence: Chrome cuts off long utterances after about 15 seconds
+      const parts = t.split(/(?<=[.!?])\s+/).filter(Boolean);
+      const v = pickVoice(), rate = opts.rate || settings.rate;
+      let i = 0, done = false;
+      const fin = () => { if (!done) { done = true; resolve(); } };
+      const next = () => {
+        if (done) return;
+        if (i >= parts.length || my !== speakToken) { fin(); return; }
+        const u = new SpeechSynthesisUtterance(parts[i++]);
+        if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-IN";
+        u.rate = rate; u.pitch = 1;
+        let handled = false, safety = null;
+        const go = () => { if (handled) return; handled = true; clearTimeout(safety); next(); };
+        u.onend = go; u.onerror = go;
+        // safety net in case the browser never reports the end of speech
+        safety = setTimeout(go, u.text.length * 150 / rate + 3000);
+        synth.speak(u);
+      };
+      next();
     });
   }
   function stopSpeaking() { speakToken++; if (synth) synth.cancel(); }
@@ -96,7 +107,9 @@
       const finish = () => { if (ended) return; ended = true; clearTimeout(timer); clearTimeout(maxT); try { r.stop(); } catch (e) {} resolve((finalText + " " + lastInterim).trim()); };
       const arm = ms => { clearTimeout(timer); timer = setTimeout(finish, ms); };
       const maxT = setTimeout(finish, maxMs);
+      listen.lastError = null;
       r.onresult = e => {
+        if (ended) return;
         heard = true; lastInterim = "";
         for (let i = e.resultIndex; i < e.results.length; i++) {
           if (e.results[i].isFinal) finalText += e.results[i][0].transcript + " ";
@@ -105,13 +118,25 @@
         if (opts.onText) opts.onText((finalText + lastInterim).trim());
         arm(silence);
       };
-      r.onerror = () => finish();
-      r.onend = () => { if (!ended) { if (heard) finish(); else { try { r.start(); } catch (e) { finish(); } } } };
+      // "no-speech" just means silence so far — keep listening until startWait/maxMs end it
+      r.onerror = e => { if (ended) return; listen.lastError = e.error; if (e.error === "no-speech") return; finish(); };
+      r.onend = () => { if (!ended) { if (heard) finish(); else setTimeout(() => { if (!ended) { try { r.start(); } catch (e) { finish(); } } }, 150); } };
       listen.current = { stop: finish };
       try { r.start(); arm(startWait); } catch (e) { finish(); }
     });
   }
   function stopListening() { if (listen.current) listen.current.stop(); }
+  // A friendly message if the last listen() failed because the microphone or speech service is blocked
+  function micProblem() {
+    const e = listen.lastError;
+    if (e === "not-allowed" || e === "service-not-allowed" || e === "audio-capture")
+      return "🎤 The microphone or speech recognition is blocked. Allow the microphone in your browser settings (on iPhone, turn on Dictation) and try again.";
+    if (e === "network") return "🌐 Speech recognition needs an internet connection. Check your connection and try again.";
+    return null;
+  }
+  // Everything that uses the camera/microphone registers a stopper here
+  const stoppers = [];
+  function stopMedia() { stoppers.forEach(f => { try { f(); } catch (e) {} }); }
 
   // Word-overlap similarity 0..1 (how many target words were said)
   const norm = s => clean(s).toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
@@ -124,7 +149,7 @@
   }
 
   window.Voice = { speak, speakSample, stopSpeaking, listen, stopListening, similarity, sampleHTML, highlighter, clean,
-    canSpeak: !!synth, canListen: !!SR };
+    micProblem, stopMedia, canSpeak: !!synth, canListen: !!SR };
 
   // =====================================================================
   // VOICE COACH TAB
@@ -153,7 +178,7 @@
   }
   function initSubtabs() {
     $$("#vSubtabs button").forEach(b => b.addEventListener("click", () => {
-      stopSpeaking(); stopListening();
+      stopSpeaking(); stopListening(); stopMedia();
       $$("#vSubtabs button").forEach(x => x.classList.toggle("active", x === b));
       $$(".vpane").forEach(p => { p.hidden = p.id !== b.dataset.pane; });
     }));
@@ -200,6 +225,9 @@
         li.innerHTML = '<span class="listening">Your turn — repeat</span>';
         $("#shList").appendChild(li);
         const said = await listen({ silence: 1400, startWait: 6000, maxMs: 20000 });
+        if (my !== speakToken) return;
+        const prob = micProblem();
+        if (prob) { hl(-1); li.className = ""; out.innerHTML = '<div class="sec ask">' + esc(prob) + "</div>"; return; }
         const sim = similarity(parts[i], said);
         res.push(sim);
         li.className = "";
@@ -226,6 +254,8 @@
       stopSpeaking();
       $("#pr-" + i).innerHTML = '<span class="listening">Listening…</span>';
       const said = await listen({ silence: 1300, startWait: 5000, maxMs: 10000 });
+      const prob = micProblem();
+      if (prob) { $("#pr-" + i).innerHTML = '<span class="pill ask">' + esc(prob) + "</span>"; return; }
       const sim = similarity(w.word, said);
       $("#pr-" + i).innerHTML = (sim >= .6 ? '<span class="pill ok">✅ Clear</span>' : '<span class="pill ask">🔁 Try again, slowly</span>') +
         ' <span class="muted">I heard: “' + esc(said || "nothing") + "”</span>";
@@ -285,6 +315,8 @@
         $("#akMic").classList.add("on"); $("#akMic").textContent = "● Listening…";
         const said = await listen({ silence: 1500, startWait: 6000, maxMs: 15000, onText: t => { $("#akInput").value = t; } });
         $("#akMic").classList.remove("on"); $("#akMic").textContent = "🎤 Ask by voice";
+        const prob = micProblem();
+        if (prob) { $("#akResult").innerHTML = '<div class="sec ask">' + esc(prob) + "</div>"; return; }
         if (said) { $("#akInput").value = said; run(); }
       };
     } else $("#akMic").hidden = true;
@@ -292,43 +324,50 @@
 
   // ---------- 4. Record & check (volume, pace, filler words) ----------
   function initRecorder() {
-    let rec = null, t0 = 0, tick = null, audioCtx = null, raf = 0, levels = [], fillerRe = null, count = 0, transcript = "", srRun = null;
-    fillerRe = new RegExp("\\b(" + S.fillers.map(f => f.replace(/\s+/g, "\\s+")).join("|") + ")\\b", "gi");
+    const fillerRe = new RegExp("\\b(" + S.fillers.map(f => f.replace(/\s+/g, "\\s+")).join("|") + ")\\b", "gi");
     const mmss = sec => String(Math.floor(sec / 60)).padStart(2, "0") + ":" + String(Math.floor(sec % 60)).padStart(2, "0");
-    function liveSR() {
+    let take = null, starting = false, count = 0;
+    // Live transcript for pace and filler words. Stops retrying if recognition is blocked.
+    function liveSR(tk) {
       if (!SR) return null;
       const r = new SR(); r.lang = "en-IN"; r.continuous = true; r.interimResults = true;
       let fin = "", active = true;
+      const h = { failed: false, stop() { active = false; try { r.stop(); } catch (e) {} } };
       r.onresult = e => {
         let interim = "";
         for (let i = e.resultIndex; i < e.results.length; i++) {
           if (e.results[i].isFinal) fin += e.results[i][0].transcript + " "; else interim += e.results[i][0].transcript;
         }
-        transcript = (fin + interim).trim();
-        const words = transcript ? transcript.split(/\s+/).length : 0;
-        const min = (Date.now() - t0) / 60000;
+        tk.transcript = (fin + interim).trim();
+        if (take !== tk) return;
+        const words = tk.transcript ? tk.transcript.split(/\s+/).length : 0;
+        const min = (Date.now() - tk.t0) / 60000;
         $("#rcWpm").textContent = min > .1 ? Math.round(words / min) : "–";
-        $("#rcLive").innerHTML = esc(transcript).replace(fillerRe, '<span class="filler">$1</span>');
+        $("#rcLive").innerHTML = esc(tk.transcript).replace(fillerRe, '<span class="filler">$1</span>');
       };
-      r.onend = () => { if (active) { try { r.start(); } catch (e) {} } };
-      try { r.start(); } catch (e) {}
-      return { stop() { active = false; try { r.stop(); } catch (e) {} } };
+      r.onerror = e => { if (e.error !== "no-speech" && e.error !== "aborted") h.failed = true; };
+      r.onend = () => { if (active && !h.failed) setTimeout(() => { if (active) { try { r.start(); } catch (e) {} } }, 250); };
+      try { r.start(); } catch (e) { h.failed = true; }
+      return h;
     }
     $("#rcBtn").onclick = async () => {
-      if (rec && rec.state === "recording") { rec.stop(); return; }
+      if (take) { if (take.rec.state === "recording") take.rec.stop(); return; }
+      if (starting) return;
       if (!navigator.mediaDevices || !window.MediaRecorder) { $("#rcNote").textContent = "Recording is not supported in this browser. Try Chrome."; return; }
+      starting = true; $("#rcBtn").disabled = true;
       let stream;
       try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
       catch (e) { $("#rcNote").textContent = "Microphone permission was blocked. Allow the microphone and try again."; return; }
+      finally { starting = false; $("#rcBtn").disabled = false; }
       stopSpeaking();
-      const chunksA = []; levels = []; transcript = "";
-      rec = new MediaRecorder(stream);
-      rec.ondataavailable = e => { if (e.data.size) chunksA.push(e.data); };
+      const tk = take = { stream, parts: [], levels: [], transcript: "", t0: Date.now(), raf: 0, audioCtx: null, tick: null, sr: null };
+      tk.rec = new MediaRecorder(stream);
+      tk.rec.ondataavailable = e => { if (e.data.size) tk.parts.push(e.data); };
       // volume meter
       try {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const an = audioCtx.createAnalyser(); an.fftSize = 1024;
-        audioCtx.createMediaStreamSource(stream).connect(an);
+        tk.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const an = tk.audioCtx.createAnalyser(); an.fftSize = 1024;
+        tk.audioCtx.createMediaStreamSource(stream).connect(an);
         const buf = new Uint8Array(an.fftSize);
         const loop = () => {
           an.getByteTimeDomainData(buf);
@@ -336,46 +375,52 @@
           const lvl = Math.min(100, Math.round(Math.sqrt(sum / buf.length) * 400));
           $("#rcMeter").style.width = lvl + "%";
           $("#rcVolHint").textContent = lvl < 6 ? "…" : lvl < 20 ? "🔈 A little louder" : lvl <= 75 ? "🔊 Good, clear volume" : "📢 Too loud — relax";
-          if (lvl >= 6) levels.push(lvl);
-          raf = requestAnimationFrame(loop);
+          if (lvl >= 6) tk.levels.push(lvl);
+          tk.raf = requestAnimationFrame(loop);
         };
         loop();
       } catch (e) {}
-      rec.onstop = () => {
-        stream.getTracks().forEach(t => t.stop());
-        clearInterval(tick); cancelAnimationFrame(raf);
-        if (audioCtx) audioCtx.close();
-        if (srRun) srRun.stop();
-        $("#rcMeter").style.width = "0";
-        const secs = (Date.now() - t0) / 1000;
-        const url = URL.createObjectURL(new Blob(chunksA, { type: rec.mimeType || "audio/webm" }));
+      tk.rec.onstop = () => {
+        tk.stream.getTracks().forEach(t => t.stop());
+        clearInterval(tk.tick); cancelAnimationFrame(tk.raf);
+        if (tk.audioCtx) tk.audioCtx.close();
+        if (tk.sr) tk.sr.stop();
+        if (take === tk) take = null;
+        $("#rcMeter").style.width = "0"; $("#rcVolHint").textContent = "";
+        const secs = (Date.now() - tk.t0) / 1000;
+        const type = tk.rec.mimeType || "audio/webm";
+        const ext = /mp4/.test(type) ? "m4a" : "webm";
+        const url = URL.createObjectURL(new Blob(tk.parts, { type }));
         count++;
-        const words = transcript ? transcript.split(/\s+/).length : 0;
-        const wpm = SR && secs > 6 ? Math.round(words / (secs / 60)) : null;
-        const fills = (transcript.match(fillerRe) || []).length;
-        const avgVol = levels.length ? Math.round(levels.reduce((a, b) => a + b, 0) / levels.length) : 0;
+        const speechOk = !!(tk.sr && !tk.sr.failed && tk.transcript);
+        const words = speechOk ? tk.transcript.split(/\s+/).length : 0;
+        const wpm = speechOk && secs > 6 ? Math.round(words / (secs / 60)) : null;
+        const fills = speechOk ? (tk.transcript.match(fillerRe) || []).length : null;
+        const avgVol = tk.levels.length ? Math.round(tk.levels.reduce((a, b) => a + b, 0) / tk.levels.length) : 0;
         const stat = (v, l, cls) => '<div class="stat ' + cls + '"><b>' + v + "</b>" + l + "</div>";
         const li = document.createElement("li");
         li.innerHTML = "<div style='width:100%'><b>Take " + count + "</b> · " + mmss(secs) +
           '<div class="stats">' +
           (wpm !== null ? stat(wpm, "words/min", wpm < 90 ? "warn" : wpm <= 140 ? "good" : "badv") : "") +
-          (SR ? stat(fills, "filler words", fills <= 2 ? "good" : fills <= 5 ? "warn" : "badv") : "") +
+          (fills !== null ? stat(fills, "filler words", fills <= 2 ? "good" : fills <= 5 ? "warn" : "badv") : "") +
           stat(avgVol, "avg volume", avgVol < 20 ? "warn" : avgVol <= 75 ? "good" : "badv") + "</div>" +
-          '<audio controls src="' + url + '"></audio> <a href="' + url + '" download="practice-take-' + count + '.webm">Save</a>' +
-          '<p class="small">' + feedback(wpm, fills, avgVol) + "</p></div>";
+          '<audio controls src="' + url + '"></audio> <a href="' + url + '" download="practice-take-' + count + "." + ext + '">Save</a>' +
+          '<p class="small">' + feedback(wpm, fills, avgVol) +
+          (SR && !speechOk ? " (Speed and filler-word check was not available for this take — it needs Chrome/Edge, the microphone allowed, and internet.)" : "") + "</p></div>";
         $("#rcList").prepend(li);
         $("#rcBtn").textContent = "● Start recording"; $("#rcBtn").classList.remove("on");
       };
-      rec.start(); t0 = Date.now();
+      tk.rec.start();
       $("#rcBtn").textContent = "■ Stop"; $("#rcBtn").classList.add("on");
       $("#rcLive").textContent = ""; $("#rcWpm").textContent = "–";
-      tick = setInterval(() => { $("#rcTimer").textContent = mmss((Date.now() - t0) / 1000); }, 250);
-      srRun = liveSR();
+      tk.tick = setInterval(() => { $("#rcTimer").textContent = mmss((Date.now() - tk.t0) / 1000); }, 250);
+      tk.sr = liveSR(tk);
     };
+    stoppers.push(() => { if (take && take.rec.state === "recording") take.rec.stop(); });
     function feedback(wpm, fills, vol) {
       const tips = [];
       if (wpm !== null) tips.push(wpm < 90 ? "Pace: a little slow — keep it flowing." : wpm <= 140 ? "Pace: good 👍" : "Pace: too fast — add pauses at the “/” marks.");
-      if (SR) tips.push(fills <= 2 ? "Very few filler words 👍" : "Try replacing “um/like” with a short silent pause.");
+      if (fills !== null) tips.push(fills <= 2 ? "Very few filler words 👍" : "Try replacing “um/like” with a short silent pause.");
       tips.push(vol < 20 ? "Volume: speak a bit louder, to the farthest judge." : vol <= 75 ? "Volume: clear 👍" : "Volume: a little softer, you don't need to shout.");
       return tips.join(" ");
     }
@@ -383,7 +428,7 @@
 
   // ---------- 5. Mirror (camera) ----------
   function initMirror() {
-    let stream = null, promptT = null, vrec = null;
+    let stream = null, promptT = null, vrec = null, starting = false, vcount = 0;
     const stopAll = () => {
       if (vrec && vrec.state === "recording") vrec.stop();
       if (stream) stream.getTracks().forEach(t => t.stop());
@@ -393,9 +438,17 @@
     };
     $("#mrStart").onclick = async () => {
       if (stream) { stopAll(); return; }
-      try { stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true }); }
+      if (starting) return;
+      if (!navigator.mediaDevices) { $("#mrNote").textContent = "The camera is not supported in this browser."; return; }
+      starting = true; $("#mrStart").disabled = true;
+      let s2;
+      try { s2 = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true }); }
       catch (e) { $("#mrNote").textContent = "Camera permission was blocked. Allow the camera and try again."; return; }
-      const v = $("#mrVideo"); v.srcObject = stream; v.muted = true; v.play();
+      finally { starting = false; $("#mrStart").disabled = false; }
+      // the pane may have been closed while we waited for permission
+      if (stream || $("#vp-mirror").hidden || $("#tab-voice").hidden) { s2.getTracks().forEach(t => t.stop()); return; }
+      stream = s2;
+      const v = $("#mrVideo"); v.srcObject = stream; v.muted = true; v.play().catch(() => {});
       $("#mrWrap").hidden = false; $("#mrStart").textContent = "■ Stop mirror"; $("#mrRec").hidden = !window.MediaRecorder;
       let i = 0; $("#mrPrompt").textContent = S.mirrorPrompts[0];
       promptT = setInterval(() => { i = (i + 1) % S.mirrorPrompts.length; $("#mrPrompt").textContent = S.mirrorPrompts[i]; }, 4500);
@@ -405,27 +458,38 @@
       const parts = [];
       vrec = new MediaRecorder(stream);
       vrec.ondataavailable = e => { if (e.data.size) parts.push(e.data); };
-      vrec.onstop = () => {
-        const url = URL.createObjectURL(new Blob(parts, { type: vrec.mimeType || "video/webm" }));
+      const thisRec = vrec;
+      thisRec.onstop = () => {
+        const type = thisRec.mimeType || "video/webm";
+        const url = URL.createObjectURL(new Blob(parts, { type }));
         const li = document.createElement("li");
-        li.innerHTML = '<video controls src="' + url + '" style="max-width:320px"></video> <a href="' + url + '" download="mirror-practice.webm">Save</a>';
+        vcount++;
+        li.innerHTML = '<video controls src="' + url + '" style="max-width:320px"></video> <a href="' + url + '" download="mirror-practice-' + vcount + "." + (/mp4/.test(type) ? "mp4" : "webm") + '">Save</a>';
         $("#mrList").prepend(li);
         $("#mrRec").textContent = "● Record video"; $("#mrRec").classList.remove("on");
       };
       vrec.start();
       $("#mrRec").textContent = "■ Stop video"; $("#mrRec").classList.add("on");
     };
+    stoppers.push(stopAll);
   }
 
   // ---------- 6. Warm-up ----------
   function initWarmup() {
-    let running = false;
+    let running = false, wuRun = 0;
+    const resetWu = () => {
+      running = false;
+      $("#wuStart").textContent = "▶ Start 1-minute warm-up";
+      $("#wuLine").textContent = ""; $("#wuCircle").className = "breath"; $("#wuCircle").textContent = "";
+    };
     $("#wuStart").onclick = async () => {
-      if (running) { running = false; stopSpeaking(); $("#wuStart").textContent = "▶ Start 1-minute warm-up"; $("#wuLine").textContent = ""; $("#wuCircle").className = "breath"; $("#wuCircle").textContent = ""; return; }
+      if (running) { wuRun++; stopSpeaking(); resetWu(); return; }
       running = true; $("#wuStart").textContent = "■ Stop";
+      const run = ++wuRun;
       const my = ++speakToken;
       for (const step of S.warmup) {
-        if (!running || my !== speakToken) return;
+        if (run !== wuRun) return;
+        if (my !== speakToken) { resetWu(); return; }
         $("#wuLine").textContent = step.say;
         $("#wuCircle").className = "breath" + (step.breathe === "in" ? " in" : step.breathe === "out" ? " out" : "");
         $("#wuCircle").textContent = step.breathe === "in" ? "Breathe in" : step.breathe === "out" ? "Breathe out" : step.breathe === "hold" ? "Hold" : "";
@@ -434,8 +498,9 @@
         const left = step.secs * 1000 - (Date.now() - t0);
         if (left > 0) await wait(left);
       }
-      running = false; $("#wuStart").textContent = "▶ Start 1-minute warm-up"; $("#wuCircle").className = "breath";
+      if (run === wuRun) resetWu();
     };
+    stoppers.push(() => { if (running) { wuRun++; resetWu(); } });
   }
 
   // ---------- init ----------

@@ -46,6 +46,8 @@
     const t = visitor ? "project" : tabs.includes(tab) ? tab : "home";
     V.stopSpeaking();
     if (t !== "viva") stopJudge();
+    if (t !== "walk" && rehearsal) finishRehearsal(false);
+    if (t !== "voice") V.stopMedia();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
     $$("#tabs a").forEach(a => a.classList.toggle("active", a.dataset.tab === t));
     if (t === "model") showComp(sub && compById[sub] ? sub : currentComp);
@@ -60,8 +62,9 @@
   function fairDate() { return store.get("fairDate", null); }
   function renderCountdown() {
     const chosen = fairDate();
-    const fair = new Date((chosen || S.student.fairDate) + "T09:00:00");
-    const days = Math.ceil((fair - new Date()) / 86400000);
+    const fair = new Date((chosen || S.student.fairDate) + "T00:00:00");
+    const today0 = new Date(); today0.setHours(0, 0, 0, 0);
+    const days = Math.round((fair - today0) / 86400000);
     const when = chosen ? fair.toDateString() : "2 or 3 October — date to be decided";
     $("#countdown").textContent = days > 1 ? "⏳ " + days + " days to the Science Fair (" + when + ")"
       : days === 1 ? "⏳ The Science Fair is tomorrow! Rest well tonight."
@@ -83,7 +86,8 @@
       (V.canSpeak ? '<button class="btn small ghost" data-q="' + i + '">🔊</button>' : "") + "</div>").join("");
     $$("#quotesList [data-q]").forEach(b => b.onclick = () => V.speakSample(S.quotes[+b.dataset.q]));
 
-    const today = new Date().toISOString().slice(0, 10);
+    const n = new Date();
+    const today = n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
     $("#planList").innerHTML = (S.plan || []).map(p =>
       '<li class="' + (p.date === today ? "today" : "") + '"><b>' + esc(p.label) + ":</b> " + esc(p.task) + "</li>").join("");
   }
@@ -303,7 +307,7 @@
     $("#rehearseBtn").insertAdjacentHTML("afterend", V.canSpeak ? ' <label class="small"><input type="checkbox" id="rhVoice" checked> voice cues</label>' : '<input type="checkbox" id="rhVoice" hidden>');
     $("#rehearseBtn").onclick = () => rehearsal ? finishRehearsal(false) : startRehearsal();
     document.addEventListener("keydown", e => {
-      if (rehearsal && (e.code === "Space" || e.key === "ArrowRight") && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); nextRehearsal(); }
+      if (rehearsal && !e.repeat && !$("#tab-walk").hidden && (e.code === "Space" || e.key === "ArrowRight") && !/INPUT|TEXTAREA|SELECT|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); nextRehearsal(); }
     });
   }
 
@@ -313,8 +317,10 @@
   function renderVivaFilters() {
     const topics = Array.from(new Set(S.viva.map(v => v.topic)));
     $("#vivaTopic").innerHTML = '<option value="all">All topics</option>' + topics.map(t => '<option>' + esc(t) + "</option>").join("");
-    $("#vivaTopic").onchange = $("#vivaLevel").onchange = nextViva;
-    $("#vivaNext").onclick = nextViva;
+    // a user changing the question always stops judge mode first
+    const userNext = () => { stopJudge(); nextViva(); };
+    $("#vivaTopic").onchange = $("#vivaLevel").onchange = userNext;
+    $("#vivaNext").onclick = userNext;
     if (!V.canListen || !V.canSpeak) { $("#judgeBtn").disabled = true; $("#judgeBtn").title = "Needs Chrome or Edge"; }
     $("#judgeBtn").onclick = () => judgeOn ? stopJudge() : startJudge();
   }
@@ -341,8 +347,8 @@
       '<span class="pill lvl-' + q.level + '">' + q.level + '</span> <span class="small muted">' + esc(q.topic) + "</span>" +
       '<p class="q">' + esc(q.q) + "</p>" +
       '<div id="judgeStatus"></div>' +
-      '<div class="viva-row">' + speakBtn("vivaSpeak", "🔊 Hear the question") +
-      (V.canListen ? '<button class="btn small act mic" id="vivaMic">🎤 Answer by speaking</button>' : "") + "</div>" +
+      (judgeOn ? "" : '<div class="viva-row">' + speakBtn("vivaSpeak", "🔊 Hear the question") +
+      (V.canListen ? '<button class="btn small act mic" id="vivaMic">🎤 Answer by speaking</button>' : "") + "</div>") +
       '<textarea id="vivaAns" rows="4" placeholder="Answer in your own words first — type it, or press 🎤 and speak."></textarea>' +
       '<div class="viva-row"><button class="btn" id="vivaCheck">Check my answer</button></div>' +
       '<div id="vivaResult"></div>';
@@ -368,6 +374,7 @@
   function checkViva(auto) {
     V.stopListening();
     const q = vivaCur;
+    if (!q || !$("#vivaAns")) return null;
     const ans = $("#vivaAns").value.toLowerCase();
     if (!auto && ans.trim().length < 3 && !confirm("You haven't answered yet. Try first! Show the answer anyway?")) return null;
     const hit = (q.keywords || []).filter(k => ans.includes(k.toLowerCase()));
@@ -388,7 +395,8 @@
     return { hit, miss, covered };
   }
   function saveMark(q) {
-    const n = $$("#vivaResult .cover input").filter(x => x.checked).length;
+    if (q !== vivaCur) return;
+    const n = Math.min(q.points.length, $$("#vivaResult .cover input").filter(x => x.checked).length);
     const all = store.get("viva", {}); all[qKey(q)] = { got: n, of: q.points.length, at: Date.now() }; store.set("viva", all);
     if ($("#vivaSaved")) $("#vivaSaved").textContent = "Saved: " + n + "/" + q.points.length + ".";
     renderVivaStats();
@@ -401,49 +409,54 @@
   }
 
   // ---------- 🎧 judge mode: ask aloud → listen → feedback → follow-up → next ----------
-  let judgeOn = false;
+  let judgeOn = false, judgeRun = 0;
   const status = (t, listening) => { const el = $("#judgeStatus"); if (el) el.innerHTML = '<div class="judge-status">' + (listening ? '<span class="listening">' + esc(t) + "</span>" : esc(t)) + "</div>"; };
   async function startJudge() {
     judgeOn = true;
+    const run = ++judgeRun;
     $("#judgeBtn").textContent = "■ Stop judge mode"; $("#judgeBtn").classList.add("on");
     if (!vivaCur) nextViva();
-    while (judgeOn) {
+    while (judgeOn && run === judgeRun && vivaCur) {
       renderViva();
       const q = vivaCur;
+      // stop this loop if the user stopped judge mode or the question changed
+      const alive = () => judgeOn && run === judgeRun && vivaCur === q;
       status("🧑‍🏫 The judge is asking…");
       await V.speak(q.q);
-      if (!judgeOn) break;
+      if (!alive()) break;
       status("🎤 Your answer — stop talking for 3 seconds when you finish", true);
-      const ans = await V.listen({ silence: 3000, startWait: 12000, maxMs: 120000, onText: t => { if ($("#vivaAns")) $("#vivaAns").value = t; } });
-      if (!judgeOn) break;
+      const ans = await V.listen({ silence: 3000, startWait: 12000, maxMs: 120000, onText: t => { if (alive() && $("#vivaAns")) $("#vivaAns").value = t; } });
+      if (!alive()) break;
       if (!ans) {
-        status("I didn't hear anything. Check the microphone, then press Judge mode again.");
-        await V.speak("I didn't hear an answer. Please check your microphone.");
+        const prob = V.micProblem();
+        status(prob || "I didn't hear anything. Check the microphone, then press Judge mode again.");
+        await V.speak(prob ? "The microphone is blocked." : "I didn't hear an answer. Please check your microphone.");
         break;
       }
       const r = checkViva(true);
+      if (!r) break;
       const n = r.covered.filter(Boolean).length;
       const praise = n === q.points.length ? "Excellent! You covered everything." : n >= q.points.length / 2 ? "Good answer." : "Nice try.";
       const missing = q.points.filter((p, i) => !r.covered[i]);
       let fb = praise + " You covered " + n + " out of " + q.points.length + " key points.";
       if (missing.length) fb += " You could also say: " + missing.slice(0, 2).join(". ") + ".";
+      saveMark(q);
       status("🧑‍🏫 Feedback");
       await V.speak(fb);
-      saveMark(q);
-      if (!judgeOn) break;
+      if (!alive()) break;
       if (q.follow) {
         status("🧑‍🏫 Follow-up question…");
         await V.speak("Follow-up question. " + q.follow);
-        if (!judgeOn) break;
+        if (!alive()) break;
         status("🎤 Answer the follow-up", true);
-        const fa = await V.listen({ silence: 3000, startWait: 12000, maxMs: 90000, onText: t => { if ($("#followAns")) $("#followAns").textContent = "You said: " + t; } });
-        if (!judgeOn) break;
+        const fa = await V.listen({ silence: 3000, startWait: 12000, maxMs: 90000, onText: t => { if (alive() && $("#followAns")) $("#followAns").textContent = "You said: " + t; } });
+        if (!alive()) break;
         await V.speak(fa ? "Thank you. Next question." : "Okay. Let's move to the next question.");
+        if (!alive()) break;
       }
-      if (!judgeOn) break;
       const nq = pickViva(); if (!nq) break; vivaCur = nq;
     }
-    stopJudge();
+    if (run === judgeRun) stopJudge();
   }
   function stopJudge() {
     if (!judgeOn) return;
@@ -540,10 +553,11 @@
       try { await navigator.clipboard.writeText(visitorURL); $("#copyMsg").textContent = " Copied!"; }
       catch (e) { prompt("Copy this link:", visitorURL); }
     };
+    const syncProg = () => document.body.classList.toggle("no-progress", !$("#incProgress").checked);
+    $("#incProgress").onchange = syncProg; syncProg();
     const doPrint = cls => {
       document.body.classList.add(cls);
-      document.body.classList.toggle("no-progress", !$("#incProgress").checked);
-      const done = () => { document.body.classList.remove(cls, "no-progress"); window.removeEventListener("afterprint", done); };
+      const done = () => { document.body.classList.remove(cls); window.removeEventListener("afterprint", done); };
       window.addEventListener("afterprint", done);
       window.print();
       setTimeout(done, 1500);
@@ -581,6 +595,8 @@
   // ---------- init ----------
   if (visitor) {
     document.body.classList.add("visitor");
+    document.title = S.project.title + " — " + S.student.name;
+    $(".brand-title").textContent = S.project.title;
     $("#foot").textContent = S.student.name + " · " + S.student.className + " · " + S.student.school + " · Built with the TechnoTaau Team";
   }
   renderHome();

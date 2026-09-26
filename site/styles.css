@@ -60,6 +60,8 @@ code { background: var(--ok-bg); color: var(--ok-ink); padding: 0 .3em; border-r
 .small { font-size: .93rem; }
 .tiny { font-size: .82rem; }
 [hidden] { display: none !important; }
+/* keep headings clear of the sticky header when scrolled into view */
+#compDetail, #stepCard, #report { scroll-margin-top: 124px; }
 :focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
 
 /* ---------- header ---------- */
@@ -85,7 +87,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 16px 40px; }
 .btn.stop { background: var(--bad); border-color: var(--bad); }
 .btn.small { padding: 4px 10px; font-size: .88rem; }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
-select, textarea, input[type=text], input[type=date] { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
+select, textarea, input[type=text], input[type=date] { max-width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
 textarea { width: 100%; resize: vertical; }
 label.block { display: block; margin: 12px 0; font-weight: 700; }
 label.block textarea { margin-top: 6px; font-weight: 400; }
@@ -181,8 +183,8 @@ details.peek summary { cursor: pointer; font-weight: 800; color: var(--ink); }
 .timer-box { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .timer { font: 800 1.3rem "Baloo 2", monospace; min-width: 64px; }
 .walk { display: grid; grid-template-columns: 260px 1fr; gap: 14px; align-items: start; }
-@media (max-width: 760px) { .walk { grid-template-columns: 1fr; } .steps { max-height: 220px; } }
 .steps { list-style: none; margin: 0; padding: 0; max-height: 70vh; overflow-y: auto; }
+@media (max-width: 760px) { .walk { grid-template-columns: 1fr; } .steps { max-height: 220px; } }
 .steps li button { width: 100%; text-align: left; font: inherit; font-size: .92rem; cursor: pointer; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; margin-bottom: 5px; display: flex; gap: 6px; align-items: center; }
 .steps li button.active { border-color: var(--act); box-shadow: inset 5px 0 0 var(--act); }
 .steps .tick { margin-left: auto; }
@@ -240,7 +242,7 @@ details.peek summary { cursor: pointer; font-weight: 800; color: var(--ink); }
 .answer { border-left: 6px solid var(--ok); }
 .mirror-wrap { position: relative; max-width: 640px; border-radius: 14px; overflow: hidden; background: #000; }
 .mirror-wrap video { display: block; width: 100%; transform: scaleX(-1); }
-.mirror-prompt { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(0,0,0,.72); color: #fff; font-weight: 800; font-size: 1.15rem; border-radius: 99px; padding: 6px 16px; white-space: nowrap; }
+.mirror-prompt { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(0,0,0,.72); color: #fff; font-weight: 800; font-size: 1.15rem; border-radius: 14px; padding: 6px 16px; white-space: normal; width: max-content; max-width: calc(100% - 20px); text-align: center; }
 .breath { width: 140px; height: 140px; border-radius: 50%; margin: 16px auto; background: var(--act-bg); border: 4px solid var(--act); transition: transform 4.5s ease-in-out; display: grid; place-items: center; font-weight: 900; color: var(--act-ink); }
 .breath.in { transform: scale(1.35); } .breath.out { transform: scale(.8); }
 .warm-line { text-align: center; font-size: 1.25rem; font-family: "Baloo 2", sans-serif; min-height: 3em; }
@@ -289,8 +291,10 @@ table.hist th, table.hist td { border-bottom: 1px solid var(--line); padding: 6p
 .qr-card-who { font-size: .9rem; color: #374151; margin-top: 6px; }
 
 /* ---------- visitor mode (judges scanning the QR) ---------- */
-body.visitor .tabs, body.visitor .owner-only, body.visitor .teacher-only, body.visitor #qrCard, body.visitor .no-print { display: none !important; }
-body.visitor .brand-sub::after { content: " · Visitor view"; }
+html.visitor .tabs, html.visitor .owner-only, html.visitor .teacher-only, html.visitor #qrCard, html.visitor .no-print,
+html.visitor section.tab:not(#tab-project) { display: none !important; }
+html.visitor #tab-project { display: block !important; }
+html.visitor .brand-sub::after { content: " · Visitor view"; }
 
 @media screen and (max-width: 600px) {
   .parts, .parts tbody, .parts tr, .parts td { display: block; width: 100%; }
@@ -328,9 +332,10 @@ body.visitor .brand-sub::after { content: " · Visitor view"; }
   .report-head { box-shadow: none; }
   .grid2 { grid-template-columns: 1fr 1fr; }
   .parts tr { break-inside: avoid; }
-  /* printing the report: hide the QR stall card */
-  body.print-report #qrCard, body.print-report .owner-only { display: none !important; }
-  body.print-report.no-progress .teacher-only { display: none !important; }
+  /* printing the report (also from the browser menu): no QR stall card; progress only if ticked */
+  #qrCard, .owner-only { display: none !important; }
+  body.print-qr #qrCard { display: block !important; }
+  body.no-progress:not(.print-qr) .teacher-only { display: none !important; }
   /* printing the QR card: show only the card, large */
   body.print-qr #report, body.print-qr .owner-only, body.print-qr h2 { display: none !important; }
   body.print-qr .qr-card { width: 120mm; margin: 10mm auto; border-width: 4px; padding: 10mm; }

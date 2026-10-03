@@ -38,7 +38,7 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  const tabs = ["home", "project", "model", "walk", "viva", "voice", "score", "ask"];
+  const tabs = ["home", "stage", "project", "model", "walk", "viva", "voice", "score", "ask"];
   // ?visitor in the URL (from the stall QR code) shows only the clean project page
   const visitor = new URLSearchParams(location.search).has("visitor");
   function route() {
@@ -47,6 +47,7 @@
     V.stopSpeaking();
     if (t !== "viva") stopJudge();
     if (t !== "walk" && rehearsal) finishRehearsal(false);
+    if (t !== "stage" && stageRun) endStageRun(false);
     if (t !== "voice") V.stopMedia();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
     $$("#tabs a").forEach(a => a.classList.toggle("active", a.dataset.tab === t));
@@ -59,17 +60,18 @@
   window.addEventListener("hashchange", route);
 
   // ---------- home ----------
-  function fairDate() { return store.get("fairDate", null); }
+  // The event date now comes from content.js (stage day); the old 2/3 October picker is gone
+  function fairDate() { return S.stage ? S.stage.date : null; }
   function renderCountdown() {
     const chosen = fairDate();
     const fair = new Date((chosen || S.student.fairDate) + "T00:00:00");
     const today0 = new Date(); today0.setHours(0, 0, 0, 0);
     const days = Math.round((fair - today0) / 86400000);
-    const when = chosen ? fair.toDateString() : "2 or 3 October — date to be decided";
-    $("#countdown").textContent = days > 1 ? "⏳ " + days + " days to the Science Fair (" + when + ")"
-      : days === 1 ? "⏳ The Science Fair is tomorrow! Rest well tonight."
-      : days === 0 ? "🌟 Fair day! Breathe, smile and enjoy explaining your model."
-      : "🎉 The Science Fair is over — well done!";
+    const when = fair.toDateString() + " — on stage";
+    $("#countdown").textContent = days > 1 ? "⏳ " + days + " days to your presentation (" + when + ")"
+      : days === 1 ? "⏳ Your stage presentation is tomorrow! Practise today, rest well tonight."
+      : days === 0 ? "🌟 Stage day! Breathe, smile and enjoy it."
+      : "🎉 Your presentation is done — well done!";
     $$('input[name="fairDate"]').forEach(r => { r.checked = r.value === chosen; });
   }
   function renderHome() {
@@ -259,6 +261,7 @@
       '<div class="sec ok"><h4>✅ Remember to cover</h4>' + list(p.cover) + "</div>" +
       '<div class="step-nav"><button class="btn" id="rhNext">' + (r.i === S.presentation.length - 1 ? "Finish ✔" : "Next step → (Space)") + "</button></div>";
     $("#rhNext").onclick = nextRehearsal;
+    $("#rhNext").focus({ preventScroll: true });
     card.scrollIntoView({ behavior: "smooth", block: "start" });
     if (V.canSpeak && $("#rhVoice").checked) {
       const cue = (p.cues || []).map(V.clean).join(". ");
@@ -592,6 +595,125 @@
       '<p class="tiny muted">Progress is saved on this device.</p>';
   }
 
+
+  // ---------- 🎤 stage presentation ----------
+  let stageRun = null;
+  function stageSections() {
+    const st = S.stage, v = $("#stVersion").value;
+    if (v === "short") return [{ id: "s-short", title: "1-minute speech", seconds: 60, cover: ["Greeting, name, topic", "Clean India Mission — 2 October 2014", "Segregation at source", "7Rs — the best waste is the waste we never create", "Green energy & hydrogen train", "Final quote, Thank you, Jai Hind"], cues: ["🚶 Centre, pause, smile, begin.", "🐢 Slow and clear — short speeches feel rushed."], sample: st.short }];
+    return st.sections.filter(x => x.in.includes(v));
+  }
+  const words = t => t.replace(/[*\/]/g, " ").split(/\s+/).filter(Boolean).length;
+  function renderStage() {
+    const st = S.stage;
+    if (!st) return;
+    const d0 = new Date(); d0.setHours(0, 0, 0, 0);
+    const days = Math.round((new Date(st.date + "T00:00:00") - d0) / 86400000);
+    $("#stCountdown").textContent = days > 1 ? "⏳ " + days + " days to your stage presentation (" + new Date(st.date + "T00:00:00").toDateString() + ")"
+      : days === 1 ? "⏳ Your stage presentation is TOMORROW — practise today, then rest well tonight."
+      : days === 0 ? "🌟 Stage day! Breathe, smile, and enjoy it — you know this."
+      : "🎉 Stage presentation done — well done, Avni!";
+    $("#stVersion").value = store.get("stageVersion", "full");
+    $("#stVersion").onchange = () => { store.set("stageVersion", $("#stVersion").value); renderStageCards(); };
+    renderStageCards();
+    const ticks = store.get("stageToday", {});
+    $("#stToday").innerHTML = st.today.map(x => '<li><label><input type="checkbox" data-id="' + x.id + '"' + (ticks[x.id] ? " checked" : "") + "> <span><b>" + esc(x.time) + "</b> — " + esc(x.task) + "</span></label></li>").join("");
+    $$("#stToday input").forEach(cb => cb.onchange = () => { const t = store.get("stageToday", {}); t[cb.dataset.id] = cb.checked; store.set("stageToday", t); });
+    $("#stTodayReset").onclick = () => { store.set("stageToday", {}); renderStage(); };
+    $("#stMorning").innerHTML = st.morning.map(x => "<li>" + esc(x) + "</li>").join("");
+    $("#stBackstage").innerHTML = st.backstage.map(x => "<li>" + esc(x) + "</li>").join("");
+    $("#stTips").innerHTML = st.tips.map(x => "<li>" + esc(x) + "</li>").join("");
+    $("#stRescue").innerHTML = st.rescue.map(x => '<div class="rescue-item sec plain"><b>' + esc(x.q) + "</b>" + esc(x.a) + "</div>").join("");
+    $("#stRehearse").onclick = () => stageRun ? endStageRun(false) : startStageRun();
+    $("#stListenAll").onclick = async () => {
+      if ($("#stListenAll").dataset.on) { V.stopSpeaking(); return; }
+      $("#stListenAll").dataset.on = "1"; $("#stListenAll").textContent = "■ Stop";
+      for (const sec of stageSections()) {
+        const ok = await V.speakSample(sec.sample, V.highlighter($("#stSample-" + sec.id)));
+        if (!ok) break;
+      }
+      delete $("#stListenAll").dataset.on; $("#stListenAll").textContent = "🔊 Listen to whole speech";
+    };
+    $("#stPrint").onclick = () => {
+      const secs = stageSections();
+      $("#cueCard").innerHTML = "<h2>🎤 " + esc(S.project ? S.project.title : S.student.topic) + " — cue card</h2><ol>" +
+        secs.map(x => "<li><b>" + esc(x.title) + "</b><span>" + esc(x.cover.join(" · ")) + "</span></li>").join("") + "</ol>" +
+        '<p class="q">Final line: “A clean India is not just a dream; it is a responsibility we share.” → Thank you → Jai Hind!</p>';
+      document.body.classList.add("print-cue");
+      const done = () => { document.body.classList.remove("print-cue"); window.removeEventListener("afterprint", done); };
+      window.addEventListener("afterprint", done);
+      window.print();
+      setTimeout(done, 1500);
+    };
+  }
+  function renderStageCards() {
+    const secs = stageSections();
+    const total = secs.reduce((a, x) => a + words(x.sample), 0);
+    $("#stLength").textContent = secs.length + " parts · about " + total + " words · about " + Math.max(1, Math.round(total / 120)) + " min at a calm stage pace";
+    $("#stCards").innerHTML = secs.map((x, i) =>
+      '<article class="card st-card"><h3>' + (i + 1) + ". " + esc(x.title) + ' <span class="tm">about ' + x.seconds + " s</span></h3>" +
+      '<div class="sec ok"><h4>✅ Key points (learn these)</h4>' + list(x.cover) + "</div>" +
+      '<div class="sec act"><h4>👉 On stage</h4>' + list(x.cues) + "</div>" +
+      '<details class="peek"><summary>👀 Sample words (try in your own words first)</summary><p class="sample" id="stSample-' + x.id + '">' + V.sampleHTML(x.sample) + "</p>" +
+      '<div class="viva-row">' + speakBtn("stHear-" + x.id, "🔊 Listen with pauses") + "</div></details></article>").join("");
+    secs.forEach(x => { const b = $("#stHear-" + x.id); if (b) b.onclick = () => V.speakSample(x.sample, V.highlighter($("#stSample-" + x.id))); });
+  }
+  function startStageRun() {
+    const secs = stageSections();
+    stageRun = { secs, i: 0, t0: Date.now(), stepT0: Date.now(), times: [], tick: setInterval(updateStageRun, 200) };
+    $("#stRehearse").textContent = "■ Stop rehearsal"; $("#stRehearse").classList.add("on");
+    $("#stCards").hidden = true;
+    showStageStep();
+  }
+  function showStageStep() {
+    const r = stageRun, x = r.secs[r.i];
+    r.stepT0 = Date.now();
+    const box = $("#stRehearsal");
+    box.hidden = false;
+    box.innerHTML = '<div class="small muted">Part ' + (r.i + 1) + " of " + r.secs.length + " · target about " + x.seconds + " s · total <b id=\"srTotal\">00:00</b></div>" +
+      '<p class="big">' + esc(x.title) + '</p><div class="bar" id="srBar"><i></i></div><div class="small"><b id="srStep">0 s</b> this part</div>' +
+      '<div class="sec ok"><h4>✅ Say these points</h4><ul class="st-big">' + x.cover.map(c => "<li>" + esc(c) + "</li>").join("") + "</ul></div>" +
+      '<div class="sec act"><h4>👉 On stage</h4>' + list(x.cues) + "</div>" +
+      '<details class="peek"><summary>Stuck? Peek at the words</summary><p class="sample">' + V.sampleHTML(x.sample) + "</p></details>" +
+      '<div class="step-nav"><button class="btn" id="srNext">' + (r.i === r.secs.length - 1 ? "Finish ✔" : "Next part → (Space)") + "</button></div>";
+    $("#srNext").onclick = nextStageStep;
+    $("#srNext").focus({ preventScroll: true }); // Space now presses "Next part", not "Stop"
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function updateStageRun() {
+    if (!stageRun || !$("#srBar")) return;
+    const x = stageRun.secs[stageRun.i], sec = (Date.now() - stageRun.stepT0) / 1000;
+    $("#srBar").classList.toggle("over", sec > x.seconds * 1.3);
+    $("#srBar").firstChild.style.width = Math.min(100, 100 * sec / x.seconds) + "%";
+    $("#srStep").textContent = Math.floor(sec) + " s";
+    $("#srTotal").textContent = mmss((Date.now() - stageRun.t0) / 1000);
+  }
+  function nextStageStep() {
+    const r = stageRun; if (!r) return;
+    r.times.push((Date.now() - r.stepT0) / 1000);
+    if (r.i < r.secs.length - 1) { r.i++; showStageStep(); return; }
+    endStageRun(true);
+  }
+  function endStageRun(done) {
+    const r = stageRun; if (!r) return;
+    clearInterval(r.tick); stageRun = null;
+    $("#stRehearse").textContent = "🎬 Stage rehearsal"; $("#stRehearse").classList.remove("on");
+    $("#stCards").hidden = false;
+    const box = $("#stRehearsal");
+    if (!done) { box.hidden = true; box.innerHTML = ""; return; }
+    const total = r.times.reduce((a, b) => a + b, 0), target = r.secs.reduce((a, x) => a + x.seconds, 0);
+    store.set("lastStageRun", { at: new Date().toLocaleString(), total: Math.round(total), version: $("#stVersion").value });
+    box.innerHTML = "<h3>🎬 Stage rehearsal complete!</h3><p>Total: <b>" + mmss(total) + "</b> (target about " + mmss(target) + ").</p>" +
+      '<div class="hist-wrap"><table class="hist"><tr><th>Part</th><th>Target</th><th>You</th><th></th></tr>' +
+      r.times.map((t, i) => { const x = r.secs[i]; return "<tr><td>" + (i + 1) + ". " + esc(x.title) + "</td><td>" + x.seconds + " s</td><td>" + Math.round(t) + " s</td><td>" +
+        (t < x.seconds * 0.5 ? '<span class="pill ask">Too quick?</span>' : t > x.seconds * 1.3 ? '<span class="pill bad">Too long</span>' : '<span class="pill ok">Good</span>') + "</td></tr>"; }).join("") +
+      '</table></div><p class="small">Then mark yourself in <a href="#score">📊 Score</a>.</p><button class="btn small ghost" id="srClose">Close</button>';
+    $("#srClose").onclick = () => { box.hidden = true; };
+  }
+  document.addEventListener("keydown", e => {
+    if (stageRun && !e.repeat && !$("#tab-stage").hidden && (e.code === "Space" || e.key === "ArrowRight") && !/INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY/.test(document.activeElement.tagName)) { e.preventDefault(); nextStageStep(); }
+  });
+
   // ---------- init ----------
   if (visitor) {
     document.body.classList.add("visitor");
@@ -600,6 +722,7 @@
     $("#foot").textContent = S.student.name + " · " + S.student.className + " · " + S.student.school + " · Built with the TechnoTaau Team";
   }
   renderHome();
+  renderStage();
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

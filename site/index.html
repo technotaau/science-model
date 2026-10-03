@@ -23,6 +23,7 @@
     </div>
     <nav class="tabs" id="tabs" aria-label="Sections">
       <a href="#home" data-tab="home">🏠 Home</a>
+      <a href="#stage" data-tab="stage">🎤 Stage</a>
       <a href="#project" data-tab="project">📘 Project</a>
       <a href="#model" data-tab="model">🗺️ Model</a>
       <a href="#walk" data-tab="walk">🧭 Walkthrough</a>
@@ -41,10 +42,6 @@
           <h1 id="heroTopic"></h1>
           <p id="heroWho" class="muted"></p>
           <p class="countdown" id="countdown"></p>
-          <div class="datepick">Fair date:
-            <label><input type="radio" name="fairDate" value="2026-10-02"> Fri 2 Oct</label>
-            <label><input type="radio" name="fairDate" value="2026-10-03"> Sat 3 Oct</label>
-          </div>
         </div>
         <div class="progress-tiles" id="progressTiles"></div>
       </div>
@@ -68,6 +65,55 @@
 
       <h2>Plan until the fair</h2>
       <ol class="plan" id="planList"></ol>
+    </section>
+
+    <!-- STAGE PRESENTATION -->
+    <section id="tab-stage" class="tab" hidden>
+      <div class="card hero stage-hero no-print">
+        <div>
+          <h1 style="margin:0">🎤 Stage presentation</h1>
+          <p class="countdown" id="stCountdown"></p>
+          <p class="small muted">The speech is built from <b>your own project file</b>. Learn the <b>key points</b>, not every word — the sample is only there to help.</p>
+        </div>
+        <div class="stage-ctrl">
+          <label class="small"><b>Version</b>
+            <select id="stVersion">
+              <option value="full">Full — about 5 min</option>
+              <option value="medium">Medium — about 3 min</option>
+              <option value="short">Short — about 1 min</option>
+            </select>
+          </label>
+          <div class="viva-row">
+            <button class="btn act" id="stRehearse">🎬 Stage rehearsal</button>
+            <button class="btn ghost" id="stListenAll">🔊 Listen to whole speech</button>
+            <button class="btn ghost" id="stPrint">🖨️ Print cue card</button>
+          </div>
+          <span class="small muted" id="stLength"></span>
+        </div>
+      </div>
+
+      <div id="stRehearsal" class="card rehearse" hidden></div>
+
+      <div class="no-print" id="stCards"></div>
+
+      <div class="grid2 no-print">
+        <section class="card">
+          <h2>📅 Today's practice plan</h2>
+          <ul class="cover" id="stToday"></ul>
+          <button class="btn small ghost" id="stTodayReset">Reset ticks</button>
+        </section>
+        <section class="card">
+          <h2>🌅 Tomorrow morning</h2><ul id="stMorning"></ul>
+          <h2>🎭 Backstage, just before you go on</h2><ul id="stBackstage"></ul>
+        </section>
+      </div>
+      <div class="grid2 no-print">
+        <section class="card"><h2>🎤 Stage tips</h2><ul id="stTips"></ul></section>
+        <section class="card"><h2>🛟 If something goes wrong</h2><div id="stRescue"></div></section>
+      </div>
+
+      <!-- printable cue card: headings + first words only -->
+      <div id="cueCard" class="cue-card"></div>
     </section>
 
     <!-- PROJECT REPORT / VISITOR PAGE -->

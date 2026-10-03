@@ -343,3 +343,23 @@ html.visitor .brand-sub::after { content: " · Visitor view"; }
   body.print-qr .qr-card-cta { font-size: 20pt; }
   body.print-qr .qr-card-who { font-size: 12pt; }
 }
+
+/* ---------- stage ---------- */
+.stage-hero { border-top-color: var(--act); }
+.stage-ctrl { display: grid; gap: 8px; }
+.st-card { border-left: 6px solid var(--act); }
+.st-card h3 { margin: 0 0 4px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.st-card .tm { font-size: .82rem; color: var(--muted); font-weight: 700; }
+.st-big { font-size: 1.5rem; font-family: "Baloo 2", sans-serif; line-height: 1.5; }
+.rescue-item { margin-bottom: 8px; }
+.rescue-item b { display: block; }
+.cue-card { display: none; }
+@media print {
+  body.print-cue .cue-card { display: block !important; }
+  body.print-cue #tab-stage > *:not(.cue-card) { display: none !important; }
+  .cue-card h2 { font-size: 14pt; margin: 0 0 6px; }
+  .cue-card ol { margin: 0; padding-left: 1.3em; }
+  .cue-card li { margin-bottom: 6px; font-size: 12pt; break-inside: avoid; }
+  .cue-card li span { color: #444; font-size: 10pt; display: block; }
+  .cue-card .q { margin-top: 8px; font-size: 11pt; font-style: italic; }
+}

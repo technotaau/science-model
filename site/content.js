@@ -26,7 +26,7 @@ window.SITE = {
     school: "Sharda Sarvhitkari Senior Secondary School, Chandigarh",
     teacher: "Rajnish Ma'am",
     topic: "Clean India Mission and Waste Management",
-    fairDate: "2026-10-02",          // expected date (2 or 3 October 2026)
+    fairDate: "2026-10-04",          // stage presentation day
     targetMinutes: 5                 // aim for the full model explanation
   },
 
@@ -38,13 +38,8 @@ window.SITE = {
 
   /* ---------------- DAY-BY-DAY PLAN (date: YYYY-MM-DD) ---------------- */
   plan: [
-    { date: "2026-09-26", label: "Sat 26 Sep", task: "Model tab: read every part. Write down the questions for Rajnish Ma'am." },
-    { date: "2026-09-27", label: "Sun 27 Sep", task: "Walkthrough: Bridge → Solar → Toilets → EV → Bus → Hydrogen train → Centre. Practise at the real model." },
-    { date: "2026-09-28", label: "Mon 28 Sep", task: "Ask Ma'am the questions. Walkthrough: Dustbins → Plastic Man → Village → Biogas → Water → Plastic-to-Energy → Conclusion." },
-    { date: "2026-09-29", label: "Tue 29 Sep", task: "Full run with the timer. Record yourself once. Viva: easy + medium questions." },
-    { date: "2026-09-30", label: "Wed 30 Sep", task: "Viva: hard questions and follow-ups. Self-score out of 50." },
-    { date: "2026-10-01", label: "Thu 1 Oct", task: "Two full rehearsals in front of family. Test every demo: solar bulb, EV button, water filter, plastic machine. Check hydrogen-train news once." },
-    { date: "2026-10-02", label: "Fri 2 Oct", task: "Fair day (or 3 Oct). Read only your 3 quotes. Carry spare batteries/torch for the solar demo. Smile!" }
+    { date: "2026-10-03", label: "Sat 3 Oct", task: "Follow 🎤 Stage → Today's practice plan. Learn the KEY POINTS of each part, rehearse on your feet, record once, then rest." },
+    { date: "2026-10-04", label: "Sun 4 Oct", task: "Stage day! 1-minute warm-up, read only your headings and quotes, breathe, smile, and enjoy it." }
   ],
 
   /* ---------------- DUSTBIN COLOUR GUIDE (shown on the Five Dustbins card) ----------------
@@ -185,6 +180,92 @@ window.SITE = {
     }
   },
 
+  /* ---------------- 🎤 STAGE PRESENTATION (4 October 2026) ----------------
+     The speech is built from Avni's own project file and her practised opening.
+     versions: "full" (about 5–6 min), "medium" (about 3 min). The 1-minute version is "short".
+     Avni: change any line into your own words — just keep the facts. */
+  stage: {
+    date: "2026-10-04",
+    sections: [
+      { id: "s-open", title: "Opening", seconds: 35, in: ["full", "medium"],
+        cover: ["Greet judges, teachers and friends", "Name, class, topic", "Question: where does all this waste go?", "What you will show today"],
+        cues: ["🚶 Walk to the centre. Stop. Wait 2 seconds. Smile — then speak.", "🎤 Mic about one hand-width below your chin. Don't move it while speaking.", "👀 Look at the judges first, then the middle of the audience.", "⏸ Pause before “Where does all this waste go?”"],
+        sample: "Good morning, respected judges, teachers / and my dear friends. / *Jai Hind!* / I am *Avni Choudhary* from *Class 6*, / and my topic is *Clean India Mission and Waste Management*. / Every day, we throw away plastic, food, fruit peels, paper and bottles. / But — / *where does all this waste go?* / Today, I will show you / how we can manage our waste, / and how *small steps* can make a *big difference*." },
+      { id: "s-sbm", title: "Clean India Mission", seconds: 35, in: ["full", "medium"],
+        cover: ["Swachh Bharat Abhiyan", "2 October 2014, PM Narendra Modi, Gandhi Ji's birth anniversary", "Started with toilets for everyone", "Now ODF Plus: villages also manage garbage and dirty water"],
+        cues: ["🐢 Slow down for the date and names.", "👀 Look left, centre, right — share your eyes with the whole hall."],
+        sample: "The Clean India Mission, / or *Swachh Bharat Abhiyan*, / was launched on *2 October 2014* / by Prime Minister Narendra Modi, / on Mahatma Gandhi's birth anniversary. / It started with *toilets for everyone*, / because using toilets protects our *health* / and our *water*. / Today, the mission has grown into *ODF Plus* — / villages that stay open-defecation free / *and* manage their garbage and dirty water." },
+      { id: "s-waste", title: "Waste management & segregation", seconds: 40, in: ["full", "medium"],
+        cover: ["Separate → collect → transport → recycle/treat → safely dispose", "Segregation at source is the most important step", "Wet → compost/biogas; dry → recycling", "Mixed waste = garbage; separated waste = resource"],
+        cues: ["✋ You may count the five steps on your fingers — slowly.", "⏸ Pause before the last line, then say it to the back row."],
+        sample: "Waste management means / *separating* waste where it is made, / collecting it, / transporting it, / recycling or treating it, / and safely disposing of it. / The most important step is the *first* one — / *segregation at source*. / Wet waste, like peels and leftover food, / can become *compost* or *biogas*. / Dry waste, like paper, metal and glass, / can be *recycled*. / Mixed waste becomes *garbage*. / Separated waste becomes a *resource*." },
+      { id: "s-plastic", title: "Plastic, eco-bricks & the Plastic Man", seconds: 40, in: ["full"],
+        cover: ["Single-use plastic: used for minutes, stays for a very long time", "Eco-brick: bottle packed tightly with clean, dry plastic", "Prof. Rajagopalan Vasudevan — plastic in roads", "Padma Shri 2018"],
+        cues: ["🖐️ Open palm when you name the Plastic Man — say his name slowly.", "If your model is on stage: point to his photo, then look back at the audience."],
+        sample: "Single-use plastics, / like carry bags, straws and wrappers, / are used for a few minutes / but stay in our environment for a *very long time*. / One idea from my project is the *eco-brick* — / a plastic bottle packed tightly with clean, dry plastic waste, / which can be used to build things. / And *Professor Rajagopalan Vasudevan*, / the *Plastic Man of India*, / found a way to use waste plastic / to build *roads*. / He received the *Padma Shri* in *2018*." },
+      { id: "s-7r", title: "The 7Rs", seconds: 30, in: ["full", "medium"],
+        cover: ["3Rs → 7Rs", "Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover", "The best waste is the waste we never create"],
+        cues: ["✋ Count the 7Rs on your fingers — the audience can follow.", "🐢 Slowest line of the whole speech: “the best waste … is the waste we never create.”"],
+        sample: "We often hear about the *3Rs*, / but my project goes one step further, / with the *7Rs*: / Refuse, / Reduce, / Reuse, / Repair, / Repurpose, / Recycle, / and Recover. / They teach us one important lesson: / *the best waste / is the waste we never create.*" },
+      { id: "s-wte", title: "Waste to energy", seconds: 35, in: ["full"],
+        cover: ["Waste that can't be recycled can still give energy", "Biogas: microbes, no oxygen → gas for cooking/electricity", "Waste-to-energy plants: closed, very hot, pollution control → steam → turbine", "Never burn plastic in the open"],
+        cues: ["If your model is on stage: point to the biogas plant, then the plastic-to-energy machine.", "👀 Strong eye contact for “never burn plastic in the open”."],
+        sample: "Waste that *cannot* be recycled / can still give us *energy*. / In a biogas plant, / tiny microbes break down wet waste *without oxygen* / and make *biogas* for cooking and electricity. / In waste-to-energy plants, / non-recyclable waste is burnt at very high temperatures, / in closed plants with pollution control. / The heat makes *steam*, / and the steam turns a *turbine* to make electricity. / But remember — / we must *never* burn plastic in the open." },
+      { id: "s-green", title: "Green energy & the hydrogen train", seconds: 45, in: ["full"],
+        cover: ["Green energy: renewable, very little pollution", "Solar: sunlight → electricity; wind: moving air → electricity", "Green hydrogen", "First hydrogen train: Jind–Sonipat, flagged off 17 July 2026", "Main by-product: water vapour"],
+        cues: ["🐢 Slow down on “17 July 2026” and “Jind–Sonipat”.", "If your model is on stage: show the solar panel and the train."],
+        sample: "A clean India also needs *clean air*. / Green energy comes from sources that *do not run out* / and cause very little pollution, / like the *sun* and the *wind*. / Solar panels turn sunlight into electricity, / and wind turbines turn moving air into electricity. / India is also working on *green hydrogen*. / On *17 July 2026*, / India's first *hydrogen train* was flagged off / on the *Jind–Sonipat* route in Haryana. / Instead of diesel smoke, / its main by-product is *water vapour*." },
+      { id: "s-water", title: "Clean water & rivers", seconds: 45, in: ["full"],
+        cover: ["Multi-layer filter: coarsest → finest", "Stones & gravel → sand → charcoal → cotton", "Clearer is not always safe", "Factories: effluent treatment plants; cities: sewage treatment plants", "Never throw garbage or puja waste into rivers"],
+        cues: ["✋ Show the layers going down with your hand, top to bottom.", "👀 Say “clear water is not always safe” directly to the judges."],
+        sample: "Clean water is *precious*. / In my project, I made a *multi-layer filter*. / Water flows from the coarsest layer to the finest: / *stones and gravel*, / then *sand*, / then *charcoal*, / and finally *cotton*. / The water comes out *clearer* — / but clear water is *not always safe* to drink. / Factories must treat their wastewater / in *effluent treatment plants*, / and cities need *sewage treatment plants*, / so that dirty water never flows straight into our rivers. / And we must never throw garbage or puja waste into rivers — / it should go into special collection bins." },
+      { id: "s-close", title: "Our duties & conclusion", seconds: 45, in: ["full", "medium"],
+        cover: ["What can WE do?", "Stop littering; segregate; say no to single-use plastic", "Plant trees; public transport; spread awareness", "Not only a government programme — every citizen's responsibility", "Final quote, Thank you, Jai Hind"],
+        cues: ["🚶 Take one small step forward.", "👀 Look at the back row for the final quote.", "⏸ Pause 2 seconds before “Thank you”. Smile. Small nod. Wait for the applause before you walk off."],
+        sample: "So, what can *we* do? / Stop littering. / Segregate waste at home and in school. / Say *no* to single-use plastic. / Plant trees, / use public transport, / and spread awareness. / The Clean India Mission is not only a government programme — / it is a responsibility for *every citizen*. / *A clean India is not just a dream; / it is a responsibility we share.* / Thank you. / *Jai Hind!*" }
+    ],
+    short: "Good morning, respected judges, teachers and my dear friends. / *Jai Hind!* / I am *Avni Choudhary* from *Class 6*, / and my topic is *Clean India Mission and Waste Management*. / The Clean India Mission was launched on *2 October 2014*. / Its most important lesson for us is *segregation at source* — / wet waste can become compost and biogas, / and dry waste can be recycled. / The *7Rs* teach us that / *the best waste is the waste we never create*. / Green energy, like the sun, the wind / and India's first *hydrogen train*, / can keep our air clean. / *A clean India is not just a dream; / it is a responsibility we share.* / Thank you. / *Jai Hind!*",
+    today: [
+      { id: "t1", time: "30 min", task: "Read the full speech aloud ONCE, slowly, using 🔊 Listen if you like. Mark any word that feels hard." },
+      { id: "t2", time: "15 min", task: "Voice Coach → 🗣️ Pronunciation: practise the hard words (Swachh Bharat Abhiyan, Rajagopalan Vasudevan, anaerobic, effluent)." },
+      { id: "t3", time: "40 min", task: "Learn card by card: look only at the KEY POINTS (not the sample) and say each card 3 times in your own words." },
+      { id: "t4", time: "10 min", task: "Break — water, a snack, a short walk." },
+      { id: "t5", time: "20 min", task: "🎬 Stage rehearsal: stand up, use the timer, speak to the back of the biggest room. Family = audience." },
+      { id: "t6", time: "15 min", task: "Voice Coach → 🎙️ Record one full run. Check speed (110–140 words/min), filler words and volume." },
+      { id: "t7", time: "20 min", task: "❓ Viva → 🎧 Judge mode: answer 10 questions, especially Stage-topic questions." },
+      { id: "t8", time: "15 min", task: "Evening: ONE relaxed final run. Then STOP practising. Pack your bag. Sleep early." }
+    ],
+    morning: [
+      "Eat breakfast and carry a water bottle.",
+      "Do the 🧘 1-minute warm-up (Voice Coach → Warm-up).",
+      "Read only your headings and the 3 quotes — do not try to re-learn the speech.",
+      "Carry: project file, cue card, model parts / batteries if your model is going on stage.",
+      "Wear comfortable shoes; tie hair so it doesn't cover your face."
+    ],
+    backstage: [
+      "Breathe in for 4, hold for 4, out for 4 — three times.",
+      "Say your first line once in your head: “Good morning, respected judges…”",
+      "Shoulders down, chin up, smile.",
+      "When your name is called: walk calmly, stop at the centre, pause, smile, begin."
+    ],
+    rescue: [
+      { q: "I forget a line", a: "Pause, smile, look at your cue card or think of the next HEADING and continue from there. The audience does not know your script — a calm pause looks confident." },
+      { q: "The mic stops working", a: "Keep the mic down, take one step forward and speak louder to the back row. Don't stop to fix it." },
+      { q: "I say a word wrongly", a: "Don't apologise. Just say it again correctly, or keep going. Nobody minds." },
+      { q: "A judge asks something I don't know", a: "“I am not sure about that, Ma'am/Sir, but what I know is…” — then say something related you DO know. Honesty earns marks." },
+      { q: "My hands are shaking", a: "Hold your cue card with both hands at waist level, or rest one hand lightly on the other. Breathe out slowly before your next sentence." },
+      { q: "I am running out of time", a: "Skip to the 7Rs or straight to “So, what can we do?” and finish with the final quote. A strong ending matters more than every section." }
+    ],
+    tips: [
+      "On stage, speak about 20% slower and louder than in a room. Speak to the LAST row.",
+      "Eye contact in three zones: left — centre — right. Judges first, then everyone.",
+      "Never turn your back to the audience. If you point to the model, stand beside it and point with the hand nearer to it.",
+      "Feet shoulder-width apart; don't sway or walk around while speaking.",
+      "If there is applause or laughter, pause and smile — then continue.",
+      "End strong: final quote → 2-second pause → “Thank you” → small nod → walk off calmly."
+    ]
+  },
+
   /* ---------------- MARKING SCHEME (50 marks) ---------------- */
   marks: [
     { key: "model", name: "Model", icon: "🏗️",
@@ -205,7 +286,7 @@ window.SITE = {
     { id: "bins", q: "Does our model follow Chandigarh's bin system (BLACK = domestic hazardous waste, RED = sanitary waste)? And what does the YELLOW bin stand for — biomedical waste? Where do expired medicines go — black or red?" },
     { id: "ladder", q: "What does the LADDER below “Carbon Emission” represent?" },
     { id: "digger", q: "What does the DIGGER FIELD represent — a farm field being dug, a compost pit, a landfill, or something else?" },
-    { id: "filter", q: "What is the exact ORDER of the filter layers from TOP to BOTTOM (charcoal, stones, cotton — any sand)?" },
+    { id: "filter", q: "My project file says the filter layers from TOP to BOTTOM are: stones & gravel → sand → charcoal → cotton. Does my MODEL filter also have the SAND layer?" },
     { id: "machine", q: "Plastic-to-Energy: what does each of the TWO separate machines represent? Which one is the furnace/processing part and which is the generator + bulb?" },
     { id: "villagetoilet", q: "Is the village toilet connected to the biogas plant in our model, or is it a separate toilet?" },
     { id: "windmill", q: "Does the windmill actually turn / produce electricity in the model, or is it only a display?" },
@@ -618,17 +699,19 @@ window.SITE = {
       ]
     },
     {
-      id: "filter", zone: "front", icon: "💧", name: "Water Treatment / Filtration", status: "ask",
-      inModel: "Dirty water (pumped from the factory) → filter container with layers of charcoal, stones and cotton → clean-looking water in a separate tank.",
+      id: "filter", zone: "front", icon: "💧", name: "Water Treatment / Filtration", status: "confirmed",
+      inModel: "Dirty water (pumped from the factory) → a multi-layer gravity filter → clean-looking water in a separate tank. Layers from TOP to BOTTOM (as in my project file): stones & gravel → sand → charcoal → cotton.",
       say: [
         "This is a simple filtration demonstration — a basic water-cleaning step.",
-        "Stones hold back bigger dirt particles.",
-        "Charcoal traps some colour, smell and some impurities.",
-        "Cotton traps very fine particles and holds the layers in place.",
+        "Water flows from the COARSEST layer to the FINEST: stones & gravel → sand → charcoal → cotton.",
+        "Stones and gravel (top) hold back big particles like leaves, twigs and mud.",
+        "Sand removes smaller dirt particles.",
+        "Charcoal adsorbs some chemicals, colour and bad smell.",
+        "Cotton (bottom) is the last barrier — it traps tiny particles and charcoal dust.",
         "The water looks cleaner, but it is NOT safe to drink yet — it may still have germs and dissolved chemicals.",
         "Quote: “Clean water is precious — treat it, reuse it, protect it.”"
       ],
-      sample: "Here, the dirty water passes through / *charcoal*, *stones* and *cotton*. / See — / the water that comes out looks *cleaner*. / But clear water is *not always safe* water. / It may still have *germs* / and *dissolved* chemicals. / *Clean water is precious — / treat it, / reuse it, / protect it.*",
+      sample: "Here, the dirty water flows from the coarsest layer to the finest — / *stones and gravel*, / *sand*, / *charcoal* / and *cotton*. / See — / the water that comes out looks *cleaner*. / But clear water is *not always safe* water. / It may still have *germs* / and *dissolved* chemicals. / *Clean water is precious — / treat it, / reuse it, / protect it.*",
       how: [
         "Filtration = separating solid particles from a liquid by passing it through something with tiny gaps.",
         "Bigger gaps (stones) catch big particles; smaller gaps (cotton) catch smaller ones.",
@@ -642,7 +725,7 @@ window.SITE = {
       ],
       careful: [
         "NEVER say “this makes water completely safe to drink”.",
-        "Confirm the exact order of layers with Ma'am before explaining which layer is on top."
+        "If your model filter has no sand layer, skip the word “sand” when you point at it."
       ],
       point: [
         "Point to the dirty water → the filter layers (top to bottom) → the clean water tank. Hold still on the clean tank and say “see…”.",

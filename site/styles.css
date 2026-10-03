@@ -363,3 +363,11 @@ html.visitor .brand-sub::after { content: " · Visitor view"; }
   .cue-card li span { color: #444; font-size: 10pt; display: block; }
   .cue-card .q { margin-top: 8px; font-size: 11pt; font-style: italic; }
 }
+.fixes td.was { color: var(--bad-ink); text-decoration: line-through; text-decoration-color: var(--bad); }
+.fixes td.now { color: var(--ok-ink); font-weight: 700; }
+@media screen and (max-width: 600px) {
+  .fixes, .fixes tbody, .fixes tr, .fixes td { display: block; width: 100%; }
+  .fixes tr:first-child { display: none; }
+  .fixes tr { border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; margin-bottom: 8px; }
+  .fixes td { border: 0; padding: 2px 0; }
+}

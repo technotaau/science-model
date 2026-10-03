@@ -620,6 +620,9 @@
     $("#stToday").innerHTML = st.today.map(x => '<li><label><input type="checkbox" data-id="' + x.id + '"' + (ticks[x.id] ? " checked" : "") + "> <span><b>" + esc(x.time) + "</b> — " + esc(x.task) + "</span></label></li>").join("");
     $$("#stToday input").forEach(cb => cb.onchange = () => { const t = store.get("stageToday", {}); t[cb.dataset.id] = cb.checked; store.set("stageToday", t); });
     $("#stTodayReset").onclick = () => { store.set("stageToday", {}); renderStage(); };
+    $("#stFixes").innerHTML = '<div class="hist-wrap"><table class="hist fixes"><tr><th>Page</th><th>My file says</th><th>Say this instead</th><th>Why</th></tr>' +
+      (st.fileFixes || []).map(f => "<tr><td>" + esc(f.page) + '</td><td class="was">' + esc(f.wrote) + '</td><td class="now">' + esc(f.say) + '</td><td class="small muted">' + esc(f.why) + "</td></tr>").join("") + "</table></div>";
+    $("#stGood").innerHTML = (st.fileGood || []).map(x => "<li>" + esc(x) + "</li>").join("");
     $("#stMorning").innerHTML = st.morning.map(x => "<li>" + esc(x) + "</li>").join("");
     $("#stBackstage").innerHTML = st.backstage.map(x => "<li>" + esc(x) + "</li>").join("");
     $("#stTips").innerHTML = st.tips.map(x => "<li>" + esc(x) + "</li>").join("");

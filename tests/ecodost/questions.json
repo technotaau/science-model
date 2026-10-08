@@ -1,0 +1,752 @@
+[
+ {
+  "question": "When was the Swachh Bharat Mission launched?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "The Swachh Bharat Mission (Clean India Mission) was launched on 2 October 2014 by PM Narendra Modi, on Mahatma Gandhi's birth anniversary, for a clean, open-defecation-free India."
+ },
+ {
+  "question": "who startd swach bharat abhiyan",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Prime Minister Narendra Modi launched Swachh Bharat Abhiyan (the Clean India Mission) on 2 October 2014."
+ },
+ {
+  "question": "odf?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "ODF means Open Defecation Free: nobody defecates in the open and every household has a toilet and uses it, which protects health and drinking water."
+ },
+ {
+  "question": "What is an ODF Plus village and how is it different from an ODF village?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "An ODF Plus village keeps its ODF status and also manages solid waste (garbage) and liquid waste (greywater), and stays visibly clean (file p14)."
+ },
+ {
+  "question": "odf plus ke 3 stage kaun se hain",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "The three ODF Plus stages are Aspiring (ODF plus solid OR liquid waste arrangements), Rising (both solid and liquid waste managed) and Model (both managed, visibly clean, shows sanitation messages) (p14)."
+ },
+ {
+  "question": "which is the highest level of odf plus",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "ODF Plus Model is the highest stage: the village manages both solid and liquid waste, stays visibly clean and displays sanitation awareness messages."
+ },
+ {
+  "question": "why do we even need toilets?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Toilets keep human waste and its germs away from food, water and soil, which prevents diseases, and they give safety and dignity, especially to girls and women."
+ },
+ {
+  "question": "Explain how open defecation can pollute drinking water.",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Rain washes germs from faeces into ponds, rivers and wells (and they can seep into groundwater), and flies carry germs to food, spreading diseases like diarrhoea, cholera and typhoid."
+ },
+ {
+  "question": "Which diseases spread because of poor sanitation?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Diarrhoea, cholera and typhoid spread through poor sanitation; using toilets and washing hands with soap help prevent them."
+ },
+ {
+  "question": "How many toilets were built in cities under Swachh Bharat?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Swachh Bharat (Urban) built about 63.8 lakh household toilets (108% of the target) and about 6.36 lakh community and public toilet seats (125% of the target) (p9)."
+ },
+ {
+  "question": "kitne gaon ODF plus ban gaye hain",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "About 5.69 lakh villages were ODF Plus by September 2026, with about 5.25 lakh in the highest Model stage."
+ },
+ {
+  "question": "What is SafaiMitra Surakshit Shehar?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "It is a challenge in which more than 500 cities (2022) promised to clean sewers and septic tanks with machines instead of sending people inside; the work is still going on, and Chandigarh won an award for keeping its SafaiMitras safe."
+ },
+ {
+  "question": "Your file says manual sewer cleaning has been completely eliminated in 3,150 cities. Is that true?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "No. The corrected fact is that more than 500 cities have committed to cleaning sewers with machines, and manual entry has not been fully eliminated because sewer deaths still happen (correction to p9)."
+ },
+ {
+  "question": "what is dumpsite remediation",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "It means scientifically clearing old garbage dumpsites to get the land back; India has about 2,500 old dumpsites and more than 1,000 have been fully cleared (not 'thousands of cities', correction to p9)."
+ },
+ {
+  "question": "Why was the Clean India Mission launched on 2nd October?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "2 October is Mahatma Gandhi's birth anniversary, so the mission was launched on that day in 2014 to honour his dream of a clean and healthy India."
+ },
+ {
+  "question": "Is open defecation totally finished in India now?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Do not claim zero: villages declared themselves ODF by 2 October 2019 and Phase 2 (ODF Plus) works to sustain it, but people must keep using and maintaining toilets."
+ },
+ {
+  "question": "What is a twin pit toilet?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "A twin-pit toilet has two pits: when one is full the other is used, and the waste in the first pit slowly turns into safe manure."
+ },
+ {
+  "question": "Do Clean India toilets run on solar power?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Some places, such as Haryana, use mobile toilets with solar panels that power lights and water pumps, but these are local projects that still need water and emptying, so they are not 'completely self-reliant' (correction to the solar page)."
+ },
+ {
+  "question": "What is Swachh Vidyalaya? Does it give solar panels to schools?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Swachh Vidyalaya gave schools clean toilets and drinking water and has no solar part, although many government schools have rooftop solar panels separately."
+ },
+ {
+  "question": "What does SBM Grameen Phase 2 focus on?",
+  "area": "Clean India Mission & sanitation",
+  "expectedConcept": "Phase II (from 2020, ODF Plus) focuses on keeping villages ODF and building village infrastructure for biodegradable waste, plastic waste, greywater and faecal sludge management (p20)."
+ },
+ {
+  "question": "What is waste segregation at source?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "It means separating waste into different bins where it is created (home, school, shop) before it gets mixed."
+ },
+ {
+  "question": "kachra kaise alag karein ghar pe",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Keep separate bins at home: green for wet waste (peels, leftover food), blue for dry waste (paper, plastic, metal, glass), and keep sanitary and hazardous/special-care waste apart (red and black bins in Chandigarh)."
+ },
+ {
+  "question": "why cant we just mix wet and dry waste?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Mixing makes recyclables dirty, spoils compost, sends waste to landfills where it makes smell, methane and dirty liquid (leachate), and is unsafe for workers; separated waste is a resource and mixed waste is garbage."
+ },
+ {
+  "question": "What are the four streams of waste in India's new waste rules?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "The Solid Waste Management Rules, 2026 (from 1 April 2026) make four-stream segregation compulsory: wet, dry, sanitary and special care waste."
+ },
+ {
+  "question": "My file says we sort waste into wet, dry and hazardous. Is that correct?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "The updated version is four types under the 2026 rules: wet, dry, sanitary and special care waste (correction to the page after p20)."
+ },
+ {
+  "question": "green bin me kya daalte hai",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "The green bin is for wet waste such as fruit and vegetable peels, leftover food, tea leaves and flowers, which can become compost or biogas."
+ },
+ {
+  "question": "what goes in blue dustbin",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "The blue bin is for dry waste such as paper, cardboard, plastic, metal cans and glass bottles, which goes to a sorting centre for recycling."
+ },
+ {
+  "question": "What is the black bin for?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "In Chandigarh's system the black bin is for domestic hazardous waste such as dead batteries, bulbs and tube lights, broken glass and paint containers, collected by authorised agencies (confirm with Rajnish Ma'am)."
+ },
+ {
+  "question": "red bin for wat",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "In Chandigarh's system the red bin is for sanitary waste such as used pads and diapers wrapped in paper, and also used masks, gloves and bandages (confirm with Rajnish Ma'am)."
+ },
+ {
+  "question": "What does the yellow dustbin in your model stand for?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Yellow most likely stands for biomedical waste such as soiled bandages and cotton from hospitals, as in the Bio-Medical Waste Rules, but this must be confirmed with Rajnish Ma'am."
+ },
+ {
+  "question": "Does a red bin mean the same thing in a hospital?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "No. In Chandigarh homes red means sanitary waste, but in hospitals (Bio-Medical Waste Rules 2016) red is for contaminated plastic like tubes, IV sets and gloves, so colours depend on the system."
+ },
+ {
+  "question": "Where do I throw a dead battery or a fused bulb?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Batteries and bulbs are special care or domestic hazardous waste, not wet or dry waste. They go in the black bin in Chandigarh and are collected by authorised agencies because their chemicals can leak."
+ },
+ {
+  "question": "Is paper wet waste or dry waste?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Paper goes in the dry waste bin but it is biodegradable, so dry waste contains both biodegradable and non-biodegradable things."
+ },
+ {
+  "question": "biodegradable and non biodegradable difference",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Biodegradable waste (peels, food, paper) is broken down by microorganisms; non-biodegradable waste (plastic, glass, metal) does not break down easily."
+ },
+ {
+  "question": "Does plastic never ever break down?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Say plastic 'does not break down easily' rather than 'never': it lasts a very long time and breaks into tiny microplastics instead of rotting away."
+ },
+ {
+  "question": "name the 7 Rs",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "The 7Rs in order are Refuse, Reduce, Reuse, Repair, Repurpose, Recycle and Recover (p23)."
+ },
+ {
+  "question": "whats the diffrence between reuse and repurpose",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Reuse means using something again for the same purpose (refilling a bottle); repurpose means using it for a new purpose (an old bottle as a flower pot or pen stand)."
+ },
+ {
+  "question": "Why is Refuse first and Recover last in the 7Rs?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Refuse stops waste being created at all, while Recover (energy from waste) is the last option, only for waste that cannot be recycled, because the earlier Rs save more resources."
+ },
+ {
+  "question": "What does 'the best waste is the waste we never create' mean?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "It means preventing waste by refusing and reducing is better than managing it later, because waste that is never made needs no collection, treatment or landfill (p23)."
+ },
+ {
+  "question": "3R aur 7R mein kya antar hai",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "The 3Rs are Reduce, Reuse and Recycle; the 7Rs add Refuse, Repair, Repurpose and Recover, giving Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover."
+ },
+ {
+  "question": "What is compost?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Compost is nutrient-rich material formed when biodegradable waste decomposes with air, and it is used as manure to improve soil."
+ },
+ {
+  "question": "What is vermicomposting?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Vermicomposting is composting with the help of earthworms, which turn organic kitchen and garden waste into nutrient-rich compost (p21)."
+ },
+ {
+  "question": "What happens to dry waste after the garbage truck takes it?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Dry waste goes to a sorting centre called a Material Recovery Facility (MRF), where it is separated by type and sent for recycling."
+ },
+ {
+  "question": "What are the steps of waste management?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Waste management means separating waste at source, collecting it, transporting it, recycling or treating it, and safely disposing of what is left."
+ },
+ {
+  "question": "Is there a fine in Chandigarh if we don't separate our garbage?",
+  "area": "Waste, segregation & 7Rs",
+  "expectedConcept": "Yes. Chandigarh Municipal Corporation made the four-bin segregation system compulsory from April 2026, with fines (challans) for not separating waste."
+ },
+ {
+  "question": "What are single-use plastics?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Single-use plastics are disposable plastics made mainly from petrochemicals and used once for a short time, such as carry bags, straws, stirrers, soda bottles and packaging (p22)."
+ },
+ {
+  "question": "Which plastic items are banned in India?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Since 1 July 2022, 19 single-use plastic items have been banned in India, such as plastic straws, cutlery, ear-bud sticks and thermocol decorations."
+ },
+ {
+  "question": "what is eco brick",
+  "area": "Plastic & rivers",
+  "expectedConcept": "An eco-brick is a plastic bottle packed tightly with clean, dry, non-recyclable plastic waste until it is hard enough to build things like benches, walls or garden borders (p22)."
+ },
+ {
+  "question": "Are eco-bricks an official part of Swachh Bharat?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "No. Eco-bricks are a simple way for schools and communities to help the Clean India Mission by keeping non-recyclable plastic out of drains, but they are not an official part of it (correction to p22)."
+ },
+ {
+  "question": "Who is the Plastic Man of India?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Professor Rajagopalan Vasudevan, a chemistry professor at Thiagarajar College of Engineering, Madurai, is called the Plastic Man of India because he found a way to use waste plastic to build roads; he received the Padma Shri in 2018."
+ },
+ {
+  "question": "plastic se road kaise banti hai",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Waste plastic is cleaned and shredded, sprinkled on hot stones where it melts and coats them, then the coated stones are mixed with bitumen and laid as a road."
+ },
+ {
+  "question": "when did vasudevan get padma shri",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Professor Rajagopalan Vasudevan received the Padma Shri in 2018."
+ },
+ {
+  "question": "Did the Plastic Man sell his idea for money?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "No. He gave his patented plastic-road technology to the Government of India free of cost."
+ },
+ {
+  "question": "Is the plastic road the main cornerstone of Swachh Bharat?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "'Cornerstone' is an exaggeration: since 2015 the government has asked road builders near big cities to use waste plastic, so the idea helps keep plastic off the streets but is not the main part of the mission."
+ },
+ {
+  "question": "If we can make roads from plastic, why should we still reduce plastic?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Roads use only a small part of plastic waste and much plastic is never collected, ending up in drains, rivers and oceans as microplastics, so Refuse and Reduce still come first."
+ },
+ {
+  "question": "how many years does plastic take to decompose",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Plastic does not break down easily and can last a very long time, breaking into microplastics; exact year numbers are only rough estimates and should not be given as facts."
+ },
+ {
+  "question": "What should I carry instead of a plastic bag and bottle?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Carry a cloth bag and your own reusable (for example steel) water bottle; one cloth bag used again and again replaces many plastic bags."
+ },
+ {
+  "question": "How can we keep our rivers clean?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Do not throw garbage, plastic or puja waste into rivers, reduce single-use plastic, join clean-up drives and plant trees on riverbanks; the government's part is sewage treatment plants, strict rules for factory waste and trash skimmers (p27–28)."
+ },
+ {
+  "question": "Why shouldn't we throw puja flowers in the river?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Puja offerings pollute river water, so they should go into special puja-material collection bins, where the flowers can become compost."
+ },
+ {
+  "question": "What is a Puja Bank?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "'Puja Bank' is not a known term. The safe phrase is special puja-material collection bins, like the one in her drawing with compartments for flowers, cloth, plastic and other items (correction to p27)."
+ },
+ {
+  "question": "STP aur ETP mein kya fark hai",
+  "area": "Plastic & rivers",
+  "expectedConcept": "A Sewage Treatment Plant (STP) treats dirty water from homes and toilets, and an Effluent Treatment Plant (ETP) treats chemical wastewater from factories; both stop untreated water from reaching rivers."
+ },
+ {
+  "question": "Why do cities need sewage treatment plants?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Sewage treatment plants treat human waste and greywater from homes so that untreated sewage does not flow straight into rivers and pollute them (p28)."
+ },
+ {
+  "question": "What are trash skimmers?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Trash skimmers are machines that collect floating solid waste from river surfaces, used with boom barriers and conveyor belts; Namami Gange uses them on the Ganga."
+ },
+ {
+  "question": "Why plant trees along riverbanks?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Trees on riverbanks prevent soil erosion, filter runoff water before it reaches the river and keep river ecosystems healthy (p27)."
+ },
+ {
+  "question": "How does plastic hurt rivers and fish?",
+  "area": "Plastic & rivers",
+  "expectedConcept": "Floating plastic is carried by river currents, chokes aquatic ecosystems, can trap or be swallowed by animals, and breaks into microplastics."
+ },
+ {
+  "question": "What is green energy?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Green energy comes from natural, renewable sources that cause little pollution, such as solar, wind, hydropower and tidal energy, and it reduces our use of fossil fuels and greenhouse gases (p15)."
+ },
+ {
+  "question": "how does a solar panel make electricity",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "A solar panel is made of photovoltaic cells, usually silicon; sunlight makes electrons move, and moving electrons are an electric current, so light energy becomes electrical energy."
+ },
+ {
+  "question": "What does photovoltaic mean?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "'Photo' means light and 'voltaic' means electricity, so a photovoltaic (PV) cell turns light directly into electricity (direct current)."
+ },
+ {
+  "question": "Does solar energy have any disadvantages?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Solar panels give no power at night and less on cloudy days, so batteries or the grid are needed; making panels uses energy and materials, old panels must be recycled, and setup costs money. It still pollutes much less than coal while running, so it reduces pollution but is not zero-impact."
+ },
+ {
+  "question": "how does windmil make electricity",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Wind pushes the blades, which turn a shaft and a generator that makes electricity, so the kinetic energy of wind becomes electrical energy."
+ },
+ {
+  "question": "solar or wind which is better?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Both are renewable and make no smoke while running, but solar gives no power at night and wind is not steady, so it is best to use both together with batteries; the choice depends on the place."
+ },
+ {
+  "question": "What is India's rank in wind power?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "India is 4th in the world in installed wind power, with about 58 GW now and an aim of about 100 GW by 2030."
+ },
+ {
+  "question": "Your file mentions the National Wind Energy Mission. Does it exist?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "A National Wind Energy Mission was proposed but never launched; wind energy is looked after by the Ministry of New and Renewable Energy (MNRE) with the National Institute of Wind Energy in Chennai."
+ },
+ {
+  "question": "What is India's 500 GW target?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "India aims for 500 GW of non-fossil power capacity by 2030; it crossed 300 GW in July 2026 and is 3rd in the world in total renewable capacity."
+ },
+ {
+  "question": "net zero 2070 means?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "India aims to reach net-zero emissions by 2070 (announced at COP26 in Glasgow, 2021), meaning the greenhouse gases it releases are balanced by those removed."
+ },
+ {
+  "question": "What is the National Green Hydrogen Mission?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "It was approved on 4 January 2023 with ₹19,744 crore to make India a global hub for green hydrogen, producing at least 5 million tonnes a year by 2030 (p16, with the corrected p10 goal)."
+ },
+ {
+  "question": "what is green hydrogen",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Green hydrogen is made by splitting water with electricity from renewable sources (electrolysis), unlike grey hydrogen, which is made from natural gas and releases CO₂."
+ },
+ {
+  "question": "How does a hydrogen fuel cell work?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "In a fuel cell, hydrogen from the tank reacts with oxygen from the air without burning to make electricity, water and heat, and the electricity runs the motors."
+ },
+ {
+  "question": "Is hydrogen burned like diesel in the train?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "No. The hydrogen is not burnt; it reacts with oxygen in a fuel cell to make electricity directly."
+ },
+ {
+  "question": "What comes out of a hydrogen train instead of smoke?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "The main onboard by-product is water vapour (plus heat) instead of diesel smoke; do not say 'no pollution at all'."
+ },
+ {
+  "question": "When was India's first hydrogen train flagged off?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "PM Narendra Modi flagged off India's first hydrogen train on 17 July 2026 from Jind Railway Station in Haryana (p16)."
+ },
+ {
+  "question": "hydrogen train kahan se kahan tak chalti hai",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "It runs on the 89 km Jind–Gohana–Sonipat route of Northern Railway in Haryana, with 12 intermediate stations, taking about 2 hours (p16)."
+ },
+ {
+  "question": "Is the hydrogen train 100% green?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "It depends on how the hydrogen is made: it is green only if made by electrolysis with renewable electricity. Jind makes its hydrogen by electrolysis, and hydrogen made from natural gas would release CO₂."
+ },
+ {
+  "question": "Is India the only country with a hydrogen train?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "No. India joined a small group of countries, like Germany, that run hydrogen passenger trains; avoid calling it an 'elite club'."
+ },
+ {
+  "question": "What is an EV and why is it better for the air?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "An EV (Electric Vehicle) runs on a battery and an electric motor instead of petrol or diesel, so it gives no tailpipe smoke while running and keeps city air cleaner."
+ },
+ {
+  "question": "If an EV is charged with electricity from coal, is it still clean?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Some pollution moves from the road to the power plant, so city air still improves; an EV is much cleaner when charged with solar or wind power, and battery making and recycling also matter."
+ },
+ {
+  "question": "What is carbon emission?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Carbon emission is the release of carbon dioxide into the air, mainly from burning fossil fuels like coal, petrol and diesel, and also from burning wood and garbage."
+ },
+ {
+  "question": "waht is global warming",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Global warming is the long-term rise in Earth's average temperature, mainly caused by greenhouse gases from human activities that trap heat like a blanket."
+ },
+ {
+  "question": "How is garbage connected to global warming?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Wet waste rotting in landfills produces methane, a strong greenhouse gas, and burning garbage releases CO₂; composting, biogas and recycling reduce these emissions."
+ },
+ {
+  "question": "What is afforestation?",
+  "area": "Green energy, hydrogen train & climate",
+  "expectedConcept": "Afforestation means planting trees to create new forests on land that had no forest before, unlike reforestation (replanting where forests were cut). Trees absorb CO₂, give oxygen and prevent soil erosion (p19)."
+ },
+ {
+  "question": "waht is biogass",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Biogas is a fuel gas made when cow dung, food waste and plant waste rot without oxygen; it is mainly methane and carbon dioxide and is used for cooking, heating or electricity."
+ },
+ {
+  "question": "biogas kaise banti hai",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Waste and water are put in a closed tank (digester) with no air, anaerobic bacteria break the waste down, biogas collects at the top and goes by pipe to the stove, and the leftover slurry becomes manure."
+ },
+ {
+  "question": "What is anaerobic digestion?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Anaerobic digestion (biomethanation) is when microorganisms break down organic waste without oxygen in a closed digester, producing biogas and slurry (p12, p21)."
+ },
+ {
+  "question": "What gases are in biogas?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Biogas is mostly methane (about 50–70%), and the rest is mostly carbon dioxide with small amounts of other gases."
+ },
+ {
+  "question": "What is the leftover slurry from a biogas plant used for?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "The leftover slurry from a biogas plant is a good fertilizer (manure) for fields."
+ },
+ {
+  "question": "compost vs biogas difference",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Composting is aerobic (with oxygen, open pit) and gives only manure; biogas is anaerobic (without oxygen, closed tank) and gives fuel gas plus slurry manure."
+ },
+ {
+  "question": "What if a village doesn't have biogas?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "People would use more firewood and fossil fuels, causing tree cutting, smoky kitchens that harm women and children, and more greenhouse gases, while organic waste rots unused."
+ },
+ {
+  "question": "Is biogas completely pollution free?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "No. Burning biogas still releases CO₂, but it is cleaner than firewood or cow-dung cakes and captures methane that would otherwise escape from rotting waste."
+ },
+ {
+  "question": "What is the GOBARdhan scheme?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "GOBARdhan, started in 2018 under SBM (Grameen), turns cattle dung, crop and kitchen waste into biogas and manure. The 2023 Budget announced 500 new Waste to Wealth plants (200 compressed biogas and 300 community plants), and a new ₹23,731 crore scheme was approved in August 2026."
+ },
+ {
+  "question": "What is CBG?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "CBG means Compressed Bio-Gas: biogas that is purified (mostly methane) and compressed so it can be used as fuel for vehicles or to make electricity (p12)."
+ },
+ {
+  "question": "What is waste to energy?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Waste-to-energy makes electricity, heat or fuel from non-recyclable leftover waste and reduces landfill load; it is one important option for leftovers, not the main pillar, because reduce, segregate, recycle and compost come first."
+ },
+ {
+  "question": "can we just burn plastic for electricity?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "No. Open burning releases poisonous gases like dioxins and furans; only non-recyclable waste may be treated in special closed plants with pollution control, and recycling comes first."
+ },
+ {
+  "question": "Explain how an incineration plant makes electricity.",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Non-recyclable waste is burnt in a closed furnace at very high temperatures (usually above 850°C); the heat boils water into steam that spins a turbine and generator, and the smoke is cleaned by filters and scrubbers."
+ },
+ {
+  "question": "Your file says incinerators burn at 1400°C. Is that right?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "The corrected statement is 'very high temperatures, usually above 850°C', because city-waste incinerators run at about 850–1100°C and 1400°C is not normal (correction to p12)."
+ },
+ {
+  "question": "How much WTE capacity does India have?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "India's waste-to-energy capacity grew from about 230 MW in 2014 to about 878 MW in 2026, almost four times bigger (corrected and dated version of p12)."
+ },
+ {
+  "question": "Why should waste be segregated before it goes to a waste-to-energy plant?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Wet, high-moisture waste burns badly and lowers plant efficiency, so wet waste should go to compost or biogas, recyclables should be recycled, and only non-recyclable waste should be used for energy (p13)."
+ },
+ {
+  "question": "What is pyrolysis?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Pyrolysis is heating plastic without oxygen to turn it into oil and gas."
+ },
+ {
+  "question": "What is RDF?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "RDF (Refuse-Derived Fuel) is dry, non-recyclable waste prepared as a fuel, for example for cement factories."
+ },
+ {
+  "question": "Explain the working of your filter.",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "In a multi-layer gravity filter, water flows from coarsest to finest: stones and gravel catch big particles, sand catches smaller dirt, charcoal adsorbs some chemicals, colour and smell, and cotton traps tiny particles. The water looks clearer but is not safe to drink (p24–26)."
+ },
+ {
+  "question": "Can we drink the water from your filter?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "No. The filtered water may still have germs and dissolved chemicals; boiling, chlorination or UV kill germs, RO can remove many dissolved chemicals, and the water must be tested."
+ },
+ {
+  "question": "What does charcoal do in the filter?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Charcoal's tiny pores adsorb many chemicals, chlorine, colour and bad smells, but it does not remove germs and removes very little metal (correction to p25)."
+ },
+ {
+  "question": "what is adsorption",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Adsorption is when molecules of impurities stick to the surface of a material, such as the huge pore-filled surface of charcoal."
+ },
+ {
+  "question": "Why is the cotton at the bottom of your filter and stones at the top?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Water must flow from coarsest to finest so big particles are caught first and the fine layers do not clog, and the cotton at the bottom is the last barrier that traps tiny particles and charcoal dust."
+ },
+ {
+  "question": "What is an ETP and how does it work?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "An Effluent Treatment Plant treats factory wastewater. Physical steps (screens, settling, oil skimming) come first, chemicals are added early to balance the water and remove harmful substances like chromium, bacteria then eat dissolved organic matter, and filtering and disinfection finish it before reuse or safe release."
+ },
+ {
+  "question": "Why is leather industry wastewater so harmful?",
+  "area": "Biogas, waste-to-energy, water filter & ETP",
+  "expectedConcept": "Leather tanneries often use chromium salts, so their wastewater may contain toxic chromium that harms people and aquatic life and needs special chemical treatment in an ETP."
+ },
+ {
+  "question": "What is the aim of your project?",
+  "area": "Model & presentation",
+  "expectedConcept": "The aim is to show how India can become cleaner and healthier through sanitation, separating waste at source, recycling and clean energy, in both a Smart City and a Smart Village."
+ },
+ {
+  "question": "Explain the layout of your model.",
+  "area": "Model & presentation",
+  "expectedConcept": "The model sits on one green wooden base, with the Smart City on the left, a centre or park display in the middle, the Smart Village on the right and the demonstrations at the front."
+ },
+ {
+  "question": "How many solar panels are on your buildings?",
+  "area": "Model & presentation",
+  "expectedConcept": "There are three buildings: two have handmade cardboard or paper solar panels, and one has a real solar panel that lights a bulb in sunlight."
+ },
+ {
+  "question": "why does your bulb not glow in a dark room",
+  "area": "Model & presentation",
+  "expectedConcept": "A solar panel needs light to make electricity, so with no sunlight the panel makes little or no current and the bulb does not glow."
+ },
+ {
+  "question": "What happens when I press the button on the EV station?",
+  "area": "Model & presentation",
+  "expectedConcept": "Pressing the button makes a green light glow to show the electric car is charging."
+ },
+ {
+  "question": "What does the ladder in the centre of your model represent?",
+  "area": "Model & presentation",
+  "expectedConcept": "The meaning of the ladder is not confirmed yet, so the bot should say to ask Rajnish Ma'am and must not invent a meaning."
+ },
+ {
+  "question": "jcb wala field kya hai model mein",
+  "area": "Model & presentation",
+  "expectedConcept": "The meaning of the digger (JCB) field is not confirmed yet, so the bot should say to ask Rajnish Ma'am and must not invent crops or technologies."
+ },
+ {
+  "question": "How many windmills are in your model?",
+  "area": "Model & presentation",
+  "expectedConcept": "There is exactly one windmill (wind turbine), and it shows wind energy."
+ },
+ {
+  "question": "Does your model have rainwater harvesting?",
+  "area": "Model & presentation",
+  "expectedConcept": "No, the model has no rainwater harvesting, so the bot should not describe one."
+ },
+ {
+  "question": "Why did you put flower pots in the park?",
+  "area": "Model & presentation",
+  "expectedConcept": "There are two flower pots, which show green spaces; plants take in carbon dioxide and give out oxygen in photosynthesis, which makes cities healthier."
+ },
+ {
+  "question": "Why did you put toilets in both the city and the village?",
+  "area": "Model & presentation",
+  "expectedConcept": "Sanitation is a main part of Clean India and everyone everywhere needs toilets, so there are two city toilets (male and female) and one village toilet; toilets stop open defecation and protect health and water."
+ },
+ {
+  "question": "Is the village toilet connected to the biogas plant?",
+  "area": "Model & presentation",
+  "expectedConcept": "The bot should not claim the toilet is connected to the biogas plant; this is unconfirmed and should be checked with Rajnish Ma'am."
+ },
+ {
+  "question": "What does the India map with 'Carbon Emission' written below it mean?",
+  "area": "Model & presentation",
+  "expectedConcept": "It stands for carbon emissions and global warming affecting India, and the parts around it (solar, wind, EVs, hydrogen train, biogas) show ways to reduce emissions."
+ },
+ {
+  "question": "How many dustbins are in your model and what colours are they?",
+  "area": "Model & presentation",
+  "expectedConcept": "There are five colour-coded bins: green (wet), blue (dry), black (domestic hazardous), red (sanitary) and yellow (likely biomedical), following Chandigarh's system and to be confirmed with Ma'am."
+ },
+ {
+  "question": "What does your plastic-to-energy machine show?",
+  "area": "Model & presentation",
+  "expectedConcept": "It shows the waste-to-energy idea, with a bulb glowing to show energy recovered from waste that cannot be recycled; real plants are closed and have pollution control, and plastic must never be burnt in the open."
+ },
+ {
+  "question": "Where does the dirty water in your model come from?",
+  "area": "Model & presentation",
+  "expectedConcept": "The dirty water comes from the 'Sugar & Leather Industry' factory and is pumped through pipes to the filter, showing that factory wastewater must be treated before it reaches rivers."
+ },
+ {
+  "question": "Is your water filter an ETP?",
+  "area": "Model & presentation",
+  "expectedConcept": "No. The filter shows only a simple physical filtration step, while a real ETP is large-scale, has physical, chemical and biological treatment, and tests the water."
+ },
+ {
+  "question": "Does the filter in your model have a sand layer?",
+  "area": "Model & presentation",
+  "expectedConcept": "Her file lists the layers as stones and gravel, sand, charcoal, cotton, but whether the model filter has sand must be confirmed with Rajnish Ma'am; skip 'sand' when pointing if it is not there."
+ },
+ {
+  "question": "What is the hut in the smart village for?",
+  "area": "Model & presentation",
+  "expectedConcept": "The handmade hut is a village home showing that a smart village can be clean and healthy and can use local resources like cow dung, crop waste and sunlight."
+ },
+ {
+  "question": "Why did you make a hydrogen train in your model?",
+  "area": "Model & presentation",
+  "expectedConcept": "It shows India's first hydrogen train on the Jind–Sonipat route (flagged off in July 2026), which uses fuel cells and gives mainly water vapour instead of diesel smoke, an example of cleaner transport."
+ },
+ {
+  "question": "what materials did you use to make the model",
+  "area": "Model & presentation",
+  "expectedConcept": "The materials are a green wooden base, cardboard and paper, a real solar panel with a bulb, an EV station with a toy car, button and light, two model electric buses, a hydrogen train on a track, charcoal, stones and cotton for the filter, a handmade plastic-to-energy machine with a bulb, one windmill, two flower pots and five coloured dustbins."
+ },
+ {
+  "question": "What did you learn from making this project?",
+  "area": "Model & presentation",
+  "expectedConcept": "Separated waste is a resource and mixed waste is garbage; wet waste can become compost or biogas; toilets protect health and water; clean energy's benefit depends on how the power is made; clear water is not always safe; plastic must never be burnt in the open."
+ },
+ {
+  "question": "What can you do as a student for Clean India?",
+  "area": "Model & presentation",
+  "expectedConcept": "Her pledge is to separate wet and dry waste at home and school, carry a cloth bag and her own water bottle, never litter, and spread awareness, because small steps make a big difference."
+ },
+ {
+  "question": "who is your teacher and which school are you from",
+  "area": "Model & presentation",
+  "expectedConcept": "Avni Choudhary is in Class 6 at Sharda Sarvhitkari Senior Secondary School, Chandigarh, and her science teacher is Rajnish Ma'am."
+ },
+ {
+  "question": "Why is there a bus stand in your model?",
+  "area": "Model & presentation",
+  "expectedConcept": "The bus stand has two electric buses to show public transport: one bus carries many people, so there are fewer vehicles, and electric buses give no tailpipe smoke and less noise."
+ },
+ {
+  "question": "who won the cricket match yesterday",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "What is the capital of France?",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "how old is Rajnish Ma'am",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "what is 345 times 27",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "aaj chandigarh ka mausam kaisa rahega",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "What marks will I get in the science fair?",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "How do I make a volcano model for my friend's project?",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "Who is the best singer in Bollywood?",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "How many toilets were built in Sector 22 Chandigarh last month?",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ },
+ {
+  "question": "What is the petrol price today?",
+  "area": "Off-topic",
+  "expectedConcept": "OFF-TOPIC"
+ }
+]

@@ -1,0 +1,838 @@
+[
+ {
+  "i": 0,
+  "best": "ci-launch",
+  "alsoOk": []
+ },
+ {
+  "i": 1,
+  "best": "ci-launch",
+  "alsoOk": []
+ },
+ {
+  "i": 2,
+  "best": "ci-odf-meaning",
+  "alsoOk": [
+   "ci-odf-village"
+  ]
+ },
+ {
+  "i": 3,
+  "best": "ci-odf-plus",
+  "alsoOk": []
+ },
+ {
+  "i": 4,
+  "best": "ci-odf-plus-stages",
+  "alsoOk": []
+ },
+ {
+  "i": 5,
+  "best": "ci-odf-plus-stages",
+  "alsoOk": []
+ },
+ {
+  "i": 6,
+  "best": "ci-open-defecation-disease",
+  "alsoOk": [
+   "md-city-toilets"
+  ]
+ },
+ {
+  "i": 7,
+  "best": "ci-open-defecation-disease",
+  "alsoOk": []
+ },
+ {
+  "i": 8,
+  "best": "ci-open-defecation-disease",
+  "alsoOk": []
+ },
+ {
+  "i": 9,
+  "best": "ci-urban-toilets",
+  "alsoOk": []
+ },
+ {
+  "i": 10,
+  "best": "ci-odf-plus-count",
+  "alsoOk": []
+ },
+ {
+  "i": 11,
+  "best": "ci-safaimitra-surakshit-shehar",
+  "alsoOk": []
+ },
+ {
+  "i": 12,
+  "best": "ci-safaimitra-surakshit-shehar",
+  "alsoOk": []
+ },
+ {
+  "i": 13,
+  "best": "ci-legacy-dumpsites",
+  "alsoOk": []
+ },
+ {
+  "i": 14,
+  "best": "ci-why-oct-2",
+  "alsoOk": []
+ },
+ {
+  "i": 15,
+  "best": "ci-odf-still-work",
+  "alsoOk": []
+ },
+ {
+  "i": 16,
+  "best": "GAP",
+  "alsoOk": [],
+  "gapNote": "No card's ANSWER explains a twin-pit toilet. The fact appears only in the 'Did you know' fun lines of ci-odf-village and md-village-toilet, so a bot that picks either card shows it as a side note under an unrelated main answer. Missing card: 'What is a twin-pit toilet?' It should say there are two pits, one is used until it is full, then the other is used while waste in the first slowly turns into safe manure. Include it in SBM-Grameen village toilets."
+ },
+ {
+  "i": 17,
+  "best": "en-solar-mobile-toilets",
+  "alsoOk": []
+ },
+ {
+  "i": 18,
+  "best": "ci-swachh-vidyalaya",
+  "alsoOk": [
+   "en-school-rooftop-solar"
+  ]
+ },
+ {
+  "i": 19,
+  "best": "ci-phase2-areas",
+  "alsoOk": []
+ },
+ {
+  "i": 20,
+  "best": "wm-segregation-source",
+  "alsoOk": []
+ },
+ {
+  "i": 21,
+  "best": "wm-chandigarh-bins",
+  "alsoOk": [
+   "wm-swm-rules-2026"
+  ]
+ },
+ {
+  "i": 22,
+  "best": "wm-why-segregate",
+  "alsoOk": []
+ },
+ {
+  "i": 23,
+  "best": "wm-swm-rules-2026",
+  "alsoOk": []
+ },
+ {
+  "i": 24,
+  "best": "wm-swm-rules-2026",
+  "alsoOk": []
+ },
+ {
+  "i": 25,
+  "best": "wm-green-bin",
+  "alsoOk": []
+ },
+ {
+  "i": 26,
+  "best": "wm-blue-bin",
+  "alsoOk": []
+ },
+ {
+  "i": 27,
+  "best": "wm-black-bin",
+  "alsoOk": []
+ },
+ {
+  "i": 28,
+  "best": "wm-red-bin",
+  "alsoOk": []
+ },
+ {
+  "i": 29,
+  "best": "wm-yellow-bin",
+  "alsoOk": []
+ },
+ {
+  "i": 30,
+  "best": "wm-biomedical-colours",
+  "alsoOk": []
+ },
+ {
+  "i": 31,
+  "best": "wm-special-care",
+  "alsoOk": [
+   "wm-black-bin"
+  ]
+ },
+ {
+  "i": 32,
+  "best": "wm-paper-dry",
+  "alsoOk": []
+ },
+ {
+  "i": 33,
+  "best": "wm-bio-vs-nonbio",
+  "alsoOk": []
+ },
+ {
+  "i": 34,
+  "best": "pr-plastic-harm",
+  "alsoOk": [
+   "wm-bio-vs-nonbio"
+  ]
+ },
+ {
+  "i": 35,
+  "best": "wm-7rs",
+  "alsoOk": []
+ },
+ {
+  "i": 36,
+  "best": "wm-repurpose",
+  "alsoOk": []
+ },
+ {
+  "i": 37,
+  "best": "wm-7rs-order",
+  "alsoOk": []
+ },
+ {
+  "i": 38,
+  "best": "md-quote-best-waste",
+  "alsoOk": [
+   "wm-7rs-order"
+  ]
+ },
+ {
+  "i": 39,
+  "best": "wm-7rs",
+  "alsoOk": []
+ },
+ {
+  "i": 40,
+  "best": "wm-compost",
+  "alsoOk": []
+ },
+ {
+  "i": 41,
+  "best": "wm-vermicompost",
+  "alsoOk": []
+ },
+ {
+  "i": 42,
+  "best": "wm-mrf",
+  "alsoOk": [
+   "wm-blue-bin"
+  ]
+ },
+ {
+  "i": 43,
+  "best": "wm-steps",
+  "alsoOk": []
+ },
+ {
+  "i": 44,
+  "best": "wm-chandigarh-bins",
+  "alsoOk": []
+ },
+ {
+  "i": 45,
+  "best": "pr-single-use-plastic",
+  "alsoOk": []
+ },
+ {
+  "i": 46,
+  "best": "pr-sup-ban-19-items",
+  "alsoOk": []
+ },
+ {
+  "i": 47,
+  "best": "pr-eco-brick-what",
+  "alsoOk": []
+ },
+ {
+  "i": 48,
+  "best": "pr-eco-brick-mission",
+  "alsoOk": []
+ },
+ {
+  "i": 49,
+  "best": "pr-plastic-man-who",
+  "alsoOk": [
+   "md-plastic-man"
+  ]
+ },
+ {
+  "i": 50,
+  "best": "pr-plastic-road-how",
+  "alsoOk": []
+ },
+ {
+  "i": 51,
+  "best": "pr-padma-shri",
+  "alsoOk": [
+   "md-plastic-man"
+  ]
+ },
+ {
+  "i": 52,
+  "best": "pr-free-technology",
+  "alsoOk": [
+   "md-plastic-man"
+  ]
+ },
+ {
+  "i": 53,
+  "best": "pr-plastic-roads-india",
+  "alsoOk": []
+ },
+ {
+  "i": 54,
+  "best": "pr-still-reduce",
+  "alsoOk": []
+ },
+ {
+  "i": 55,
+  "best": "pr-plastic-harm",
+  "alsoOk": [
+   "wm-bio-vs-nonbio"
+  ]
+ },
+ {
+  "i": 56,
+  "best": "pr-refuse-cloth-bag",
+  "alsoOk": []
+ },
+ {
+  "i": 57,
+  "best": "pr-keep-rivers-clean",
+  "alsoOk": []
+ },
+ {
+  "i": 58,
+  "best": "pr-no-dumping-rivers",
+  "alsoOk": []
+ },
+ {
+  "i": 59,
+  "best": "pr-puja-collection-bin",
+  "alsoOk": []
+ },
+ {
+  "i": 60,
+  "best": "pr-stp-vs-etp",
+  "alsoOk": [
+   "bw-stp-vs-etp"
+  ]
+ },
+ {
+  "i": 61,
+  "best": "pr-stp-vs-etp",
+  "alsoOk": [
+   "bw-stp-vs-etp"
+  ]
+ },
+ {
+  "i": 62,
+  "best": "pr-trash-skimmer",
+  "alsoOk": []
+ },
+ {
+  "i": 63,
+  "best": "pr-riverbank-trees",
+  "alsoOk": []
+ },
+ {
+  "i": 64,
+  "best": "pr-plastic-in-rivers",
+  "alsoOk": []
+ },
+ {
+  "i": 65,
+  "best": "en-green-energy",
+  "alsoOk": []
+ },
+ {
+  "i": 66,
+  "best": "en-solar-pv-how",
+  "alsoOk": [
+   "md-solar"
+  ]
+ },
+ {
+  "i": 67,
+  "best": "en-solar-pv-how",
+  "alsoOk": []
+ },
+ {
+  "i": 68,
+  "best": "en-solar-not-zero-impact",
+  "alsoOk": [
+   "en-solar-night-clouds"
+  ]
+ },
+ {
+  "i": 69,
+  "best": "en-wind-turbine-how",
+  "alsoOk": [
+   "md-windmill"
+  ]
+ },
+ {
+  "i": 70,
+  "best": "en-solar-vs-wind",
+  "alsoOk": []
+ },
+ {
+  "i": 71,
+  "best": "en-wind-india",
+  "alsoOk": []
+ },
+ {
+  "i": 72,
+  "best": "en-wind-mnre-niwe",
+  "alsoOk": []
+ },
+ {
+  "i": 73,
+  "best": "en-india-clean-energy-progress",
+  "alsoOk": []
+ },
+ {
+  "i": 74,
+  "best": "en-net-zero-2070",
+  "alsoOk": []
+ },
+ {
+  "i": 75,
+  "best": "en-green-hydrogen-mission",
+  "alsoOk": []
+ },
+ {
+  "i": 76,
+  "best": "en-green-vs-grey-hydrogen",
+  "alsoOk": []
+ },
+ {
+  "i": 77,
+  "best": "en-fuel-cell",
+  "alsoOk": []
+ },
+ {
+  "i": 78,
+  "best": "en-fuel-cell",
+  "alsoOk": []
+ },
+ {
+  "i": 79,
+  "best": "en-fuel-cell",
+  "alsoOk": [
+   "md-train"
+  ]
+ },
+ {
+  "i": 80,
+  "best": "en-hydrogen-train-launch",
+  "alsoOk": [
+   "md-train"
+  ]
+ },
+ {
+  "i": 81,
+  "best": "en-hydrogen-train-route",
+  "alsoOk": [
+   "md-train",
+   "en-hydrogen-train-launch"
+  ]
+ },
+ {
+  "i": 82,
+  "best": "en-green-vs-grey-hydrogen",
+  "alsoOk": [
+   "en-jind-hydrogen-plant"
+  ]
+ },
+ {
+  "i": 83,
+  "best": "en-hydrogen-train-germany",
+  "alsoOk": []
+ },
+ {
+  "i": 84,
+  "best": "en-ev-what",
+  "alsoOk": [
+   "md-ev"
+  ]
+ },
+ {
+  "i": 85,
+  "best": "en-ev-coal-electricity",
+  "alsoOk": []
+ },
+ {
+  "i": 86,
+  "best": "en-carbon-emission",
+  "alsoOk": [
+   "md-india-map"
+  ]
+ },
+ {
+  "i": 87,
+  "best": "en-global-warming",
+  "alsoOk": []
+ },
+ {
+  "i": 88,
+  "best": "wm-methane",
+  "alsoOk": [
+   "en-global-warming"
+  ]
+ },
+ {
+  "i": 89,
+  "best": "en-afforestation-reforestation",
+  "alsoOk": []
+ },
+ {
+  "i": 90,
+  "best": "bw-what-is-biogas",
+  "alsoOk": []
+ },
+ {
+  "i": 91,
+  "best": "bw-anaerobic-digestion",
+  "alsoOk": [
+   "md-biogas",
+   "bw-avni-biogas-plant",
+   "bw-what-is-biogas"
+  ]
+ },
+ {
+  "i": 92,
+  "best": "bw-anaerobic-digestion",
+  "alsoOk": []
+ },
+ {
+  "i": 93,
+  "best": "bw-biogas-gases",
+  "alsoOk": []
+ },
+ {
+  "i": 94,
+  "best": "bw-slurry",
+  "alsoOk": []
+ },
+ {
+  "i": 95,
+  "best": "bw-anaerobic-digestion",
+  "alsoOk": []
+ },
+ {
+  "i": 96,
+  "best": "bw-biogas-benefits",
+  "alsoOk": []
+ },
+ {
+  "i": 97,
+  "best": "bw-biogas-not-zero",
+  "alsoOk": []
+ },
+ {
+  "i": 98,
+  "best": "bw-gobardhan",
+  "alsoOk": []
+ },
+ {
+  "i": 99,
+  "best": "bw-cbg",
+  "alsoOk": []
+ },
+ {
+  "i": 100,
+  "best": "bw-what-is-wte",
+  "alsoOk": []
+ },
+ {
+  "i": 101,
+  "best": "bw-never-open-burning",
+  "alsoOk": []
+ },
+ {
+  "i": 102,
+  "best": "bw-incineration",
+  "alsoOk": []
+ },
+ {
+  "i": 103,
+  "best": "bw-incineration",
+  "alsoOk": []
+ },
+ {
+  "i": 104,
+  "best": "bw-wte-capacity",
+  "alsoOk": []
+ },
+ {
+  "i": 105,
+  "best": "bw-wet-waste-burns-badly",
+  "alsoOk": []
+ },
+ {
+  "i": 106,
+  "best": "bw-pyrolysis",
+  "alsoOk": []
+ },
+ {
+  "i": 107,
+  "best": "bw-rdf",
+  "alsoOk": []
+ },
+ {
+  "i": 108,
+  "best": "md-filter",
+  "alsoOk": [
+   "bw-filter-layers"
+  ]
+ },
+ {
+  "i": 109,
+  "best": "bw-filtered-water-safe",
+  "alsoOk": []
+ },
+ {
+  "i": 110,
+  "best": "bw-charcoal-adsorption",
+  "alsoOk": []
+ },
+ {
+  "i": 111,
+  "best": "bw-charcoal-adsorption",
+  "alsoOk": []
+ },
+ {
+  "i": 112,
+  "best": "bw-coarse-to-fine",
+  "alsoOk": [
+   "bw-cotton-bottom"
+  ]
+ },
+ {
+  "i": 113,
+  "best": "bw-etp-steps",
+  "alsoOk": []
+ },
+ {
+  "i": 114,
+  "best": "bw-chromium-tannery",
+  "alsoOk": []
+ },
+ {
+  "i": 115,
+  "best": "md-clean-india-link",
+  "alsoOk": []
+ },
+ {
+  "i": 116,
+  "best": "md-layout",
+  "alsoOk": []
+ },
+ {
+  "i": 117,
+  "best": "en-solar-demo",
+  "alsoOk": [
+   "md-solar"
+  ]
+ },
+ {
+  "i": 118,
+  "best": "en-solar-night-clouds",
+  "alsoOk": []
+ },
+ {
+  "i": 119,
+  "best": "md-ev",
+  "alsoOk": [
+   "en-ev-what"
+  ]
+ },
+ {
+  "i": 120,
+  "best": "md-ladder",
+  "alsoOk": []
+ },
+ {
+  "i": 121,
+  "best": "md-digger",
+  "alsoOk": []
+ },
+ {
+  "i": 122,
+  "best": "md-windmill",
+  "alsoOk": [
+   "en-windmill-model"
+  ]
+ },
+ {
+  "i": 123,
+  "best": "md-layout",
+  "alsoOk": []
+ },
+ {
+  "i": 124,
+  "best": "md-pots",
+  "alsoOk": [
+   "en-trees-co2"
+  ]
+ },
+ {
+  "i": 125,
+  "best": "md-city-toilets",
+  "alsoOk": [
+   "md-village-toilet"
+  ]
+ },
+ {
+  "i": 126,
+  "best": "md-village-toilet",
+  "alsoOk": []
+ },
+ {
+  "i": 127,
+  "best": "md-india-map",
+  "alsoOk": [
+   "en-carbon-emission"
+  ]
+ },
+ {
+  "i": 128,
+  "best": "wm-five-bins",
+  "alsoOk": [
+   "md-bins"
+  ]
+ },
+ {
+  "i": 129,
+  "best": "md-wte",
+  "alsoOk": [
+   "bw-avni-wte-machine"
+  ]
+ },
+ {
+  "i": 130,
+  "best": "md-factory",
+  "alsoOk": [
+   "bw-factory-wastewater"
+  ]
+ },
+ {
+  "i": 131,
+  "best": "bw-filter-vs-etp",
+  "alsoOk": [
+   "md-filter-vs-etp"
+  ]
+ },
+ {
+  "i": 132,
+  "best": "bw-filter-layers",
+  "alsoOk": [
+   "md-filter"
+  ]
+ },
+ {
+  "i": 133,
+  "best": "md-smart-village",
+  "alsoOk": []
+ },
+ {
+  "i": 134,
+  "best": "md-train",
+  "alsoOk": []
+ },
+ {
+  "i": 135,
+  "best": "GAP",
+  "alsoOk": [],
+  "gapNote": "No card lists what the model is made of: green wooden base, cardboard and paper, a real solar panel and bulb, a toy car with button and light, model buses, a train on a track, filter charcoal, stones and cotton, a handmade machine and bulb, and so on. md-layout only lists the parts and their positions, so it is the closest partial answer. Needed: an 'md-materials' card ('What materials did you use to make your model?')."
+ },
+ {
+  "i": 136,
+  "best": "md-learned",
+  "alsoOk": []
+ },
+ {
+  "i": 137,
+  "best": "md-duties",
+  "alsoOk": [
+   "ci-everyones-job"
+  ]
+ },
+ {
+  "i": 138,
+  "best": "GAP",
+  "alsoOk": [],
+  "gapNote": "No card gives Avni's own details. Needed: an 'about me' card ('Who are you / which school / who is your teacher?') saying Avni Choudhary, Class 6, Sharda Sarvhitkari Senior Secondary School, Chandigarh, and science teacher Rajnish Ma'am. md-eco-dost describes the bot, not Avni."
+ },
+ {
+  "i": 139,
+  "best": "md-bus",
+  "alsoOk": [
+   "en-electric-bus"
+  ]
+ },
+ {
+  "i": 140,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 141,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 142,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 143,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 144,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 145,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 146,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 147,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 148,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ },
+ {
+  "i": 149,
+  "best": "OFF-TOPIC",
+  "alsoOk": []
+ }
+]

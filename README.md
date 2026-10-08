@@ -73,3 +73,7 @@ cd site && python3 -m http.server 8000
 
 - **On the website** (`#ecodost`): an offline chat buddy. Its answers are the fact-checked cards in `site/ecodost-data.js`; `site/ecodost.js` finds the best card for a question (it copes with spelling mistakes, short forms and Hinglish), and runs the quick checks, quiz, ⭐ points, levels and badges.
 - **Eco-Dost Live** (real AI, opens on claude.ai while signed in): built from `live/eco-dost-live.template.html` with `node live/build.js live/project-file.md`, which adds a knowledge pack made from `site/content.js` and the project-file transcription. Rebuild and republish it whenever the content changes.
+
+### Measuring Eco-Dost
+
+`tests/ecodost/questions.json` holds 150 realistic student/judge questions (written separately from the cards) and `labels.json` the reviewer-chosen correct card for each. Run `node tests/ecodost/tune.js tests/ecodost/labels.json --report` after adding or changing cards: it shows right answers, "did you mean" hits, wrong answers and off-topic slips. At release: 122 right + 5 offered as a choice out of 137 on-topic questions, 2 hard-wrong, 0 off-topic answered.

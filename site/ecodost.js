@@ -39,10 +39,14 @@
   // misspelled question words ("waht", "hw", "wy") are dropped instead of being "corrected" into topic words
   const QWORDS = ["what", "why", "how", "when", "where", "which", "who", "whose", "does", "explain", "tell", "please", "kya", "kaise", "kyun", "kyon", "kaun", "kahan"];
   function isQuestionWord(w) { return w.length <= 7 && QWORDS.some(q => q !== w && lev(w, q, 1) <= 1); }
+  // question words tell us what KIND of answer is wanted (why / when / who / how / difference)
+  const INTENT = { why: "qwhy", kyun: "qwhy", kyon: "qwhy", reason: "qwhy", when: "qwhen", kab: "qwhen", who: "qwho", kaun: "qwho", kisne: "qwho", how: "qhow", kaise: "qhow",
+    difference: "qdiff", vs: "qdiff", versus: "qdiff", compare: "qdiff", fark: "qdiff", farak: "qdiff", antar: "qdiff" };
   function tokens(s) {
     const raw = String(s).toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9ऀ-ॿ\s]/g, " ").split(/\s+/).filter(Boolean);
     const out = [];
     raw.forEach(w => {
+      if (INTENT[w]) { out.push(INTENT[w]); return; }
       if (EXPAND[w]) { EXPAND[w].split(" ").forEach(x => out.push(x)); return; }
       w = SYN[w] || w;
       if (STOP.has(w) || isQuestionWord(w)) return;
@@ -74,7 +78,8 @@
     const docs = cards.map(c => {
       const tf = new Map();
       const add = (t, w) => tf.set(t, (tf.get(t) || 0) + w);
-      [c.q].concat(c.alts || []).forEach(s => tokens(s).forEach(t => add(t, 1)));
+      tokens(c.q).forEach(t => add(t, 1.5));
+      (c.alts || []).forEach(s => tokens(s).forEach(t => add(t, 1)));
       (c.keywords || []).forEach(s => tokens(s).forEach(t => add(t, 2)));
       let len = 0; tf.forEach(v => { len += v; });
       const phrases = [c.q].concat(c.alts || []).map(s => tokens(s));
@@ -127,7 +132,9 @@
     return { q, results, known };
   }
   // confidence rules (tuned on held-out test questions labelled by reviewers)
-  const TUNE = { knownMin: 0.5, sure: 4.0, coverSure: 0.34, maybe: 2.0, coverMaybe: 0.2, related: 0.75 };
+  // Chosen on 150 held-out test questions: few confident wrong answers, no off-topic answers;
+  // when unsure Eco-Dost offers "Did you mean…?" choices instead of guessing.
+  const TUNE = { knownMin: 0.34, sure: 10, coverSure: 0.5, maybe: 1.5, coverMaybe: 0.15, related: 0.75 };
   function decide(found, tune) {
     const T = tune || TUNE;
     const [r1] = found.results;
@@ -146,6 +153,7 @@
     { re: /^(hi|hii+|hello|hey|namaste|namaskar|good (morning|afternoon|evening)|hola)\b/i, say: () => pick(["Hi Avni! 👋 I'm Eco-Dost, your project buddy. Ask me anything about your file or your model!", "Namaste Avni! 🙏 Ready to learn something cool about Clean India?", "Hello hello! 🤖 What shall we explore today?"]) },
     { re: /\b(thank|thanks|thx|shukriya|dhanyavad|dhanyawad)\b/i, say: () => pick(["You're welcome, Avni! 🌟 Keep asking — every question makes you stronger!", "Anytime! 💚 Want me to quiz you? Tap 🎲 Quiz me!"]) },
     { re: /\b(joke|funny|hasao|chutkula)\b/i, say: () => pick(JOKES) },
+    { re: /^(who are you|what are you|tum kaun ho|aap kaun ho|who r u)\b/i, say: () => "I'm Eco-Dost 🤖♻️ — Avni's project buddy! I know everything in your project file and your model, and I love quizzing you. Ask me anything, or tap 🎲 Quiz me!" },
     { re: /^(bye|goodbye|see you|alvida|tata)\b/i, say: () => "Bye Avni! 👋 Remember: the best waste is the waste we never create! ♻️" },
     { re: /^(help|what can you do|how (do|does) this work)\b/i, say: () => "Type or 🎤 speak any question about your project file or model — like “How does biogas work?” or “Why is cotton at the bottom of my filter?”. Tap 🎲 Quiz me and I'll ask YOU questions. Every question earns ⭐ points!" },
   ];

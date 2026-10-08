@@ -27,38 +27,46 @@
   const STOP = new Set(("a an the is are was were be been am of to in on for and or it its this that these those your my i you me we us our with by as at from about into than then so if not no yes please tell explain give " +
     "name what why how which who whom whose when where does do did can could would should will shall may might must there their they them he she his her what's whats hey eco dost robot " +
     "kya kaise kyun kyon kab kahan kaun hai hain ka ki ke ko se me mein aur bhi bata batao samjhao ye yeh wo woh hota hoti hote karte karein karo kare").split(" "));
+  // One consistent rule so that waste/wastes, recycle/recycling/recycled all become the same word
   function stem(w) {
-    if (w.length > 5 && w.endsWith("ies")) return w.slice(0, -3) + "y";
-    if (w.length > 5 && w.endsWith("ing")) return w.slice(0, -3);
-    if (w.length > 4 && w.endsWith("ed")) return w.slice(0, -2);
-    if (w.length > 4 && w.endsWith("es") && !w.endsWith("ses")) return w.slice(0, -2);
-    if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
+    if (w.length > 5 && w.endsWith("ies")) w = w.slice(0, -3) + "y";
+    else if (w.length > 5 && w.endsWith("ing")) w = w.slice(0, -3);
+    else if (w.length > 4 && w.endsWith("ed")) w = w.slice(0, -2);
+    else if (w.length > 3 && w.endsWith("s") && !/(ss|us|is|as)$/.test(w)) w = w.slice(0, -1);
+    if (w.length > 3 && w.endsWith("e")) w = w.slice(0, -1);
     return w;
   }
+  // misspelled question words ("waht", "hw", "wy") are dropped instead of being "corrected" into topic words
+  const QWORDS = ["what", "why", "how", "when", "where", "which", "who", "whose", "does", "explain", "tell", "please", "kya", "kaise", "kyun", "kyon", "kaun", "kahan"];
+  function isQuestionWord(w) { return w.length <= 7 && QWORDS.some(q => q !== w && lev(w, q, 1) <= 1); }
   function tokens(s) {
     const raw = String(s).toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9ऀ-ॿ\s]/g, " ").split(/\s+/).filter(Boolean);
     const out = [];
     raw.forEach(w => {
       if (EXPAND[w]) { EXPAND[w].split(" ").forEach(x => out.push(x)); return; }
       w = SYN[w] || w;
-      if (STOP.has(w)) return;
+      if (STOP.has(w) || isQuestionWord(w)) return;
       out.push(stem(SYN[stem(w)] || w));
     });
     return out;
   }
+  // edit distance where swapping two neighbouring letters ("waht" / "what") counts as one change
   function lev(a, b, max) {
     if (Math.abs(a.length - b.length) > max) return max + 1;
-    let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    const d = [];
+    for (let i = 0; i <= a.length; i++) { d[i] = [i]; }
+    for (let j = 0; j <= b.length; j++) d[0][j] = j;
     for (let i = 1; i <= a.length; i++) {
-      const cur = [i]; let best = i;
+      let rowMin = Infinity;
       for (let j = 1; j <= b.length; j++) {
-        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
-        best = Math.min(best, cur[j]);
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+        rowMin = Math.min(rowMin, d[i][j]);
       }
-      if (best > max) return max + 1;
-      prev = cur;
+      if (rowMin > max) return max + 1;
     }
-    return prev[b.length];
+    return d[a.length][b.length];
   }
 
   // Build a search index over the cards: question + alternative questions + keywords (keywords count double)
@@ -92,7 +100,9 @@
   }
   function search(query, idx) {
     const q = tokens(query).map(t => correct(t, idx));
-    if (!q.length) return { q, results: [] };
+    if (!q.length) return { q, results: [], known: 0 };
+    // share of the question's words that appear anywhere in the cards (off-topic questions score low)
+    const known = q.filter(t => idx.df.has(t)).length / q.length;
     const k1 = 1.4, b = 0.6;
     const qset = new Set(q);
     const results = idx.docs.map(d => {
@@ -114,15 +124,20 @@
       });
       return { card: d.card, score: s * (0.6 + cover), bm: s, cover };
     }).filter(r => r.bm > 0).sort((a, b) => b.score - a.score);
-    return { q, results };
+    return { q, results, known };
   }
-  // confidence rules (tuned on the held-out test questions)
-  const TUNE = { sure: 4.0, maybe: 2.0, coverSure: 0.34 };
-  function decide(found) {
-    const [r1, r2] = found.results;
-    if (!r1) return { kind: "none" };
-    if (r1.score >= TUNE.sure && r1.cover >= TUNE.coverSure && (!r2 || r1.score >= r2.score * 1.08)) return { kind: "answer", r: r1 };
-    if (r1.score >= TUNE.maybe) return { kind: "maybe", options: found.results.slice(0, 3) };
+  // confidence rules (tuned on held-out test questions labelled by reviewers)
+  const TUNE = { knownMin: 0.5, sure: 4.0, coverSure: 0.34, maybe: 2.0, coverMaybe: 0.2, related: 0.75 };
+  function decide(found, tune) {
+    const T = tune || TUNE;
+    const [r1] = found.results;
+    if (!r1 || found.known < T.knownMin) return { kind: "none" };
+    if (r1.score >= T.sure && r1.cover >= T.coverSure) {
+      // other cards that are almost as good are offered as "related" buttons
+      const related = found.results.slice(1, 4).filter(r => r.score >= r1.score * T.related).slice(0, 2);
+      return { kind: "answer", r: r1, related };
+    }
+    if (r1.score >= T.maybe && r1.cover >= T.coverMaybe) return { kind: "maybe", options: found.results.slice(0, 3) };
     return { kind: "none" };
   }
 
@@ -264,11 +279,15 @@
         };
       };
     }
-    async function answerCard(c, opener) {
+    async function answerCard(c, opener, related) {
       const t = typing(); await wait(500 + Math.min(900, c.answer.length * 6)); t.remove();
       bot((opener ? "<b>" + esc(opener) + "</b> " : "") + cardHTML(c));
       sayAloud(c);
       if (!st.asked.includes(c.id)) { st.asked.push(c.id); save(); addPoints(1, "for a new question"); }
+      if (related && related.length) {
+        const el = bot('🔗 <b>Related:</b><div class="ed-chips">' + related.map(r => '<button class="chip" data-id="' + r.card.id + '">' + esc(r.card.q) + "</button>").join("") + "</div>");
+        el.querySelectorAll("[data-id]").forEach(b => b.onclick = () => { bubble(esc(byId[b.dataset.id].q), "me"); answerCard(byId[b.dataset.id], "Sure! 👍"); });
+      }
       await wait(400);
       quickCheck(c);
       suggest(c.topic);
@@ -280,7 +299,7 @@
       $("#edInput").value = "";
       for (const tk of TALK) if (tk.re.test(text)) { const t = typing(); await wait(500); t.remove(); bot(esc(tk.say())); return; }
       const found = search(text, idx), d = decide(found);
-      if (d.kind === "answer") return answerCard(d.r.card, pick(OPENERS));
+      if (d.kind === "answer") return answerCard(d.r.card, pick(OPENERS), d.related);
       const t = typing(); await wait(600); t.remove();
       if (d.kind === "maybe") {
         const el = bot("🤔 Hmm, I'm not 100% sure what you mean. Did you mean one of these?" +

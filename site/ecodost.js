@@ -169,6 +169,12 @@
     if (!D || !$("#tab-ecodost")) return;
     const V = window.Voice;
     const store = opts.store, esc = opts.esc;
+    const live = window.SITE && window.SITE.student && window.SITE.student.ecodostLiveUrl;
+    if (live && !document.documentElement.classList.contains("visitor")) {
+      $("#edLive").hidden = false;
+      $("#edLive").innerHTML = '<div><b>🧠 Want a real AI to answer ANY question?</b><br><span class="small muted">Eco-Dost Live uses Claude to answer from your file, and can mark your quiz answers like Rajnish Ma\'am. Open it while you are signed in to Claude.</span></div>' +
+        '<a class="btn act" href="' + esc(live) + '" target="_blank" rel="noopener">Open Eco-Dost Live →</a>';
+    }
     if (!D.cards || !D.cards.length) {
       $("#edChat").innerHTML = '<div class="ed-msg bot"><span class="ed-ava" aria-hidden="true">🤖</span><div class="ed-bub">📚 Eco-Dost is still learning your project — come back soon!</div></div>';
       $("#edForm").hidden = true; $("#edQuiz").disabled = true;
@@ -329,12 +335,6 @@
     function greet() {
       bot("👋 Hi Avni! I'm <b>Eco-Dost</b>, your project buddy! 🤖♻️<br>Ask me anything about <b>your project file</b> or <b>your model</b> — type it or tap 🎤. I'll explain, share a fun fact, and then test you with a quick check. Every new question = ⭐!");
       suggest();
-    }
-    const live = window.SITE && window.SITE.student && window.SITE.student.ecodostLiveUrl;
-    if (live && !document.documentElement.classList.contains("visitor")) {
-      $("#edLive").hidden = false;
-      $("#edLive").innerHTML = '<div><b>🧠 Want a real AI to answer ANY question?</b><br><span class="small muted">Eco-Dost Live uses Claude to answer from your file, and can mark your quiz answers like Rajnish Ma\'am. Open it while you are signed in to Claude.</span></div>' +
-        '<a class="btn act" href="' + esc(live) + '" target="_blank" rel="noopener">Open Eco-Dost Live →</a>';
     }
     renderStats();
     greet();

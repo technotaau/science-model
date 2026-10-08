@@ -627,6 +627,8 @@
     $("#stBackstage").innerHTML = st.backstage.map(x => "<li>" + esc(x) + "</li>").join("");
     $("#stTips").innerHTML = st.tips.map(x => "<li>" + esc(x) + "</li>").join("");
     $("#stRescue").innerHTML = st.rescue.map(x => '<div class="rescue-item sec plain"><b>' + esc(x.q) + "</b>" + esc(x.a) + "</div>").join("");
+    $("#stRescue").insertAdjacentHTML("beforeend", '<p class="small"><a href="#thoughts" id="toLifelines">🛟 See ready-made “if I get stuck” lines in English and हिंदी →</a></p>');
+    $("#toLifelines").onclick = () => { th.use = "stuck"; renderThoughts(); };
     $("#stRehearse").onclick = () => stageRun ? endStageRun(false) : startStageRun();
     $("#stListenAll").onclick = async () => {
       if ($("#stListenAll").dataset.on) { V.stopSpeaking(); return; }

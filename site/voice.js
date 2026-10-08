@@ -18,12 +18,17 @@
   const synth = window.speechSynthesis;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const settings = Object.assign({ voice: "", rate: 0.9 }, store.get("voiceSettings", {}));
-  let voices = [];
+  let voices = [], hindiVoices = [];
   function loadVoices() {
     if (!synth) return;
+    hindiVoices = synth.getVoices().filter(v => /^hi/i.test(v.lang));
     voices = synth.getVoices().filter(v => /^en/i.test(v.lang));
     if (!voices.length) voices = synth.getVoices();
     renderVoicePicker();
+  }
+  // A Hindi voice for Hindi text (prefer one installed on the device)
+  function pickHindiVoice() {
+    return hindiVoices.find(v => v.localService) || hindiVoices[0] || null;
   }
   function pickVoice() {
     if (!voices.length) return null;
@@ -48,15 +53,17 @@
       if (!t) { resolve(); return; }
       const my = speakToken;
       // One utterance per sentence: Chrome cuts off long utterances after about 15 seconds
-      const parts = t.split(/(?<=[.!?])\s+/).filter(Boolean);
-      const v = pickVoice(), rate = opts.rate || settings.rate;
+      // ("।" is the Hindi full stop)
+      const parts = t.split(/(?<=[.!?।])\s+/).filter(Boolean);
+      const hindi = opts.lang === "hi";
+      const v = hindi ? pickHindiVoice() : pickVoice(), rate = opts.rate || settings.rate;
       let i = 0, done = false;
       const fin = () => { if (!done) { done = true; resolve(); } };
       const next = () => {
         if (done) return;
         if (i >= parts.length || my !== speakToken) { fin(); return; }
         const u = new SpeechSynthesisUtterance(parts[i++]);
-        if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-IN";
+        if (v) { u.voice = v; u.lang = v.lang; } else u.lang = hindi ? "hi-IN" : "en-IN";
         u.rate = rate; u.pitch = 1;
         let handled = false, safety = null;
         const go = () => { if (handled) return; handled = true; clearTimeout(safety); next(); };
@@ -149,7 +156,8 @@
   }
 
   window.Voice = { speak, speakSample, stopSpeaking, listen, stopListening, similarity, sampleHTML, highlighter, clean,
-    micProblem, stopMedia, canSpeak: !!synth, canListen: !!SR };
+    micProblem, stopMedia, canSpeak: !!synth, canListen: !!SR,
+    hasHindiVoice: () => hindiVoices.length > 0 };
 
   // =====================================================================
   // VOICE COACH TAB

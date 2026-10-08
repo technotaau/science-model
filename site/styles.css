@@ -371,3 +371,27 @@ html.visitor .brand-sub::after { content: " · Visitor view"; }
   .fixes tr { border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; margin-bottom: 8px; }
   .fixes td { border: 0; padding: 2px 0; }
 }
+
+/* ---------- thoughts / विचार ---------- */
+.hi, .th-hi { font-family: "Baloo 2", "Noto Sans Devanagari", "Nirmala UI", "Mangal", sans-serif; }
+.thoughts-hero { border-top-color: var(--deep); }
+.seg { display: inline-flex; border: 2px solid var(--act); border-radius: 10px; overflow: hidden; }
+.seg button { font: inherit; font-weight: 800; font-size: .9rem; border: 0; background: var(--surface); color: var(--ink); padding: 6px 12px; cursor: pointer; }
+.seg button.active { background: var(--act); color: var(--on-solid); }
+.thoughts { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.th-card { background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--deep); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.th-card.avni { border-left-color: var(--ask); }
+.th-card.quote { border-left-color: var(--act); }
+.th-card.fav { outline: 2px solid var(--ask); }
+.th-en { font-family: "Baloo 2", sans-serif; font-size: 1.18rem; line-height: 1.35; font-weight: 700; }
+.th-hi { font-size: 1.22rem; line-height: 1.5; font-weight: 600; color: var(--deep-ink); }
+.th-roman { font-size: .88rem; color: var(--muted); font-style: italic; }
+.th-meaning { font-size: .85rem; color: var(--muted); }
+.th-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px; }
+.th-note { font-size: .85rem; background: var(--act-bg); color: var(--act-ink); border-radius: 8px; padding: 4px 8px; }
+.th-src { font-size: .8rem; }
+.th-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.th-spot { border: 3px solid var(--deep); }
+.th-spot .th-en { font-size: 1.5rem; }
+.th-spot .th-hi { font-size: 1.5rem; }
+.pill.plain-pill { background: var(--bg); color: var(--muted); border-color: var(--line); }

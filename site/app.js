@@ -38,7 +38,7 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  const tabs = ["home", "stage", "project", "model", "walk", "viva", "voice", "score", "ask"];
+  const tabs = ["home", "stage", "thoughts", "project", "model", "walk", "viva", "voice", "score", "ask"];
   // ?visitor in the URL (from the stall QR code) shows only the clean project page
   const visitor = new URLSearchParams(location.search).has("visitor");
   function route() {
@@ -641,7 +641,8 @@
       const secs = stageSections();
       $("#cueCard").innerHTML = "<h2>🎤 " + esc(S.project ? S.project.title : S.student.topic) + " — cue card</h2><ol>" +
         secs.map(x => "<li><b>" + esc(x.title) + "</b><span>" + esc(x.cover.join(" · ")) + "</span></li>").join("") + "</ol>" +
-        '<p class="q">Final line: “A clean India is not just a dream; it is a responsibility we share.” → Thank you → Jai Hind!</p>';
+        '<p class="q">Final line: “A clean India is not just a dream; it is a responsibility we share.” → Thank you → Jai Hind!</p>' +
+        ((S.thoughts || []).filter(t => store.get("favThoughts", []).includes(t.id)).slice(0, 6).map(t => '<p class="q">💭 ' + esc(t.en) + (t.hi ? " · " + esc(t.hi) : "") + "</p>").join(""));
       document.body.classList.add("print-cue");
       const done = () => { document.body.classList.remove("print-cue"); window.removeEventListener("afterprint", done); };
       window.addEventListener("afterprint", done);
@@ -717,6 +718,88 @@
     if (stageRun && !e.repeat && !$("#tab-stage").hidden && (e.code === "Space" || e.key === "ArrowRight") && !/INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY/.test(document.activeElement.tagName)) { e.preventDefault(); nextStageStep(); }
   });
 
+
+  // ---------- 💭 thoughts / विचार ----------
+  const USE = { opening: "🎬 Opening", bridge: "🔗 Between parts", stuck: "🛟 If I get stuck", closing: "🏁 Closing", anytime: "✨ Anytime" };
+  const TOPIC = { "clean-india": "🇮🇳 Clean India", waste: "🗑️ Waste & segregation", plastic: "🧴 Plastic", water: "💧 Water", energy: "☀️ Green energy", sanitation: "🚻 Sanitation", nature: "🌳 Nature", duty: "🤝 Our duty", "7rs": "♻️ 7Rs" };
+  const KIND = { avni: '<span class="pill ask">✍️ Avni\'s own</span>', original: "", "official-slogan": '<span class="pill act">🏛️ Official slogan</span>', quote: '<span class="pill act">📜 Quote</span>' };
+  const th = { lang: store.get("thLang", "both"), roman: store.get("thRoman", false), use: "all", topic: "all" };
+  const favs = () => store.get("favThoughts", []);
+  function thoughtCard(t, spot) {
+    const fav = favs().includes(t.id);
+    const showEn = th.lang !== "hi", showHi = th.lang !== "en" && t.hi;
+    const src = (t.sourceUrls || [])[0];
+    return '<article class="th-card ' + (t.kind === "avni" ? "avni " : "") + (t.kind === "quote" || t.kind === "official-slogan" ? "quote " : "") + (fav ? "fav " : "") + (spot ? "th-spot" : "") + '" data-id="' + t.id + '">' +
+      (showEn ? '<div class="th-en">' + esc(t.en) + "</div>" : "") +
+      (showHi ? '<div class="th-hi" lang="hi">' + esc(t.hi) + "</div>" : "") +
+      (showHi && th.roman && t.hiRoman ? '<div class="th-roman">' + esc(t.hiRoman) + "</div>" : "") +
+      (th.lang === "hi" && t.hiMeaning ? '<div class="th-meaning">Meaning: ' + esc(t.hiMeaning) + "</div>" : "") +
+      (t.attribution ? '<div class="th-src">— ' + esc(t.attribution) + (src ? ' · <a href="' + esc(src) + '" target="_blank" rel="noopener">source</a>' : "") + "</div>" : "") +
+      (t.note ? '<div class="th-note">💡 ' + esc(t.note) + "</div>" : "") +
+      '<div class="th-tags">' + (KIND[t.kind] || "") + (t.use || []).map(u => '<span class="pill deep">' + esc(USE[u] || u) + "</span>").join(" ") +
+      ' <span class="pill plain-pill">' + esc(TOPIC[t.topic] || t.topic) + "</span></div>" +
+      '<div class="th-actions">' +
+      (V.canSpeak && showEn ? '<button class="btn small ghost" data-say="en">🔊 English</button>' : "") +
+      (V.canSpeak && showHi ? '<button class="btn small ghost" data-say="hi">🔊 हिंदी</button>' : "") +
+      '<button class="btn small ' + (fav ? "alt" : "ghost") + '" data-fav>' + (fav ? "⭐ Favourite" : "☆ Favourite") + "</button>" +
+      '<button class="btn small ghost" data-copy>📋 Copy</button></div></article>';
+  }
+  function wireThoughtCards(root) {
+    $$(".th-card", root).forEach(card => {
+      const t = S.thoughts.find(x => x.id === card.dataset.id);
+      $$("[data-say]", card).forEach(b => b.onclick = () => { V.stopSpeaking(); b.dataset.say === "hi" ? V.speak(t.hi, { lang: "hi", rate: 0.85 }) : V.speak(t.en); });
+      $("[data-fav]", card).onclick = () => {
+        const f = favs(); const i = f.indexOf(t.id);
+        if (i >= 0) f.splice(i, 1); else f.push(t.id);
+        store.set("favThoughts", f); renderThoughtList();
+      };
+      $("[data-copy]", card).onclick = async () => {
+        const text = [t.en, t.hi].filter(Boolean).join("\n") + (t.attribution ? "\n— " + t.attribution : "");
+        try { await navigator.clipboard.writeText(text); $("[data-copy]", card).textContent = "✅ Copied"; } catch (e) { prompt("Copy:", text); }
+      };
+    });
+  }
+  function filteredThoughts() {
+    const f = favs();
+    return (S.thoughts || []).filter(t =>
+      (th.use === "all" || (th.use === "fav" ? f.includes(t.id) : (t.use || []).includes(th.use))) &&
+      (th.topic === "all" || t.topic === th.topic) &&
+      (th.lang !== "hi" || t.hi));
+  }
+  function renderThoughtList() {
+    const list = filteredThoughts();
+    $("#thCount").textContent = list.length + " thought" + (list.length === 1 ? "" : "s");
+    $("#thList").innerHTML = list.length ? list.map(t => thoughtCard(t)).join("") :
+      '<p class="muted">' + (th.use === "fav" ? "No favourites yet — tap ☆ on any thought to save it here." : "No thoughts for this filter.") + "</p>";
+    wireThoughtCards($("#thList"));
+  }
+  function renderThoughts() {
+    if (!S.thoughts || !$("#tab-thoughts")) return;
+    $$("#thLang button").forEach(b => {
+      b.classList.toggle("active", b.dataset.lang === th.lang);
+      b.onclick = () => { th.lang = b.dataset.lang; store.set("thLang", th.lang); renderThoughts(); };
+    });
+    $("#thRoman").checked = th.roman;
+    $("#thRoman").onchange = () => { th.roman = $("#thRoman").checked; store.set("thRoman", th.roman); renderThoughtList(); };
+    const uses = ["all", "opening", "bridge", "stuck", "closing", "anytime", "fav"];
+    $("#thUse").innerHTML = uses.map(u => '<button class="chip' + (th.use === u ? " active" : "") + '" data-u="' + u + '">' +
+      (u === "all" ? "All" : u === "fav" ? "⭐ My favourites" : USE[u]) + "</button>").join("");
+    $$("#thUse .chip").forEach(b => b.onclick = () => { th.use = b.dataset.u; renderThoughts(); });
+    const topics = Array.from(new Set(S.thoughts.map(t => t.topic)));
+    $("#thTopic").innerHTML = '<option value="all">All topics</option>' + topics.map(t => '<option value="' + t + '"' + (th.topic === t ? " selected" : "") + ">" + esc(TOPIC[t] || t) + "</option>").join("");
+    $("#thTopic").onchange = () => { th.topic = $("#thTopic").value; renderThoughtList(); };
+    $("#thRandom").onclick = () => {
+      const list = filteredThoughts(); if (!list.length) return;
+      const t = list[Math.floor(Math.random() * list.length)];
+      $("#thSpotlight").innerHTML = '<p class="small muted" style="margin:0 0 4px">🎲 Your thought:</p>' + thoughtCard(t, true);
+      wireThoughtCards($("#thSpotlight"));
+      $("#thSpotlight").scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    renderThoughtList();
+    const note = () => { $("#thVoiceNote").textContent = V.canSpeak && !V.hasHindiVoice() ? "🔊 Your device has no Hindi voice installed, so 🔊 हिंदी may sound odd or stay silent. On Android: Settings → Text-to-speech → install Hindi. On a laptop, Chrome or Edge usually has one." : ""; };
+    note(); setTimeout(note, 1500);
+  }
+
   // ---------- init ----------
   if (visitor) {
     document.body.classList.add("visitor");
@@ -726,6 +809,7 @@
   }
   renderHome();
   renderStage();
+  renderThoughts();
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

@@ -180,6 +180,38 @@ window.SITE = {
     }
   },
 
+  /* ---------------- 💭 THOUGHTS / विचार ----------------
+     Positive lines in English and Hindi.
+     use:   opening | bridge (between parts) | stuck (if I forget) | closing | anytime
+     topic: clean-india | waste | plastic | water | energy | sanitation | nature | duty | 7rs
+     kind:  avni (Avni's own) | original | official-slogan | quote (with attribution + source)
+     Avni: add your own new thoughts here with kind: "avni"! */
+  thoughts: [
+    { id: "a1", kind: "avni", topic: "7rs", use: ["anytime", "closing"],
+      en: "The best waste is the waste we never create.",
+      hi: "सबसे अच्छा कचरा वह है, जो हम कभी बनाते ही नहीं।", hiRoman: "Sabse achchha kachra vah hai, jo hum kabhi banaate hi nahin." },
+    { id: "a2", kind: "avni", topic: "clean-india", use: ["opening", "closing"],
+      en: "A clean India starts with a clean thought, grows through a responsible action, and shines through a waste-free tomorrow.",
+      hi: "स्वच्छ भारत की शुरुआत एक स्वच्छ सोच से होती है, ज़िम्मेदार काम से वह आगे बढ़ता है, और कचरा-मुक्त कल में वह चमकता है।",
+      hiRoman: "Swachh Bharat ki shuruaat ek swachh soch se hoti hai, zimmedaar kaam se vah aage badhta hai, aur kachra-mukt kal mein vah chamakta hai." },
+    { id: "a3", kind: "avni", topic: "duty", use: ["closing"],
+      en: "A clean India is not just a dream; it is a responsibility we share.",
+      hi: "स्वच्छ भारत सिर्फ़ एक सपना नहीं, यह हम सबकी ज़िम्मेदारी है।", hiRoman: "Swachh Bharat sirf ek sapna nahin, yah hum sabki zimmedaari hai." },
+    { id: "a4", kind: "avni", topic: "clean-india", use: ["anytime"],
+      en: "Cleanliness is not a job we do because we are forced to. It is a good habit and a healthy way of life.",
+      hi: "स्वच्छता कोई मजबूरी का काम नहीं, यह एक अच्छी आदत और जीने का स्वस्थ तरीका है।", hiRoman: "Swachhata koi majboori ka kaam nahin, yah ek achchhi aadat aur jeene ka swasth tareeka hai." },
+    { id: "a5", kind: "avni", topic: "energy", use: ["bridge", "anytime"],
+      en: "Turn waste into energy, not pollution.",
+      hi: "कचरे को प्रदूषण नहीं, ऊर्जा बनाइए।", hiRoman: "Kachre ko pradooshan nahin, oorja banaiye." },
+    { id: "a6", kind: "avni", topic: "water", use: ["bridge", "anytime"],
+      en: "Clean water is precious — treat it, reuse it, protect it.",
+      hi: "साफ़ पानी अनमोल है — इसे साफ़ करें, दोबारा इस्तेमाल करें, और बचाएँ।", hiRoman: "Saaf paani anmol hai — ise saaf karein, dobaara istemaal karein, aur bachaayein." },
+    { id: "a7", kind: "avni", topic: "clean-india", use: ["anytime", "closing"],
+      en: "Cleanliness should not be only for 2nd October — it should be an everyday habit.",
+      hi: "स्वच्छता सिर्फ़ 2 अक्टूबर के लिए नहीं, यह हर दिन की आदत होनी चाहिए।", hiRoman: "Swachhata sirf do October ke liye nahin, yah har din ki aadat honi chahiye.",
+      note: "A gentler stage version of the “October 2nd” line in your project file." }
+  ],
+
   /* ---------------- 🎤 STAGE PRESENTATION (4 October 2026) ----------------
      The speech is built from Avni's own project file and her practised opening.
      versions: "full" (about 5–6 min), "medium" (about 3 min). The 1-minute version is "short".

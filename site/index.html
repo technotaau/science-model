@@ -24,6 +24,7 @@
     <nav class="tabs" id="tabs" aria-label="Sections">
       <a href="#home" data-tab="home">🏠 Home</a>
       <a href="#stage" data-tab="stage">🎤 Stage</a>
+      <a href="#thoughts" data-tab="thoughts">💭 Thoughts</a>
       <a href="#project" data-tab="project">📘 Project</a>
       <a href="#model" data-tab="model">🗺️ Model</a>
       <a href="#walk" data-tab="walk">🧭 Walkthrough</a>
@@ -55,6 +56,7 @@
         <a class="card link-card" href="#score"><b>📊 5. Score yourself</b><span>Mark yourself out of 50 after each full practice run.</span></a>
         <a class="card link-card" href="#ask"><b>📝 6. Ask Ma'am</b><span>Questions to confirm with Rajnish Ma'am before the fair.</span></a>
         <a class="card link-card" href="#project"><b>📘 7. Project report</b><span>A clean report to show and print for Rajnish Ma'am, plus a QR card for your stall.</span></a>
+        <a class="card link-card" href="#thoughts"><b>💭 8. Thoughts · विचार</b><span>Positive lines in English and Hindi — openings, links, closings and “if I get stuck” lifelines.</span></a>
       </div>
 
       <h2>Marking scheme — 50 marks</h2>
@@ -121,6 +123,33 @@
 
       <!-- printable cue card: headings + first words only -->
       <div id="cueCard" class="cue-card"></div>
+    </section>
+
+    <!-- THOUGHTS / विचार -->
+    <section id="tab-thoughts" class="tab" hidden>
+      <div class="card hero thoughts-hero">
+        <div>
+          <h1 style="margin:0">💭 Thoughts <span class="hi">· विचार</span></h1>
+          <p class="small muted">Positive lines in English and Hindi to <b>open</b> your talk, <b>connect</b> two parts, <b>recover</b> if you get stuck, or <b>close</b> with a strong message. Star ⭐ your favourites — they will also print on your stage cue card.</p>
+        </div>
+        <button class="btn act" id="thRandom">🎲 Surprise me</button>
+      </div>
+      <div class="filters">
+        <div class="seg" id="thLang" role="group" aria-label="Language">
+          <button data-lang="both" class="active">English + हिंदी</button>
+          <button data-lang="en">English</button>
+          <button data-lang="hi">हिंदी</button>
+        </div>
+        <label class="small"><input type="checkbox" id="thRoman"> Show Hindi in English letters</label>
+      </div>
+      <div class="chips" id="thUse"></div>
+      <div class="filters">
+        <label>Topic <select id="thTopic"></select></label>
+        <span class="small muted" id="thCount"></span>
+      </div>
+      <div id="thSpotlight"></div>
+      <div class="thoughts" id="thList"></div>
+      <p class="tiny muted" id="thVoiceNote"></p>
     </section>
 
     <!-- PROJECT REPORT / VISITOR PAGE -->

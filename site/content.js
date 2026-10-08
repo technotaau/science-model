@@ -27,7 +27,9 @@ window.SITE = {
     teacher: "Rajnish Ma'am",
     topic: "Clean India Mission and Waste Management",
     fairDate: "2026-10-04",          // stage presentation day
-    targetMinutes: 5                 // aim for the full model explanation
+    targetMinutes: 5,                // aim for the full model explanation
+    // Eco-Dost Live: the real-AI version on claude.ai (open it while signed in to Claude)
+    ecodostLiveUrl: "https://claude.ai/artifact/3DcE9JqKmTtXjhtSPppDRn"
   },
 
   quotes: [

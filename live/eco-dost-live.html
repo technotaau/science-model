@@ -1,0 +1,343 @@
+<title>Eco-Dost Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one-screen chat app — mascot header with mode switch, scrolling conversation, composer docked at the bottom.
+   Palette taken from India's segregation bins: wet-bin green for Eco-Dost, dry-bin blue for Avni, saffron for points. */
+:root {
+  --bg: #eef3ee; --surface: #ffffff; --ink: #11261a; --muted: #4d6657; --line: #d3e0d6;
+  --wet: #1d7a45; --wet-soft: #e1f2e7; --dry: #1f5cba; --dry-ink: #ffffff; --saffron: #b85f00; --saffron-soft: #fdf0de;
+  --bad: #b3261e; --bad-soft: #fde8e6;
+  --display: "Baloo 2", "Hind", system-ui, sans-serif;
+  --body: "Hind", "Nirmala UI", "Noto Sans Devanagari", system-ui, sans-serif;
+  --r: 16px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1611; --surface: #152119; --ink: #e5f1e8; --muted: #9bb4a4; --line: #29392f;
+  --wet: #4cc583; --wet-soft: #17301f; --dry: #6fa3ff; --dry-ink: #0b1220; --saffron: #f0a43c; --saffron-soft: #33240f;
+  --bad: #ff8a80; --bad-soft: #3a1714; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0d1611; --surface: #152119; --ink: #e5f1e8; --muted: #9bb4a4; --line: #29392f;
+  --wet: #4cc583; --wet-soft: #17301f; --dry: #6fa3ff; --dry-ink: #0b1220; --saffron: #f0a43c; --saffron-soft: #33240f;
+  --bad: #ff8a80; --bad-soft: #3a1714; color-scheme: dark; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body); }
+.app { height: 100%; max-width: 760px; margin: 0 auto; padding-inline: 16px; display: grid; grid-template-rows: auto 1fr auto; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding-block: 12px 10px; border-bottom: 1px solid var(--line); }
+.who { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.who svg { width: 46px; height: 46px; flex: none; }
+h1 { font: 800 1.45rem/1 var(--display); margin: 0; text-wrap: balance; }
+.sub { margin: 2px 0 0; color: var(--muted); font-size: .88rem; }
+.leaves { font: 600 .9rem var(--body); color: var(--saffron); background: var(--saffron-soft); border-radius: 99px; padding: 3px 10px; font-variant-numeric: tabular-nums; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.seg button { font: 600 .9rem var(--body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--wet); color: var(--surface); }
+.seg.lang button[aria-pressed="true"] { background: var(--dry); color: var(--dry-ink); }
+button:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--dry); outline-offset: 2px; }
+main { overflow-y: auto; padding-block: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.msg { max-width: 88%; display: flex; flex-direction: column; gap: 6px; }
+.msg.bot { align-self: flex-start; }
+.msg.me { align-self: flex-end; }
+.bub { padding: 10px 13px; border-radius: var(--r); min-width: 0; overflow-wrap: anywhere; }
+.bot .bub { background: var(--wet-soft); border-bottom-left-radius: 4px; }
+.me .bub { background: var(--dry); color: var(--dry-ink); border-bottom-right-radius: 4px; }
+.bub p { margin: 0 0 6px; } .bub p:last-child { margin: 0; }
+.bub ul { margin: 4px 0 6px; padding-left: 1.2em; }
+.bub strong { font-weight: 600; }
+.qc { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 6px; font-weight: 600; color: var(--saffron); }
+.thinking { color: var(--muted); font-style: italic; }
+.note { font-size: .85rem; color: var(--muted); }
+.starters { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 .88rem var(--body); text-align: left; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
+.chip:hover { border-color: var(--wet); }
+footer { padding-block: 10px 14px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+.composer { display: flex; gap: 8px; align-items: flex-end; }
+textarea { flex: 1; min-width: 0; resize: none; font: 400 1rem/1.4 var(--body); color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 12px; max-height: 140px; }
+.btn { font: 700 .95rem var(--display); border: 0; border-radius: 12px; padding: 10px 16px; cursor: pointer; background: var(--wet); color: var(--surface); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.stop { background: var(--bad); color: var(--surface); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.quiz { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 8px; }
+.quiz h2 { font: 800 1.1rem var(--display); margin: 0; }
+.quiz .q { font-size: 1.08rem; font-weight: 600; }
+.score { display: flex; align-items: center; gap: 8px; font: 800 1.05rem var(--display); }
+.score svg { width: 26px; height: 26px; }
+.leaf-on { fill: var(--wet); } .leaf-off { fill: var(--line); }
+.res-block { border-radius: 12px; padding: 8px 11px; }
+.res-good { background: var(--wet-soft); } .res-miss { background: var(--saffron-soft); } .res-model { background: var(--bg); border: 1px solid var(--line); }
+.res-block b { display: block; font-size: .85rem; letter-spacing: .02em; color: var(--muted); }
+.banner { background: var(--saffron-soft); color: var(--ink); border-radius: 12px; padding: 10px 12px; font-size: .92rem; }
+.banner a { color: var(--dry); font-weight: 600; }
+.err { background: var(--bad-soft); color: var(--ink); border-radius: 12px; padding: 8px 12px; font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.hi { font-family: var(--body); }
+@media (prefers-reduced-motion: no-preference) { .msg { animation: pop .18s ease-out; } @keyframes pop { from { transform: translateY(6px); opacity: .4; } } }
+@media (max-width: 480px) { .msg { max-width: 96%; } h1 { font-size: 1.25rem; } }
+</style>
+
+<div class="app">
+  <header>
+    <div class="who">
+      <svg viewBox="0 0 64 64" role="img" aria-label="Eco-Dost, a smiling green dustbin">
+        <rect x="14" y="18" width="36" height="40" rx="7" fill="var(--wet)"/>
+        <rect x="10" y="11" width="44" height="9" rx="4.5" fill="var(--wet)"/>
+        <rect x="27" y="6" width="10" height="6" rx="3" fill="var(--wet)"/>
+        <circle cx="25" cy="32" r="4.5" fill="var(--surface)"/><circle cx="39" cy="32" r="4.5" fill="var(--surface)"/>
+        <circle cx="26" cy="33" r="2" fill="var(--ink)"/><circle cx="40" cy="33" r="2" fill="var(--ink)"/>
+        <path d="M25 43 q7 6 14 0" stroke="var(--surface)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Eco-Dost Live</h1>
+        <p class="sub">Ask anything about your project file and model — I answer from your own notes.</p>
+      </div>
+    </div>
+    <span class="leaves" id="leaves" title="Leaves you earned in Quiz me">🍃 0 leaves</span>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Mode">
+        <button id="modeAsk" aria-pressed="true">Ask me</button>
+        <button id="modeQuiz" aria-pressed="false">Quiz me</button>
+      </div>
+      <div class="seg lang" role="group" aria-label="Answer language">
+        <button data-lang="en" aria-pressed="true">English</button>
+        <button data-lang="hi" aria-pressed="false" class="hi">हिंदी</button>
+        <button data-lang="both" aria-pressed="false">Both</button>
+      </div>
+      <button class="btn ghost" id="clear" title="Start a new chat">New chat</button>
+    </div>
+  </header>
+
+  <main id="feed" aria-live="polite"></main>
+
+  <footer>
+    <div class="banner" id="offline" hidden>
+      Live answers work when this page is opened in Claude while you are signed in. You can still use the offline Eco-Dost on your website:
+      <a href="https://technotaau.github.io/science-model/#ecodost" target="_blank" rel="noopener">open Ask Eco-Dost</a>.
+    </div>
+    <form class="composer" id="form">
+      <label for="input" class="note" hidden>Your question</label>
+      <textarea id="input" rows="1" placeholder="Ask about your file or model…"></textarea>
+      <button class="btn" id="send" type="submit">Ask</button>
+      <button class="btn stop" id="stop" type="button" hidden>Stop</button>
+    </form>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const PACK = "=== 1. AVNI'S HANDWRITTEN PROJECT FILE (transcribed; pages 9-28; pages 1-8 were not provided) ===\n(PDF has file pages 9–28; file pages 1–8 were not provided. Page numbers are the handwritten ones.)\n\n## p9 (continues from p8, missing)\n- \"...(108% of its baseline target) and over 6.3 lakh Community & Public Toilets (125% of its baseline target).\"\n- DUMPSITE REMEDIATION: Intensive scientific clearance of legacy dumpsites (reclaiming large tracts of land previously locked under mountains of urban waste) is ongoing across thousands of cities.\n- SAFAIMITRA SECURITY: Over 3,150 cities have institutionalized the SafaiMitra Surakshit Shehar protocol, eliminating hazardous manual entry into sewers by shifting completely to mechanized cleaning equipment and securing worker safety.\n- Quote: \"A Clean India is not just a dream; it is a responsibility we share.\"\n\n## p10 Green Energy Goals\n- WASTE-TO-ENERGY (WTE): converting municipal solid waste into usable power helps reduce landfill overflow while generating eco-friendly electricity.\n- NATIONAL GREEN HYDROGEN MISSION: aiming to make India a hub for green hydrogen production by 2030 to lower fossil fuel dependence and carbon output.\n- RENEWABLE ENERGY EXPANSION: targeting 500 GW of non-fossil fuel capacity by 2030 as part of national climate commitments.\n- GREEN CITY INITIATIVES: transitioning urban centres to rely more heavily on solar power and clean electric mobility.\n\n## p11–12 Waste-to-Energy\n- WTE is the process of generating energy (electricity, heat or fuel) from non-recyclable residual waste materials. Dual purpose: reduces garbage going to overflowing landfills and generates power without depleting fossil fuels.\n- Under the Clean India Mission, WTE is considered a foundational pillar for building clean, smart cities with minimal carbon footprints.\n- Core technologies: thermal or biological.\n- INCINERATION (DIRECT COMBUSTION): the most common commercial method. Unprocessed or semi-processed municipal solid waste (MSW) is burned at exceptionally high temperatures (850°C – 1400°C) to boil water. The resulting steam spins a turbine to produce electricity.\n- ANAEROBIC DIGESTION (BIOMETHANATION): microbes break down organic wet waste (like kitchen remnants and agricultural runoff) in the absence of oxygen. Yields biogas, which can be purified into Compressed Bio-Gas (CBG) for vehicles or electricity generation.\n- CURRENT STATUS OF WTE IN INDIA: India has scaled its focus on converting \"Waste to Wealth\" through targeted national policies.\n  - Capacity Growth: India's overall waste-to-energy capacity has jumped from 230 MWeq in 2014 to 877 MWeq.\n\n## p13\n- Financial Schemes: the Ministry of New and Renewable Energy (MNRE Waste to Energy Programme) offers substantial Central Financial Assistance to project developers establishing biogas and electricity infrastructure.\n- Gobardhan Scheme: the government is setting up 500 new Waste-to-Wealth plants across urban and community clusters, focusing primarily on compressed biogas production (CH4, methane).\n- The Regulatory Shift: the updated Solid Waste Management Rules mandate strict four-stream segregation at the household level. Proper source segregation is vital, because high-moisture unsegregated waste drastically reduces the operational efficiency of thermal WTE plants.\n- Quote: \"Cleanliness in India cannot just be an October 2nd photo-op. It has to be an everyday civic ritual.\"\n\n## (unnumbered) ODF VILLAGES\nODF stands for Open Defecation Free. An ODF village is a village where people do not defecate in the open and all households have access to and use toilets. It promotes cleanliness, hygiene and a healthy environment. It also reduces the spread of diseases, protects drinking-water sources from contamination and makes the village safer and more comfortable for everyone. Thus, an ODF village is an important step towards a clean, healthy and developed India.\n\n## p14 3 Progressive Stages of an \"ODF Plus\" Village\nAn ODF Plus village is one that successfully sustains its ODF status, ensures proper garbage and wastewater management and remains visually clean. Three rungs:\n1. ODF Plus Aspiring: sustains zero-open-defecation status and has operational arrangements for either Solid Waste Management (garbage collection/composting) or Liquid Waste Management (greywater drainage/soak pits).\n2. ODF Plus Rising: sustains ODF status and has functional infrastructure handling both solid and liquid waste streams.\n3. ODF Plus Model: the highest tier. Manages both waste streams, maintains visual cleanliness and actively displays public sanitation awareness messages.\n\n## p15 Green Energy\nGreen energy is energy produced from natural and renewable sources that cause little pollution. Reduces use of fossil fuels like coal and petroleum; reduces greenhouse gas emissions; conserves natural resources. Examples: solar, wind, hydropower, tidal. Solar panels use sunlight to generate electricity; wind turbines use wind. Useful in homes, schools, farms, industries. Reduces air pollution, protects wildlife and habitats, reduces dependence on non-renewable sources.\n\n## p16 National Green Hydrogen Mission\n- India's National Green Hydrogen Mission is a comprehensive initiative launched in January 2023 with an initial financial outlay of ₹19,744 crore to establish a domestic green hydrogen ecosystem and position the country as a global clean energy hub.\n- PM Narendra Modi flagged off India's first indigenously developed hydrogen fuel cell passenger train on July 17, 2026, from the Jind Railway Station in Haryana. Historic milestone in Indian Railways' clean energy initiative, putting India into an elite global club of nations operating hydrogen-powered rail traction.\n- THE ROUTE: the train operates on the 89 km Jind–Gohana–Sonipat stretch of the Northern Railway. It covers 12 intermediate stations, taking about 2 hours to complete the journey.\n\n## (unnumbered, boxed) Wind\n- Wind energy is handled under the National Wind Energy Mission. It serves as a pillar in cleaning India's air quality and reaching net-zero carbon emissions by 2070.\n- India ranks 4th globally in installed wind power capacity.\n- THE PATH TO 2030: to achieve a pollution-free, clean energy mix, India has set clear milestones for wind energy capacity.\n\n## p17 Wind Energy\nEnergy obtained from the movement of air; renewable and clean. Wind turbines convert the energy of moving wind into electricity. Wind farms in open areas, coastal regions, places with strong and regular winds. Wind turns the blades of a turbine, which helps generate electricity. Does not require fuel, very little air pollution during operation. Needs suitable windy locations.\n\n## (unnumbered)\n- SOLAR-OPERATED MOBILE TOILETS: To sustain ODF zones, the mission utilizes mobile, solar-powered community toilets. These public units use rooftop solar panels to power internal lighting and water pumps, making them completely self-reliant in public spaces or remote fairs.\n- SELF-SUSTAINING SCHOOLS: Solar energy directly feeds into the Swachh Vidyalaya (Clean Schools) component. By mounting net-metered rooftop solar arrays on government school buildings, institutions generate their own power.\n\n## p18 Solar Energy\nEnergy we get from the Sun; renewable and clean; no air pollution while generating electricity. Solar panels, also called photovoltaic panels, convert sunlight into electrical energy. Rooftop panels on houses, schools, buildings power lights, fans. Solar cookers, solar water heaters, street lights. Will not run out as long as the sun shines. Especially useful in areas with plenty of sunlight.\n\n## p19 Afforestation\nPlanting trees and creating new forests on land not previously covered by forests. Trees absorb carbon dioxide and release oxygen, reduce air pollution, maintain balance of gases, prevent soil erosion, conserve water, reduce effects of climate change, provide shelter and food for wildlife. Government, schools, communities organise tree-planting drives. Helps maintain rainfall, conserve biodiversity, provide fruits, wood, medicines.\n\n## p20 Waste Management\nWaste management under SBM has evolved from basic cleanliness and open-defecation elimination into a structural, nationwide push for scientific solid and liquid waste processing.\nCore pillars:\n- Segregation at Source: separating wet and dry waste directly in households and commercial spaces.\n- Resource Recovery: shift from dumping in landfills to processing organic waste into manure, biogas and electricity, alongside plastic recycling loops.\n- Rural SBM-G Phase II (ODF Plus): village-level infrastructure on four key areas: biodegradable waste, plastic waste, greywater management and faecal sludge management.\n(unnumbered) \"Waste segregation is the vital process of sorting garbage at the source into distinct categories like wet, dry and hazardous waste to make recycling efficient and protect the environment.\"\n\n## p21 Management of Biodegradable Waste\n1. Composting/Vermicomposting: the most common method to recycle organic waste into nutrient-rich soil.\n2. Biogas generation: breaks down organic waste in an oxygen-free environment. Biogas production: microorganisms decompose the waste to produce methane and carbon dioxide. Energy capture: gas used for cooking, heating or generating electricity.\n\n## (unnumbered) Plastic Man of India\nDr. Rajagopalan Vasudevan, a chemistry professor from Madurai, Tamil Nadu, is globally renowned as the \"Plastic Man of India\". He pioneered a technology that converts shredded single-use plastic waste into highly durable, eco-friendly roads. Honoured with the Padma Shri in 201[8]. He gifted his patented technology to the Government of India for free. It has since become a cornerstone of the Swachh Bharat Abhiyan and the Waste to Wealth national initiative.\n\n## p22 Management of Non-Biodegradable Waste\n- Single-use plastics (SUPs): disposable plastic made mainly from petrochemicals (fossil fuels), designed to be used once for a very short time. Examples: grocery bags, straws, coffee stirrers, soda bottles, product packaging.\n- ECO-BRICK: a reusable building block made by packing clean, dry, non-recyclable single-use plastic waste tightly into an empty plastic beverage bottle until it is solid and rigid enough to support structural weight. Eco-bricks are crucial to the Clean India Mission because they isolate low-value, non-recyclable single-use plastics right at the source.\n\n## p23 7Rs\n\"We often hear about the 3Rs – Reduce, Reuse, Recycle, but waste management can be taken a step further with the 7Rs.\" Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover. \"So, the 7Rs teach us an important lesson: 'The best waste is the waste we never create.'\"\nCONCLUSION: The Clean India Mission is not only a government programme but also a responsibility for every citizen. Modern technologies such as AI, robotics, smart bins and waste-to-energy plants are helping India become cleaner every day.\n\n## p24–26 Multi-layer gravity filter\n- Commonly used as a low-cost, preliminary filtration system. \"Stone\" = gravel/sand, \"cotton\" = fine physical barrier, \"charcoal\" = chemical purifier.\n- Excellent for removing large particles and certain chemical impurities, but generally not enough on its own to make industrial chemical wastewater safe for rivers without additional chemical or biological treatments.\n- Stones/Gravel/Sand (physical filtration): first line of defence; traps large debris like leaves, twigs, plastics, heavy suspended sediments.\n- Charcoal/Activated Carbon (chemical adsorption): the most critical step for chemical water. Millions of microscopic pores trap organic chemicals, chlorine, heavy metals and volatile organic compounds (VOCs) through adsorption (binding molecules to its surface). Also removes bad odours and discoloration.\n- Cotton/Filter cloth (fine filtration): final physical barrier; traps tiny particles and charcoal dust.\n- Structure: water must flow from the coarsest to the finest material. 1. TOP (inflow): coarse stones and gravel. 2. Second: fine sand. 3. Third: crushed charcoal. 4. BOTTOM: thick layer of cotton or tightly woven cloth.\n- Drawing: an upside-down bottle with layers.\n- Quote: \"Cleanliness is not a job we should do forcefully. It is a good habit and healthy way of our life!\"\n\n## (drawing) Puja material collection box: \"कृपया पूजा सामग्री यहाँ पर डालें\" with 4 compartments: फूल (flowers), वस्त्र (cloth), प्लास्टिक (plastic), अन्य सामग्री (other items).\n\n## p27–28 How we can keep our rivers clean in Clean India Mission?\nWe can keep our rivers clean under the Clean India Mission by stopping waste at the source, treating wastewater and involving local communities.\nIndividual and community actions:\n- Stop dumping garbage: never throw household trash, plastic bags or puja offerings directly into rivers or water bodies. Use local dustbins or designated collection systems like 'Puja Banks'.\n- Reduce plastic use: cut down on single-use plastics to prevent floating waste reaching river currents and choking aquatic ecosystems.\n- Participate in cleanups: join local community river-cleaning drives, awareness campaigns and volunteer programmes near riverbanks and ghats.\n- Plant trees: grow local flora and trees along riverbanks to prevent soil erosion, filter runoff water and maintain healthy ecosystems.\nGovernment and industrial measures:\n- Treat sewage: build and expand Sewage Treatment Plants (STPs) so untreated human waste and domestic greywater do not flow straight into rivers.\n- Regulate industrial waste: enforce strict laws forcing factories to treat toxic chemical effluents before any discharge.\n- River surface cleaning: deploy mechanized trash skimmers, boom barriers and conveyor belt systems to collect floating solid waste from major rivers and canals.\n(drawing) Stop dumping garbage / Reduce plastic use / Join cleanups.\n\n## Our Duties Towards Our Nation\nStop littering · Segregate waste · Maintain public cleanliness · Promote behavioral change · Spread awareness · Plant more trees · Use public transport · Focus on recycling · Car pooling\n\n\n=== 2. CORRECTIONS TO HER FILE (fact-checked Oct 2026 — these WIN over the file) ===\n- [p9] File says: \"Over 3,150 cities have the SafaiMitra Surakshit Shehar protocol\" → CORRECT: More than 500 cities have promised to clean sewers with machines instead of sending people inside. Chandigarh has won an award for keeping its SafaiMitras safe. (why: No source for 3,150; the official count is 500 cities (2022).)\n- [p9] File says: \"eliminating manual entry … shifting completely to machines\" → CORRECT: Cities are working to replace dangerous manual sewer cleaning with machines. There is still work to do. (why: Sewer deaths still happen, so “eliminating” and “completely” are not true yet.)\n- [p9] File says: \"dumpsite clearance … across thousands of cities\" → CORRECT: India has about 2,500 old dumpsites; more than 1,000 have been fully cleared. (why: The number is about 2,500 dumpsites, not thousands of cities. (Don't say Chandigarh's Dadu Majra dumpsite is finished.))\n- [p11] File says: \"WTE is a foundational pillar of the Clean India Mission\" → CORRECT: Waste-to-energy is one important way to use leftover waste that cannot be recycled or composted. (why: Reduce, segregate, recycle and compost come first; WTE is for leftovers.)\n- [p12] File says: \"burned at 850°C – 1400°C\" → CORRECT: burned at very high temperatures, usually above 850°C (why: City-waste incinerators run at about 850–1100°C; 1400°C is not normal.)\n- [p12] File says: \"wet waste like kitchen remnants and agricultural runoff\" → CORRECT: wet waste like kitchen scraps, cow dung and crop leftovers (why: Runoff is water flowing off fields — it does not go into a biogas plant.)\n- [p12] File says: \"capacity jumped from 230 MWeq in 2014 to 877 MWeq\" → CORRECT: from about 230 MW in 2014 to about 878 MW in 2026 — almost four times bigger (why: Latest MNRE figure: 878.4 MW (31 Aug 2026). Add the year.)\n- [p13] File says: \"MNRE Waste to Energy Programme offers financial assistance\" → CORRECT: MNRE's National Bioenergy Programme (2021–2026) helped fund waste-to-energy plants. In August 2026 a new GOBARdhan scheme of ₹23,731 crore was approved. (why: The old programme ended in 2025-26.)\n- [p13] File says: \"Gobardhan: 500 new plants, focusing primarily on compressed biogas\" → CORRECT: In the 2023 Budget, 500 new ‘Waste to Wealth’ plants were announced under GOBARdhan — 200 compressed biogas and 300 community plants. (why: Most of the 500 are community plants; add the year.)\n- [p10] File says: \"make India a hub for green hydrogen by 2030\" → CORRECT: India wants to be a global hub for green hydrogen and make at least 5 million tonnes a year by 2030. (why: The official 2030 goal is the 5 million tonnes number.)\n- [p16] File says: \"an elite global club of nations operating hydrogen trains\" → CORRECT: India joined a small group of countries, like Germany, that run hydrogen passenger trains. (why: “Elite club” sounds like an official group.)\n- [Wind box] File says: \"handled under the National Wind Energy Mission\" → CORRECT: Wind energy is looked after by the Ministry of New and Renewable Energy (MNRE), with the National Institute of Wind Energy in Chennai. (why: A National Wind Energy Mission was proposed but never launched.)\n- [Wind box] File says: \"India has set clear milestones for wind capacity\" → CORRECT: India aims for about 100 GW of wind power by 2030; it has about 58 GW now. (why: Give the actual number — a judge may ask what the milestones are.)\n- [Solar page] File says: \"the mission uses mobile solar toilets … completely self-reliant\" → CORRECT: Some places, like Haryana, use mobile toilets with solar panels that power the lights and water pumps. (why: These are local projects, and they still need water and emptying.)\n- [Solar page] File says: \"Solar directly feeds into Swachh Vidyalaya\" → CORRECT: Many government schools have rooftop solar panels; Swachh Vidyalaya gave schools clean toilets and drinking water. (why: Swachh Vidyalaya is about toilets and water — it has no solar part.)\n- [After p20] File says: \"sorting into wet, dry and hazardous waste\" → CORRECT: sorting into four types: wet, dry, sanitary and special care waste (new rules, 1 April 2026) (why: The 2026 rules use four streams.)\n- [Plastic Man] File says: \"a cornerstone of Swachh Bharat and Waste to Wealth\" → CORRECT: Since 2015 the government has asked road builders near big cities to use waste plastic, so his idea helps keep plastic out of our streets. (why: “Cornerstone” is an exaggeration.)\n- [p22] File says: \"Eco-bricks are crucial to the Clean India Mission\" → CORRECT: Eco-bricks are a simple way schools and communities can help the Clean India Mission. (why: Helpful, but not an official part of the mission.)\n- [p25] File says: \"charcoal traps heavy metals\" → CORRECT: charcoal holds many chemicals, chlorine, colour and smells — but not germs, and not all metals (why: Home-made charcoal removes very little metal.)\n- [p24] File says: \"excellent for removing large particles and certain chemicals\" → CORRECT: My filter makes water look much clearer, but it does not kill germs — the water must be boiled or treated before drinking. (why: Always add the safety line; judges often ask “Can we drink it?”)\n- [p27] File says: \"designated collection systems like ‘Puja Banks’\" → CORRECT: special puja-material collection bins, like the one in my drawing, so flowers can become compost (why: “Puja Bank” is not a known term; “collection bins” is safe.)\n\n=== 3. VERIFIED FACTS ===\n- Swachh Bharat (Urban): about 63.8 lakh home toilets (108% of the target) and about 6.36 lakh community & public toilet seats (125%).\n- About 5.69 lakh villages were ODF Plus by September 2026 (about 5.25 lakh in the highest ‘Model’ stage).\n- National Green Hydrogen Mission: approved 4 January 2023, ₹19,744 crore.\n- Hydrogen train: flagged off 17 July 2026 at Jind; 89 km Jind–Gohana–Sonipat; 12 intermediate stations; about 2 hours.\n- India is 4th in the world in installed wind power, and 3rd in total renewable energy capacity.\n- 500 GW non-fossil power by 2030 is India's goal — India crossed 300 GW in July 2026.\n- Net-zero emissions by 2070 (announced at COP26, Glasgow, 2021).\n- 19 single-use plastic items have been banned in India since 1 July 2022.\n- Namami Gange uses trash skimmers to collect floating waste from the Ganga.\n\n=== 4. HER MODEL (one green wooden base, all on one level) ===\n* Solar Panels (3 buildings) [city]: Three buildings. Two have handmade cardboard/paper solar panels. One has a REAL working solar panel that lights an LED/bulb in sunlight.\n   - Solar energy is energy from sunlight.\n   - Solar panels change sunlight directly into electricity.\n   - It is renewable — the Sun will keep shining for billions of years.\n   - Using solar power means burning less coal for electricity, so less smoke and fewer greenhouse gases.\n   ! careful: Do NOT say solar energy has zero effect on the environment. Making panels uses energy and materials, and old panels must be recycled properly.\n   ! careful: Say “reduces” pollution, not “stops all” pollution.\n* Toilets 1 & 2 (City) [city]: Two toilets in the Smart City (one male sign, one female sign).\n   - Toilets are the sanitation part of the Clean India Mission.\n   - Using toilets stops open defecation.\n   - Human waste has germs. If it is left in the open, flies and rainwater carry germs to food and water.\n   - Separate toilets also give safety and dignity, especially to girls and women.\n   ! careful: Don't say “there is no open defecation anywhere now”. Say “the mission greatly improved toilet access; we must keep using and maintaining them.”\n* EV Charging Station + Car [city]: An EV charging station with a white car. When the button is pressed, a green light glows to show charging.\n   - EV means Electric Vehicle. It runs on a battery and an electric motor, not petrol or diesel.\n   - It has no exhaust pipe smoke while running, so the air in the city stays cleaner.\n   - Demonstrate: press the button — the green light shows charging.\n   - The full benefit depends on how the electricity is made. Electricity from solar or wind makes EVs even cleaner.\n   ! careful: Don't say “EVs cause no pollution at all”. Say “no pollution from the exhaust while running” / “less local air pollution”.\n* Electric Bus Stand [city]: A bus stand with two electric buses.\n   - Public transport: one bus carries many people, so fewer cars are on the road.\n   - Electric buses have no tailpipe smoke.\n   - Fewer vehicles + no exhaust = cleaner air, less noise, less fuel burnt.\n   ! careful: The benefit still depends partly on how the electricity is produced.\n* Hydrogen Train (Jind ↔ Sonipat) [front]: A hydrogen train on a railway track, labelled Jind ↔ Sonipat.\n   - This is India's first hydrogen train, on the Jind–Sonipat route in Haryana.\n   - It uses hydrogen in fuel cells to make its own electricity.\n   - The main thing that comes out is water vapour, not diesel smoke.\n   - Whether it is really ‘green’ depends on how the hydrogen is made.\n   ! careful: Don't say “it produces only water and no pollution at all”. Say “the main onboard by-product is water vapour”.\n   ! careful: Don't say hydrogen is burnt like diesel. It is used in a fuel cell.\n   ! careful: Don't give dates/numbers you are not sure of. The safe line is: “It was flagged off in July 2026 on the Jind–Sonipat route.”\n* India Map + “Carbon Emission” [centre]: An India-shaped tricolour design in the centre, with the words CARBON EMISSION written below it (with a city skyline).\n   - Carbon emission means releasing carbon dioxide (CO₂) into the air.\n   - It mostly comes from burning fossil fuels — coal, petrol, diesel — and from burning garbage.\n   - Too much CO₂ traps heat and causes global warming.\n   - Many parts around this map — solar, wind, EVs, the hydrogen train, biogas — help reduce carbon emissions.\n   ! careful: Global warming is ‘mainly’ caused by human activities today — avoid saying ‘only’.\n* Ladder (centre) [centre, some details still to confirm with Rajnish Ma'am]: A ladder in the centre of the model, below the words Carbon Emission. It is NOT on the road.\n   - (Ask Rajnish Ma'am what the ladder represents before you explain it.)\n   ! careful: Do not invent a meaning. Once Ma'am tells you, write it here in content.js.\n* Windmill [centre]: ONE windmill (wind turbine).\n   - A windmill (wind turbine) makes electricity from moving air.\n   - Wind is renewable — it will not run out.\n   - No smoke is produced while it runs.\n   ! careful: Don't claim your model windmill makes electricity unless it really does.\n* Two Flower Pots / Park [centre]: TWO flower pots in the central park area.\n   - Green spaces make a city healthier and more beautiful.\n   - Plants take in carbon dioxide and give out oxygen during photosynthesis.\n   ! careful: There are only TWO pots. Don't describe gardens or trees that are not in the model.\n* Five Dustbins [front, some details still to confirm with Rajnish Ma'am]: Five bins: GREEN (Wet waste), BLUE (Dry waste), BLACK, RED and YELLOW.\n   - Waste segregation at source means separating waste where it is created — at home, in school, in shops.\n   - GREEN = Wet waste — kitchen waste, peels, leftover food → compost or biogas.\n   - BLUE = Dry waste — paper, plastic, metal, glass → sent for sorting and recycling.\n   - BLACK = Domestic hazardous waste — batteries, bulbs/tube lights, broken glass, paint containers (Chandigarh system — confirm with Ma'am).\n   ! careful: Say “in Chandigarh's system” when you explain black and red — colours can differ from city to city.\n   ! careful: Don't say “all dry waste is non-biodegradable” — paper and cardboard are dry but biodegradable.\n   ! careful: Don't mix the hospital meaning of RED (contaminated plastic) with the household meaning (sanitary waste).\n* Plastic Man of India [centre]: A picture of Professor Rajagopalan Vasudevan.\n   - Professor Rajagopalan Vasudevan is called the Plastic Man of India.\n   - He found a way to use waste plastic to build roads.\n   - He received the Padma Shri in 2018.\n   ! careful: Don't say he ‘invented plastic’ or that plastic roads ‘solve the whole plastic problem’. Reducing plastic use is still most important.\n* Handmade Hut [village]: A handmade village hut.\n   - The Smart Village shows that villages can also be clean, healthy and use renewable energy.\n   ! careful: Don't describe extra things (solar lights, rainwater harvesting, crops) that are not in the model.\n* Digger Field [village, some details still to confirm with Rajnish Ma'am]: A field area with a toy digger (JCB) and a fence.\n   - (Ask Rajnish Ma'am what the digger field represents before you explain it.)\n   ! careful: Do not invent crops or technologies that are not in the model.\n* Village Toilet [village]: One toilet in the Smart Village.\n   - Villages also need toilets — this was one of the main goals of Swachh Bharat Mission (Grameen).\n   - It prevents open defecation and protects ponds, wells and fields from germs.\n   ! careful: Don't say it is connected to the biogas plant unless it really is in your model.\n* Biogas Plant [village]: A biogas plant in the Smart Village, with a pipe to a stove/flame.\n   - Biogas is made when cow dung, food waste and plant waste rot WITHOUT oxygen.\n   - This process is called anaerobic digestion.\n   - Biogas is mainly methane + carbon dioxide. It is used for cooking, heating or electricity.\n   - The leftover slurry is a good fertilizer.\n   ! careful: Biogas also produces CO₂ when burnt — say it is ‘cleaner than firewood/cow-dung cakes’, not ‘completely pollution-free’.\n* Sugar & Leather Industry [front]: A factory labelled ‘Sugar & Leather Industry (Dirty Water)’ with chimneys, connected by pipes to a pump and the water treatment setup.\n   - Factories like sugar mills and leather tanneries release dirty water (wastewater) full of chemicals.\n   - If it goes directly into rivers, it kills fish and pollutes drinking water.\n   - So industries must treat it in an Effluent Treatment Plant (ETP) before reusing or releasing it.\n   ! careful: Don't mix up your simple filter demo with a full ETP. Say “my filter shows only the first, simple step of cleaning water”.\n* Water Treatment / Filtration [front]: Dirty water (pumped from the factory) → a multi-layer gravity filter → clean-looking water in a separate tank. Layers from TOP to BOTTOM (as in my project file): stones & gravel → sand → charcoal → cotton.\n   - This is a simple filtration demonstration — a basic water-cleaning step.\n   - Water flows from the COARSEST layer to the FINEST: stones & gravel → sand → charcoal → cotton.\n   - Stones and gravel (top) hold back big particles like leaves, twigs and mud.\n   - Sand removes smaller dirt particles.\n   ! careful: NEVER say “this makes water completely safe to drink”.\n   ! careful: If your model filter has no sand layer, skip the word “sand” when you point at it.\n* Plastic-to-Energy Machine [front, some details still to confirm with Rajnish Ma'am]: A handmade machine (with a red ‘fire’ chamber) and a separate unit with a bulb, placed apart with a visible gap. When activated, the bulb glows to show electricity.\n   - This machine shows the idea of Waste-to-Energy.\n   - Plastic and waste that CANNOT be recycled is treated at very high temperature in special closed plants.\n   - The heat boils water into steam, the steam turns a turbine, the turbine turns a generator, and we get electricity.\n   - These plants must have pollution-control systems. We should NEVER burn plastic in the open.\n   ! careful: NEVER say “we simply burn plastic and get electricity”.\n   ! careful: Confirm with Ma'am what each of the two separate machines represents.\nStill to confirm with Rajnish Ma'am: Does our model follow Chandigarh's bin system (BLACK = domestic hazardous waste, RED = sanitary waste)? And what does the YELLOW bin stand for — biomedical waste? Where do expired medicines go — black or red? | What does the LADDER below “Carbon Emission” represent? | What does the DIGGER FIELD represent — a farm field being dug, a compost pit, a landfill, or something else? | My project file says the filter layers from TOP to BOTTOM are: stones & gravel → sand → charcoal → cotton. Does my MODEL filter also have the SAND layer? | Plastic-to-Energy: what does each of the TWO separate machines represent? Which one is the furnace/processing part and which is the generator + bulb? | Is the village toilet connected to the biogas plant in our model, or is it a separate toilet? | Does the windmill actually turn / produce electricity in the model, or is it only a display? | EV station: is the green light only a charging indicator, or does it also show the car battery getting charged?\n\n=== 5. DUSTBIN COLOURS ===\n- GREEN: Wet waste — Fruit & vegetable peels, leftover food, tea leaves, flowers (verified)\n- BLUE: Dry waste — Paper, cardboard, plastic, metal cans, glass bottles (verified)\n- BLACK: Domestic hazardous (special care) waste — Dead batteries, bulbs & tube lights, broken glass, paint containers (confirm with Ma'am)\n- RED: Sanitary waste — Used sanitary pads & diapers (wrapped in paper); in Chandigarh also used masks, gloves & bandages (confirm with Ma'am)\n- YELLOW: Biomedical waste (likely) — Soiled bandages & cotton, body waste from hospitals (confirm with Ma'am)\n- Chandigarh Municipal Corporation (homes): Green = wet · Blue = dry · Black = domestic hazardous · Red = sanitary (and, as per the 2026 draft bye-laws, home medical waste like used masks and bandages). Compulsory with fines since April 2026.\n- Solid Waste Management Rules, 2026 (all of India): Four streams: Wet · Dry · Sanitary · Special care. For bins in public places the rules say GREEN = wet, BLUE = dry, and RED = sanitary (in public toilets). No colour is set for special care waste or for bins at home.\n- Bio-Medical Waste Rules, 2016 (hospitals): Yellow = infectious & body waste · Red = contaminated plastic · White = sharps · Blue = glass & metal implants\n\n=== 6. HER STAGE SPEECH OUTLINE (4 Oct 2026) ===\n- Opening: Greet judges, teachers and friends; Name, class, topic; Question: where does all this waste go?; What you will show today\n- Clean India Mission: Swachh Bharat Abhiyan; 2 October 2014, PM Narendra Modi, Gandhi Ji's birth anniversary; Started with toilets for everyone; Cities: 63 lakh+ home toilets, 6 lakh+ community & public toilet seats — more than the target; Now ODF Plus: about 5.7 lakh villages also manage garbage and dirty water\n- Waste management & segregation: Separate → collect → transport → recycle/treat → safely dispose; Segregation at source is the most important step; Wet → compost/biogas; dry → recycling; Mixed waste = garbage; separated waste = resource\n- Plastic, eco-bricks & the Plastic Man: Single-use plastic: used for minutes, stays for a very long time; Eco-brick: bottle packed tightly with clean, dry plastic; Prof. Rajagopalan Vasudevan — plastic in roads; Padma Shri 2018\n- The 7Rs: 3Rs → 7Rs; Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover; The best waste is the waste we never create\n- Waste to energy: Waste that can't be recycled can still give energy; Biogas: microbes, no oxygen → gas for cooking/electricity; Waste-to-energy plants: closed, very hot, pollution control → steam → turbine; Never burn plastic in the open\n- Green energy & the hydrogen train: Green energy: renewable, very little pollution; Solar: sunlight → electricity; wind: moving air → electricity; India crossed 300 GW of clean power (July 2026); goal 500 GW by 2030; Green hydrogen; First hydrogen train: Jind–Sonipat, flagged off 17 July 2026; Main by-product: water vapour\n- Clean water & rivers: Multi-layer filter: coarsest → finest; Stones & gravel → sand → charcoal → cotton; Clearer is not always safe; Factories: effluent treatment plants; cities: sewage treatment plants; Never throw garbage or puja waste into rivers\n- Our duties & conclusion: What can WE do?; Stop littering; segregate; say no to single-use plastic; Plant trees; public transport; spread awareness; Not only a government programme — every citizen's responsibility; Final quote, Thank you, Jai Hind\n\n=== 7. HER FAVOURITE QUOTES ===\n- The best waste is the waste we never create. / सबसे अच्छा कचरा वह है, जो हम कभी बनाते ही नहीं।\n- A clean India starts with a clean thought, grows through a responsible action, and shines through a waste-free tomorrow. / स्वच्छ भारत एक स्वच्छ सोच से शुरू होता है, ज़िम्मेदार काम से आगे बढ़ता है, और कचरा-मुक्त कल में चमकता है।\n- A clean India is not just a dream; it is a responsibility we share. / स्वच्छ भारत सिर्फ़ एक सपना नहीं, यह हम सबकी ज़िम्मेदारी है।\n- Cleanliness is not a job we do because we are forced to. It is a good habit and a healthy way of life. / स्वच्छता कोई मजबूरी का काम नहीं, यह एक अच्छी आदत और जीने का स्वस्थ तरीका है।\n- Turn waste into energy, not pollution. / कचरे को प्रदूषण नहीं, ऊर्जा बनाइए।\n- Clean water is precious — treat it, reuse it, protect it. / पानी अनमोल है — इसे साफ़ करें, दोबारा इस्तेमाल करें, और बचाएँ।\n- Cleanliness should not be only for 2nd October — it should be an everyday habit. / स्वच्छता सिर्फ़ 2 अक्टूबर के लिए नहीं, यह हर दिन की आदत होनी चाहिए।";
+  const $ = s => document.querySelector(s);
+  const feed = $("#feed");
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("ecodost-live:" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("ecodost-live:" + k, JSON.stringify(v)); } catch (e) {} },
+  };
+  const state = { mode: "ask", lang: store.get("lang", "en"), turns: store.get("turns", []), leaves: store.get("leaves", 0), asked: store.get("asked", []), busy: false };
+  let sample = null, ctl = null;
+
+  const LANG = {
+    en: "Answer in simple English.",
+    hi: "Answer in simple, correct Hindi (Devanagari script). Keep technical words like 'biogas', 'charcoal' or 'ETP' in their usual form.",
+    both: "Answer in simple English, then add one short line in simple, correct Hindi (Devanagari) that sums it up, starting with '🇮🇳 '.",
+  };
+  const RULES = () => [
+    "You are Eco-Dost, a cheerful recycling-robot buddy who helps Avni Choudhary (a Class 6 girl at Sharda Sarvhitkari Senior Secondary School, Chandigarh) understand and remember her science project “Clean India Mission and Waste Management” and her model. Her teacher is Rajnish Ma'am.",
+    "Use the KNOWLEDGE below as your source of truth. It has been fact-checked: where her handwritten file has an error, the CORRECTIONS section wins — teach the corrected fact and, if useful, mention gently that her file says otherwise.",
+    "How to answer:",
+    "- Talk to Avni like a friendly older buddy: warm, encouraging, simple words for an 11-year-old, 1–2 emoji at most.",
+    "- Keep it short: about 40–90 words. Use **bold** for the key words; a short list is fine. No headings.",
+    "- If the answer comes from her project file, mention the page, like “(📒 your file, page 16)”.",
+    "- End with ONE short question that checks she understood, on its own last line, starting exactly with “🎯 Quick check:”.",
+    "- Never invent parts of her model. Her model has NO rainwater harvesting, exactly ONE windmill and TWO flower pots. The meanings of the LADDER and the DIGGER FIELD are unknown — tell her to ask Rajnish Ma'am.",
+    "- Science rules: filtered water from her filter is clearer but NOT safe to drink; waste-to-energy is only for waste that cannot be recycled, in special plants with pollution control — never open burning, never “just burn plastic”; solar, EVs and the hydrogen train cut pollution but are not “zero impact” (it depends on how the electricity or hydrogen is made); non-biodegradable waste “does not break down easily” (not “never”).",
+    "- If she asks something outside her project, answer only if it is a simple, safe school-science or cleanliness question, and begin with “This isn't in your file, but…”. Otherwise kindly bring her back to her project.",
+    "- If you are not sure of a fact, say so and suggest she checks with Rajnish Ma'am. Never make up numbers or dates.",
+    "- Never ask for personal information.",
+    "- " + LANG[state.lang],
+    "",
+    "KNOWLEDGE:",
+    PACK,
+  ].join("\n");
+
+  // ---------- rendering ----------
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  function md(s) {
+    const lines = esc(s).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").split(/\n/);
+    let html = "", inList = false;
+    lines.forEach(l => {
+      const t = l.trim();
+      if (/^[-•]\s+/.test(t)) { if (!inList) { html += "<ul>"; inList = true; } html += "<li>" + t.replace(/^[-•]\s+/, "") + "</li>"; return; }
+      if (inList) { html += "</ul>"; inList = false; }
+      if (!t) return;
+      if (/^🎯/.test(t)) html += '<p class="qc">' + t + "</p>";
+      else html += "<p>" + t + "</p>";
+    });
+    if (inList) html += "</ul>";
+    return html;
+  }
+  function bubble(who, html) {
+    const m = document.createElement("div");
+    m.className = "msg " + who;
+    m.innerHTML = '<div class="bub">' + html + "</div>";
+    feed.appendChild(m);
+    feed.scrollTop = feed.scrollHeight;
+    return m;
+  }
+  function errorBox(text, retry) {
+    const e = document.createElement("div");
+    e.className = "err";
+    e.innerHTML = "<span>" + esc(text) + "</span>";
+    if (retry) { const b = document.createElement("button"); b.className = "btn ghost"; b.type = "button"; b.textContent = "Try again"; b.onclick = () => { e.remove(); retry(); }; e.appendChild(b); }
+    feed.appendChild(e); feed.scrollTop = feed.scrollHeight;
+  }
+  const ERR = {
+    rate_limited: "Eco-Dost needs a short break. Please try again in a minute.",
+    session_expired: "Please sign in to Claude again, then try.",
+    refused: "Eco-Dost can't answer that one. Try asking about your project.",
+    empty_completion: "That answer came out empty. Try asking in a different way.",
+    invalid_json: "That didn't come out right. Tap Try again.",
+    prompt_too_large: "The chat got too long. Tap New chat to start fresh.",
+  };
+  const OFF = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+  function handleError(e, retry) {
+    const code = e && e.code;
+    if (code === "cancelled") return;
+    if (OFF.includes(code)) { goOffline(); return; }
+    errorBox(ERR[code] || "There was a connection hiccup.", ["rate_limited", "session_expired", "refused", "prompt_too_large"].includes(code) ? null : retry);
+  }
+  function goOffline() { $("#offline").hidden = false; $("#form").hidden = true; }
+  function setBusy(b) { state.busy = b; $("#send").hidden = b; $("#stop").hidden = !b; $("#input").disabled = b; }
+  function renderLeaves() { $("#leaves").textContent = "🍃 " + state.leaves + (state.leaves === 1 ? " leaf" : " leaves"); }
+
+  // ---------- Ask me ----------
+  const STARTERS = [
+    "How does my water filter work?",
+    "What are the 3 stages of ODF Plus?",
+    "Explain the hydrogen train like I'm 10",
+    "Why is segregation at source so important?",
+    "Tell me a fun fact about biogas",
+    "Help me answer: why did you choose this topic?",
+  ];
+  function welcome() {
+    feed.innerHTML = "";
+    const m = bubble("bot", "<p>Hi Avni! 👋 I'm <strong>Eco-Dost</strong>. Ask me anything about your project file or your model, and I'll explain it simply. Then I'll ask you a quick check question.</p><p class=\"note\">Tap a question to start:</p>");
+    const box = document.createElement("div"); box.className = "starters";
+    STARTERS.forEach(q => { const c = document.createElement("button"); c.className = "chip"; c.type = "button"; c.textContent = q; c.onclick = () => ask(q); box.appendChild(c); });
+    m.appendChild(box);
+    // restore the previous conversation
+    state.turns.forEach(t => bubble(t.role === "user" ? "me" : "bot", t.role === "user" ? esc(t.content) : md(t.content)));
+  }
+  async function ask(text) {
+    text = String(text || "").trim();
+    if (!text || state.busy) return;
+    if (!sample) { goOffline(); return; }
+    $("#input").value = ""; autosize();
+    bubble("me", esc(text));
+    state.turns.push({ role: "user", content: text });
+    const out = bubble("bot", '<p class="thinking">Eco-Dost is thinking…</p>');
+    const turns = [{ role: "user", content: RULES() }, ...state.turns.slice(-12)];
+    ctl = new AbortController();
+    setBusy(true);
+    try {
+      const { text: answer, truncated } = await sample(turns, { cache: false, signal: ctl.signal, onText: ({ text }) => { out.querySelector(".bub").innerHTML = md(text); feed.scrollTop = feed.scrollHeight; } });
+      out.querySelector(".bub").innerHTML = md(answer) + (truncated ? '<p class="note">The answer was cut short. Ask for one part at a time.</p>' : "");
+      state.turns.push({ role: "assistant", content: answer });
+      state.turns = state.turns.slice(-16);
+      store.set("turns", state.turns);
+    } catch (e) {
+      if (e && e.text) out.querySelector(".bub").innerHTML = md(e.text) + '<p class="note">(interrupted)</p>'; else out.remove();
+      state.turns.pop();
+      handleError(e, () => ask(text));
+    } finally { setBusy(false); ctl = null; }
+  }
+
+  // ---------- Quiz me ----------
+  function leafIcons(n) {
+    let s = "";
+    for (let i = 0; i < 3; i++) s += '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="' + (i < n ? "leaf-on" : "leaf-off") + '" d="M5 19c0-8 6-14 15-15-1 9-7 15-15 15zm0 0 7-7"/></svg>';
+    return s;
+  }
+  async function newQuiz() {
+    if (!sample) { goOffline(); return; }
+    if (state.busy) return;
+    const card = document.createElement("div");
+    card.className = "quiz";
+    card.innerHTML = '<h2>Quiz time</h2><p class="thinking">Eco-Dost is picking a question…</p>';
+    feed.appendChild(card); feed.scrollTop = feed.scrollHeight;
+    ctl = new AbortController(); setBusy(true);
+    try {
+      const q = await sample.json(RULES() + "\n\nTASK: Ask Avni ONE quiz question about her project file or model, the kind a teacher or judge might ask. Mix easy, medium and hard. Do not repeat any of these recent questions: " + JSON.stringify(state.asked.slice(-15)) +
+        '\nReply with only JSON: {"question": string, "topic": string, "level": "easy"|"medium"|"hard"}' + (state.lang === "hi" ? " (question in Hindi)" : ""), { cache: false, signal: ctl.signal });
+      if (!q || !q.question) throw { code: "invalid_json" };
+      state.asked.push(q.question); state.asked = state.asked.slice(-30); store.set("asked", state.asked);
+      card.innerHTML = '<h2>Quiz time · ' + esc(q.level || "") + "</h2>" +
+        '<p class="q">' + esc(q.question) + "</p>" +
+        '<label class="note" for="qa-' + state.asked.length + '">Your answer — say it in your own words:</label>' +
+        '<textarea id="qa-' + state.asked.length + '" rows="3"></textarea>' +
+        '<div class="composer"><button class="btn" type="button" data-check>Check my answer</button><button class="btn ghost" type="button" data-skip>Another question</button></div>' +
+        '<div data-result></div>';
+      card.querySelector("[data-skip]").onclick = () => newQuiz();
+      card.querySelector("[data-check]").onclick = () => grade(card, q.question);
+      card.querySelector("textarea").focus();
+    } catch (e) {
+      card.remove();
+      handleError(e, newQuiz);
+    } finally { setBusy(false); ctl = null; }
+  }
+  async function grade(card, question) {
+    const ans = card.querySelector("textarea").value.trim();
+    if (!ans) { card.querySelector("textarea").focus(); return; }
+    if (state.busy) return;
+    const res = card.querySelector("[data-result]");
+    res.innerHTML = '<p class="thinking">Eco-Dost is checking…</p>';
+    card.querySelector("[data-check]").disabled = true;
+    ctl = new AbortController(); setBusy(true);
+    try {
+      const g = await sample.json(RULES() + "\n\nTASK: Mark Avni's answer like a kind but honest teacher (Rajnish Ma'am).\nQUESTION: " + question + "\nAVNI'S ANSWER: " + ans +
+        '\nScore 0–3 (3 = complete and correct, 2 = mostly right, 1 = partly right, 0 = not yet). Correct any wrong science gently. Reply with only JSON: {"score": 0|1|2|3, "praise": string (what she got right, 1 sentence), "missing": [strings — key points she missed, max 3], "modelAnswer": string (a 2–3 sentence answer she could say on stage), "tip": string (one tip on how to SAY it: pause, stress a word, eye contact)}', { cache: false, signal: ctl.signal });
+      const sc = Math.max(0, Math.min(3, Number(g.score) || 0));
+      state.leaves += sc; store.set("leaves", state.leaves); renderLeaves();
+      const verdict = ["Let's learn this one", "Good start", "Very good", "Excellent"][sc];
+      res.innerHTML = '<div class="score">' + leafIcons(sc) + "<span>" + verdict + " · +" + sc + (sc === 1 ? " leaf" : " leaves") + "</span></div>" +
+        (g.praise ? '<div class="res-block res-good"><b>What you got right</b>' + esc(g.praise) + "</div>" : "") +
+        (g.missing && g.missing.length ? '<div class="res-block res-miss"><b>Add these points</b><ul>' + g.missing.map(m => "<li>" + esc(m) + "</li>").join("") + "</ul></div>" : "") +
+        (g.modelAnswer ? '<div class="res-block res-model"><b>A strong answer</b>' + esc(g.modelAnswer) + "</div>" : "") +
+        (g.tip ? '<p class="note">🎤 ' + esc(g.tip) + "</p>" : "") +
+        '<div class="composer"><button class="btn" type="button" data-next>Next question</button></div>';
+      res.querySelector("[data-next]").onclick = () => newQuiz();
+    } catch (e) {
+      res.innerHTML = "";
+      card.querySelector("[data-check]").disabled = false;
+      handleError(e, () => grade(card, question));
+    } finally { setBusy(false); ctl = null; }
+  }
+
+  // ---------- controls ----------
+  function setMode(m) {
+    state.mode = m;
+    $("#modeAsk").setAttribute("aria-pressed", String(m === "ask"));
+    $("#modeQuiz").setAttribute("aria-pressed", String(m === "quiz"));
+    $("#form").hidden = m === "quiz" || !$("#offline").hidden;
+    if (m === "quiz") newQuiz(); else { feed.scrollTop = feed.scrollHeight; $("#input").focus(); }
+  }
+  $("#modeAsk").onclick = () => setMode("ask");
+  $("#modeQuiz").onclick = () => setMode("quiz");
+  document.querySelectorAll(".seg.lang button").forEach(b => {
+    b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
+    b.onclick = () => { state.lang = b.dataset.lang; store.set("lang", state.lang); document.querySelectorAll(".seg.lang button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); };
+  });
+  $("#clear").onclick = () => { if (ctl) ctl.abort(); state.turns = []; store.set("turns", []); welcome(); if (state.mode === "quiz") setMode("ask"); };
+  $("#stop").onclick = () => { if (ctl) ctl.abort(); };
+  $("#form").addEventListener("submit", e => { e.preventDefault(); ask($("#input").value); });
+  function autosize() { const t = $("#input"); t.style.height = "auto"; t.style.height = Math.min(140, t.scrollHeight) + "px"; }
+  $("#input").addEventListener("input", autosize);
+  $("#input").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask($("#input").value); } });
+
+  renderLeaves();
+  welcome();
+  if (window.claude && window.claude.use) {
+    window.claude.use("sample").then(s => { sample = s; if (!s) goOffline(); }).catch(() => goOffline());
+  } else goOffline();
+})();
+</script>

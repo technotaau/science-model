@@ -1,0 +1,343 @@
+<title>Eco-Dost Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one-screen chat app — mascot header with mode switch, scrolling conversation, composer docked at the bottom.
+   Palette taken from India's segregation bins: wet-bin green for Eco-Dost, dry-bin blue for Avni, saffron for points. */
+:root {
+  --bg: #eef3ee; --surface: #ffffff; --ink: #11261a; --muted: #4d6657; --line: #d3e0d6;
+  --wet: #1d7a45; --wet-soft: #e1f2e7; --dry: #1f5cba; --dry-ink: #ffffff; --saffron: #b85f00; --saffron-soft: #fdf0de;
+  --bad: #b3261e; --bad-soft: #fde8e6;
+  --display: "Baloo 2", "Hind", system-ui, sans-serif;
+  --body: "Hind", "Nirmala UI", "Noto Sans Devanagari", system-ui, sans-serif;
+  --r: 16px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1611; --surface: #152119; --ink: #e5f1e8; --muted: #9bb4a4; --line: #29392f;
+  --wet: #4cc583; --wet-soft: #17301f; --dry: #6fa3ff; --dry-ink: #0b1220; --saffron: #f0a43c; --saffron-soft: #33240f;
+  --bad: #ff8a80; --bad-soft: #3a1714; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0d1611; --surface: #152119; --ink: #e5f1e8; --muted: #9bb4a4; --line: #29392f;
+  --wet: #4cc583; --wet-soft: #17301f; --dry: #6fa3ff; --dry-ink: #0b1220; --saffron: #f0a43c; --saffron-soft: #33240f;
+  --bad: #ff8a80; --bad-soft: #3a1714; color-scheme: dark; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body); }
+.app { height: 100%; max-width: 760px; margin: 0 auto; padding-inline: 16px; display: grid; grid-template-rows: auto 1fr auto; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding-block: 12px 10px; border-bottom: 1px solid var(--line); }
+.who { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.who svg { width: 46px; height: 46px; flex: none; }
+h1 { font: 800 1.45rem/1 var(--display); margin: 0; text-wrap: balance; }
+.sub { margin: 2px 0 0; color: var(--muted); font-size: .88rem; }
+.leaves { font: 600 .9rem var(--body); color: var(--saffron); background: var(--saffron-soft); border-radius: 99px; padding: 3px 10px; font-variant-numeric: tabular-nums; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.seg button { font: 600 .9rem var(--body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--wet); color: var(--surface); }
+.seg.lang button[aria-pressed="true"] { background: var(--dry); color: var(--dry-ink); }
+button:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--dry); outline-offset: 2px; }
+main { overflow-y: auto; padding-block: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.msg { max-width: 88%; display: flex; flex-direction: column; gap: 6px; }
+.msg.bot { align-self: flex-start; }
+.msg.me { align-self: flex-end; }
+.bub { padding: 10px 13px; border-radius: var(--r); min-width: 0; overflow-wrap: anywhere; }
+.bot .bub { background: var(--wet-soft); border-bottom-left-radius: 4px; }
+.me .bub { background: var(--dry); color: var(--dry-ink); border-bottom-right-radius: 4px; }
+.bub p { margin: 0 0 6px; } .bub p:last-child { margin: 0; }
+.bub ul { margin: 4px 0 6px; padding-left: 1.2em; }
+.bub strong { font-weight: 600; }
+.qc { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 6px; font-weight: 600; color: var(--saffron); }
+.thinking { color: var(--muted); font-style: italic; }
+.note { font-size: .85rem; color: var(--muted); }
+.starters { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 .88rem var(--body); text-align: left; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
+.chip:hover { border-color: var(--wet); }
+footer { padding-block: 10px 14px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+.composer { display: flex; gap: 8px; align-items: flex-end; }
+textarea { flex: 1; min-width: 0; resize: none; font: 400 1rem/1.4 var(--body); color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 12px; max-height: 140px; }
+.btn { font: 700 .95rem var(--display); border: 0; border-radius: 12px; padding: 10px 16px; cursor: pointer; background: var(--wet); color: var(--surface); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.stop { background: var(--bad); color: var(--surface); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.quiz { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 8px; }
+.quiz h2 { font: 800 1.1rem var(--display); margin: 0; }
+.quiz .q { font-size: 1.08rem; font-weight: 600; }
+.score { display: flex; align-items: center; gap: 8px; font: 800 1.05rem var(--display); }
+.score svg { width: 26px; height: 26px; }
+.leaf-on { fill: var(--wet); } .leaf-off { fill: var(--line); }
+.res-block { border-radius: 12px; padding: 8px 11px; }
+.res-good { background: var(--wet-soft); } .res-miss { background: var(--saffron-soft); } .res-model { background: var(--bg); border: 1px solid var(--line); }
+.res-block b { display: block; font-size: .85rem; letter-spacing: .02em; color: var(--muted); }
+.banner { background: var(--saffron-soft); color: var(--ink); border-radius: 12px; padding: 10px 12px; font-size: .92rem; }
+.banner a { color: var(--dry); font-weight: 600; }
+.err { background: var(--bad-soft); color: var(--ink); border-radius: 12px; padding: 8px 12px; font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.hi { font-family: var(--body); }
+@media (prefers-reduced-motion: no-preference) { .msg { animation: pop .18s ease-out; } @keyframes pop { from { transform: translateY(6px); opacity: .4; } } }
+@media (max-width: 480px) { .msg { max-width: 96%; } h1 { font-size: 1.25rem; } }
+</style>
+
+<div class="app">
+  <header>
+    <div class="who">
+      <svg viewBox="0 0 64 64" role="img" aria-label="Eco-Dost, a smiling green dustbin">
+        <rect x="14" y="18" width="36" height="40" rx="7" fill="var(--wet)"/>
+        <rect x="10" y="11" width="44" height="9" rx="4.5" fill="var(--wet)"/>
+        <rect x="27" y="6" width="10" height="6" rx="3" fill="var(--wet)"/>
+        <circle cx="25" cy="32" r="4.5" fill="var(--surface)"/><circle cx="39" cy="32" r="4.5" fill="var(--surface)"/>
+        <circle cx="26" cy="33" r="2" fill="var(--ink)"/><circle cx="40" cy="33" r="2" fill="var(--ink)"/>
+        <path d="M25 43 q7 6 14 0" stroke="var(--surface)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Eco-Dost Live</h1>
+        <p class="sub">Ask anything about your project file and model — I answer from your own notes.</p>
+      </div>
+    </div>
+    <span class="leaves" id="leaves" title="Leaves you earned in Quiz me">🍃 0 leaves</span>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Mode">
+        <button id="modeAsk" aria-pressed="true">Ask me</button>
+        <button id="modeQuiz" aria-pressed="false">Quiz me</button>
+      </div>
+      <div class="seg lang" role="group" aria-label="Answer language">
+        <button data-lang="en" aria-pressed="true">English</button>
+        <button data-lang="hi" aria-pressed="false" class="hi">हिंदी</button>
+        <button data-lang="both" aria-pressed="false">Both</button>
+      </div>
+      <button class="btn ghost" id="clear" title="Start a new chat">New chat</button>
+    </div>
+  </header>
+
+  <main id="feed" aria-live="polite"></main>
+
+  <footer>
+    <div class="banner" id="offline" hidden>
+      Live answers work when this page is opened in Claude while you are signed in. You can still use the offline Eco-Dost on your website:
+      <a href="https://technotaau.github.io/science-model/#ecodost" target="_blank" rel="noopener">open Ask Eco-Dost</a>.
+    </div>
+    <form class="composer" id="form">
+      <label for="input" class="note" hidden>Your question</label>
+      <textarea id="input" rows="1" placeholder="Ask about your file or model…"></textarea>
+      <button class="btn" id="send" type="submit">Ask</button>
+      <button class="btn stop" id="stop" type="button" hidden>Stop</button>
+    </form>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const PACK = /*PACK*/"";
+  const $ = s => document.querySelector(s);
+  const feed = $("#feed");
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("ecodost-live:" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("ecodost-live:" + k, JSON.stringify(v)); } catch (e) {} },
+  };
+  const state = { mode: "ask", lang: store.get("lang", "en"), turns: store.get("turns", []), leaves: store.get("leaves", 0), asked: store.get("asked", []), busy: false };
+  let sample = null, ctl = null;
+
+  const LANG = {
+    en: "Answer in simple English.",
+    hi: "Answer in simple, correct Hindi (Devanagari script). Keep technical words like 'biogas', 'charcoal' or 'ETP' in their usual form.",
+    both: "Answer in simple English, then add one short line in simple, correct Hindi (Devanagari) that sums it up, starting with '🇮🇳 '.",
+  };
+  const RULES = () => [
+    "You are Eco-Dost, a cheerful recycling-robot buddy who helps Avni Choudhary (a Class 6 girl at Sharda Sarvhitkari Senior Secondary School, Chandigarh) understand and remember her science project “Clean India Mission and Waste Management” and her model. Her teacher is Rajnish Ma'am.",
+    "Use the KNOWLEDGE below as your source of truth. It has been fact-checked: where her handwritten file has an error, the CORRECTIONS section wins — teach the corrected fact and, if useful, mention gently that her file says otherwise.",
+    "How to answer:",
+    "- Talk to Avni like a friendly older buddy: warm, encouraging, simple words for an 11-year-old, 1–2 emoji at most.",
+    "- Keep it short: about 40–90 words. Use **bold** for the key words; a short list is fine. No headings.",
+    "- If the answer comes from her project file, mention the page, like “(📒 your file, page 16)”.",
+    "- End with ONE short question that checks she understood, on its own last line, starting exactly with “🎯 Quick check:”.",
+    "- Never invent parts of her model. Her model has NO rainwater harvesting, exactly ONE windmill and TWO flower pots. The meanings of the LADDER and the DIGGER FIELD are unknown — tell her to ask Rajnish Ma'am.",
+    "- Science rules: filtered water from her filter is clearer but NOT safe to drink; waste-to-energy is only for waste that cannot be recycled, in special plants with pollution control — never open burning, never “just burn plastic”; solar, EVs and the hydrogen train cut pollution but are not “zero impact” (it depends on how the electricity or hydrogen is made); non-biodegradable waste “does not break down easily” (not “never”).",
+    "- If she asks something outside her project, answer only if it is a simple, safe school-science or cleanliness question, and begin with “This isn't in your file, but…”. Otherwise kindly bring her back to her project.",
+    "- If you are not sure of a fact, say so and suggest she checks with Rajnish Ma'am. Never make up numbers or dates.",
+    "- Never ask for personal information.",
+    "- " + LANG[state.lang],
+    "",
+    "KNOWLEDGE:",
+    PACK,
+  ].join("\n");
+
+  // ---------- rendering ----------
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  function md(s) {
+    const lines = esc(s).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").split(/\n/);
+    let html = "", inList = false;
+    lines.forEach(l => {
+      const t = l.trim();
+      if (/^[-•]\s+/.test(t)) { if (!inList) { html += "<ul>"; inList = true; } html += "<li>" + t.replace(/^[-•]\s+/, "") + "</li>"; return; }
+      if (inList) { html += "</ul>"; inList = false; }
+      if (!t) return;
+      if (/^🎯/.test(t)) html += '<p class="qc">' + t + "</p>";
+      else html += "<p>" + t + "</p>";
+    });
+    if (inList) html += "</ul>";
+    return html;
+  }
+  function bubble(who, html) {
+    const m = document.createElement("div");
+    m.className = "msg " + who;
+    m.innerHTML = '<div class="bub">' + html + "</div>";
+    feed.appendChild(m);
+    feed.scrollTop = feed.scrollHeight;
+    return m;
+  }
+  function errorBox(text, retry) {
+    const e = document.createElement("div");
+    e.className = "err";
+    e.innerHTML = "<span>" + esc(text) + "</span>";
+    if (retry) { const b = document.createElement("button"); b.className = "btn ghost"; b.type = "button"; b.textContent = "Try again"; b.onclick = () => { e.remove(); retry(); }; e.appendChild(b); }
+    feed.appendChild(e); feed.scrollTop = feed.scrollHeight;
+  }
+  const ERR = {
+    rate_limited: "Eco-Dost needs a short break. Please try again in a minute.",
+    session_expired: "Please sign in to Claude again, then try.",
+    refused: "Eco-Dost can't answer that one. Try asking about your project.",
+    empty_completion: "That answer came out empty. Try asking in a different way.",
+    invalid_json: "That didn't come out right. Tap Try again.",
+    prompt_too_large: "The chat got too long. Tap New chat to start fresh.",
+  };
+  const OFF = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+  function handleError(e, retry) {
+    const code = e && e.code;
+    if (code === "cancelled") return;
+    if (OFF.includes(code)) { goOffline(); return; }
+    errorBox(ERR[code] || "There was a connection hiccup.", ["rate_limited", "session_expired", "refused", "prompt_too_large"].includes(code) ? null : retry);
+  }
+  function goOffline() { $("#offline").hidden = false; $("#form").hidden = true; }
+  function setBusy(b) { state.busy = b; $("#send").hidden = b; $("#stop").hidden = !b; $("#input").disabled = b; }
+  function renderLeaves() { $("#leaves").textContent = "🍃 " + state.leaves + (state.leaves === 1 ? " leaf" : " leaves"); }
+
+  // ---------- Ask me ----------
+  const STARTERS = [
+    "How does my water filter work?",
+    "What are the 3 stages of ODF Plus?",
+    "Explain the hydrogen train like I'm 10",
+    "Why is segregation at source so important?",
+    "Tell me a fun fact about biogas",
+    "Help me answer: why did you choose this topic?",
+  ];
+  function welcome() {
+    feed.innerHTML = "";
+    const m = bubble("bot", "<p>Hi Avni! 👋 I'm <strong>Eco-Dost</strong>. Ask me anything about your project file or your model, and I'll explain it simply. Then I'll ask you a quick check question.</p><p class=\"note\">Tap a question to start:</p>");
+    const box = document.createElement("div"); box.className = "starters";
+    STARTERS.forEach(q => { const c = document.createElement("button"); c.className = "chip"; c.type = "button"; c.textContent = q; c.onclick = () => ask(q); box.appendChild(c); });
+    m.appendChild(box);
+    // restore the previous conversation
+    state.turns.forEach(t => bubble(t.role === "user" ? "me" : "bot", t.role === "user" ? esc(t.content) : md(t.content)));
+  }
+  async function ask(text) {
+    text = String(text || "").trim();
+    if (!text || state.busy) return;
+    if (!sample) { goOffline(); return; }
+    $("#input").value = ""; autosize();
+    bubble("me", esc(text));
+    state.turns.push({ role: "user", content: text });
+    const out = bubble("bot", '<p class="thinking">Eco-Dost is thinking…</p>');
+    const turns = [{ role: "user", content: RULES() }, ...state.turns.slice(-12)];
+    ctl = new AbortController();
+    setBusy(true);
+    try {
+      const { text: answer, truncated } = await sample(turns, { cache: false, signal: ctl.signal, onText: ({ text }) => { out.querySelector(".bub").innerHTML = md(text); feed.scrollTop = feed.scrollHeight; } });
+      out.querySelector(".bub").innerHTML = md(answer) + (truncated ? '<p class="note">The answer was cut short. Ask for one part at a time.</p>' : "");
+      state.turns.push({ role: "assistant", content: answer });
+      state.turns = state.turns.slice(-16);
+      store.set("turns", state.turns);
+    } catch (e) {
+      if (e && e.text) out.querySelector(".bub").innerHTML = md(e.text) + '<p class="note">(interrupted)</p>'; else out.remove();
+      state.turns.pop();
+      handleError(e, () => ask(text));
+    } finally { setBusy(false); ctl = null; }
+  }
+
+  // ---------- Quiz me ----------
+  function leafIcons(n) {
+    let s = "";
+    for (let i = 0; i < 3; i++) s += '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="' + (i < n ? "leaf-on" : "leaf-off") + '" d="M5 19c0-8 6-14 15-15-1 9-7 15-15 15zm0 0 7-7"/></svg>';
+    return s;
+  }
+  async function newQuiz() {
+    if (!sample) { goOffline(); return; }
+    if (state.busy) return;
+    const card = document.createElement("div");
+    card.className = "quiz";
+    card.innerHTML = '<h2>Quiz time</h2><p class="thinking">Eco-Dost is picking a question…</p>';
+    feed.appendChild(card); feed.scrollTop = feed.scrollHeight;
+    ctl = new AbortController(); setBusy(true);
+    try {
+      const q = await sample.json(RULES() + "\n\nTASK: Ask Avni ONE quiz question about her project file or model, the kind a teacher or judge might ask. Mix easy, medium and hard. Do not repeat any of these recent questions: " + JSON.stringify(state.asked.slice(-15)) +
+        '\nReply with only JSON: {"question": string, "topic": string, "level": "easy"|"medium"|"hard"}' + (state.lang === "hi" ? " (question in Hindi)" : ""), { cache: false, signal: ctl.signal });
+      if (!q || !q.question) throw { code: "invalid_json" };
+      state.asked.push(q.question); state.asked = state.asked.slice(-30); store.set("asked", state.asked);
+      card.innerHTML = '<h2>Quiz time · ' + esc(q.level || "") + "</h2>" +
+        '<p class="q">' + esc(q.question) + "</p>" +
+        '<label class="note" for="qa-' + state.asked.length + '">Your answer — say it in your own words:</label>' +
+        '<textarea id="qa-' + state.asked.length + '" rows="3"></textarea>' +
+        '<div class="composer"><button class="btn" type="button" data-check>Check my answer</button><button class="btn ghost" type="button" data-skip>Another question</button></div>' +
+        '<div data-result></div>';
+      card.querySelector("[data-skip]").onclick = () => newQuiz();
+      card.querySelector("[data-check]").onclick = () => grade(card, q.question);
+      card.querySelector("textarea").focus();
+    } catch (e) {
+      card.remove();
+      handleError(e, newQuiz);
+    } finally { setBusy(false); ctl = null; }
+  }
+  async function grade(card, question) {
+    const ans = card.querySelector("textarea").value.trim();
+    if (!ans) { card.querySelector("textarea").focus(); return; }
+    if (state.busy) return;
+    const res = card.querySelector("[data-result]");
+    res.innerHTML = '<p class="thinking">Eco-Dost is checking…</p>';
+    card.querySelector("[data-check]").disabled = true;
+    ctl = new AbortController(); setBusy(true);
+    try {
+      const g = await sample.json(RULES() + "\n\nTASK: Mark Avni's answer like a kind but honest teacher (Rajnish Ma'am).\nQUESTION: " + question + "\nAVNI'S ANSWER: " + ans +
+        '\nScore 0–3 (3 = complete and correct, 2 = mostly right, 1 = partly right, 0 = not yet). Correct any wrong science gently. Reply with only JSON: {"score": 0|1|2|3, "praise": string (what she got right, 1 sentence), "missing": [strings — key points she missed, max 3], "modelAnswer": string (a 2–3 sentence answer she could say on stage), "tip": string (one tip on how to SAY it: pause, stress a word, eye contact)}', { cache: false, signal: ctl.signal });
+      const sc = Math.max(0, Math.min(3, Number(g.score) || 0));
+      state.leaves += sc; store.set("leaves", state.leaves); renderLeaves();
+      const verdict = ["Let's learn this one", "Good start", "Very good", "Excellent"][sc];
+      res.innerHTML = '<div class="score">' + leafIcons(sc) + "<span>" + verdict + " · +" + sc + (sc === 1 ? " leaf" : " leaves") + "</span></div>" +
+        (g.praise ? '<div class="res-block res-good"><b>What you got right</b>' + esc(g.praise) + "</div>" : "") +
+        (g.missing && g.missing.length ? '<div class="res-block res-miss"><b>Add these points</b><ul>' + g.missing.map(m => "<li>" + esc(m) + "</li>").join("") + "</ul></div>" : "") +
+        (g.modelAnswer ? '<div class="res-block res-model"><b>A strong answer</b>' + esc(g.modelAnswer) + "</div>" : "") +
+        (g.tip ? '<p class="note">🎤 ' + esc(g.tip) + "</p>" : "") +
+        '<div class="composer"><button class="btn" type="button" data-next>Next question</button></div>';
+      res.querySelector("[data-next]").onclick = () => newQuiz();
+    } catch (e) {
+      res.innerHTML = "";
+      card.querySelector("[data-check]").disabled = false;
+      handleError(e, () => grade(card, question));
+    } finally { setBusy(false); ctl = null; }
+  }
+
+  // ---------- controls ----------
+  function setMode(m) {
+    state.mode = m;
+    $("#modeAsk").setAttribute("aria-pressed", String(m === "ask"));
+    $("#modeQuiz").setAttribute("aria-pressed", String(m === "quiz"));
+    $("#form").hidden = m === "quiz" || !$("#offline").hidden;
+    if (m === "quiz") newQuiz(); else { feed.scrollTop = feed.scrollHeight; $("#input").focus(); }
+  }
+  $("#modeAsk").onclick = () => setMode("ask");
+  $("#modeQuiz").onclick = () => setMode("quiz");
+  document.querySelectorAll(".seg.lang button").forEach(b => {
+    b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
+    b.onclick = () => { state.lang = b.dataset.lang; store.set("lang", state.lang); document.querySelectorAll(".seg.lang button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); };
+  });
+  $("#clear").onclick = () => { if (ctl) ctl.abort(); state.turns = []; store.set("turns", []); welcome(); if (state.mode === "quiz") setMode("ask"); };
+  $("#stop").onclick = () => { if (ctl) ctl.abort(); };
+  $("#form").addEventListener("submit", e => { e.preventDefault(); ask($("#input").value); });
+  function autosize() { const t = $("#input"); t.style.height = "auto"; t.style.height = Math.min(140, t.scrollHeight) + "px"; }
+  $("#input").addEventListener("input", autosize);
+  $("#input").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask($("#input").value); } });
+
+  renderLeaves();
+  welcome();
+  if (window.claude && window.claude.use) {
+    window.claude.use("sample").then(s => { sample = s; if (!s) goOffline(); }).catch(() => goOffline());
+  } else goOffline();
+})();
+</script>

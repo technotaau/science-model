@@ -93,7 +93,8 @@
     $$('input[name="fairDate"]').forEach(r => r.addEventListener("change", () => { store.set("fairDate", r.value); renderCountdown(); }));
 
     $("#marksList").innerHTML = S.marks.map(m =>
-      '<div class="mark"><b>' + m.icon + " " + esc(m.name) + " — 10</b><p>" + esc(m.tip) + "</p></div>").join("");
+      '<div class="mark"><b>' + m.icon + " " + esc(m.name) + (m.hi ? ' <span class="muted">· ' + esc(m.hi) + "</span>" : "") + " — 10</b><p>" + esc(m.tip) + "</p></div>").join("");
+    if ($("#marksNote")) $("#marksNote").textContent = S.marksSource || "";
     $("#quotesList").innerHTML = S.quotes.map((x, i) => '<div class="quote"><span>' + renderSample(x) + "</span>" +
       (V.canSpeak ? '<button class="btn small ghost" data-q="' + i + '">🔊</button>' : "") + "</div>").join("");
     $$("#quotesList [data-q]").forEach(b => b.onclick = () => V.speakSample(S.quotes[+b.dataset.q]));
@@ -117,12 +118,14 @@
     const answered = Object.keys(viva).length;
     const confirmed = Object.values(store.get("ask", {})).filter(v => v && v.trim()).length;
     const hist = store.get("scores", []);
-    const best = hist.length ? Math.max(...hist.map(h => h.total)) : "–";
+    // best score on the current (official 40-mark) scheme; older practice rows were out of 50
+    const cur = hist.filter(h => h.of === S.marks.length * 10);
+    const best = cur.length ? Math.max(...cur.map(h => h.total)) + "/" + cur[0].of : "–";
     $("#progressTiles").innerHTML =
       tile(stepsDone + "/" + S.presentation.length, "steps practised") +
       tile(answered + "/" + S.viva.length, "viva questions tried") +
       tile(confirmed + "/" + S.confirmList.length, "answers from Ma'am") +
-      tile(best + (hist.length ? "/50" : ""), "best self-score");
+      tile(best, "best self-score");
     function tile(v, l) { return '<div class="tile"><b>' + esc(v) + "</b><span>" + esc(l) + "</span></div>"; }
   }
 
@@ -320,7 +323,7 @@
     $("#stepCard").className = "card step-card";
     $("#stepCard").innerHTML = "<h3>🎬 Rehearsal complete!</h3><p>Total time: <b>" + mmss(total) + "</b> (target about " + mmss(target) + ").</p>" +
       '<div class="hist-wrap"><table class="hist"><tr><th>Step</th><th>Target</th><th>You</th><th></th></tr>' + rows + "</table></div>" +
-      '<p class="small">Now go to <a href="#score">📊 Score</a> and mark yourself out of 50.</p>';
+      '<p class="small">Now go to <a href="#score">📊 Score</a> and mark yourself on the 4 official heads.</p>';
     if (V.canSpeak) V.speak("Well done! Your rehearsal took " + Math.floor(total / 60) + " minutes and " + Math.round(total % 60) + " seconds.");
   }
   function initRehearsal() {
@@ -501,10 +504,11 @@
       S.marks.forEach(m => { const v = +$("#sc-" + m.key).value; t += v; $("#scv-" + m.key).textContent = v; });
       $("#scoreTotal").textContent = t;
     };
+    $("#scoreMax").textContent = S.marks.length * 10;
     $$("#scoreSliders input").forEach(i => i.addEventListener("input", upd));
     upd();
     $("#scoreSave").onclick = () => {
-      const entry = { at: new Date().toLocaleString(), note: $("#scoreNote").value.trim(), total: 0 };
+      const entry = { at: new Date().toLocaleString(), note: $("#scoreNote").value.trim(), total: 0, of: S.marks.length * 10 };
       S.marks.forEach(m => { entry[m.key] = +$("#sc-" + m.key).value; entry.total += entry[m.key]; });
       const hist = store.get("scores", []); hist.unshift(entry); store.set("scores", hist.slice(0, 50));
       $("#scoreNote").value = "";
@@ -517,8 +521,9 @@
     if (!hist.length) { $("#scoreHistory").innerHTML = '<p class="muted small">No practice saved yet.</p>'; return; }
     $("#scoreHistory").innerHTML = '<div class="hist-wrap"><table class="hist"><tr><th>When</th>' +
       S.marks.map(m => "<th>" + m.icon + "</th>").join("") + "<th>Total</th><th>Improve next</th></tr>" +
-      hist.map(h => "<tr><td>" + esc(h.at) + "</td>" + S.marks.map(m => "<td>" + h[m.key] + "</td>").join("") +
-        "<td><b>" + h.total + "</b></td><td>" + esc(h.note || "") + "</td></tr>").join("") + "</table></div>";
+      // rows saved before the official 40-mark scheme have other heads: show their total out of 50
+      hist.map(h => "<tr><td>" + esc(h.at) + "</td>" + S.marks.map(m => "<td>" + (h.of && m.key in h ? h[m.key] : "–") + "</td>").join("") +
+        "<td><b>" + h.total + "</b>/" + (h.of || 50) + "</td><td>" + esc(h.note || "") + "</td></tr>").join("") + "</table></div>";
   }
 
   // ---------- ask ma'am ----------
@@ -588,8 +593,28 @@
     };
     $("#printReport").onclick = () => doPrint("print-report");
     $("#printQR").onclick = () => doPrint("print-qr");
+    renderSynopsis();
+    $("#printSynopsis").onclick = () => { $("#synopsisCard").open = true; doPrint("print-synopsis"); };
   }
   // Practice progress summary for the teacher (from this device's saved practice)
+  // 📝 The written synopsis (official rule: 2 copies with content, principle, working and the list of parts)
+  function renderSynopsis() {
+    const P = S.project, Y = P.synopsis, st = S.student;
+    if (!Y || !$("#synopsis")) { if ($("#synopsisCard")) $("#synopsisCard").hidden = true; return; }
+    const ul = a => "<ul>" + a.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>";
+    $("#synopsis").innerHTML =
+      '<header class="syn-head"><h2>' + esc(P.title) + '</h2><p class="small">' + esc(Y.category) + "</p>" +
+      "<p><b>Name:</b> " + esc(st.name) + " &nbsp; <b>Class:</b> " + esc(st.className) + " &nbsp; <b>School:</b> " + esc(st.school) + " &nbsp; <b>Guide teacher:</b> " + esc(st.teacher) + "</p></header>" +
+      "<h3>1. Aim</h3><p>" + esc(P.aim) + "</p>" +
+      "<h3>2. Content</h3>" + ul(Y.content) +
+      "<h3>3. Principle (the science)</h3>" + ul(Y.principle) +
+      "<h3>4. Procedure — how the model works</h3><ol>" + Y.working.map(x => "<li>" + esc(x) + "</li>").join("") + "</ol>" +
+      "<h3>5. List of parts</h3><table class=\"parts syn-parts\"><tr><th>No.</th><th>Part</th><th>What it shows</th></tr>" +
+      S.components.map((c, i) => { const pt = P.parts[c.id] || {}; return "<tr><td>" + (i + 1) + "</td><td>" + c.icon + " " + esc(c.name) + "</td><td>" + esc(pt.concept || "(to be written)") + "</td></tr>"; }).join("") + "</table>" +
+      "<h3>6. Materials used</h3>" + ul(P.materials) +
+      "<h3>7. Usefulness</h3>" + ul(Y.usefulness) +
+      '<p class="syn-pledge"><b>Message:</b> “' + esc(P.pledge) + "”</p>";
+  }
   function renderProjectProgress() {
     if (visitor || !S.project) return;
     const done = store.get("stepsDone", {});
@@ -608,9 +633,9 @@
       tile(steps + "/" + S.presentation.length, "presentation steps practised") +
       tile(viva.length + "/" + S.viva.length, "viva questions practised") +
       tile(vivaPct === null ? "–" : vivaPct + "%", "key points covered (avg)") +
-      tile(last ? last.total + "/50" : "–", "latest self-score") +
+      tile(last ? last.total + "/" + (last.of || 50) : "–", "latest self-score") +
       tile(reh ? mmss(reh.total) : "–", "last full rehearsal") + "</div>" +
-      (last ? '<p class="small">Latest self-score: ' + S.marks.map(m => m.icon + " " + esc(m.name) + " " + last[m.key] + "/10").join(" · ") + "</p>" : "") +
+      (last ? '<p class="small">Latest self-score: ' + (last.of ? S.marks.map(m => m.icon + " " + esc(m.name) + " " + last[m.key] + "/10").join(" · ") + " · total " + last.total + "/" + last.of : "total " + last.total + "/50 (old scheme)") + "</p>" : "") +
       (pending.length ? '<div class="sec ask"><h4>❓ Points I need to confirm with you, Ma\'am</h4><ol>' + pending.map(a => "<li>" + esc(a.q) + "</li>").join("") + "</ol></div>" : "") +
       (answered.length ? '<div class="sec ok"><h4>✅ Already confirmed</h4><ul>' + answered.map(a => "<li>" + esc(a.q) + " <b>→ " + esc(ans[a.id]) + "</b></li>").join("") + "</ul></div>" : "") +
       '<p class="tiny muted">Progress is saved on this device.</p>';

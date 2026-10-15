@@ -69,7 +69,14 @@ window.SITE = {
     { id: "file", group: "Papers", item: "Your project file (with the sticky-note corrections), printed project report and the QR card" },
     { id: "cue", group: "Papers", item: "Your cue card with headings and favourite thoughts" },
     { id: "power", group: "Power", item: "Extension board and phone charger/power bank (if the model or demos need power)" },
-    { id: "self", group: "You", item: "Water bottle, light snacks, school ID card, comfortable shoes" }
+    { id: "self", group: "You", item: "Water bottle, light snacks, school ID card, comfortable shoes" },
+    { id: "synopsis", group: "Fair rules (official)", item: "2 written copies of your synopsis, with the list of parts (Bal Varg must list the parts)" },
+    { id: "consent", group: "Fair rules (official)", item: "Parent consent letter — needed at every level" },
+    { id: "proforma", group: "Fair rules (official)", item: "Participation proforma signed by the sanyojaks — ask your school" },
+    { id: "uniform", group: "Fair rules (official)", item: "School uniform — must be worn during the competition" },
+    { id: "nothermo", group: "Fair rules (official)", item: "Check every part: NO thermocol in any form (strictly banned). Replace any with cardboard" },
+    { id: "size", group: "Fair rules (official)", item: "Measure the model: not bigger than 5 ft × 3 ft (about 152 cm × 91 cm)" },
+    { id: "charts", group: "Fair rules (official)", item: "Not more than 2 charts" }
   ],
 
 
@@ -172,7 +179,8 @@ window.SITE = {
       "Two model electric buses, and a hydrogen train on a railway track",
       "Charcoal, stones and cotton in a container (water filter)",
       "Handmade plastic-to-energy machine with a bulb",
-      "One windmill, two flower pots, five coloured dustbins"
+      "One windmill, two flower pots, five coloured dustbins",
+      "An eco-friendly Ganesha made with clay and daals (pulses)"
     ],
     learned: [
       "Waste becomes a resource when we separate it at source; mixed waste becomes garbage.",
@@ -190,6 +198,39 @@ window.SITE = {
     ],
     // For each part of the model: the science concept, and how it links to Clean India / waste management.
     // visitor = one simple line shown to judges who scan the QR code.
+    // 📝 Written synopsis — the rules ask for 2 copies (content, principle, procedure/working, list of parts)
+    synopsis: {
+      category: "Model Exhibition · Bal Varg (Classes 6–8) · Model topic: Model based on Clean India Mission and Waste Management",
+      content: [
+        "My model shows a Smart City (left), a Centre / Park display (middle) and a Smart Village (right) on one base, with demonstrations at the front.",
+        "It is a model with working demonstrations: a solar panel lights a bulb, an EV charging light glows, dirty water is filtered, and a plastic-to-energy machine lights a bulb.",
+        "It explains the Clean India Mission (Swachh Bharat Abhiyan): toilets and sanitation, separating waste at source, the 7Rs, turning waste into resources, clean water and clean energy."
+      ],
+      principle: [
+        "Segregation at source: when wet, dry, sanitary and hazardous waste are kept separate, each can be treated properly — wet waste becomes compost or biogas, and dry waste can be recycled.",
+        "Sanitation: toilets for everyone stop open defecation and keep germs away from our water and food.",
+        "Anaerobic digestion: in a closed tank without oxygen, microbes break down dung and kitchen waste into biogas (mainly methane, about 50–70%, plus carbon dioxide) and slurry manure.",
+        "Filtration: water passes from coarse to fine layers — stones and gravel → sand → charcoal → cotton — which hold back particles; charcoal also traps some chemicals and smells. Filtered water is clearer but not safe to drink without more treatment.",
+        "Clean energy: solar cells change sunlight into electricity; a windmill uses moving air to make electricity; a hydrogen fuel cell joins hydrogen and oxygen to make electricity, and gives out water vapour instead of smoke.",
+        "Waste-to-energy (Recover): only waste that cannot be recycled is burnt in special plants with pollution control; the heat makes steam, which turns a turbine and generator.",
+        "The 7Rs: Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover — the best waste is the waste we never create."
+      ],
+      working: [
+        "Smart City: toilets, solar panels on three buildings (a real panel lights a bulb), an EV charging station (press the button — a green light shows charging) and an electric bus stand.",
+        "Transport: a hydrogen train, like India's first hydrogen train on the Jind–Sonipat route in Haryana.",
+        "Centre: the India map with “Carbon Emission”, a windmill, two flower pots in the park, and the Plastic Man of India, who showed how waste plastic can be used in roads.",
+        "Dustbins: five colour-coded dustbins show segregation of waste at source.",
+        "Smart Village: a handmade hut, a village toilet and a biogas plant that turns dung and kitchen waste into cooking gas and manure.",
+        "Water: the sugar and leather industry shows that factory wastewater must be treated in an Effluent Treatment Plant (ETP). In the demonstration filter, dirty water flows through stones and gravel, sand, charcoal and cotton and comes out clearer.",
+        "Energy from waste: the plastic-to-energy machine lights a bulb to show energy recovered from waste that cannot be recycled.",
+        "Eco-friendly Ganesha: made with clay and daals instead of Plaster of Paris, so our festivals can keep rivers clean too."
+      ],
+      usefulness: [
+        "Shows how every home, school and village can keep India clean by separating waste and following the 7Rs.",
+        "Shows that waste can become a resource — compost, biogas, recycled material and energy.",
+        "Shows clean-energy and clean-water ideas that reduce pollution and carbon emissions."
+      ]
+    },
     parts: {
       solar:        { concept: "Solar (photovoltaic) energy — sunlight → electricity", link: "Less coal burnt for electricity → cleaner air, fewer greenhouse gases", visitor: "Two buildings have handmade solar panels; the third has a real panel that lights a bulb in sunlight." },
       citytoilets:  { concept: "Sanitation and hygiene", link: "Toilets for everyone — a main goal of Swachh Bharat Mission", visitor: "Toilets keep germs away from our water and food." },
@@ -208,7 +249,8 @@ window.SITE = {
       biogas:       { concept: "Anaerobic digestion → biogas (mostly methane)", link: "Turns dung and kitchen waste into cooking gas and manure", visitor: "Turn waste into energy, not pollution." },
       factory:      { concept: "Industrial wastewater and Effluent Treatment Plants (ETP)", link: "Factory water must be treated before it reaches rivers", visitor: "Sugar and leather industries release dirty water that must be treated." },
       filter:       { concept: "Filtration — separating particles from water", link: "A first cleaning step; clear water is not always safe water", visitor: "Dirty water passes through charcoal, stones and cotton and comes out clearer." },
-      wte:          { concept: "Waste-to-energy — heat → steam → turbine → generator", link: "Only for waste that cannot be recycled, in special plants with pollution control — never open burning", visitor: "The bulb glows to show energy recovered from waste." }
+      wte:          { concept: "Waste-to-energy — heat → steam → turbine → generator", link: "Only for waste that cannot be recycled, in special plants with pollution control — never open burning", visitor: "The bulb glows to show energy recovered from waste." },
+      ganesha:      { concept: "Eco-friendly festivals — clay instead of Plaster of Paris", link: "Clean rivers and ponds: no PoP or chemical paints in the water", visitor: "An eco-friendly Ganesha made with clay and daals." }
     }
   },
 
@@ -893,18 +935,19 @@ window.SITE = {
     ]
   },
 
-  /* ---------------- MARKING SCHEME (50 marks) ---------------- */
+  /* ---------------- MARKING SCHEME (official, 40 marks) ----------------
+     From the Vidya Bharati Akhil Bharatiya Vigyan Mela 2026-27 syllabus, Model Exhibition rule 6.
+     Zone (kshetra) fairs normally use the same rules — confirm with Rajnish Ma'am. */
+  marksSource: "Official Vidya Bharati Vigyan Mela 2026-27 rules (Model Exhibition). Zone fairs normally use the same rules — confirm with Rajnish Ma'am.",
   marks: [
-    { key: "model", name: "Model", icon: "🏗️",
-      tip: "Know every part: what it is, why it is there, how it works, and how it links to Clean India / waste management." },
-    { key: "viva", name: "Viva", icon: "❓",
-      tip: "Answer in your own words. If you don't know, say so honestly, then say what you DO know." },
-    { key: "presentation", name: "Presentation", icon: "🧭",
-      tip: "Go around the model in one logical path: City → Transport → Centre → Dustbins → Village → Water → Energy → Conclusion." },
-    { key: "voice", name: "Voice", icon: "🔊",
-      tip: "Clear volume, not too fast. Pause before important lines. Stress the key words." },
-    { key: "expression", name: "Expression", icon: "🙂",
-      tip: "Judge → model → judge. Point with an open hand, then look back at the judge. Smile naturally." }
+    { key: "tidy", name: "Neatness & order", hi: "सुघड़ता", icon: "🧹",
+      tip: "Systematism & tidiness: a clean, well-arranged model. Labels straight and easy to read, no loose wires, nothing broken or dusty, everything in its place. Only 2 charts, and NO thermocol anywhere." },
+    { key: "process", name: "Showing how it works", hi: "कार्यविधि प्रदर्शन", icon: "⚙️",
+      tip: "Process presentation: show the demos working — the solar bulb, the EV light, water through the filter, the plastic-to-energy bulb. Go around in one path: City → Transport → Centre → Dustbins → Village → Water → Energy → Conclusion." },
+    { key: "expression", name: "Explaining clearly", hi: "वर्णन अभिव्यक्ति", icon: "🗣️",
+      tip: "Description & expression: explain in your own words with a clear, steady voice. Judge → model → judge eye contact. Answer questions honestly — if you don't know, say what you DO know." },
+    { key: "written", name: "Written synopsis", hi: "लिखित प्रदर्श विवरणी", icon: "📝",
+      tip: "Written details: give the judges 2 copies of your synopsis — content, principle, how it works, and the list of parts. Neat and correct. (See 📘 Project → Written synopsis.)" }
   ],
 
   /* ---------------- THINGS TO CONFIRM WITH RAJNISH MA'AM ----------------

@@ -13,7 +13,7 @@ Built by the **TechnoTaau Team**.
 | 🧭 Walkthrough | The presentation in order, with stage directions, a timer, 🔊 listen-with-pauses, and **🎬 Full rehearsal** (spoken cues + time per step) |
 | ❓ Viva | One question at a time (easy / medium / hard). **🎧 Judge mode** asks aloud, listens to your answer, gives spoken feedback and a follow-up question |
 | 🎙️ Voice Coach | Listen & Repeat, Ask by Voice (answers from your own notes), Record & Check (volume, speed, filler words), Pronunciation, Mirror (camera) and a 1-minute confidence warm-up |
-| 📊 Score | Mark yourself out of 50 after each full practice |
+| 📊 Score | Mark yourself on the 4 official Vigyan Mela heads (out of 40) after each full practice |
 | 📝 Ask Ma'am | Questions to confirm with Rajnish Ma'am, and the sources used to check the facts |
 
 Progress, scores and answers are saved **only in the browser on that device**.

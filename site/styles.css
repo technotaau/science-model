@@ -506,3 +506,22 @@ html.visitor .brand-sub::after { content: " · Visitor view"; }
 .gm-review { text-align: left; }
 .gm-actions { margin-top: 14px; }
 @media (prefers-reduced-motion: reduce) { .gm-party { animation: none; } .gm-timebar i { transition: none; } }
+
+/* ---------- 📝 written synopsis ---------- */
+.synopsis-wrap > summary { cursor: pointer; }
+html.visitor .synopsis-wrap { display: none !important; }
+.synopsis { margin-top: 10px; }
+.synopsis h2 { margin: 0 0 4px; }
+.synopsis h3 { margin: 14px 0 4px; font-size: 1.08rem; }
+.synopsis ul, .synopsis ol { margin: 4px 0; padding-left: 1.3em; }
+.syn-head { border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+.syn-parts { width: 100%; }
+.syn-pledge { margin-top: 12px; }
+@media print {
+  .synopsis-wrap { display: none !important; }
+  body.print-synopsis .synopsis-wrap { display: block !important; border: 0; padding: 0; }
+  body.print-synopsis .synopsis-wrap > summary, body.print-synopsis #report, body.print-synopsis #projActions, body.print-synopsis #qrCard { display: none !important; }
+  body.print-synopsis .synopsis { font-size: 11pt; }
+  body.print-synopsis .synopsis h3 { font-size: 12.5pt; break-after: avoid; }
+  body.print-synopsis .syn-parts tr { break-inside: avoid; }
+}

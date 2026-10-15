@@ -56,7 +56,7 @@
         <a class="card link-card" href="#walk"><b>🧭 2. Walk through it</b><span>Practise explaining the model in order. Say it in your own words first, then check the sample.</span></a>
         <a class="card link-card" href="#viva"><b>❓ 3. Viva practice</b><span>One question at a time. Try 🎧 Judge mode: the website asks aloud, listens to your answer and gives feedback.</span></a>
         <a class="card link-card" href="#voice"><b>🎙️ 4. Voice Coach</b><span>Listen and repeat, ask questions by voice, check your volume, speed and “um”s, practise hard words, mirror practice and a calming warm-up.</span></a>
-        <a class="card link-card" href="#score"><b>📊 5. Score yourself</b><span>Mark yourself out of 50 after each full practice run.</span></a>
+        <a class="card link-card" href="#score"><b>📊 5. Score yourself</b><span>Mark yourself on the 4 official heads (out of 40) after each full practice run.</span></a>
         <a class="card link-card" href="#ask"><b>📝 6. Ask Ma'am</b><span>Questions to confirm with Rajnish Ma'am before the fair.</span></a>
         <a class="card link-card" href="#project"><b>📘 7. Project report</b><span>A clean report to show and print for Rajnish Ma'am, plus a QR card for your stall.</span></a>
         <a class="card link-card" href="#thoughts"><b>💭 8. Thoughts · विचार</b><span>Positive lines in English and Hindi — openings, links, closings and “if I get stuck” lifelines.</span></a>
@@ -64,7 +64,8 @@
         <a class="card link-card" href="#games"><b>🎮 10. Games</b><span>Bin Sorter, 7R Match, Swachh Champion Quiz and Model Memory. Play when you want — your stars add to Eco-Dost ⭐.</span></a>
       </div>
 
-      <h2>Marking scheme — 50 marks</h2>
+      <h2>Official marking — 40 marks</h2>
+      <p class="small muted" id="marksNote"></p>
       <div class="marks" id="marksList"></div>
 
       <h2>My three quotes</h2>
@@ -231,6 +232,19 @@
         <label class="small"><input type="checkbox" id="incProgress" checked> Include my practice progress (for Ma'am) when printing</label>
         <span class="small muted" id="copyMsg"></span>
       </div>
+
+      <details class="card synopsis-wrap" id="synopsisCard">
+        <summary><b>📝 Written synopsis for the judges</b> <span class="small muted">— the rules ask for 2 copies (10 marks)</span></summary>
+        <div class="sec ask no-print">
+          <h4>How to use this</h4>
+          <ul>
+            <li>The official rules say: give the judges <b>2 written copies</b> of your synopsis — the content, the principle and how the model works. Bal Varg must also <b>list the parts</b> of the model.</li>
+            <li>Read it, change anything that is not true for YOUR model, then copy it neatly in your own handwriting (safest). Ask Rajnish Ma'am if a printed copy is also OK.</li>
+          </ul>
+          <button class="btn" id="printSynopsis">🖨️ Print synopsis</button>
+        </div>
+        <article class="synopsis" id="synopsis"></article>
+      </details>
 
       <article class="report" id="report">
         <header class="report-head">
@@ -454,9 +468,10 @@
     <!-- SCORE -->
     <section id="tab-score" class="tab" hidden>
       <h2>Self-score after a full practice</h2>
+      <p class="small muted">The same 4 heads the judges use (10 marks each).</p>
       <div class="card">
         <div id="scoreSliders"></div>
-        <div class="score-total">Total: <b id="scoreTotal">0</b> / 50</div>
+        <div class="score-total">Total: <b id="scoreTotal">0</b> / <span id="scoreMax">40</span></div>
         <label class="block">What will I improve next time?
           <textarea id="scoreNote" rows="2" placeholder="e.g. slow down at the hydrogen train, look at the judge more"></textarea>
         </label>

@@ -38,7 +38,7 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  const tabs = ["home", "stage", "thoughts", "ecodost", "games", "project", "model", "walk", "viva", "voice", "score", "ask"];
+  const tabs = ["home", "stage", "delhi", "thoughts", "ecodost", "games", "project", "model", "walk", "viva", "voice", "score", "ask"];
   // ?visitor in the URL (from the stall QR code) shows only the clean project page
   const visitor = new URLSearchParams(location.search).has("visitor");
   function route() {
@@ -192,6 +192,8 @@
     if (c.deeper && c.deeper.length) h += '<details class="sec deep"><summary>🧠 Deeper knowledge for tricky viva questions</summary>' + list(c.deeper) + "</details>";
     if (c.careful && c.careful.length) h += '<div class="sec bad"><h4>⚠️ Careful — don\'t say</h4>' + list(c.careful) + "</div>";
     if (c.point && c.point.length) h += '<div class="sec act"><h4>👉 Pointing, eye contact &amp; demo</h4>' + list(c.point) + "</div>";
+    const dl = ((S.delhi && S.delhi.items) || []).filter(d => d.comp === c.id);
+    if (dl.length) h += '<div class="sec deep"><h4>🏙️ In Delhi now — a line you can add</h4>' + list(dl.map(d => d.say)) + '<a href="#delhi">All Delhi updates →</a></div>';
     const idx = S.components.indexOf(c);
     const prev = S.components[idx - 1], next = S.components[idx + 1];
     h += '<div class="step-nav">' +
@@ -597,6 +599,74 @@
     $("#printSynopsis").onclick = () => { $("#synopsisCard").open = true; doPrint("print-synopsis"); };
   }
   // Practice progress summary for the teacher (from this device's saved practice)
+  // ---------- 🏙️ Delhi updates ----------
+  const dlState = { lang: "both", area: "all" };
+  function dlCard(d) {
+    const known = !!store.get("delhiKnown", {})[d.id];
+    const comp = compById[d.comp];
+    return '<article class="dl-card' + (known ? " known" : "") + '" data-id="' + esc(d.id) + '">' +
+      '<div class="dl-area">' + esc(d.area) + (comp ? ' · <a href="#model/' + esc(comp.id) + '">' + comp.icon + " " + esc(comp.name) + "</a>" : "") + "</div>" +
+      '<div class="dl-say">' + esc(d.say) + "</div>" +
+      (d.link ? '<div class="dl-link">🔗 ' + esc(d.link) + "</div>" : "") +
+      (dlState.lang === "both" && d.hi ? '<div class="dl-hi hi" lang="hi">' + esc(d.hi) + "</div>" : "") +
+      '<div class="th-actions">' +
+      (V.canSpeak ? '<button class="btn small ghost" data-say="en">🔊 English</button>' + (d.hi ? '<button class="btn small ghost" data-say="hi">🔊 हिंदी</button>' : "") : "") +
+      '<button class="btn small ' + (known ? "" : "ghost") + '" data-known>' + (known ? "✅ I can say this" : "☐ I can say this") + "</button></div>" +
+      (d.mentor || d.source ? '<details class="dl-more"><summary class="small">Details &amp; source (for you and your mentor)</summary>' +
+        (d.mentor ? '<p class="small">' + esc(d.mentor) + "</p>" : "") +
+        (d.source ? '<p class="tiny">' + (/^https?:/.test(d.source) ? '<a href="' + esc(d.source) + '" target="_blank" rel="noopener">Source</a>' : esc(d.source)) + (d.sourceDate ? " · " + esc(d.sourceDate) : "") + "</p>" : "") + "</details>" : "") +
+      "</article>";
+  }
+  function wireDelhiCards(root) {
+    $$(".dl-card", root).forEach(card => {
+      const d = S.delhi.items.find(x => x.id === card.dataset.id);
+      $$("[data-say]", card).forEach(b => b.onclick = () => { V.stopSpeaking(); b.dataset.say === "hi" ? V.speak(d.hi, { lang: "hi", rate: 0.85 }) : V.speak(d.say); });
+      $("[data-known]", card).onclick = () => {
+        const k = store.get("delhiKnown", {});
+        if (k[d.id]) delete k[d.id]; else k[d.id] = true;
+        store.set("delhiKnown", k); renderDelhiLists();
+      };
+    });
+  }
+  function renderDelhiLists() {
+    const D = S.delhi, k = store.get("delhiKnown", {}), hide = $("#dlHideKnown").checked;
+    const items = D.items.filter(d => (dlState.area === "all" || d.area === dlState.area) && !(hide && k[d.id]));
+    $("#dlTop").innerHTML = D.items.filter(d => d.top).map(dlCard).join("");
+    $("#dlList").innerHTML = items.length ? items.map(dlCard).join("") : '<p class="muted">Nothing here — you know them all! 🎉</p>';
+    $("#dlCount").textContent = items.length + " update" + (items.length === 1 ? "" : "s");
+    $("#dlKnownCount").textContent = D.items.filter(d => k[d.id]).length + " / " + D.items.length;
+    wireDelhiCards($("#dlTop")); wireDelhiCards($("#dlList"));
+  }
+  function renderDelhi() {
+    const D = S.delhi;
+    if (!D || !D.items || !D.items.length) {
+      $$('#tabs a[data-tab="delhi"], a.link-card[href="#delhi"]').forEach(a => { a.hidden = true; });
+      return;
+    }
+    $("#dlIntro").textContent = D.intro || "";
+    $("#dlChecked").textContent = D.checked ? "Facts checked on " + D.checked + ". News changes fast — look again on 23 October before you travel." : "";
+    if (D.opener) {
+      $("#dlOpener").hidden = false;
+      $("#dlOpener").innerHTML = '<b>🎤 A line to open with in Delhi</b><p class="dl-say">' + esc(D.opener) + "</p>" +
+        (V.canSpeak ? '<button class="btn small ghost" id="dlOpenerSay">🔊 Listen</button>' : "");
+      if ($("#dlOpenerSay")) $("#dlOpenerSay").onclick = () => { V.stopSpeaking(); V.speak(D.opener); };
+    }
+    const areas = Array.from(new Set(D.items.map(d => d.area)));
+    $("#dlAreas").innerHTML = '<button class="chip active" data-area="all">All</button>' + areas.map(a => '<button class="chip" data-area="' + esc(a) + '">' + esc(a) + "</button>").join("");
+    $$("#dlAreas .chip").forEach(b => b.onclick = () => {
+      dlState.area = b.dataset.area;
+      $$("#dlAreas .chip").forEach(x => x.classList.toggle("active", x === b));
+      renderDelhiLists();
+    });
+    $$("#dlLang button").forEach(b => b.onclick = () => {
+      dlState.lang = b.dataset.lang;
+      $$("#dlLang button").forEach(x => x.classList.toggle("active", x === b));
+      renderDelhiLists();
+    });
+    $("#dlHideKnown").onchange = renderDelhiLists;
+    renderDelhiLists();
+  }
+
   // 📝 The written synopsis (official rule: 2 copies with content, principle, working and the list of parts)
   function renderSynopsis() {
     const P = S.project, Y = P.synopsis, st = S.student;
@@ -852,6 +922,7 @@
   }
   renderHome();
   renderStage();
+  renderDelhi();
   renderThoughts();
   if (window.EcoDost) window.EcoDost.init({ store, esc });
   if (window.Games) window.Games.init({ store, esc });

@@ -525,3 +525,22 @@ html.visitor .synopsis-wrap { display: none !important; }
   body.print-synopsis .synopsis h3 { font-size: 12.5pt; break-after: avoid; }
   body.print-synopsis .syn-parts tr { break-inside: avoid; }
 }
+
+/* ---------- 🏙️ Delhi updates ---------- */
+.dl-hero { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; border-top: 6px solid var(--act); }
+.dl-score { display: flex; flex-direction: column; align-items: center; min-width: 110px; }
+.dl-score b { font-family: "Baloo 2", sans-serif; font-size: 1.8rem; line-height: 1; color: var(--act); }
+.dl-opener { border-left: 6px solid var(--act); }
+.dl-opener .dl-say { margin: 6px 0; }
+.dl-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+@media (max-width: 400px) { .dl-grid { grid-template-columns: 1fr; } }
+.dl-card { background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--act); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.dl-card.known { border-left-color: var(--ok); }
+.dl-area { font-size: .8rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .02em; }
+.dl-area a { text-transform: none; letter-spacing: 0; }
+.dl-say { font-family: "Baloo 2", sans-serif; font-size: 1.15rem; line-height: 1.38; font-weight: 700; }
+.dl-link { font-size: .92rem; color: var(--ok-ink); background: var(--ok-bg); border-radius: 8px; padding: 4px 8px; }
+.dl-hi { font-size: 1.12rem; line-height: 1.5; font-weight: 600; color: var(--deep-ink); }
+.dl-more summary { cursor: pointer; color: var(--muted); }
+.dl-more p { margin: 4px 0; overflow-wrap: anywhere; }
+html.visitor #tab-delhi { display: none !important; }

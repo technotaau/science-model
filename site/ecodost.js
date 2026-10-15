@@ -74,6 +74,7 @@
   }
 
   // Build a search index over the cards: question + alternative questions + keywords (keywords count double)
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9\u0900-\u097f\s]/g, " ").replace(/\s+/g, " ").trim();
   function buildIndex(cards) {
     const docs = cards.map(c => {
       const tf = new Map();
@@ -89,7 +90,13 @@
     docs.forEach(d => d.tf.forEach((_, t) => df.set(t, (df.get(t) || 0) + 1)));
     const avg = docs.reduce((a, d) => a + d.len, 0) / Math.max(1, docs.length);
     const vocab = Array.from(df.keys());
-    return { docs, df, avg, vocab, N: docs.length };
+    const exact = new Map();
+    cards.forEach(c => [c.q].concat(c.alts || []).forEach(p => {
+      const k = norm(p); if (!k) return;
+      if (!exact.has(k)) exact.set(k, new Set());
+      exact.get(k).add(c);
+    }));
+    return { docs, df, avg, vocab, N: docs.length, exact };
   }
   // fix spelling: map an unknown word to the closest known word
   function correct(t, idx) {
@@ -129,6 +136,12 @@
       });
       return { card: d.card, score: s * (0.6 + cover), bm: s, cover };
     }).filter(r => r.bm > 0).sort((a, b) => b.score - a.score);
+    // the question is word-for-word one of a card's phrasings → that card goes first
+    const same = idx.exact.get(norm(query));
+    if (same && same.size === 1) {
+      const r = results.find(x => same.has(x.card));
+      if (r) { r.exact = true; results.splice(results.indexOf(r), 1); results.unshift(r); }
+    }
     return { q, results, known };
   }
   // confidence rules (tuned on held-out test questions labelled by reviewers)
@@ -138,8 +151,8 @@
   function decide(found, tune) {
     const T = tune || TUNE;
     const [r1] = found.results;
-    if (!r1 || found.known < T.knownMin) return { kind: "none" };
-    if (r1.score >= T.sure && r1.cover >= T.coverSure) {
+    if (!r1 || (!r1.exact && found.known < T.knownMin)) return { kind: "none" };
+    if (r1.exact || (r1.score >= T.sure && r1.cover >= T.coverSure)) {
       // other cards that are almost as good are offered as "related" buttons
       const related = found.results.slice(1, 4).filter(r => r.score >= r1.score * T.related).slice(0, 2);
       return { kind: "answer", r: r1, related };

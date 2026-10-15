@@ -35,6 +35,11 @@ if (ev) L.push(`- Next: ${ev.name}, ${ev.place}, ${ev.start} to ${ev.end}. Same 
 L.push("- Official marking (40): " + S.marks.map(m => `${m.name} (${m.hi}) 10 — ${m.tip}`).join(" | "));
 L.push("- " + (S.marksSource || ""));
 (S.trip || []).filter(t => /official/i.test(t.group)).forEach(t => L.push("- Rule: " + t.item));
+if (S.delhi && S.delhi.items) {
+  L.push(`\n=== 10. DELHI AND INDIA UPDATES (fact-checked ${S.delhi.checked}; she may mention ONE or TWO, linked to a model part) ===`);
+  L.push("- Opening line: " + S.delhi.opener);
+  S.delhi.items.forEach(d => L.push(`- [${d.area}${d.top ? ", top line" : ""}; links to: ${d.comp}] SAY: ${d.say} | LINK: ${d.link} | MENTOR NOTE: ${d.mentor}`));
+}
 const pack = L.join("\n");
 const tpl = fs.readFileSync(path.join(__dirname, "eco-dost-live.template.html"), "utf8");
 if (!tpl.includes('/*PACK*/""')) throw new Error("PACK placeholder missing");

@@ -116,7 +116,7 @@ label.block textarea { margin-top: 6px; font-weight: 400; }
 .sec.ask  { background: var(--ask-bg);  border-color: var(--ask);  } .sec.ask h4  { color: var(--ask-ink); }
 .sec.bad  { background: var(--bad-bg);  border-color: var(--bad);  } .sec.bad h4  { color: var(--bad-ink); }
 .sec.act  { background: var(--act-bg);  border-color: var(--act);  } .sec.act h4  { color: var(--act-ink); }
-.sec.deep { background: var(--deep-bg); border-color: var(--deep); } .sec.deep summary { color: var(--deep-ink); }
+.sec.deep { background: var(--deep-bg); border-color: var(--deep); } .sec.deep summary, .sec.deep h4 { color: var(--deep-ink); }
 .sec.plain { background: var(--surface); border-left-color: var(--muted); }
 .sec summary { cursor: pointer; font-weight: 800; }
 .sec a { font-weight: 700; }
@@ -450,7 +450,7 @@ html.visitor .brand-sub::after { content: " · Visitor view"; }
 .gm-pick:hover, .gm-pick:focus-visible { border-color: var(--deep); }
 .gm-pick b { font-family: "Baloo 2", "Nunito", sans-serif; font-size: 1.2rem; }
 .gm-pick > span { color: var(--muted); font-size: .92rem; }
-.gm-ico { font-size: 2.2rem; line-height: 1; }
+.gm-pick .gm-ico { font-size: 2.2rem; line-height: 1; color: inherit; }
 .gm-pick .gm-best { color: var(--ink); font-weight: 700; margin-top: auto; padding-top: 6px; }
 .gm-starrow, .gm-bigstars { color: var(--ask); letter-spacing: 2px; }
 .gm-top { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 12px; }

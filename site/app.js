@@ -336,7 +336,9 @@
   const qKey = q => q.q.slice(0, 60);
   function renderVivaFilters() {
     const topics = Array.from(new Set(S.viva.map(v => v.topic)));
-    $("#vivaTopic").innerHTML = '<option value="all">All topics</option>' + topics.map(t => '<option>' + esc(t) + "</option>").join("");
+    $("#vivaTopic").innerHTML = '<option value="all">All topics</option>' +
+      (S.viva.some(v => v.asked) ? '<option value="asked">🏅 Asked by real judges</option>' : "") +
+      topics.map(t => '<option>' + esc(t) + "</option>").join("");
     // a user changing the question always stops judge mode first
     const userNext = () => { stopJudge(); nextViva(); };
     $("#vivaTopic").onchange = $("#vivaLevel").onchange = userNext;
@@ -346,7 +348,7 @@
   }
   function pickViva() {
     const t = $("#vivaTopic").value, l = $("#vivaLevel").value;
-    const pool = S.viva.filter(v => (t === "all" || v.topic === t) && (l === "all" || v.level === l));
+    const pool = S.viva.filter(v => (t === "all" || v.topic === t || (t === "asked" && v.asked)) && (l === "all" || v.level === l));
     if (!pool.length) return null;
     const tried = store.get("viva", {});
     let cand = pool.filter(q => !(qKey(q) in tried) && q !== vivaCur);
@@ -365,6 +367,7 @@
     const q = vivaCur;
     $("#vivaCard").innerHTML =
       '<span class="pill lvl-' + q.level + '">' + q.level + '</span> <span class="small muted">' + esc(q.topic) + "</span>" +
+      (q.asked ? ' <span class="pill deep">🏅 Asked at ' + esc(q.asked) + "</span>" : "") +
       '<p class="q">' + esc(q.q) + "</p>" +
       '<div id="judgeStatus"></div>' +
       (judgeOn ? "" : '<div class="viva-row">' + speakBtn("vivaSpeak", "🔊 Hear the question") +
@@ -409,6 +412,7 @@
       q.points.map((p, i) => '<li><label><input type="checkbox" data-i="' + i + '"' + (covered[i] ? " checked" : "") + "> " + esc(p) + "</label></li>").join("") + "</ul>" +
       '<p class="tiny muted">Ticks marked automatically are only a guess — change them honestly.</p>' +
       '<button class="btn small alt" id="vivaSave">Save my mark</button> <span class="small muted" id="vivaSaved"></span></div>';
+    if (q.asked && q.said) h += '<div class="sec deep"><h4>🏅 At ' + esc(q.asked) + ' you said</h4><p>“' + esc(q.said) + '”</p>' + (q.better ? "<p>" + esc(q.better) + "</p>" : "") + "</div>";
     if (q.follow) h += '<div class="sec act"><h4>🧑‍🏫 Judge\'s follow-up</h4>' + esc(q.follow) + '<p class="small muted" id="followAns"></p></div>';
     $("#vivaResult").innerHTML = h;
     $("#vivaSave").onclick = () => saveMark(q);

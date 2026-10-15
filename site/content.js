@@ -26,7 +26,9 @@ window.SITE = {
     school: "Sharda Sarvhitkari Senior Secondary School, Chandigarh",
     teacher: "Rajnish Ma'am",
     topic: "Clean India Mission and Waste Management",
-    fairDate: "2026-10-04",          // stage presentation day
+    fairDate: "2026-10-24",          // next event (start day)
+    achievements: ["🏆 First prize — Malerkotla level (October 2026)"],
+    nextEvent: { name: "North Zone level", place: "Delhi", start: "2026-10-24", end: "2026-10-26" },
     targetMinutes: 5,                // aim for the full model explanation
     // Eco-Dost Live: the real-AI version on claude.ai (open it while signed in to Claude)
     ecodostLiveUrl: "https://claude.ai/artifact/3DcE9JqKmTtXjhtSPppDRn"
@@ -40,9 +42,37 @@ window.SITE = {
 
   /* ---------------- DAY-BY-DAY PLAN (date: YYYY-MM-DD) ---------------- */
   plan: [
-    { date: "2026-10-03", label: "Sat 3 Oct", task: "Follow 🎤 Stage → Today's practice plan. Learn the KEY POINTS of each part, rehearse on your feet, record once, then rest." },
-    { date: "2026-10-04", label: "Sun 4 Oct", task: "Stage day! 1-minute warm-up, read only your headings and quotes, breathe, smile, and enjoy it." }
+    { date: "2026-10-15", label: "Thu 15 Oct", task: "Celebrate! 🎉 Then write down EVERY question the Malerkotla judges asked, what you answered, and anything they said. Send it to your mentor." },
+    { date: "2026-10-16", label: "Fri 16 Oct", task: "❓ Viva → 🎧 Judge mode: 10 questions. Then 🤖 Eco-Dost → 🎲 Quiz me: 10 questions." },
+    { date: "2026-10-17", label: "Sat 17 Oct", task: "Check the model: repair anything loose, test all 4 demos (solar bulb, EV light, filter, plastic-to-energy bulb). Start the 🧳 trip kit." },
+    { date: "2026-10-18", label: "Sun 18 Oct", task: "Two full explanations with the timer, standing beside the model. Record one and check speed, filler words and volume." },
+    { date: "2026-10-19", label: "Mon 19 Oct", task: "Zone-level questions: what is NEW in your model, its limitations, how you would improve it, and what it cost." },
+    { date: "2026-10-20", label: "Tue 20 Oct", task: "Hindi practice: explain three parts of your model in Hindi (judges may ask in Hindi). Use 💭 Thoughts → हिंदी." },
+    { date: "2026-10-21", label: "Wed 21 Oct", task: "Mock judging at home or school: full explanation + 10 surprise questions from a family member or teacher. Mark yourself in 📊 Score." },
+    { date: "2026-10-22", label: "Thu 22 Oct", task: "Light revision only. Pack the model safely for travel (see 🧳 trip checklist). Charge everything." },
+    { date: "2026-10-23", label: "Fri 23 Oct", task: "Rest and travel. Read only your headings, favourite thoughts and the 3 quotes. Sleep early." },
+    { date: "2026-10-24", label: "Sat 24 Oct", task: "North Zone, Delhi — day 1. Set up early, test every demo, warm-up, smile. Note any new questions the judges ask." },
+    { date: "2026-10-25", label: "Sun 25 Oct", task: "Day 2. Same calm routine. Be friendly with other participants — learn from their models too." },
+    { date: "2026-10-26", label: "Mon 26 Oct", task: "Day 3. Last day — give it your best and enjoy every moment! 🌟" }
   ],
+
+  /* ---------------- 🧳 DELHI TRIP CHECKLIST ---------------- */
+  trip: [
+    { id: "box", group: "Model", item: "Strong box or carton for the model, with padding (old cloth, newspaper or bubble wrap); write your name and school on it" },
+    { id: "loose", group: "Model", item: "Pack small loose parts (bins, buses, car, train, pots, windmill) in a separate labelled bag" },
+    { id: "photo", group: "Model", item: "Photos of the full model from above, so you can rebuild it the same way" },
+    { id: "bulbs", group: "Spares", item: "Spare bulbs/LEDs for the solar demo and the plastic-to-energy machine" },
+    { id: "cells", group: "Spares", item: "Spare batteries/cells for the EV light and the machine bulb" },
+    { id: "wires", group: "Spares", item: "Spare wires, insulation tape, glue, double-sided tape, scissors and a few pieces of cardboard" },
+    { id: "lamp", group: "Spares", item: "A strong lamp for the solar demo — exhibition halls are often indoors. Test at home that it lights the bulb" },
+    { id: "filter", group: "Filter demo", item: "Extra charcoal, stones, sand (if used) and cotton; a bottle of muddy water or soil to make it; a tray, tissues and a small towel for spills" },
+    { id: "file", group: "Papers", item: "Your project file (with the sticky-note corrections), printed project report and the QR card" },
+    { id: "cue", group: "Papers", item: "Your cue card with headings and favourite thoughts" },
+    { id: "power", group: "Power", item: "Extension board and phone charger/power bank (if the model or demos need power)" },
+    { id: "self", group: "You", item: "Water bottle, light snacks, school ID card, comfortable shoes" }
+  ],
+
+
 
   /* ---------------- DUSTBIN COLOUR GUIDE (shown on the Five Dustbins card) ----------------
      status "verified" = checked in an official/news source; "confirm" = check with Ma'am */
@@ -645,7 +675,7 @@ window.SITE = {
      versions: "full" (about 5–6 min), "medium" (about 3 min). The 1-minute version is "short".
      Avni: change any line into your own words — just keep the facts. */
   stage: {
-    date: "2026-10-04",
+    date: "2026-10-24",
     sections: [
       { id: "s-open", title: "Opening", seconds: 35, in: ["full", "medium"],
         cover: ["Greet judges, teachers and friends", "Name, class, topic", "Question: where does all this waste go?", "What you will show today"],

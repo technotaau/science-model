@@ -63,17 +63,25 @@
   // ---------- home ----------
   // The event date now comes from content.js (stage day); the old 2/3 October picker is gone
   function fairDate() { return S.stage ? S.stage.date : null; }
+  // Where we are relative to the next event (it can last several days)
+  function eventStatus() {
+    const ev = S.student.nextEvent || { name: "presentation", place: "", start: S.student.fairDate, end: S.student.fairDate };
+    const d0 = new Date(); d0.setHours(0, 0, 0, 0);
+    const start = new Date(ev.start + "T00:00:00"), end = new Date(ev.end + "T00:00:00");
+    const days = Math.round((start - d0) / 86400000), day = Math.round((d0 - start) / 86400000) + 1, total = Math.round((end - start) / 86400000) + 1;
+    const fmt = { day: "numeric", month: "short" };
+    const when = start.toLocaleDateString("en-IN", fmt) + (total > 1 ? "–" + end.toLocaleDateString("en-IN", fmt) : "");
+    const label = ev.name + (ev.place ? " in " + ev.place : "");
+    const text = days > 1 ? "⏳ " + days + " days to the " + label + " (" + when + ")"
+      : days === 1 ? "⏳ The " + label + " starts TOMORROW! Rest well tonight — you are ready."
+      : d0 <= end ? "🌟 " + label + " — day " + day + " of " + total + "! Breathe, smile and enjoy it."
+      : "🎉 The " + label + " is done — well done, Avni!";
+    return { days, text };
+  }
   function renderCountdown() {
-    const chosen = fairDate();
-    const fair = new Date((chosen || S.student.fairDate) + "T00:00:00");
-    const today0 = new Date(); today0.setHours(0, 0, 0, 0);
-    const days = Math.round((fair - today0) / 86400000);
-    const when = fair.toDateString() + " — on stage";
-    $("#countdown").textContent = days > 1 ? "⏳ " + days + " days to your presentation (" + when + ")"
-      : days === 1 ? "⏳ Your stage presentation is tomorrow! Practise today, rest well tonight."
-      : days === 0 ? "🌟 Stage day! Breathe, smile and enjoy it."
-      : "🎉 Your presentation is done — well done!";
-    $$('input[name="fairDate"]').forEach(r => { r.checked = r.value === chosen; });
+    $("#countdown").textContent = eventStatus().text;
+    const ach = S.student.achievements || [];
+    $("#achieve").innerHTML = ach.map(a => '<span class="pill ok">' + esc(a) + "</span>").join(" ");
   }
   function renderHome() {
     const st = S.student;
@@ -89,6 +97,13 @@
       (V.canSpeak ? '<button class="btn small ghost" data-q="' + i + '">🔊</button>' : "") + "</div>").join("");
     $$("#quotesList [data-q]").forEach(b => b.onclick = () => V.speakSample(S.quotes[+b.dataset.q]));
 
+    const tripTicks = store.get("trip", {});
+    const groups = Array.from(new Set((S.trip || []).map(t => t.group)));
+    $("#tripList").innerHTML = groups.map(g => '<div class="trip-group"><h3>' + esc(g) + '</h3><ul class="cover">' +
+      S.trip.filter(t => t.group === g).map(t => '<li><label><input type="checkbox" data-id="' + t.id + '"' + (tripTicks[t.id] ? " checked" : "") + "> <span>" + esc(t.item) + "</span></label></li>").join("") + "</ul></div>").join("");
+    const tripCount = () => { const t = store.get("trip", {}); $("#tripCount").textContent = (S.trip || []).filter(x => t[x.id]).length + " of " + (S.trip || []).length + " packed"; };
+    $$("#tripList input").forEach(cb => cb.onchange = () => { const t = store.get("trip", {}); t[cb.dataset.id] = cb.checked; store.set("trip", t); tripCount(); });
+    tripCount();
     const n = new Date();
     const today = n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
     $("#planList").innerHTML = (S.plan || []).map(p =>
@@ -608,12 +623,7 @@
   function renderStage() {
     const st = S.stage;
     if (!st) return;
-    const d0 = new Date(); d0.setHours(0, 0, 0, 0);
-    const days = Math.round((new Date(st.date + "T00:00:00") - d0) / 86400000);
-    $("#stCountdown").textContent = days > 1 ? "⏳ " + days + " days to your stage presentation (" + new Date(st.date + "T00:00:00").toDateString() + ")"
-      : days === 1 ? "⏳ Your stage presentation is TOMORROW — practise today, then rest well tonight."
-      : days === 0 ? "🌟 Stage day! Breathe, smile, and enjoy it — you know this."
-      : "🎉 Stage presentation done — well done, Avni!";
+    $("#stCountdown").textContent = eventStatus().text;
     $("#stVersion").value = store.get("stageVersion", "full");
     $("#stVersion").onchange = () => { store.set("stageVersion", $("#stVersion").value); renderStageCards(); };
     renderStageCards();

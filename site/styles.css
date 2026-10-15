@@ -434,3 +434,10 @@ html.visitor .brand-sub::after { content: " · Visitor view"; }
 .ed-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: var(--bg); font-weight: 800; padding: 8px 16px; border-radius: 99px; opacity: 0; transition: .25s; pointer-events: none; z-index: 20; }
 .ed-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .ed-live { border-left: 6px solid var(--deep); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+
+/* ---------- achievements & trip checklist ---------- */
+.achieve { margin: 6px 0 0; }
+.achieve .pill { font-size: .9rem; padding: 3px 12px; }
+.trip { display: grid; gap: 6px 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.trip-group h3 { margin: 4px 0; font-size: 1rem; }
+.trip-group ul { margin: 0; }

@@ -38,7 +38,7 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  const tabs = ["home", "stage", "thoughts", "ecodost", "project", "model", "walk", "viva", "voice", "score", "ask"];
+  const tabs = ["home", "stage", "thoughts", "ecodost", "games", "project", "model", "walk", "viva", "voice", "score", "ask"];
   // ?visitor in the URL (from the stall QR code) shows only the clean project page
   const visitor = new URLSearchParams(location.search).has("visitor");
   function route() {
@@ -49,6 +49,7 @@
     if (t !== "walk" && rehearsal) finishRehearsal(false);
     if (t !== "stage" && stageRun) endStageRun(false);
     if (t !== "voice") V.stopMedia();
+    if (t !== "games" && window.Games) window.Games.stop();
     if (t !== "ecodost" && t !== "viva" && t !== "voice") V.stopListening();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
     $$("#tabs a").forEach(a => a.classList.toggle("active", a.dataset.tab === t));
@@ -824,6 +825,7 @@
   renderStage();
   renderThoughts();
   if (window.EcoDost) window.EcoDost.init({ store, esc });
+  if (window.Games) window.Games.init({ store, esc });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

@@ -792,6 +792,107 @@ window.SITE = {
     ]
   },
 
+  /* ---------------- 🎮 GAMES ----------------
+     All answers come from Avni's fact-checked notes. To add an item, copy a line and change it. */
+  games: {
+    // 🗑️ Bin Sorter — Chandigarh's four home bins (also the SWM Rules 2026 streams)
+    bins: [
+      { key: "green", name: "Green", stream: "Wet", color: "#15803d" },
+      { key: "blue", name: "Blue", stream: "Dry", color: "#1d4ed8" },
+      { key: "black", name: "Black", stream: "Hazardous (special care)", color: "#111827" },
+      { key: "red", name: "Red", stream: "Sanitary", color: "#b91c1c" }
+    ],
+    binItems: [
+      { e: "🍌", item: "Banana peel", bin: "green", why: "Peels rot quickly — wet waste becomes compost or biogas." },
+      { e: "🥕", item: "Vegetable peels", bin: "green", why: "Kitchen peels are wet waste." },
+      { e: "🍛", item: "Leftover food", bin: "green", why: "Food waste is wet waste — great for compost or biogas." },
+      { e: "🍵", item: "Used tea leaves", bin: "green", why: "Tea leaves rot easily, so they are wet waste." },
+      { e: "🥚", item: "Eggshells", bin: "green", why: "Eggshells come from food and break down in compost, so they are wet waste." },
+      { e: "🌼", item: "Old puja flowers", bin: "green", why: "Flowers rot and can become compost — never throw them in a river." },
+      { e: "📰", item: "Old newspaper", bin: "blue", why: "Paper is dry waste — it goes for recycling." },
+      { e: "📦", item: "Cardboard box", bin: "blue", why: "Cardboard is dry and recyclable." },
+      { e: "🧴", item: "Empty plastic bottle", bin: "blue", why: "Clean plastic is dry waste and can be recycled." },
+      { e: "🥫", item: "Empty metal can", bin: "blue", why: "Metal is dry waste — it can be melted and recycled." },
+      { e: "🍾", item: "Empty glass bottle (not broken)", bin: "blue", why: "A whole glass bottle is dry waste — it can be melted and recycled. (Broken glass is different: Chandigarh MC asks for it in the black bin.)" },
+      { e: "🥛", item: "Rinsed milk packet", bin: "blue", why: "A clean plastic packet is dry waste." },
+      { e: "🔋", item: "Dead battery", bin: "black", why: "Batteries can leak harmful chemicals — special care (hazardous) waste." },
+      { e: "💡", item: "Fused bulb or tube light", bin: "black", why: "Bulbs break into sharp glass and tube lights have a little mercury, so they need special care." },
+      { e: "🎨", item: "Paint tin with leftover paint", bin: "black", why: "Leftover paint has harmful chemicals, so the tin needs special care — black bin." },
+      { e: "👶", item: "Used diaper", bin: "red", why: "Used diapers carry germs, so they are sanitary waste — wrap them and keep them separate." },
+      { e: "🩹", item: "Used sanitary pad (wrapped)", bin: "red", why: "Sanitary pads go in the red bin, wrapped in paper." },
+      { e: "😷", item: "Used face mask", bin: "red", why: "In Chandigarh, used masks go with sanitary waste in the red bin." }
+    ],
+    // ♻️ 7R Match — pick the R for each action
+    sevenR: ["Refuse", "Reduce", "Reuse", "Repair", "Repurpose", "Recycle", "Recover"],
+    rActions: [
+      { a: "Saying “no, thank you” to a plastic straw", r: "Refuse", why: "Saying NO to something we don't need is Refuse — the 1st R." },
+      { a: "Telling the shopkeeper “No plastic bag, please”", r: "Refuse", why: "You said NO to a plastic bag you didn't need — Refuse." },
+      { a: "Writing on both sides of each page so you need fewer notebooks", r: "Reduce", why: "You use LESS paper — that is Reduce." },
+      { a: "Taking only as much food as you can eat", r: "Reduce", why: "Less food is wasted — Reduce means using less." },
+      { a: "Choosing a toy with less packaging", r: "Reduce", why: "Less packaging means less waste — Reduce." },
+      { a: "Refilling your steel water bottle every day", r: "Reuse", why: "Using the same thing again for the SAME job is Reuse." },
+      { a: "Using a gift box again to give another gift", r: "Reuse", why: "Same job again — Reuse." },
+      { a: "Sewing a torn school bag", r: "Repair", why: "Fixing it instead of throwing it away is Repair." },
+      { a: "Fixing a broken chair leg", r: "Repair", why: "Repair makes things last longer." },
+      { a: "Using an old plastic bottle as a plant pot", r: "Repurpose", why: "Using an old thing for a NEW job is Repurpose." },
+      { a: "Making a cleaning cloth from an old T-shirt", r: "Repurpose", why: "A new job for an old thing — Repurpose." },
+      { a: "Giving old newspapers to the kabadiwala to make new paper", r: "Recycle", why: "Breaking it down to make NEW paper is Recycle." },
+      { a: "Melting old metal cans to make new cans", r: "Recycle", why: "Melting and making new things is Recycle." },
+      { a: "Making electricity from waste that cannot be recycled, in a special plant", r: "Recover", why: "Getting energy from leftover waste is Recover — the LAST R." },
+      { a: "Getting cooking gas from kitchen waste in a biogas plant", r: "Recover", why: "Recovering energy (gas) from waste — Recover." }
+    ],
+    // ⚡ Swachh Champion Quiz — answer: index of the correct option
+    quiz: [
+      { q: "When was the Swachh Bharat Mission launched?", o: ["2 October 2014", "15 August 2014", "26 January 2015", "2 October 2019"], answer: 0, why: "It was launched on Gandhi Jayanti, 2 October 2014." },
+      { q: "Who launched the Swachh Bharat Mission?", o: ["Mahatma Gandhi", "PM Narendra Modi", "Dr. A.P.J. Abdul Kalam", "The Chief Minister of Punjab"], answer: 1, why: "PM Narendra Modi launched it on 2 October 2014." },
+      { q: "What does ODF stand for?", o: ["Open Defecation Free", "Only Dry Food", "Organic Dustbin Facility", "Outdoor Defence Force"], answer: 0, why: "ODF = Open Defecation Free: everyone uses a toilet." },
+      { q: "Which is the HIGHEST stage of an ODF Plus village?", o: ["Aspiring", "Rising", "Model", "Starter"], answer: 2, why: "Model is the highest stage: Aspiring → Rising → Model." },
+      { q: "Biogas is mainly made of…", o: ["Oxygen", "Methane and carbon dioxide", "Hydrogen and helium", "Nitrogen"], answer: 1, why: "Biogas is mainly methane (about 50–70%) plus carbon dioxide." },
+      { q: "Which gas in biogas burns and gives the flame?", o: ["Carbon dioxide", "Methane", "Oxygen", "Water vapour"], answer: 1, why: "Methane is the gas that burns." },
+      { q: "Biogas is made when microbes break down waste…", o: ["With lots of air", "Without oxygen", "In sunlight only", "In boiling water"], answer: 1, why: "It is anaerobic digestion — no oxygen." },
+      { q: "In your filter, which layer is at the TOP?", o: ["Cotton", "Charcoal", "Stones and gravel", "Sand"], answer: 2, why: "Water flows from coarsest to finest: stones → sand → charcoal → cotton." },
+      { q: "After your filter, the water is…", o: ["Safe to drink", "Clearer, but not safe to drink yet", "Pure distilled water", "Salty"], answer: 1, why: "Clear water can still have germs and dissolved chemicals." },
+      { q: "Which layer of your filter traps some chemicals and smells?", o: ["Stones", "Sand", "Charcoal", "Cotton"], answer: 2, why: "Charcoal has tiny holes (pores) that hold on to many chemicals, colours and smells." },
+      { q: "In your project's 7Rs, which R comes FIRST?", o: ["Recycle", "Reduce", "Refuse", "Reuse"], answer: 2, why: "In your 7Rs, Refuse comes first — say no to what you don't need. (In the old 3Rs, Reduce was first.)" },
+      { q: "“Reduce” means…", o: ["Saying no", "Using less", "Fixing things", "Melting things"], answer: 1, why: "Reduce = use less. Saying no is Refuse!" },
+      { q: "In your project's 7Rs, which R comes LAST?", o: ["Recover", "Reuse", "Repair", "Refuse"], answer: 0, why: "Recover comes last — after Recycle, we get energy from the waste that is left. (Some other 7R lists end with Recycle.)" },
+      { q: "Who is called the Plastic Man of India?", o: ["Prof. Rajagopalan Vasudevan", "Dr. C.V. Raman", "Dr. Homi Bhabha", "Dr. Vikram Sarabhai"], answer: 0, why: "Prof. Rajagopalan Vasudevan found a way to use waste plastic in roads." },
+      { q: "In which year did the Plastic Man of India get the Padma Shri?", o: ["2010", "2014", "2018", "2022"], answer: 2, why: "He received the Padma Shri in 2018." },
+      { q: "India's first hydrogen train runs between…", o: ["Delhi and Agra", "Jind and Sonipat", "Mumbai and Pune", "Chandigarh and Shimla"], answer: 1, why: "Jind–Gohana–Sonipat in Haryana, flagged off on 17 July 2026." },
+      { q: "What is the main thing that comes out of a hydrogen train instead of smoke?", o: ["Carbon dioxide", "Water vapour", "Methane", "Ash"], answer: 1, why: "A fuel cell turns hydrogen and oxygen into electricity, water and heat." },
+      { q: "Under the new 2026 rules, homes must sort waste into how many groups?", o: ["Two", "Three", "Four", "Seven"], answer: 2, why: "Four groups (called streams): wet, dry, sanitary and special care." },
+      { q: "Which bin is for wet waste?", o: ["Blue", "Green", "Black", "Red"], answer: 1, why: "Green = wet waste; blue = dry waste." },
+      { q: "In Chandigarh, a dead battery goes in the…", o: ["Green bin", "Blue bin", "Black bin", "Red bin"], answer: 2, why: "Batteries are hazardous (special care) waste — black bin." },
+      { q: "Why is a clay Ganesha better than a Plaster of Paris one?", o: ["Natural clay breaks down easily in water; POP does not", "Clay is shinier", "POP is too heavy to lift", "Clay idols are always bigger"], answer: 0, why: "Natural clay breaks apart and turns back into soil in water. POP stays hard for a long time, and the chemical paints often used on POP idols can harm fish." },
+      { q: "Single-use plastics are made mainly from…", o: ["Wood", "Petroleum (fossil fuels)", "Clay", "Cotton"], answer: 1, why: "Most plastics are made from chemicals that come from petroleum (crude oil)." },
+      { q: "India banned 19 single-use plastic items from…", o: ["1 July 2022", "2 October 2014", "1 January 2020", "15 August 2023"], answer: 0, why: "The ban on 19 items began on 1 July 2022." },
+      { q: "What is an eco-brick?", o: ["A brick made of clay and straw", "A plastic bottle packed tight with clean, dry plastic waste", "A brick that grows plants", "A brick made of compost"], answer: 1, why: "It locks away non-recyclable plastic and can be used to build things." },
+      { q: "Waste-to-energy plants should burn…", o: ["Everything, including plastic in the open", "Only waste that cannot be recycled, with pollution control", "Only wet kitchen waste", "Only paper"], answer: 1, why: "Recover is for leftover waste, in controlled plants — never open burning." },
+      { q: "What does an Effluent Treatment Plant (ETP) clean?", o: ["Factory wastewater", "Air in classrooms", "Drinking water at home", "Old batteries"], answer: 0, why: "An ETP treats factory wastewater before it is reused or released." },
+      { q: "A Sewage Treatment Plant (STP) cleans…", o: ["Dirty water from homes and toilets", "Factory smoke", "Plastic bottles", "Rainbows"], answer: 0, why: "STPs treat sewage from homes; ETPs treat factory water." },
+      { q: "India's goal for clean (non-fossil) power capacity by 2030 is…", o: ["100 GW", "300 GW", "500 GW", "1,000 GW"], answer: 2, why: "500 GW by 2030 — India crossed 300 GW in July 2026." },
+      { q: "In which year does India aim to reach net-zero emissions?", o: ["2030", "2047", "2070", "2100"], answer: 2, why: "By 2070, India wants to remove as much greenhouse gas from the air as it puts out — that is net zero. (Announced in 2021.)" },
+      { q: "A solar panel changes…", o: ["Sunlight into electricity", "Wind into water", "Heat into ice", "Plastic into fuel"], answer: 0, why: "Solar (photovoltaic) cells turn light energy into electricity." },
+      { q: "The tagline of Swachh Bharat is…", o: ["Ek Kadam Swachhata Ki Or", "Jai Jawan Jai Kisan", "Beti Bachao Beti Padhao", "Make in India"], answer: 0, why: "“Ek Kadam Swachhata Ki Or” — One step towards cleanliness." },
+      { q: "Complete the saying: “The best waste is the waste we…”", o: ["recycle", "burn", "never create", "bury"], answer: 2, why: "If we never make the waste, there is nothing to clean up — so that is the best." }
+    ],
+    // 🧩 Model Memory — match each model part with what it does
+    memory: [
+      { a: "☀️ Solar panel", b: "Turns sunlight into electricity" },
+      { a: "🔥 Biogas plant", b: "Turns wet waste into cooking gas" },
+      { a: "🚆 Hydrogen train", b: "Gives out water vapour instead of smoke" },
+      { a: "🌬️ Windmill", b: "Uses moving air (wind) to make electricity" },
+      { a: "💧 Water filter", b: "Makes muddy water clearer (not drinkable yet)" },
+      { a: "🔌 EV charging station", b: "Charges electric cars, which give out no smoke" },
+      { a: "🗑️ Five dustbins", b: "Sorting waste at home into separate bins" },
+      { a: "👨‍🔬 Plastic Man", b: "Waste plastic in roads" },
+      { a: "🪔 Eco-friendly Ganesha", b: "Clay breaks down in water — safer for fish" },
+      { a: "🏭 ETP (Effluent Treatment Plant)", b: "Cleans factory wastewater" },
+      { a: "🚻 Toilets", b: "Stop open defecation" },
+      { a: "💡 Plastic-to-energy machine", b: "Energy from waste that can't be recycled" }
+    ]
+  },
+
   /* ---------------- MARKING SCHEME (50 marks) ---------------- */
   marks: [
     { key: "model", name: "Model", icon: "🏗️",

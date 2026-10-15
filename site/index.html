@@ -26,6 +26,7 @@
       <a href="#stage" data-tab="stage">🎤 Stage</a>
       <a href="#thoughts" data-tab="thoughts">💭 Thoughts</a>
       <a href="#ecodost" data-tab="ecodost">🤖 Ask Eco-Dost</a>
+      <a href="#games" data-tab="games">🎮 Games</a>
       <a href="#project" data-tab="project">📘 Project</a>
       <a href="#model" data-tab="model">🗺️ Model</a>
       <a href="#walk" data-tab="walk">🧭 Walkthrough</a>
@@ -60,6 +61,7 @@
         <a class="card link-card" href="#project"><b>📘 7. Project report</b><span>A clean report to show and print for Rajnish Ma'am, plus a QR card for your stall.</span></a>
         <a class="card link-card" href="#thoughts"><b>💭 8. Thoughts · विचार</b><span>Positive lines in English and Hindi — openings, links, closings and “if I get stuck” lifelines.</span></a>
         <a class="card link-card" href="#ecodost"><b>🤖 9. Ask Eco-Dost</b><span>Ask questions about your file and model, get fun answers and quick checks, earn ⭐ and badges.</span></a>
+        <a class="card link-card" href="#games"><b>🎮 10. Games</b><span>Bin Sorter, 7R Match, Swachh Champion Quiz and Model Memory. Play when you want — your stars add to Eco-Dost ⭐.</span></a>
       </div>
 
       <h2>Marking scheme — 50 marks</h2>
@@ -193,6 +195,26 @@
       </div>
       <div class="small" id="edUnknown"></div>
       <div class="ed-toast" id="edToast" role="status"></div>
+    </section>
+
+    <!-- GAMES -->
+    <section id="tab-games" class="tab" hidden>
+      <div id="gmHub">
+        <div class="card gm-head">
+          <div>
+            <h1 style="margin:0">🎮 Games</h1>
+            <p class="small muted" style="margin:0">Play when you want! Every round gives up to ★★★, and your stars are added to your Eco-Dost ⭐ points.</p>
+          </div>
+          <div class="gm-head-side">
+            <b id="gmStars"></b>
+            <label class="small"><input type="checkbox" id="gmSound"> 🔈 Sounds</label>
+            <label class="small"><input type="checkbox" id="gmTimer"> ⏱️ Quiz timer</label>
+          </div>
+        </div>
+        <div class="gm-list" id="gmList"></div>
+        <p class="small"><button class="btn small ghost" id="gmReset">↺ Clear best scores</button></p>
+      </div>
+      <div class="card gm-play" id="gmPlay" hidden></div>
     </section>
 
     <!-- PROJECT REPORT / VISITOR PAGE -->
@@ -463,6 +485,7 @@
   <script src="ecodost-data.js"></script>
   <script src="ecodost.js"></script>
   <script src="voice.js"></script>
+  <script src="games.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

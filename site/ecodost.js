@@ -237,6 +237,13 @@
       if (after !== before) bot("🎉 <b>Level up!</b> You are now a <b>" + after.icon + " " + after.name + "</b>! Amazing, Avni!");
       badgeSet().forEach(t => { if (!beforeBadges.has(t)) bot("🏆 <b>New badge:</b> " + BADGES[t].icon + " <b>" + BADGES[t].name + "</b>! You asked " + BADGE_AT + " questions about this topic."); });
     }
+    // Stars won in the 🎮 Games tab are added here too
+    window.EcoDost.award = n => {
+      const before = levelOf(st.points);
+      st.points += n; save(); renderStats();
+      const after = levelOf(st.points);
+      if (after !== before) bot("🎉 <b>Level up!</b> Your game stars made you a <b>" + after.icon + " " + after.name + "</b>! Amazing, Avni!");
+    };
     function badgeSet() {
       const counts = {}; st.asked.forEach(id => { const c = byId[id]; if (c) counts[c.topic] = (counts[c.topic] || 0) + 1; });
       return new Set(Object.keys(counts).filter(t => counts[t] >= BADGE_AT));

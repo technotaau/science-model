@@ -40,6 +40,16 @@ if (S.delhi && S.delhi.items) {
   L.push("- Opening line: " + S.delhi.opener);
   S.delhi.items.forEach(d => L.push(`- [${d.area}${d.top ? ", top line" : ""}; links to: ${d.comp}] SAY: ${d.say} | LINK: ${d.link} | MENTOR NOTE: ${d.mentor}`));
 }
+if (S.haze) {
+  const H = S.haze;
+  L.push("\n=== 11. HAZE AND CLEAN AIR (North India's 2026 haze season; fact-checked) ===");
+  L.push("- AQI scale (CPCB National AQI): " + H.aqi.map(b => `${b.name} ${b.min}-${b.max}: ${b.health}`).join(" | "));
+  L.push("- PM: " + H.pm);
+  L.push("- GRAP: " + H.grap.map(g => `${g.stage} (AQI ${g.aqi}): ${g.actions.join("; ")}`).join(" | "));
+  L.push("- Causes: " + H.causes.map(c => `${c.name}: ${c.text}`).join(" | "));
+  L.push("- Health tips for the trip (general advice only): " + H.health.join(" | "));
+  [].concat(H.modelLinks, H.updates, H.stage).forEach(d => L.push(`- [links to: ${d.comp}; ${d.confidence}] SAY: ${d.say} | MENTOR NOTE: ${d.mentor}`));
+}
 const pack = L.join("\n");
 const tpl = fs.readFileSync(path.join(__dirname, "eco-dost-live.template.html"), "utf8");
 if (!tpl.includes('/*PACK*/""')) throw new Error("PACK placeholder missing");

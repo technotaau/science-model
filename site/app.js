@@ -38,7 +38,30 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  const tabs = ["home", "stage", "delhi", "thoughts", "ecodost", "games", "project", "model", "walk", "viva", "voice", "score", "ask"];
+  // Every page, grouped as they appear on the Home menu. tone = the page's soft colour.
+  const SECTIONS = [
+    { group: "🚀 Get ready for Delhi", items: [
+      { id: "stage", icon: "🎤", name: "Stage talk", desc: "Practise your speech, one part at a time.", tone: "blue" },
+      { id: "delhi", icon: "🏙️", name: "Delhi updates", desc: "Fresh Clean India news you can use in Delhi.", tone: "orange" },
+      { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Delhi's air today, health tips and how your model helps.", tone: "slate" },
+      { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
+    { group: "📚 Learn my project", items: [
+      { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
+      { id: "walk", icon: "🧭", name: "Walkthrough", desc: "Explain the whole model in the right order.", tone: "teal" },
+      { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "blue" },
+      { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
+    { group: "🎯 Practise and play", items: [
+      { id: "viva", icon: "❓", name: "Viva questions", desc: "Answer the way judges ask.", tone: "purple" },
+      { id: "ecodost", icon: "🤖", name: "Ask Eco-Dost", desc: "Ask anything about your project and earn ⭐.", tone: "teal" },
+      { id: "games", icon: "🎮", name: "Games", desc: "Bin Sorter, 7R Match, Quiz and Memory.", tone: "pink" },
+      { id: "voice", icon: "🎙️", name: "Voice coach", desc: "Speak clearly, slowly and confidently.", tone: "green" },
+      { id: "score", icon: "📊", name: "Score myself", desc: "Mark a practice out of 40, like the judges.", tone: "amber" }] },
+    { group: "👩‍🏫 For Rajnish Ma'am", items: [
+      { id: "ask", icon: "📝", name: "Ask Ma'am", desc: "Things to check with your teacher.", tone: "orange" }] }
+  ];
+  const secById = {};
+  SECTIONS.forEach(g => g.items.forEach(x => { secById[x.id] = x; }));
+  const tabs = ["home"].concat(Object.keys(secById));
   // ?visitor in the URL (from the stall QR code) shows only the clean project page
   const visitor = new URLSearchParams(location.search).has("visitor");
   function route() {
@@ -53,9 +76,12 @@
     if (t !== "ecodost" && t !== "viva" && t !== "voice") V.stopListening();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
     $$("#tabs a").forEach(a => a.classList.toggle("active", a.dataset.tab === t));
+    const sec = secById[t];
+    document.title = (sec ? sec.name + " · " : "") + "Clean India Model Coach";
     if (t === "model") showComp(sub && compById[sub] ? sub : currentComp);
     if (t === "home") renderProgress();
     if (t === "project") renderProjectProgress();
+    if (t === "haze") renderAirNow();
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
     else window.scrollTo(0, 0);
   }
@@ -84,8 +110,54 @@
     const ach = S.student.achievements || [];
     $("#achieve").innerHTML = ach.map(a => '<span class="pill ok">' + esc(a) + "</span>").join(" ");
   }
+  // a small header on every page: ← Home, the page name and what to do there
+  function addPageHeads() {
+    Object.values(secById).forEach(x => {
+      const el = $("#tab-" + x.id);
+      if (!el || $(".page-head", el)) return;
+      const h = document.createElement("div");
+      h.className = "page-head no-print";
+      h.style.setProperty("--tone", "var(--t-" + x.tone + ")");
+      h.style.setProperty("--tone-ink", "var(--t-" + x.tone + "-ink)");
+      h.innerHTML = '<a class="back" href="#home">← Home</a><div class="ph-title"><span aria-hidden="true">' + x.icon + "</span> " + esc(x.name) + '<span class="ph-sub">' + esc(x.desc) + "</span></div>";
+      el.prepend(h);
+    });
+  }
+  function sectionShown(id) {
+    if (id === "delhi") return !!(S.delhi && S.delhi.items && S.delhi.items.length);
+    if (id === "haze") return !!S.haze;
+    return true;
+  }
+  function renderHomeTiles() {
+    $("#homeTiles").innerHTML = SECTIONS.map(g => '<h2 class="tile-group">' + esc(g.group) + '</h2><div class="tiles">' +
+      g.items.filter(x => sectionShown(x.id)).map(x =>
+        '<a class="home-tile" href="#' + x.id + '" style="--tone:var(--t-' + x.tone + ');--tone-ink:var(--t-' + x.tone + '-ink)">' +
+        '<span class="ht-icon" aria-hidden="true">' + x.icon + '</span><span class="ht-text"><b>' + esc(x.name) + "</b><span>" + esc(x.desc) + "</span></span></a>").join("") +
+      "</div>").join("");
+  }
+  // today's task from the plan, with a button to the page it needs
+  function renderToday() {
+    const n = new Date();
+    const today = n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
+    const p = (S.plan || []).find(x => x.date === today) || (S.plan || []).find(x => x.date > today);
+    if (!p) { $("#todayCard").hidden = true; return; }
+    const go = p.go && secById[p.go];
+    $("#todayCard").hidden = false;
+    $("#todayCard").innerHTML = '<div class="today-label">📅 ' + (p.date === today ? "Today" : "Next") + " · " + esc(p.label) + '</div><p class="today-task">' + esc(p.task) + "</p>" +
+      (go ? '<a class="btn" href="#' + go.id + '">' + go.icon + " Start: " + esc(go.name) + " →</a>" : "");
+  }
+  function initTheme() {
+    const btn = $("#themeBtn");
+    const show = () => { const dark = document.documentElement.dataset.theme === "dark"; btn.textContent = dark ? "☀️" : "🌙"; btn.title = dark ? "Light colours" : "Dark colours"; };
+    btn.onclick = () => {
+      const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = t; store.set("theme", t); show();
+    };
+    show();
+  }
   function renderHome() {
     const st = S.student;
+    if ($("#heroName")) $("#heroName").textContent = st.name.split(" ")[0];
     $("#brandSub").textContent = st.name + " · " + st.className;
     $("#heroTopic").textContent = st.topic;
     $("#heroWho").textContent = st.name + " · " + st.className + " · " + st.school + " · Teacher: " + st.teacher;
@@ -194,6 +266,8 @@
     if (c.point && c.point.length) h += '<div class="sec act"><h4>👉 Pointing, eye contact &amp; demo</h4>' + list(c.point) + "</div>";
     const dl = ((S.delhi && S.delhi.items) || []).filter(d => d.comp === c.id);
     if (dl.length) h += '<div class="sec deep"><h4>🏙️ In Delhi now — a line you can add</h4>' + list(dl.map(d => d.say)) + '<a href="#delhi">All Delhi updates →</a></div>';
+    const hz = ((S.haze && S.haze.modelLinks) || []).filter(d => d.comp === c.id);
+    if (hz.length) h += '<div class="sec act"><h4>🌫️ How this part helps clean air</h4>' + list(hz.map(d => d.say)) + '<a href="#haze">Haze &amp; clean air →</a></div>';
     const idx = S.components.indexOf(c);
     const prev = S.components[idx - 1], next = S.components[idx + 1];
     h += '<div class="step-nav">' +
@@ -599,6 +673,127 @@
     $("#printSynopsis").onclick = () => { $("#synopsisCard").open = true; doPrint("print-synopsis"); };
   }
   // Practice progress summary for the teacher (from this device's saved practice)
+  // ---------- 🌫️ Haze & clean air ----------
+  // Live PM2.5 and PM10 come from a free forecast model (CAMS, via Open-Meteo), so the AQI here is only an
+  // ESTIMATE made with CPCB's National AQI breakpoints; the official AQI is on CPCB's Sameer app.
+  const AQ_CITIES = { delhi: { name: "Delhi", lat: 28.6139, lon: 77.209 }, chd: { name: "Chandigarh", lat: 30.7333, lon: 76.7794 } };
+  const aqState = { city: "delhi" };
+  function subIndex(c, bands) {
+    const A = [[0, 50], [51, 100], [101, 200], [201, 300], [301, 400], [401, 500]];
+    for (let i = 0; i < bands.length; i++) {
+      const lo = bands[i][0], hi = bands[i][1] != null ? bands[i][1] : lo * 1.5;
+      if (c <= hi || i === bands.length - 1) {
+        const x = Math.min(Math.max(c, lo), hi);
+        return Math.min(500, Math.round(A[i][0] + (A[i][1] - A[i][0]) * (x - lo) / Math.max(1, hi - lo)));
+      }
+    }
+    return 500;
+  }
+  function aqiBand(v) { const B = S.haze.aqi; return B.find(b => v >= b.min && v <= b.max) || (v > B[B.length - 1].max ? B[B.length - 1] : B[0]); }
+  const AQ_ICON = ["😊", "🙂", "😐", "😷", "🤢", "☠️"];
+  async function loadAir(force) {
+    const c = AQ_CITIES[aqState.city];
+    const key = "air-" + aqState.city;
+    const cached = store.get(key, null);
+    if (!force && cached && Date.now() - cached.at < 30 * 60000) return cached;
+    const url = "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=" + c.lat + "&longitude=" + c.lon +
+      "&hourly=pm2_5,pm10&past_days=1&forecast_days=1&timezone=Asia%2FKolkata";
+    const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 15000);
+    try {
+      const r = await fetch(url, { signal: ctl.signal });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json();
+      // the latest hour that has already happened, in India time
+      const nowIST = new Date(Date.now() + (j.utc_offset_seconds || 19800) * 1000).toISOString().slice(0, 13);
+      const T = j.hourly.time; let end = -1;
+      T.forEach((t, i) => { if (t.slice(0, 13) <= nowIST && j.hourly.pm2_5[i] != null) end = i; });
+      if (end < 23) throw new Error("not enough data");
+      const hours = [];
+      for (let i = end - 23; i <= end; i++) hours.push({ t: T[i], pm25: j.hourly.pm2_5[i], pm10: j.hourly.pm10[i] });
+      const out = { at: Date.now(), hours };
+      store.set(key, out);
+      return out;
+    } catch (e) { return cached ? Object.assign({ stale: true }, cached) : { error: true }; }
+    finally { clearTimeout(tm); }
+  }
+  async function renderAirNow(force) {
+    const box = $("#hzNow"), H = S.haze;
+    if (!box || !H) return;
+    const c = AQ_CITIES[aqState.city];
+    const seg = '<div class="seg" id="hzCity" role="group" aria-label="City">' + Object.keys(AQ_CITIES).map(k =>
+      '<button data-city="' + k + '"' + (k === aqState.city ? ' class="active"' : "") + ">" + esc(AQ_CITIES[k].name) + "</button>").join("") + "</div>";
+    box.innerHTML = '<div class="hz-top"><h2>🌫️ Air today</h2>' + seg + '</div><p class="muted small">Loading the latest air data…</p>';
+    wireCity();
+    const d = await loadAir(force);
+    if (aqState.city !== Object.keys(AQ_CITIES).find(k => AQ_CITIES[k] === c)) return; // city changed while loading
+    if (d.error) {
+      box.innerHTML = '<div class="hz-top"><h2>🌫️ Air today</h2>' + seg + '</div><p>Could not load the air data. Check the internet, then try again.</p>' +
+        '<button class="btn small ghost" id="hzRetry">↻ Try again</button><p class="tiny muted">' + esc(H.officialNote || "") + "</p>";
+      wireCity(); $("#hzRetry").onclick = () => renderAirNow(true); return;
+    }
+    const avg = k => d.hours.reduce((a, h) => a + (h[k] || 0), 0) / d.hours.length;
+    const p25 = avg("pm25"), p10 = avg("pm10");
+    const aqi = Math.max(subIndex(p25, H.pmBreakpoints.pm25), subIndex(p10, H.pmBreakpoints.pm10));
+    const band = aqiBand(aqi), bi = H.aqi.indexOf(band);
+    const max = Math.max(...d.hours.map(h => h.pm25), 1);
+    const hourBand = h => aqiBand(subIndex(h.pm25, H.pmBreakpoints.pm25));
+    const lbl = t => t.slice(11, 16);
+    const bars = d.hours.map(h => { const b = hourBand(h); const tip = lbl(h.t) + " · PM2.5 " + Math.round(h.pm25) + " µg/m³ · " + b.name;
+      return '<span class="hz-bar" tabindex="0" data-tip="' + esc(tip) + '" aria-label="' + esc(tip) + '"><i style="height:' + Math.max(6, Math.round(100 * h.pm25 / max)) + "%;background:" + esc(b.color) + '"></i></span>'; }).join("");
+    const when = new Date(d.at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+    box.innerHTML = '<div class="hz-top"><h2>🌫️ Air today</h2>' + seg + "</div>" +
+      '<div class="hz-hero"><div class="hz-num" style="--band:' + esc(band.color) + '"><span class="hz-label">' + esc(c.name) + " · estimated AQI, last 24 hours</span>" +
+      "<b>" + aqi + '</b><span class="hz-cat"><i class="hz-chip" style="background:' + esc(band.color) + '"></i>' + (AQ_ICON[bi] || "") + " " + esc(band.name) + ' · <span lang="hi">' + esc(band.hi) + "</span></span></div>" +
+      '<div class="hz-what"><p><b>What it means:</b> ' + esc(band.health) + '</p><p class="small">PM2.5 average: <b>' + Math.round(p25) + "</b> µg/m³ · PM10 average: <b>" + Math.round(p10) + "</b> µg/m³</p></div></div>" +
+      '<div class="hz-chart"><div class="hz-chart-title small"><b>PM2.5, hour by hour</b> <span class="muted">(tap a bar)</span></div><div class="hz-bars" id="hzBars">' + bars + '</div>' +
+      '<div class="hz-axis tiny muted"><span>' + lbl(d.hours[0].t) + " (24 h ago)</span><span>" + lbl(d.hours[23].t) + ' (now)</span></div><div class="hz-tip tiny" id="hzTip" aria-live="polite"></div></div>' +
+      '<details class="hz-table small"><summary>See the numbers</summary><div class="hist-wrap"><table class="hist"><tr><th>Hour</th><th>PM2.5</th><th>PM10</th><th>Level (PM2.5)</th></tr>' +
+      d.hours.slice().reverse().map(h => "<tr><td>" + lbl(h.t) + "</td><td>" + Math.round(h.pm25) + "</td><td>" + Math.round(h.pm10) + "</td><td>" + esc(hourBand(h).name) + "</td></tr>").join("") + "</table></div></details>" +
+      '<p class="tiny muted">' + (d.stale ? "⚠️ Offline — showing the last saved data. " : "") + "Updated " + esc(when) + ". " + esc(H.officialNote || "") +
+      ' <button class="btn small ghost" id="hzRefresh">↻ Refresh</button></p>';
+    wireCity();
+    $("#hzRefresh").onclick = () => renderAirNow(true);
+    const tipEl = $("#hzTip");
+    $$("#hzBars .hz-bar").forEach(b => { const show = () => { tipEl.textContent = b.dataset.tip; $$("#hzBars .hz-bar").forEach(x => x.classList.toggle("on", x === b)); };
+      b.onmouseenter = show; b.onfocus = show; b.onclick = show; });
+  }
+  function wireCity() {
+    $$("#hzCity button").forEach(b => b.onclick = () => { if (aqState.city === b.dataset.city) return; aqState.city = b.dataset.city; renderAirNow(); });
+  }
+  function hzLine(d) {
+    const comp = compById[d.comp];
+    return '<article class="dl-card hz-line" data-id="' + esc(d.id) + '">' +
+      (comp ? '<div class="dl-area"><a href="#model/' + esc(comp.id) + '">' + comp.icon + " " + esc(comp.name) + "</a></div>" : "") +
+      '<div class="dl-say">' + esc(d.say) + "</div>" +
+      (d.hi ? '<div class="dl-hi hi" lang="hi">' + esc(d.hi) + "</div>" : "") +
+      (V.canSpeak ? '<div class="th-actions"><button class="btn small ghost" data-say="en">🔊 English</button>' + (d.hi ? '<button class="btn small ghost" data-say="hi">🔊 हिंदी</button>' : "") + "</div>" : "") +
+      (d.mentor || d.source ? '<details class="dl-more"><summary class="small">Details &amp; source</summary>' + (d.mentor ? '<p class="small">' + esc(d.mentor) + "</p>" : "") +
+        (d.source ? '<p class="tiny">' + (/^https?:/.test(d.source) ? '<a href="' + esc(d.source) + '" target="_blank" rel="noopener">Source</a>' : esc(d.source)) + (d.sourceDate ? " · " + esc(d.sourceDate) : "") + "</p>" : "") + "</details>" : "") +
+      "</article>";
+  }
+  function renderHaze() {
+    const H = S.haze;
+    if (!H) return;
+    const all = [].concat(H.modelLinks || [], H.updates || [], H.stage || []);
+    const block = (title, inner, cls) => '<section class="card hz-sec' + (cls ? " " + cls : "") + '"><h2>' + title + "</h2>" + inner + "</section>";
+    $("#hzBody").innerHTML =
+      (H.intro ? '<p class="hz-intro">' + esc(H.intro) + "</p>" : "") +
+      block("🎨 The AQI colour scale <span class=\"small muted\">(India's National AQI)</span>",
+        '<div class="hz-scale">' + H.aqi.map((b, i) => '<div class="hz-row"><span class="hz-swatch" style="background:' + esc(b.color) + '" aria-hidden="true"></span><div><b>' + (AQ_ICON[i] || "") + " " + esc(b.name) + ' <span class="muted" lang="hi">· ' + esc(b.hi) + "</span></b> <span class=\"pill plain-pill\">" + b.min + "–" + b.max + '</span><div class="small">' + esc(b.health) + "</div></div></div>").join("") + "</div>") +
+      block("🤔 Why does haze come every October–November?", '<div class="hz-causes">' + H.causes.map(c => '<div class="hz-cause"><span class="hz-ci" aria-hidden="true">' + esc(c.icon) + "</span><div><b>" + esc(c.name) + '</b><div class="small">' + esc(c.text) + "</div></div></div>").join("") + "</div>" +
+        (H.pm ? '<div class="sec act"><h4>🔬 What are PM2.5 and PM10?</h4><p>' + esc(H.pm) + "</p></div>" : "")) +
+      (H.stage && H.stage.length ? block("🎤 Lines you can say in Delhi", '<div class="dl-grid">' + H.stage.map(hzLine).join("") + "</div>", "hz-stage") : "") +
+      (H.modelLinks && H.modelLinks.length ? block("💪 How my model fights haze", '<div class="dl-grid">' + H.modelLinks.map(hzLine).join("") + "</div>") : "") +
+      block("🚦 GRAP — Delhi's emergency plan for bad air", '<div class="hz-grap">' + H.grap.map(g => '<div class="hz-stage-card"><b>' + esc(g.stage) + '</b> <span class="pill plain-pill">AQI ' + esc(g.aqi) + "</span>" + list(g.actions) + "</div>").join("") + "</div>" +
+        (H.grapSource ? '<p class="tiny muted">Source: ' + esc(H.grapSource) + "</p>" : "")) +
+      (H.updates && H.updates.length ? block("📰 The 2026 haze season", '<div class="dl-grid">' + H.updates.map(hzLine).join("") + "</div>") : "") +
+      block("🩺 Stay healthy on your Delhi trip", list(H.health) + (H.healthSource ? '<p class="tiny muted">Source: ' + esc(H.healthSource) + "</p>" : ""), "hz-health");
+    $$(".hz-line").forEach(card => {
+      const d = all.find(x => x.id === card.dataset.id);
+      $$("[data-say]", card).forEach(b => b.onclick = () => { V.stopSpeaking(); b.dataset.say === "hi" ? V.speak(d.hi, { lang: "hi", rate: 0.85 }) : V.speak(d.say); });
+    });
+  }
+
   // ---------- 🏙️ Delhi updates ----------
   const dlState = { lang: "both", area: "all" };
   function dlCard(d) {
@@ -640,7 +835,6 @@
   function renderDelhi() {
     const D = S.delhi;
     if (!D || !D.items || !D.items.length) {
-      $$('#tabs a[data-tab="delhi"], a.link-card[href="#delhi"]').forEach(a => { a.hidden = true; });
       return;
     }
     $("#dlIntro").textContent = D.intro || "";
@@ -920,9 +1114,14 @@
     $(".brand-title").textContent = S.project.title;
     $("#foot").textContent = S.student.name + " · " + S.student.className + " · " + S.student.school + " · Built with the TechnoTaau Team";
   }
+  initTheme();
+  addPageHeads();
   renderHome();
+  renderHomeTiles();
+  renderToday();
   renderStage();
   renderDelhi();
+  renderHaze();
   renderThoughts();
   if (window.EcoDost) window.EcoDost.init({ store, esc });
   if (window.Games) window.Games.init({ store, esc });

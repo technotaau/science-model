@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Clean India Model Coach</title>
   <meta name="description" content="Science-fair preparation for Clean India Mission and Waste Management: model tour, presentation walkthrough, viva practice, voice and self-scoring.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
@@ -10,81 +10,77 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script>if (new URLSearchParams(location.search).has("visitor")) document.documentElement.classList.add("visitor");</script>
+  <script>
+    if (new URLSearchParams(location.search).has("visitor")) document.documentElement.classList.add("visitor");
+    // light/dark: the saved choice, otherwise the phone's own setting
+    (function () { var t = null; try { t = JSON.parse(localStorage.getItem("coach:theme")); } catch (e) {}
+      if (t !== "light" && t !== "dark") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t; })();
+  </script>
 </head>
 <body>
   <header class="top">
-    <div class="brand">
-      <span class="logo">♻️</span>
-      <div>
-        <div class="brand-title">Clean India Model Coach</div>
-        <div class="brand-sub" id="brandSub"></div>
+    <div class="topbar">
+      <a class="brand" href="#home" aria-label="Home">
+        <span class="logo" aria-hidden="true">♻️</span>
+        <div>
+          <div class="brand-title">Clean India Model Coach</div>
+          <div class="brand-sub" id="brandSub"></div>
+        </div>
+      </a>
+      <nav class="tabs" id="tabs" aria-label="Main menu">
+        <a href="#home" data-tab="home"><span aria-hidden="true">🏠</span>Home</a>
+        <a href="#stage" data-tab="stage"><span aria-hidden="true">🎤</span>Stage</a>
+        <a href="#model" data-tab="model"><span aria-hidden="true">🗺️</span>Model</a>
+        <a href="#viva" data-tab="viva"><span aria-hidden="true">❓</span>Viva</a>
+        <a href="#ecodost" data-tab="ecodost"><span aria-hidden="true">🤖</span>Ask</a>
+      </nav>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch between light and dark colours" title="Light / dark">🌙</button>
       </div>
     </div>
-    <nav class="tabs" id="tabs" aria-label="Sections">
-      <a href="#home" data-tab="home">🏠 Home</a>
-      <a href="#stage" data-tab="stage">🎤 Stage</a>
-      <a href="#delhi" data-tab="delhi">🏙️ Delhi updates</a>
-      <a href="#thoughts" data-tab="thoughts">💭 Thoughts</a>
-      <a href="#ecodost" data-tab="ecodost">🤖 Ask Eco-Dost</a>
-      <a href="#games" data-tab="games">🎮 Games</a>
-      <a href="#project" data-tab="project">📘 Project</a>
-      <a href="#model" data-tab="model">🗺️ Model</a>
-      <a href="#walk" data-tab="walk">🧭 Walkthrough</a>
-      <a href="#viva" data-tab="viva">❓ Viva</a>
-      <a href="#voice" data-tab="voice">🎙️ Voice Coach</a>
-      <a href="#score" data-tab="score">📊 Score</a>
-      <a href="#ask" data-tab="ask">📝 Ask Ma'am</a>
-    </nav>
   </header>
 
   <main>
     <!-- HOME -->
     <section id="tab-home" class="tab">
-      <div class="hero card">
+      <div class="card hero home-hero">
         <div>
+          <p class="hello">👋 Hi <span id="heroName">Avni</span>!</p>
           <h1 id="heroTopic"></h1>
-          <p id="heroWho" class="muted"></p>
+          <p id="heroWho" class="muted small"></p>
           <p class="countdown" id="countdown"></p>
           <p class="achieve" id="achieve"></p>
         </div>
-        <div class="progress-tiles" id="progressTiles"></div>
       </div>
+      <div class="card today" id="todayCard" hidden></div>
+      <div id="homeTiles"></div>
+      <details class="card fold" id="foldProgress"><summary>📈 My progress</summary><div class="progress-tiles" id="progressTiles"></div></details>
+      <details class="card fold"><summary>🏅 How the judges give marks (40)</summary><p class="small muted" id="marksNote"></p><div class="marks" id="marksList"></div></details>
+      <details class="card fold"><summary>💬 My three quotes</summary><div class="quotes" id="quotesList"></div></details>
+      <details class="card fold"><summary>📅 Plan until Delhi</summary><ol class="plan" id="planList"></ol></details>
+    </section>
 
-      <h2>How the website works</h2>
-      <div class="grid3">
-        <a class="card link-card" href="#model"><b>🗺️ 1. Learn the model</b><span>Tap every part of your model: what it is, the science behind it, what to say, and what NOT to say.</span></a>
-        <a class="card link-card" href="#walk"><b>🧭 2. Walk through it</b><span>Practise explaining the model in order. Say it in your own words first, then check the sample.</span></a>
-        <a class="card link-card" href="#viva"><b>❓ 3. Viva practice</b><span>One question at a time. Try 🎧 Judge mode: the website asks aloud, listens to your answer and gives feedback.</span></a>
-        <a class="card link-card" href="#voice"><b>🎙️ 4. Voice Coach</b><span>Listen and repeat, ask questions by voice, check your volume, speed and “um”s, practise hard words, mirror practice and a calming warm-up.</span></a>
-        <a class="card link-card" href="#score"><b>📊 5. Score yourself</b><span>Mark yourself on the 4 official heads (out of 40) after each full practice run.</span></a>
-        <a class="card link-card" href="#ask"><b>📝 6. Ask Ma'am</b><span>Questions to confirm with Rajnish Ma'am before the fair.</span></a>
-        <a class="card link-card" href="#project"><b>📘 7. Project report</b><span>A clean report to show and print for Rajnish Ma'am, plus a QR card for your stall.</span></a>
-        <a class="card link-card" href="#thoughts"><b>💭 8. Thoughts · विचार</b><span>Positive lines in English and Hindi — openings, links, closings and “if I get stuck” lifelines.</span></a>
-        <a class="card link-card" href="#ecodost"><b>🤖 9. Ask Eco-Dost</b><span>Ask questions about your file and model, get fun answers and quick checks, earn ⭐ and badges.</span></a>
-        <a class="card link-card" href="#delhi"><b>🏙️ Delhi updates</b><span>Fact-checked Clean India news from Delhi and India, with short lines you can say in Delhi, in English and Hindi.</span></a>
-        <a class="card link-card" href="#games"><b>🎮 10. Games</b><span>Bin Sorter, 7R Match, Swachh Champion Quiz and Model Memory. Play when you want — your stars add to Eco-Dost ⭐.</span></a>
+    <!-- TRIP CHECKLIST -->
+    <section id="tab-trip" class="tab" hidden>
+      <div class="card">
+        <h2 style="margin-top:0">Pack and check <span class="small muted" id="tripCount"></span></h2>
+        <p class="small muted" style="margin:0">Tick each thing when it is packed or done. Your ticks are saved on this phone.</p>
       </div>
-
-      <h2>Official marking — 40 marks</h2>
-      <p class="small muted" id="marksNote"></p>
-      <div class="marks" id="marksList"></div>
-
-      <h2>My three quotes</h2>
-      <div class="quotes" id="quotesList"></div>
-
-      <h2>Plan until Delhi</h2>
-      <ol class="plan" id="planList"></ol>
-
-      <h2>🧳 Delhi trip checklist <span class="small muted" id="tripCount"></span></h2>
       <div class="card trip" id="tripList"></div>
+    </section>
+
+    <!-- HAZE & CLEAN AIR -->
+    <section id="tab-haze" class="tab" hidden>
+      <div class="card hz-now" id="hzNow"></div>
+      <div id="hzBody"></div>
     </section>
 
     <!-- STAGE PRESENTATION -->
     <section id="tab-stage" class="tab" hidden>
       <div class="card hero stage-hero no-print">
         <div>
-          <h1 style="margin:0">🎤 Stage presentation</h1>
+          <h1 style="margin:0" class="dup-title">🎤 Stage presentation</h1>
           <p class="countdown" id="stCountdown"></p>
           <p class="small muted">The speech is built from <b>your own project file</b>. Learn the <b>key points</b>, not every word — the sample is only there to help.</p>
         </div>
@@ -140,7 +136,7 @@
     <section id="tab-thoughts" class="tab" hidden>
       <div class="card hero thoughts-hero">
         <div>
-          <h1 style="margin:0">💭 Thoughts <span class="hi">· विचार</span></h1>
+          <h1 style="margin:0" class="dup-title">💭 Thoughts <span class="hi">· विचार</span></h1>
           <p class="small muted">Positive lines in English and Hindi to <b>open</b> your talk, <b>connect</b> two parts, <b>recover</b> if you get stuck, or <b>close</b> with a strong message. Star ⭐ your favourites — they will also print on your stage cue card.</p>
         </div>
         <button class="btn act" id="thRandom">🎲 Surprise me</button>
@@ -169,7 +165,7 @@
         <div class="ed-hero">
           <span class="ed-face" aria-hidden="true">🤖</span>
           <div>
-            <h1 style="margin:0">Ask Eco-Dost</h1>
+            <h1 style="margin:0" class="dup-title">Ask Eco-Dost</h1>
             <p class="small muted" style="margin:0">Your project buddy. Ask anything about <b>your file</b> or <b>your model</b> — learn, earn ⭐ and collect badges!</p>
           </div>
         </div>
@@ -231,7 +227,7 @@
       <div id="gmHub">
         <div class="card gm-head">
           <div>
-            <h1 style="margin:0">🎮 Games</h1>
+            <h1 style="margin:0" class="dup-title">🎮 Games</h1>
             <p class="small muted" style="margin:0">Play when you want! Every round gives up to ★★★, and your stars are added to your Eco-Dost ⭐ points.</p>
           </div>
           <div class="gm-head-side">

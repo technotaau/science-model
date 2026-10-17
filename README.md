@@ -6,15 +6,24 @@ Built by the **TechnoTaau Team**.
 
 ## What's on the website
 
-| Tab | What it does |
-|---|---|
-| 🏠 Home | Countdown to the fair, the 50-mark scheme, three quotes, day-by-day plan, progress |
-| 🗺️ Model | Tap the numbers on the model photo. Each part shows what it is, what to say, how it works, deeper viva knowledge, what **not** to say, and where to point. The Five Dustbins card has a full colour-code guide |
-| 🧭 Walkthrough | The presentation in order, with stage directions, a timer, 🔊 listen-with-pauses, and **🎬 Full rehearsal** (spoken cues + time per step) |
-| ❓ Viva | One question at a time (easy / medium / hard). **🎧 Judge mode** asks aloud, listens to your answer, gives spoken feedback and a follow-up question |
-| 🎙️ Voice Coach | Listen & Repeat, Ask by Voice (answers from your own notes), Record & Check (volume, speed, filler words), Pronunciation, Mirror (camera) and a 1-minute confidence warm-up |
-| 📊 Score | Mark yourself on the 4 official Vigyan Mela heads (out of 40) after each full practice |
-| 📝 Ask Ma'am | Questions to confirm with Rajnish Ma'am, and the sources used to check the facts |
+**Finding your way:** the 🏠 **Home** page is the menu: a "Today" card with the day's task, then big tiles in four groups. Every page starts with **← Home**. On a phone there is also a bar at the bottom: 🏠 Home · 🎤 Stage · 🗺️ Model · ❓ Viva · 🤖 Ask. The 🌙/☀️ button (top right) switches between soft light and soft dark colours, and the phone remembers the choice.
+
+| Group | Page | What it does |
+|---|---|---|
+| 🚀 Get ready for Delhi | 🎤 Stage talk | The speech part by part, rehearsal mode, cue card |
+| | 🏙️ Delhi updates | Fact-checked Clean India news from Delhi and India, in English and Hindi |
+| | 🌫️ Haze & clean air | An estimated live AQI for Delhi and Chandigarh, the AQI colour scale, why haze comes, GRAP, health tips for the trip, and how the model helps clean air |
+| | 🧳 Trip checklist | What to pack and the official fair rules |
+| 📚 Learn my project | 🗺️ My model | Tap the numbers on the model photo: what each part is, what to say, how it works, what **not** to say, where to point |
+| | 🧭 Walkthrough | The presentation in order, with a timer and 🎬 full rehearsal |
+| | 📘 Project report | Printable report, the written synopsis (2 copies for the judges) and the stall QR card |
+| | 💭 Thoughts · विचार | Lines in English and Hindi to open, link, recover and close |
+| 🎯 Practise and play | ❓ Viva questions | One question at a time; 🎧 Judge mode asks aloud and listens; 🏅 the questions real judges asked |
+| | 🤖 Ask Eco-Dost | Ask anything about the file and the model; quick checks, ⭐ points and badges |
+| | 🎮 Games | Bin Sorter, 7R Match, Swachh Champion Quiz, Model Memory |
+| | 🎙️ Voice coach | Listen & repeat, record & check, pronunciation, mirror, warm-up |
+| | 📊 Score myself | Mark a practice on the 4 official Vigyan Mela heads (out of 40) |
+| 👩‍🏫 For Rajnish Ma'am | 📝 Ask Ma'am | Questions to confirm with the teacher |
 
 Progress, scores and answers are saved **only in the browser on that device**.
 

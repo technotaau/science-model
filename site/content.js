@@ -42,18 +42,18 @@ window.SITE = {
 
   /* ---------------- DAY-BY-DAY PLAN (date: YYYY-MM-DD) ---------------- */
   plan: [
-    { date: "2026-10-15", label: "Thu 15 Oct", task: "Celebrate! 🎉 Then write down EVERY question the Malerkotla judges asked, what you answered, and anything they said. Send it to your mentor." },
-    { date: "2026-10-16", label: "Fri 16 Oct", task: "❓ Viva → 🎧 Judge mode: 10 questions. Then 🤖 Eco-Dost → 🎲 Quiz me: 10 questions. Ask Rajnish Ma'am about the parent consent letter, the participation proforma and your synopsis copies." },
-    { date: "2026-10-17", label: "Sat 17 Oct", task: "Check the model: repair anything loose, test all 4 demos (solar bulb, EV light, filter, plastic-to-energy bulb). Measure the model (not bigger than 5 × 3 ft) and check that NO part uses thermocol. Start the 🧳 trip kit." },
-    { date: "2026-10-18", label: "Sun 18 Oct", task: "Two full explanations with the timer, standing beside the model. Record one and check speed, filler words and volume." },
-    { date: "2026-10-19", label: "Mon 19 Oct", task: "Zone-level questions: what is NEW in your model, its limitations, how you would improve it, and what it cost. Then learn the ⭐ top lines in 🏙️ Delhi updates and tick the ones you can say." },
-    { date: "2026-10-20", label: "Tue 20 Oct", task: "Hindi practice: explain three parts of your model in Hindi (judges may ask in Hindi). Use 💭 Thoughts → हिंदी. Start writing your 📝 synopsis: 2 neat copies, with the list of parts." },
-    { date: "2026-10-21", label: "Wed 21 Oct", task: "Mock judging at home or school: full explanation + 10 surprise questions from a family member or teacher. Mark yourself in 📊 Score." },
-    { date: "2026-10-22", label: "Thu 22 Oct", task: "Light revision only. Pack the model safely for travel (see 🧳 trip checklist). Charge everything. Ask a grown-up to check the Delhi news once more for anything new." },
-    { date: "2026-10-23", label: "Fri 23 Oct", task: "Rest and travel. Read only your headings, favourite thoughts and the 3 quotes. Sleep early." },
-    { date: "2026-10-24", label: "Sat 24 Oct", task: "North Zone, Delhi — day 1. Set up early, test every demo, warm-up, smile. Note any new questions the judges ask." },
-    { date: "2026-10-25", label: "Sun 25 Oct", task: "Day 2. Same calm routine. Be friendly with other participants — learn from their models too." },
-    { date: "2026-10-26", label: "Mon 26 Oct", task: "Day 3. Last day — give it your best and enjoy every moment! 🌟" }
+    { date: "2026-10-15", go: "viva", label: "Thu 15 Oct", task: "Celebrate! 🎉 Then write down EVERY question the Malerkotla judges asked, what you answered, and anything they said. Send it to your mentor." },
+    { date: "2026-10-16", go: "viva", label: "Fri 16 Oct", task: "❓ Viva → 🎧 Judge mode: 10 questions. Then 🤖 Eco-Dost → 🎲 Quiz me: 10 questions. Ask Rajnish Ma'am about the parent consent letter, the participation proforma and your synopsis copies." },
+    { date: "2026-10-17", go: "trip", label: "Sat 17 Oct", task: "Check the model: repair anything loose, test all 4 demos (solar bulb, EV light, filter, plastic-to-energy bulb). Measure the model (not bigger than 5 × 3 ft) and check that NO part uses thermocol. Start the 🧳 trip kit." },
+    { date: "2026-10-18", go: "walk", label: "Sun 18 Oct", task: "Two full explanations with the timer, standing beside the model. Record one and check speed, filler words and volume." },
+    { date: "2026-10-19", go: "delhi", label: "Mon 19 Oct", task: "Zone-level questions: what is NEW in your model, its limitations, how you would improve it, and what it cost. Then learn the ⭐ top lines in 🏙️ Delhi updates and tick the ones you can say." },
+    { date: "2026-10-20", go: "thoughts", label: "Tue 20 Oct", task: "Hindi practice: explain three parts of your model in Hindi (judges may ask in Hindi). Use 💭 Thoughts → हिंदी. Start writing your 📝 synopsis: 2 neat copies, with the list of parts." },
+    { date: "2026-10-21", go: "score", label: "Wed 21 Oct", task: "Mock judging at home or school: full explanation + 10 surprise questions from a family member or teacher. Mark yourself in 📊 Score." },
+    { date: "2026-10-22", go: "trip", label: "Thu 22 Oct", task: "Light revision only. Pack the model safely for travel (see 🧳 trip checklist). Charge everything. Ask a grown-up to check the Delhi news once more for anything new." },
+    { date: "2026-10-23", go: "stage", label: "Fri 23 Oct", task: "Rest and travel. Read only your headings, favourite thoughts and the 3 quotes. Sleep early." },
+    { date: "2026-10-24", go: "stage", label: "Sat 24 Oct", task: "North Zone, Delhi — day 1. Set up early, test every demo, warm-up, smile. Note any new questions the judges ask." },
+    { date: "2026-10-25", go: "stage", label: "Sun 25 Oct", task: "Day 2. Same calm routine. Be friendly with other participants — learn from their models too." },
+    { date: "2026-10-26", go: "stage", label: "Mon 26 Oct", task: "Day 3. Last day — give it your best and enjoy every moment! 🌟" }
   ],
 
   /* ---------------- 🧳 DELHI TRIP CHECKLIST ---------------- */

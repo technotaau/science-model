@@ -32,7 +32,7 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #171c1a; --surface: #212826; --surface-2: #1c2321; --ink: #e8e3d7; --muted: #b0b6ad; --line: #36413c;
+  --bg: #1b201e; --surface: #252c29; --surface-2: #202725; --ink: #d9d3c5; --muted: #a9afa6; --line: #3a4540;
   --shadow: 0 2px 10px rgba(0, 0, 0, .35);
   --brand: #84c99c;
   --ok: #84c99c;   --ok-ink: #d0ebd8;   --ok-bg: #213529;

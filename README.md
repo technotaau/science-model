@@ -6,7 +6,7 @@ Built by the **TechnoTaau Team**.
 
 ## What's on the website
 
-**Finding your way:** the 🏠 **Home** page is the menu: a "Today" card with the day's task, then big tiles in four groups. Every page starts with **← Home**. On a phone there is also a bar at the bottom: 🏠 Home · 🎤 Stage · 🗺️ Model · ❓ Viva · 🤖 Ask. The 🌙/☀️ button (top right) switches between soft light and soft dark colours, and the phone remembers the choice.
+**Finding your way:** the 🏠 **Home** page is the menu: a "Today" card with the day's task, then big tiles in four groups. Every page starts with **← Home**. On a phone there is also a bar at the bottom: 🏠 Home · 🎤 Stage · 🗺️ Model · ❓ Viva · 🤖 Ask. The website opens in soft light colours (dark text on warm paper) on every phone. The 🌙/☀️ button (top right) switches to soft dark colours, and the phone remembers the choice.
 
 | Group | Page | What it does |
 |---|---|---|

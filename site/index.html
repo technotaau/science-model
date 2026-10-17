@@ -33,7 +33,7 @@
         <a href="#stage" data-tab="stage"><span aria-hidden="true">🎤</span>Stage</a>
         <a href="#model" data-tab="model"><span aria-hidden="true">🗺️</span>Model</a>
         <a href="#viva" data-tab="viva"><span aria-hidden="true">❓</span>Viva</a>
-        <a href="#ecodost" data-tab="ecodost"><span aria-hidden="true">🤖</span>Ask</a>
+        <a href="#ecodost" data-tab="ecodost"><span aria-hidden="true">🤖</span>Eco-Dost</a>
       </nav>
       <div class="top-actions">
         <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch between light and dark colours" title="Light / dark">🌙</button>
@@ -64,8 +64,8 @@
     <!-- TRIP CHECKLIST -->
     <section id="tab-trip" class="tab" hidden>
       <div class="card">
-        <h2 style="margin-top:0">Pack and check <span class="small muted" id="tripCount"></span></h2>
-        <p class="small muted" style="margin:0">Tick each thing when it is packed or done. Your ticks are saved on this phone.</p>
+        <h2 style="margin-top:0" class="dup-title">Pack and check</h2>
+        <p class="small" style="margin:0"><b id="tripCount"></b> · Tick each thing when it is packed or done. Your ticks are saved on this phone.</p>
       </div>
       <div class="card trip" id="tripList"></div>
     </section>
@@ -181,7 +181,7 @@
         <div class="ed-chat" id="edChat" aria-live="polite"></div>
         <div class="ed-chips" id="edSuggest"></div>
         <form class="ed-form" id="edForm" autocomplete="off">
-          <input type="text" id="edInput" placeholder="Ask me… e.g. How does biogas work?" aria-label="Your question">
+          <input type="text" id="edInput" placeholder="Type your question…" aria-label="Your question">
           <button type="button" class="btn act" id="edMic" title="Ask by voice">🎤</button>
           <button type="submit" class="btn">Send</button>
         </form>
@@ -200,7 +200,7 @@
     <section id="tab-delhi" class="tab" hidden>
       <div class="card hero dl-hero">
         <div>
-          <h1 style="margin:0">🏙️ Clean India in Delhi <span class="hi">· दिल्ली में स्वच्छ भारत</span></h1>
+          <h1 style="margin:0" class="dup-title">🏙️ Clean India in Delhi <span class="hi">· दिल्ली में स्वच्छ भारत</span></h1>
           <p class="small" id="dlIntro"></p>
           <p class="tiny muted" id="dlChecked"></p>
         </div>
@@ -245,7 +245,7 @@
     <!-- PROJECT REPORT / VISITOR PAGE -->
     <section id="tab-project" class="tab" hidden>
       <div class="card no-print owner-only" id="projActions">
-        <h3 style="margin-top:0">📘 Project report &amp; stall QR card</h3>
+        <h3 style="margin-top:0" class="dup-title">📘 Project report &amp; stall QR card</h3>
         <p class="small muted">Show this page to Rajnish Ma'am, print it as your project report, and print the QR card for your stall. Judges who scan the QR code see <b>only this page</b>, without your practice notes or your practice progress.</p>
         <div class="viva-row">
           <button class="btn" id="printReport">🖨️ Print project report</button>
@@ -324,15 +324,16 @@
 
     <!-- MODEL MAP -->
     <section id="tab-model" class="tab" hidden>
-      <h2>My model — tap a number</h2>
+      <h2 class="dup-title">My model — tap a number</h2>
       <p class="muted small">One green wooden base, all on one level: Smart City on the left, the centre park display in the middle, Smart Village on the right, and the waste/water/energy demonstrations at the front.</p>
-      <div class="legend" aria-label="Colour key"><b>Colour key:</b>
+      <details class="legend-fold"><summary>🎨 Colour key — what the colours mean</summary>
+      <div class="legend" aria-label="Colour key">
         <span class="pill ok">✅ Green = confirmed, say this</span>
         <span class="pill ask">❓ Amber = ask Ma'am first</span>
         <span class="pill bad">⚠️ Red = don't say</span>
         <span class="pill act">👉 Blue = point / do</span>
         <span class="pill deep">🧠 Purple = extra viva knowledge</span>
-      </div>
+      </div></details>
 
       <div class="map-wrap">
         <div class="map" id="map">
@@ -347,7 +348,7 @@
     <!-- WALKTHROUGH -->
     <section id="tab-walk" class="tab" hidden>
       <div class="walk-head">
-        <h2>Presentation walkthrough</h2>
+        <h2 class="dup-title">Presentation walkthrough</h2>
         <div class="timer-box">
           <span id="walkTimer" class="timer">00:00</span>
           <button class="btn" id="walkStart">▶ Start timer</button>
@@ -356,13 +357,14 @@
         </div>
       </div>
       <p class="muted small">Order: Opening → theory → <b>City → Transport → Centre → Dustbins → Village → Water → Energy → Conclusion</b>. Say each step in your own words <b>first</b>, then peek at the sample if you need to.</p>
-      <div class="legend" aria-label="Colour key"><b>Colour key:</b>
+      <details class="legend-fold"><summary>🎨 Colour key — what the colours mean</summary>
+      <div class="legend" aria-label="Colour key">
         <span class="pill ok">✅ Green = confirmed, say this</span>
         <span class="pill ask">❓ Amber = ask Ma'am first</span>
         <span class="pill bad">⚠️ Red = don't say</span>
         <span class="pill act">👉 Blue = point / do</span>
         <span class="pill deep">🧠 Purple = extra viva knowledge</span>
-      </div>
+      </div></details>
       <div class="walk">
         <ol class="steps" id="stepList"></ol>
         <article class="card step-card" id="stepCard"></article>
@@ -371,7 +373,7 @@
 
     <!-- VIVA -->
     <section id="tab-viva" class="tab" hidden>
-      <h2>Viva practice — one question at a time</h2>
+      <h2 class="dup-title">Viva practice — one question at a time</h2>
       <div class="filters">
         <label>Topic <select id="vivaTopic"></select></label>
         <label>Level <select id="vivaLevel">
@@ -390,7 +392,7 @@
 
     <!-- VOICE COACH -->
     <section id="tab-voice" class="tab" hidden>
-      <h2>🎙️ Voice Coach</h2>
+      <h2 class="dup-title">🎙️ Voice Coach</h2>
       <div class="card">
         <div class="vsettings">
           <label>Voice <select id="vVoice"></select></label>
@@ -491,7 +493,7 @@
 
     <!-- SCORE -->
     <section id="tab-score" class="tab" hidden>
-      <h2>Self-score after a full practice</h2>
+      <h2 class="dup-title">Self-score after a full practice</h2>
       <p class="small muted">The same 4 heads the judges use (10 marks each).</p>
       <div class="card">
         <div id="scoreSliders"></div>
@@ -507,7 +509,7 @@
 
     <!-- ASK MA'AM -->
     <section id="tab-ask" class="tab" hidden>
-      <h2>Confirm with Rajnish Ma'am</h2>
+      <h2 class="dup-title">Confirm with Rajnish Ma'am</h2>
       <p class="muted small">Don't guess these. Ask your teacher, write her answer here (it saves on this device), then press <b>Copy all answers</b> and send them to your mentor so the website content can be updated.</p>
       <div id="askList"></div>
       <button class="btn" id="askCopy">📋 Copy all answers</button>
@@ -518,7 +520,7 @@
     </section>
   </main>
 
-  <footer class="foot" id="foot">Built by the TechnoTaau Team for Avni's science fair · To change any text, edit <code>site/content.js</code></footer>
+  <footer class="foot" id="foot">Built by the TechnoTaau Team for Avni's science fair</footer>
 
   <script src="content.js"></script>
   <script src="ecodost-data.js"></script>

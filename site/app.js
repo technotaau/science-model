@@ -57,7 +57,7 @@
       { id: "voice", icon: "🎙️", name: "Voice coach", desc: "Speak clearly, slowly and confidently.", tone: "green" },
       { id: "score", icon: "📊", name: "Score myself", desc: "Mark a practice out of 40, like the judges.", tone: "amber" }] },
     { group: "👩‍🏫 For Rajnish Ma'am", items: [
-      { id: "ask", icon: "📝", name: "Ask Ma'am", desc: "Things to check with your teacher.", tone: "orange" }] }
+      { id: "ask", icon: "📝", name: "Check with Ma'am", desc: "Things to confirm with your teacher.", tone: "orange" }] }
   ];
   const secById = {};
   SECTIONS.forEach(g => g.items.forEach(x => { secById[x.id] = x; }));

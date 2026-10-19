@@ -765,6 +765,7 @@
     return '<article class="dl-card hz-line" data-id="' + esc(d.id) + '">' +
       (comp ? '<div class="dl-area"><a href="#model/' + esc(comp.id) + '">' + comp.icon + " " + esc(comp.name) + "</a></div>" : "") +
       '<div class="dl-say">' + esc(d.say) + "</div>" +
+      (d.confidence === "likely" ? '<div class="tiny muted">📎 From one source only — say it only if a judge asks.</div>' : "") +
       (d.hi ? '<div class="dl-hi hi" lang="hi">' + esc(d.hi) + "</div>" : "") +
       (V.canSpeak ? '<div class="th-actions"><button class="btn small ghost" data-say="en">🔊 English</button>' + (d.hi ? '<button class="btn small ghost" data-say="hi">🔊 हिंदी</button>' : "") + "</div>" : "") +
       (d.mentor || d.source ? '<details class="dl-more"><summary class="small">Details &amp; source</summary>' + (d.mentor ? '<p class="small">' + esc(d.mentor) + "</p>" : "") +
@@ -785,9 +786,11 @@
       (H.stage && H.stage.length ? block("🎤 Lines you can say in Delhi", '<div class="dl-grid">' + H.stage.map(hzLine).join("") + "</div>", "hz-stage") : "") +
       (H.modelLinks && H.modelLinks.length ? block("💪 How my model fights haze", '<div class="dl-grid">' + H.modelLinks.map(hzLine).join("") + "</div>") : "") +
       block("🚦 GRAP — Delhi's emergency plan for bad air", '<div class="hz-grap">' + H.grap.map(g => '<div class="hz-stage-card"><b>' + esc(g.stage) + '</b> <span class="pill plain-pill">AQI ' + esc(g.aqi) + "</span>" + list(g.actions) + "</div>").join("") + "</div>" +
-        (H.grapSource ? '<p class="tiny muted">Source: ' + esc(H.grapSource) + "</p>" : "")) +
+        (H.grapSource ? '<p class="tiny muted">Source: ' + esc(H.grapSource) + "</p>" : "") +
+        (H.grapMentor ? '<details class="dl-more"><summary class="small">More detail (for you and your mentor)</summary><p class="small">' + esc(H.grapMentor) + "</p></details>" : "")) +
       (H.updates && H.updates.length ? block("📰 The 2026 haze season", '<div class="dl-grid">' + H.updates.map(hzLine).join("") + "</div>") : "") +
-      block("🩺 Stay healthy on your Delhi trip", list(H.health) + (H.healthSource ? '<p class="tiny muted">Source: ' + esc(H.healthSource) + "</p>" : ""), "hz-health");
+      block("🩺 Stay healthy on your Delhi trip", list(H.health) + (H.healthSource ? '<p class="tiny muted">Source: ' + esc(H.healthSource) + "</p>" : "") +
+        (H.healthMentor ? '<details class="dl-more"><summary class="small">More detail (for your parents)</summary><p class="small">' + esc(H.healthMentor) + "</p></details>" : ""), "hz-health");
     $$(".hz-line").forEach(card => {
       const d = all.find(x => x.id === card.dataset.id);
       $$("[data-say]", card).forEach(b => b.onclick = () => { V.stopSpeaking(); b.dataset.say === "hi" ? V.speak(d.hi, { lang: "hi", rate: 0.85 }) : V.speak(d.say); });

@@ -82,6 +82,7 @@
     if (t === "home") renderProgress();
     if (t === "project") renderProjectProgress();
     if (t === "haze") renderAirNow();
+    if (t === "trip") { tripState.lastStation = null; renderTrip(); }
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
     else window.scrollTo(0, 0);
   }
@@ -171,13 +172,6 @@
       (V.canSpeak ? '<button class="btn small ghost" data-q="' + i + '">🔊</button>' : "") + "</div>").join("");
     $$("#quotesList [data-q]").forEach(b => b.onclick = () => V.speakSample(S.quotes[+b.dataset.q]));
 
-    const tripTicks = store.get("trip", {});
-    const groups = Array.from(new Set((S.trip || []).map(t => t.group)));
-    $("#tripList").innerHTML = groups.map(g => '<div class="trip-group"><h3>' + esc(g) + '</h3><ul class="cover">' +
-      S.trip.filter(t => t.group === g).map(t => '<li><label><input type="checkbox" data-id="' + t.id + '"' + (tripTicks[t.id] ? " checked" : "") + "> <span>" + esc(t.item) + "</span></label></li>").join("") + "</ul></div>").join("");
-    const tripCount = () => { const t = store.get("trip", {}); $("#tripCount").textContent = (S.trip || []).filter(x => t[x.id]).length + " of " + (S.trip || []).length + " packed"; };
-    $$("#tripList input").forEach(cb => cb.onchange = () => { const t = store.get("trip", {}); t[cb.dataset.id] = cb.checked; store.set("trip", t); tripCount(); });
-    tripCount();
     const n = new Date();
     const today = n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
     $("#planList").innerHTML = (S.plan || []).map(p =>
@@ -673,6 +667,167 @@
     $("#printSynopsis").onclick = () => { $("#synopsisCard").open = true; doPrint("print-synopsis"); };
   }
   // Practice progress summary for the teacher (from this device's saved practice)
+  // ---------- 🧳 Trip checklist: a hydrogen-train journey from Chandigarh to Delhi ----------
+  // ✅ Packed moves the train and gives 1 ⭐ (once per item); 👍 Family checked + packed for a whole
+  // group earns a passport stamp; some items ask one quick question first.
+  const TRIP_STATIONS = ["Chandigarh", "Ambala", "Kurukshetra", "Karnal", "Panipat", "Sonipat", "Delhi"].map(n => ({ name: n, icon: "🚉", fact: "", hi: "", link: "" }));
+  const GROUP_ICON = { "Model": "🏗️", "Spares": "🔋", "Filter demo": "💧", "Papers": "📄", "Power": "🔌", "You": "🎒", "Fair rules (official)": "✅", "Health (haze season)": "😷" };
+  const tripState = { lastStation: null };
+  function tripData() {
+    const G = S.tripGame || {};
+    return { stations: G.stations && G.stations.length ? G.stations : TRIP_STATIONS, qs: Object.fromEntries((G.questions || []).map(q => [q.item, q])), arrival: G.arrival || "You made it to Delhi, Avni! Everything is packed. 🎉" };
+  }
+  function tripToast(t) { const el = $("#tripToast"); el.textContent = t; el.classList.add("show"); clearTimeout(tripToast.t); tripToast.t = setTimeout(() => el.classList.remove("show"), 2600); }
+  function tripAward(n) {
+    if (window.EcoDost && window.EcoDost.award) window.EcoDost.award(n);
+    else { const e = store.get("ecodost", {}); e.points = (e.points || 0) + n; store.set("ecodost", e); }
+  }
+  function tripProgress() {
+    const packed = store.get("trip", {}), items = S.trip || [];
+    const n = items.filter(x => packed[x.id]).length;
+    const stations = tripData().stations;
+    return { n, total: items.length, pos: items.length ? (n / items.length) * (stations.length - 1) : 0 };
+  }
+  function renderJourney() {
+    const { stations, arrival } = tripData();
+    const { n, total, pos } = tripProgress();
+    const done = total && n === total;
+    const last = stations.length - 1;
+    let h = '<div class="jr-head"><b>🚆 My hydrogen train to Delhi</b><span class="small">' + (done ? "Arrived! 🎉" : Math.round(100 * n / Math.max(1, total)) + "% of the way") + "</span></div>";
+    if (done) h += '<div class="jr-arrive"><div class="gm-party" aria-hidden="true">🎉🚆🎊</div><p>' + esc(arrival) + "</p></div>";
+    // phones: a short track with the train + the latest fun fact; the full station list folds away
+    const pct = Math.round(100 * pos / last);
+    const latest = stations[Math.floor(pos + 1e-9)];
+    h += '<div class="jr-strip" aria-hidden="true"><div class="jr-rail"><i style="width:' + pct + '%"></i></div>' +
+      stations.map((st, i) => '<span class="jr-sdot' + (pos >= i - 1e-9 ? " reached" : "") + '" style="left:' + Math.round(100 * i / last) + '%"></span>').join("") +
+      '<span class="jr-strain" style="left:' + pct + '%">🚆</span></div><div class="jr-ends tiny"><span>' + esc(stations[0].name) + "</span><span>" + esc(stations[last].name) + "</span></div>" +
+      '<div class="jr-now"><b>📍 ' + (done ? "Arrived: " : "Latest stop: ") + esc(latest.name) + "</b>" + (latest.fact ? '<p class="small">' + esc(latest.fact) + "</p>" : "") + "</div>";
+    h += '<details class="jr-all"' + (window.matchMedia && matchMedia("(min-width: 761px)").matches ? " open" : "") + '><summary class="small">🚉 All stations and fun facts</summary><ol class="jr-list">';
+    stations.forEach((st, i) => {
+      const reached = pos >= i - 1e-9;
+      const here = !done && i === Math.floor(pos + 1e-9);
+      h += '<li class="jr-st' + (reached ? " reached" : "") + (here ? " here" : "") + (i === last && done ? " here" : "") + '"><span class="jr-dot" aria-hidden="true">' + (reached ? "●" : "○") + "</span>" +
+        '<div class="jr-card"><b>' + esc(st.icon || "🚉") + " " + esc(st.name) + (i === 0 ? ' <span class="pill plain-pill">start</span>' : i === last ? ' <span class="pill plain-pill">fair</span>' : "") + "</b>" +
+        (reached ? (st.fact ? '<p class="small">' + esc(st.fact) + "</p>" + (st.link ? '<p class="tiny jr-link">🔗 ' + esc(st.link) + "</p>" : "") +
+          (V.canSpeak ? '<div class="jr-say"><button class="btn small ghost" data-say="' + i + '">🔊 Listen</button>' + (st.hi ? '<button class="btn small ghost" data-sayhi="' + i + '">🔊 हिंदी</button>' : "") + "</div>" : "") : "")
+          : '<p class="tiny muted">🔒 Pack more things to reach this station and unlock its fun fact.</p>') + "</div></li>";
+      if (i < last) {
+        const fill = Math.max(0, Math.min(1, pos - i));
+        const train = !done && i === Math.floor(pos + 1e-9);
+        h += '<li class="jr-seg" aria-hidden="true"><i style="height:' + Math.round(fill * 100) + '%"></i>' + (train ? '<span class="jr-train" style="top:' + Math.round(fill * 100) + '%">🚆</span>' : "") + "</li>";
+      }
+    });
+    h += "</ol></details>";
+    $("#journey").innerHTML = h;
+    $$("#journey [data-say]").forEach(b => b.onclick = () => { V.stopSpeaking(); V.speak(stations[+b.dataset.say].fact); });
+    $$("#journey [data-sayhi]").forEach(b => b.onclick = () => { V.stopSpeaking(); V.speak(stations[+b.dataset.sayhi].hi, { lang: "hi", rate: 0.85 }); });
+    // a new station reached → tell her (not on first load)
+    const reachedNow = Math.floor(pos + 1e-9);
+    if (tripState.lastStation !== null && reachedNow > tripState.lastStation) {
+      tripToast(reachedNow === last ? "🎉 You reached Delhi! +3 ⭐" : "🚉 Next stop: " + stations[reachedNow].name + "! A new fun fact is unlocked.");
+    }
+    if (done && !store.get("tripBonus", false)) { store.set("tripBonus", true); tripAward(3); }
+    tripState.lastStation = reachedNow;
+  }
+  function renderPassport() {
+    const packed = store.get("trip", {}), fam = store.get("tripFamily", {}), stamps = store.get("tripStamps", {});
+    const groups = Array.from(new Set((S.trip || []).map(t => t.group)));
+    let changed = false;
+    const cells = groups.map((g, k) => {
+      const its = S.trip.filter(t => t.group === g);
+      const ok = its.every(t => packed[t.id] && fam[t.id]);
+      if (ok && !stamps[g]) { stamps[g] = new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short" }); changed = true; tripToast("🛂 New passport stamp: " + g + "!"); }
+      if (!ok && stamps[g]) { delete stamps[g]; changed = true; }
+      const tones = ["green", "blue", "teal", "amber", "purple", "orange", "pink", "slate"];
+      const tone = tones[k % tones.length];
+      return '<div class="stamp' + (ok ? " got" : "") + '" style="--tone:var(--t-' + tone + ');--tone-ink:var(--t-' + tone + '-ink);--rot:' + ((k % 3) - 1) * 6 + 'deg">' +
+        '<span class="stamp-ic" aria-hidden="true">' + (ok ? (GROUP_ICON[g] || "⭐") : "?") + "</span><b>" + esc(g) + "</b><small>" + (ok ? "✔ " + esc(stamps[g]) : its.filter(t => packed[t.id] && fam[t.id]).length + " / " + its.length + " packed + checked") + "</small></div>";
+    });
+    if (changed) store.set("tripStamps", stamps);
+    const got = groups.filter(g => stamps[g]).length;
+    const st = S.student, ev = st.nextEvent || {};
+    $("#passport").innerHTML = '<div class="pp-head"><h2>🛂 My science passport</h2><span class="small"><b>' + got + " / " + groups.length + '</b> stamps</span></div>' +
+      '<p class="pp-who small">' + esc(st.name) + " · " + esc(st.className) + " · " + esc(st.school) + (ev.name ? " · " + esc(ev.name) + ", " + esc(ev.place || "") : "") + "</p>" +
+      '<div class="stamps">' + cells.join("") + "</div>" +
+      '<div class="viva-row no-print"><button class="btn small ghost" id="ppPrint">🖨️ Print my passport</button> <button class="btn small ghost" id="tripReset">↺ Start the journey again</button></div>';
+    $("#ppPrint").onclick = () => {
+      document.body.classList.add("print-passport");
+      const done = () => { document.body.classList.remove("print-passport"); window.removeEventListener("afterprint", done); };
+      window.addEventListener("afterprint", done); window.print(); setTimeout(done, 1500);
+    };
+    $("#tripReset").onclick = () => {
+      if (!confirm("Start again? All ticks and stamps will be cleared. Your ⭐ stay.")) return;
+      ["trip", "tripFamily", "tripStamps"].forEach(k => store.set(k, {}));
+      store.set("tripBonus", false); tripState.lastStation = null; renderTrip();
+    };
+  }
+  function renderTripList() {
+    const packed = store.get("trip", {}), fam = store.get("tripFamily", {}), passed = store.get("tripQuiz", {});
+    const { qs } = tripData();
+    const groups = Array.from(new Set((S.trip || []).map(t => t.group)));
+    $("#tripList").innerHTML = groups.map(g => {
+      const its = S.trip.filter(t => t.group === g);
+      return '<div class="trip-group"><h3><span aria-hidden="true">' + (GROUP_ICON[g] || "📦") + "</span> " + esc(g) + ' <span class="small muted">' + its.filter(t => packed[t.id]).length + "/" + its.length + '</span></h3><ul class="trip-items">' +
+        its.map(t => '<li class="trip-item' + (packed[t.id] ? " packed" : "") + '" data-id="' + esc(t.id) + '">' +
+          '<label class="trip-pack"><input type="checkbox" data-pack' + (packed[t.id] ? " checked" : "") + '> <span>' + esc(t.item) +
+          (qs[t.id] && !passed[t.id] ? ' <span class="pill deep">❓ quick question</span>' : "") + "</span></label>" +
+          '<button class="fam' + (fam[t.id] ? " on" : "") + '" data-fam aria-pressed="' + (fam[t.id] ? "true" : "false") + '"' + (packed[t.id] ? "" : " disabled") + ' title="' + (packed[t.id] ? "Mummy or Papa taps this after checking" : "Pack it first") + '">👍 ' + (fam[t.id] ? "Family checked" : "Family check") + "</button>" +
+          '<div class="trip-q" hidden></div></li>').join("") + "</ul></div>";
+    }).join("");
+    $$("#tripList .trip-item").forEach(li => {
+      const id = li.dataset.id, cb = $("[data-pack]", li), q = qs[id];
+      cb.onchange = () => {
+        const passedNow = store.get("tripQuiz", {});
+        if (cb.checked && q && !passedNow[id]) { cb.checked = false; askTripQuestion(li, q); return; }
+        setPacked(id, cb.checked);
+      };
+      $("[data-fam]", li).onclick = () => {
+        const f = store.get("tripFamily", {}); if (f[id]) delete f[id]; else f[id] = true; store.set("tripFamily", f);
+        renderTripList(); renderPassport(); updateTripCount();
+      };
+    });
+  }
+  function askTripQuestion(li, q) {
+    const box = $(".trip-q", li);
+    box.hidden = false;
+    box.innerHTML = '<p><b>❓ Quick question before you tick:</b> ' + esc(q.q) + '</p><div class="trip-q-opts">' + q.o.map((o, i) => '<button class="btn small ghost" data-o="' + i + '">' + esc(o) + "</button>").join("") + '</div><p class="trip-q-fb small" aria-live="polite"></p>';
+    $$("[data-o]", box).forEach(b => b.onclick = () => {
+      const fb = $(".trip-q-fb", box);
+      if (+b.dataset.o === q.answer) {
+        const p = store.get("tripQuiz", {}); p[li.dataset.id] = true; store.set("tripQuiz", p);
+        fb.innerHTML = "✅ Right! " + esc(q.why);
+        $$("[data-o]", box).forEach(x => { x.disabled = true; });
+        setTimeout(() => setPacked(li.dataset.id, true), 1400);
+      } else {
+        b.disabled = true;
+        fb.innerHTML = "❌ Not quite — try another answer. 💪";
+      }
+    });
+  }
+  function setPacked(id, on) {
+    const t = store.get("trip", {}); if (on) t[id] = true; else delete t[id]; store.set("trip", t);
+    if (!on) { const f = store.get("tripFamily", {}); delete f[id]; store.set("tripFamily", f); }
+    const stars = store.get("tripStars", {});
+    if (on && !stars[id]) { stars[id] = true; store.set("tripStars", stars); tripAward(1); tripToast("✅ Packed! +1 ⭐ — the train moves on 🚆"); }
+    renderTrip();
+  }
+  function updateTripCount() {
+    const packed = store.get("trip", {}), fam = store.get("tripFamily", {}), items = S.trip || [];
+    $("#tripCount").textContent = items.filter(x => packed[x.id]).length + " of " + items.length + " packed";
+    $("#tripFam").textContent = items.filter(x => fam[x.id]).length + " checked by family";
+  }
+  function setTripBg(bg) {
+    store.set("tripBg", bg);
+    $("#journey").className = "journey bg-" + bg;
+    $$("#tripBg button").forEach(b => b.classList.toggle("active", b.dataset.bg === bg));
+  }
+  function renderTrip() {
+    if (!$("#journey")) return;
+    renderTripList(); renderJourney(); renderPassport(); updateTripCount();
+    setTripBg(store.get("tripBg", "fields"));
+    $$("#tripBg button").forEach(b => b.onclick = () => setTripBg(b.dataset.bg));
+  }
+
   // ---------- 🌫️ Haze & clean air ----------
   // Live PM2.5 and PM10 come from a free forecast model (CAMS, via Open-Meteo), so the AQI here is only an
   // ESTIMATE made with CPCB's National AQI breakpoints; the official AQI is on CPCB's Sameer app.
@@ -1125,6 +1280,7 @@
   renderStage();
   renderDelhi();
   renderHaze();
+  renderTrip();
   renderThoughts();
   if (window.EcoDost) window.EcoDost.init({ store, esc });
   if (window.Games) window.Games.init({ store, esc });

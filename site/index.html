@@ -60,13 +60,27 @@
       <details class="card fold"><summary>📅 Plan until Delhi</summary><ol class="plan" id="planList"></ol></details>
     </section>
 
-    <!-- TRIP CHECKLIST -->
+    <!-- TRIP CHECKLIST: a hydrogen-train journey from Chandigarh to Delhi -->
     <section id="tab-trip" class="tab" hidden>
-      <div class="card">
-        <h2 style="margin-top:0" class="dup-title">Pack and check</h2>
-        <p class="small" style="margin:0"><b id="tripCount"></b> · Tick each thing when it is packed or done. Your ticks are saved on this phone.</p>
+      <div class="card trip-top">
+        <div class="trip-status">
+          <b id="tripCount"></b>
+          <span class="small muted" id="tripFam"></span>
+        </div>
+        <div class="trip-bg-pick">
+          <span class="small muted">Background</span>
+          <div class="seg" id="tripBg" role="group" aria-label="Journey background">
+            <button data-bg="fields">🌾 Fields</button><button data-bg="sunrise">🌅 Sunrise</button><button data-bg="night">🌌 Night</button>
+          </div>
+        </div>
       </div>
-      <div class="card trip" id="tripList"></div>
+      <p class="small trip-how">Tick <b>✅ Packed</b> when a thing is in your bag: each tick moves your hydrogen train towards Delhi and gives you ⭐. Then ask Mummy or Papa to tap <b>👍 Family checked</b>. When a whole group is packed and checked, you get a passport stamp!</p>
+      <div class="trip-layout">
+        <div class="journey bg-fields" id="journey"></div>
+        <div class="card trip" id="tripList"></div>
+      </div>
+      <section class="card passport" id="passport"></section>
+      <div class="trip-toast" id="tripToast" role="status" aria-live="polite"></div>
     </section>
 
     <!-- HAZE & CLEAN AIR -->

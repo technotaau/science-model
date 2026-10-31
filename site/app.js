@@ -677,7 +677,7 @@
     $("#printSynopsis").onclick = () => { $("#synopsisCard").open = true; doPrint("print-synopsis"); };
   }
   // Practice progress summary for the teacher (from this device's saved practice)
-  // ---------- 🧳 Trip checklist: a hydrogen-train journey from Chandigarh to Delhi ----------
+  // ---------- 🧳 Trip checklist: a train journey from Chandigarh to Gorakhpur ----------
   // ✅ Packed moves the train and gives 1 ⭐ (once per item); 👍 Family checked + packed for a whole
   // group earns a passport stamp; some items ask one quick question first.
   const TRIP_STATIONS = ["Chandigarh", "Ambala", "Saharanpur", "Moradabad", "Bareilly", "Lucknow", "Basti", "Gorakhpur"].map(n => ({ name: n, icon: "🚉", fact: "", hi: "", link: "" }));

@@ -841,3 +841,12 @@ details.jr-all[open] > summary { margin-bottom: 10px; }
 .confetti span { position: absolute; top: -40px; animation: conf-fall 2.2s ease-in forwards; }
 @keyframes conf-fall { to { transform: translateY(110vh) rotate(540deg); opacity: .2; } }
 @media (prefers-reduced-motion: reduce) { .pet-e { animation: none; } .wheel, .flash-in { transition: none; } }
+
+/* ---------- 🏫 about the fair ---------- */
+.ab-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.ab-fact { background: var(--surface-2); border-radius: 12px; padding: 10px 12px; }
+.ab-fact p { margin: 4px 0 0; }
+.ab-levels li { margin-bottom: 6px; }
+.ab-levels li.done { color: var(--ok-ink); }
+.ab-levels li.here { font-weight: 800; color: var(--act-ink); }
+html.visitor #tab-about { display: none !important; }

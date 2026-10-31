@@ -44,6 +44,7 @@
       { id: "stage", icon: "🎤", name: "Stage talk", desc: "Practise your speech, one part at a time.", tone: "blue" },
       { id: "delhi", icon: "🏙️", name: "UP & Gorakhpur updates", desc: "Clean India schemes and news from Uttar Pradesh.", tone: "orange" },
       { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air in Gorakhpur, Lucknow and Chandigarh, health tips and how your model helps.", tone: "slate" },
+      { id: "about", icon: "🏫", name: "About the fair", desc: "Vidya Bharati, the Vigyan Mela levels, past fairs and Gorakhpur.", tone: "teal" },
       { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
@@ -132,6 +133,7 @@
     });
   }
   function sectionShown(id) {
+    if (id === "about") return !!(S.about && S.about.about && S.about.about.length);
     if (id === "delhi") return !!(S.delhi && S.delhi.items && S.delhi.items.length);
     if (id === "haze") return !!S.haze;
     return true;
@@ -973,6 +975,22 @@
     });
   }
 
+  // ---------- 🏫 About the fair (Vidya Bharati, levels, past fairs, Gorakhpur) ----------
+  function renderAbout() {
+    const A = S.about; if (!A || !$("#aboutBody")) return;
+    const src = x => x.source && /^https?:/.test(x.source) ? ' <a class="tiny" href="' + esc(x.source) + '" target="_blank" rel="noopener">source</a>' : "";
+    const facts = arr => '<div class="ab-grid">' + arr.map(x => '<div class="ab-fact"><b>' + esc(x.title) + "</b><p class=\"small\">" + esc(x.text) + src(x) + "</p></div>").join("") + "</div>";
+    let h = "";
+    if (A.intro) h += '<p class="hz-intro">' + esc(A.intro) + "</p>";
+    h += '<section class="card"><h2>🏫 Vidya Bharati</h2>' + facts(A.about) + "</section>";
+    if (A.levels && A.levels.length) h += '<section class="card"><h2>🪜 The levels of the Vigyan Mela</h2><ol class="ab-levels">' + A.levels.map((l, i) => '<li class="' + (A.youAreAt === i ? "here" : (A.youAreAt > i ? "done" : "")) + '">' + esc(l) + (A.youAreAt > i ? " ✅" : A.youAreAt === i ? " ⬅️ <b>you are here</b>" : "") + "</li>").join("") + "</ol></section>";
+    if (A.events && A.events.length) h += '<section class="card"><h2>🧪 Events at the Vigyan Mela</h2>' + list(A.events) + "</section>";
+    if (A.past && A.past.length) h += '<section class="card"><h2>📜 Past national science fairs</h2><ul>' + A.past.map(p => "<li><b>" + esc(p.year) + (p.place ? " · " + esc(p.place) : "") + ":</b> " + esc(p.text) + src(p) + "</li>").join("") + "</ul></section>";
+    if (A.gorakhpur2026) h += '<section class="card"><h2>📍 The 2026 national fair in Gorakhpur</h2><p>' + esc(A.gorakhpur2026.text) + src(A.gorakhpur2026) + "</p></section>";
+    if (A.gorakhpur && A.gorakhpur.length) h += '<section class="card"><h2>🌆 Getting to know Gorakhpur</h2>' + facts(A.gorakhpur) + "</section>";
+    $("#aboutBody").innerHTML = h;
+  }
+
   // ---------- 🏙️ Delhi updates ----------
   const dlState = { lang: "both", area: "all" };
   function dlCard(d) {
@@ -1301,6 +1319,7 @@
   renderStage();
   renderDelhi();
   renderHaze();
+  renderAbout();
   renderTrip();
   renderThoughts();
   if (window.EcoDost) window.EcoDost.init({ store, esc });

@@ -40,10 +40,10 @@
   // ---------- router ----------
   // Every page, grouped as they appear on the Home menu. tone = the page's soft colour.
   const SECTIONS = [
-    { group: "🚀 Get ready for Delhi", items: [
+    { group: "🚀 Get ready for Gorakhpur", items: [
       { id: "stage", icon: "🎤", name: "Stage talk", desc: "Practise your speech, one part at a time.", tone: "blue" },
-      { id: "delhi", icon: "🏙️", name: "Delhi updates", desc: "Fresh Clean India news you can use in Delhi.", tone: "orange" },
-      { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Delhi's air today, health tips and how your model helps.", tone: "slate" },
+      { id: "delhi", icon: "🏙️", name: "Delhi updates", desc: "Clean India news from Delhi (UP updates coming soon).", tone: "orange" },
+      { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air in Gorakhpur, Lucknow and Chandigarh, health tips and how your model helps.", tone: "slate" },
       { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
@@ -259,7 +259,7 @@
     if (c.careful && c.careful.length) h += '<div class="sec bad"><h4>⚠️ Careful — don\'t say</h4>' + list(c.careful) + "</div>";
     if (c.point && c.point.length) h += '<div class="sec act"><h4>👉 Pointing, eye contact &amp; demo</h4>' + list(c.point) + "</div>";
     const dl = ((S.delhi && S.delhi.items) || []).filter(d => d.comp === c.id);
-    if (dl.length) h += '<div class="sec deep"><h4>🏙️ In Delhi now — a line you can add</h4>' + list(dl.map(d => d.say)) + '<a href="#delhi">All Delhi updates →</a></div>';
+    if (dl.length) h += '<div class="sec deep"><h4>🏙️ In Uttar Pradesh — a line you can add</h4>' + list(dl.map(d => d.say)) + '<a href="#delhi">All UP updates →</a></div>';
     const hz = ((S.haze && S.haze.modelLinks) || []).filter(d => d.comp === c.id);
     if (hz.length) h += '<div class="sec act"><h4>🌫️ How this part helps clean air</h4>' + list(hz.map(d => d.say)) + '<a href="#haze">Haze &amp; clean air →</a></div>';
     const idx = S.components.indexOf(c);
@@ -670,12 +670,12 @@
   // ---------- 🧳 Trip checklist: a hydrogen-train journey from Chandigarh to Delhi ----------
   // ✅ Packed moves the train and gives 1 ⭐ (once per item); 👍 Family checked + packed for a whole
   // group earns a passport stamp; some items ask one quick question first.
-  const TRIP_STATIONS = ["Chandigarh", "Ambala", "Kurukshetra", "Karnal", "Panipat", "Sonipat", "Delhi"].map(n => ({ name: n, icon: "🚉", fact: "", hi: "", link: "" }));
+  const TRIP_STATIONS = ["Chandigarh", "Ambala", "Saharanpur", "Moradabad", "Bareilly", "Lucknow", "Basti", "Gorakhpur"].map(n => ({ name: n, icon: "🚉", fact: "", hi: "", link: "" }));
   const GROUP_ICON = { "Model": "🏗️", "Spares": "🔋", "Filter demo": "💧", "Papers": "📄", "Power": "🔌", "You": "🎒", "Fair rules (official)": "✅", "Health (haze season)": "😷" };
   const tripState = { lastStation: null };
   function tripData() {
     const G = S.tripGame || {};
-    return { stations: G.stations && G.stations.length ? G.stations : TRIP_STATIONS, qs: Object.fromEntries((G.questions || []).map(q => [q.item, q])), arrival: G.arrival || "You made it to Delhi, Avni! Everything is packed. 🎉" };
+    return { stations: G.stations && G.stations.length ? G.stations : TRIP_STATIONS, qs: Object.fromEntries((G.questions || []).map(q => [q.item, q])), arrival: G.arrival || "You made it to Gorakhpur, Avni! Everything is packed. 🎉" };
   }
   function tripToast(t) { const el = $("#tripToast"); el.textContent = t; el.classList.add("show"); clearTimeout(tripToast.t); tripToast.t = setTimeout(() => el.classList.remove("show"), 2600); }
   function tripAward(n) {
@@ -693,7 +693,7 @@
     const { n, total, pos } = tripProgress();
     const done = total && n === total;
     const last = stations.length - 1;
-    let h = '<div class="jr-head"><b>🚆 My hydrogen train to Delhi</b><span class="small">' + (done ? "Arrived! 🎉" : Math.round(100 * n / Math.max(1, total)) + "% of the way") + "</span></div>";
+    let h = '<div class="jr-head"><b>🚆 My hydrogen train to ' + esc(tripData().stations.slice(-1)[0].name) + '</b><span class="small">' + (done ? "Arrived! 🎉" : Math.round(100 * n / Math.max(1, total)) + "% of the way") + "</span></div>";
     if (done) h += '<div class="jr-arrive"><div class="gm-party" aria-hidden="true">🎉🚆🎊</div><p>' + esc(arrival) + "</p></div>";
     // phones: a short track with the train + the latest fun fact; the full station list folds away
     const pct = Math.round(100 * pos / last);
@@ -724,7 +724,7 @@
     // a new station reached → tell her (not on first load)
     const reachedNow = Math.floor(pos + 1e-9);
     if (tripState.lastStation !== null && reachedNow > tripState.lastStation) {
-      tripToast(reachedNow === last ? "🎉 You reached Delhi! +3 ⭐" : "🚉 Next stop: " + stations[reachedNow].name + "! A new fun fact is unlocked.");
+      tripToast(reachedNow === last ? "🎉 You reached " + stations[last].name + "! +3 ⭐" : "🚉 Next stop: " + stations[reachedNow].name + "! A new fun fact is unlocked.");
     }
     if (done && !store.get("tripBonus", false)) { store.set("tripBonus", true); tripAward(3); }
     tripState.lastStation = reachedNow;
@@ -823,6 +823,12 @@
   }
   function renderTrip() {
     if (!$("#journey")) return;
+    // a new journey (new destination) starts with an empty bag and a blank passport
+    const ver = (S.tripGame && S.tripGame.version) || "";
+    if (store.get("tripVersion", "") !== ver) {
+      ["trip", "tripFamily", "tripStamps", "tripStars", "tripQuiz"].forEach(k => store.set(k, {}));
+      store.set("tripBonus", false); store.set("tripVersion", ver); tripState.lastStation = null;
+    }
     renderTripList(); renderJourney(); renderPassport(); updateTripCount();
     setTripBg(store.get("tripBg", "fields"));
     $$("#tripBg button").forEach(b => b.onclick = () => setTripBg(b.dataset.bg));
@@ -831,8 +837,8 @@
   // ---------- 🌫️ Haze & clean air ----------
   // Live PM2.5 and PM10 come from a free forecast model (CAMS, via Open-Meteo), so the AQI here is only an
   // ESTIMATE made with CPCB's National AQI breakpoints; the official AQI is on CPCB's Sameer app.
-  const AQ_CITIES = { delhi: { name: "Delhi", lat: 28.6139, lon: 77.209 }, chd: { name: "Chandigarh", lat: 30.7333, lon: 76.7794 } };
-  const aqState = { city: "delhi" };
+  const AQ_CITIES = { gkp: { name: "Gorakhpur", lat: 26.7606, lon: 83.3732 }, lko: { name: "Lucknow", lat: 26.8467, lon: 80.9462 }, chd: { name: "Chandigarh", lat: 30.7333, lon: 76.7794 } };
+  const aqState = { city: "gkp" };
   function subIndex(c, bands) {
     const A = [[0, 50], [51, 100], [101, 200], [201, 300], [301, 400], [401, 500]];
     for (let i = 0; i < bands.length; i++) {
@@ -938,13 +944,13 @@
         '<div class="hz-scale">' + H.aqi.map((b, i) => '<div class="hz-row"><span class="hz-swatch" style="background:' + esc(b.color) + '" aria-hidden="true"></span><div><b>' + (AQ_ICON[i] || "") + " " + esc(b.name) + ' <span class="muted" lang="hi">· ' + esc(b.hi) + "</span></b> <span class=\"pill plain-pill\">" + b.min + "–" + b.max + '</span><div class="small">' + esc(b.health) + "</div></div></div>").join("") + "</div>") +
       block("🤔 Why does haze come every October–November?", '<div class="hz-causes">' + H.causes.map(c => '<div class="hz-cause"><span class="hz-ci" aria-hidden="true">' + esc(c.icon) + "</span><div><b>" + esc(c.name) + '</b><div class="small">' + esc(c.text) + "</div></div></div>").join("") + "</div>" +
         (H.pm ? '<div class="sec act"><h4>🔬 What are PM2.5 and PM10?</h4><p>' + esc(H.pm) + "</p></div>" : "")) +
-      (H.stage && H.stage.length ? block("🎤 Lines you can say in Delhi", '<div class="dl-grid">' + H.stage.map(hzLine).join("") + "</div>", "hz-stage") : "") +
+      (H.stage && H.stage.length ? block("🎤 Lines you can say in Gorakhpur", '<div class="dl-grid">' + H.stage.map(hzLine).join("") + "</div>", "hz-stage") : "") +
       (H.modelLinks && H.modelLinks.length ? block("💪 How my model fights haze", '<div class="dl-grid">' + H.modelLinks.map(hzLine).join("") + "</div>") : "") +
-      block("🚦 GRAP — Delhi's emergency plan for bad air", '<div class="hz-grap">' + H.grap.map(g => '<div class="hz-stage-card"><b>' + esc(g.stage) + '</b> <span class="pill plain-pill">AQI ' + esc(g.aqi) + "</span>" + list(g.actions) + "</div>").join("") + "</div>" +
+      block("🚦 GRAP — the emergency plan for bad air in Delhi-NCR", '<div class="hz-grap">' + H.grap.map(g => '<div class="hz-stage-card"><b>' + esc(g.stage) + '</b> <span class="pill plain-pill">AQI ' + esc(g.aqi) + "</span>" + list(g.actions) + "</div>").join("") + "</div>" +
         (H.grapSource ? '<p class="tiny muted">Source: ' + esc(H.grapSource) + "</p>" : "") +
         (H.grapMentor ? '<details class="dl-more"><summary class="small">More detail (for you and your mentor)</summary><p class="small">' + esc(H.grapMentor) + "</p></details>" : "")) +
       (H.updates && H.updates.length ? block("📰 The 2026 haze season", '<div class="dl-grid">' + H.updates.map(hzLine).join("") + "</div>") : "") +
-      block("🩺 Stay healthy on your Delhi trip", list(H.health) + (H.healthSource ? '<p class="tiny muted">Source: ' + esc(H.healthSource) + "</p>" : "") +
+      block("🩺 Stay healthy on your Gorakhpur trip", list(H.health) + (H.healthSource ? '<p class="tiny muted">Source: ' + esc(H.healthSource) + "</p>" : "") +
         (H.healthMentor ? '<details class="dl-more"><summary class="small">More detail (for your parents)</summary><p class="small">' + esc(H.healthMentor) + "</p></details>" : ""), "hz-health");
     $$(".hz-line").forEach(card => {
       const d = all.find(x => x.id === card.dataset.id);
@@ -999,7 +1005,7 @@
     $("#dlChecked").textContent = D.checked ? "Facts checked on " + D.checked + ". News changes fast — look again on 23 October before you travel." : "";
     if (D.opener) {
       $("#dlOpener").hidden = false;
-      $("#dlOpener").innerHTML = '<b>🎤 A line to open with in Delhi</b><p class="dl-say">' + esc(D.opener) + "</p>" +
+      $("#dlOpener").innerHTML = '<b>🎤 A line to open with in Gorakhpur</b><p class="dl-say">' + esc(D.opener) + "</p>" +
         (V.canSpeak ? '<button class="btn small ghost" id="dlOpenerSay">🔊 Listen</button>' : "");
       if ($("#dlOpenerSay")) $("#dlOpenerSay").onclick = () => { V.stopSpeaking(); V.speak(D.opener); };
     }

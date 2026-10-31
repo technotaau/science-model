@@ -26,9 +26,9 @@ window.SITE = {
     school: "Sharda Sarvhitkari Senior Secondary School, Chandigarh",
     teacher: "Rajnish Ma'am",
     topic: "Clean India Mission and Waste Management",
-    fairDate: "2026-10-24",          // next event (start day)
-    achievements: ["🏆 First prize — Malerkotla level (October 2026)"],
-    nextEvent: { name: "North Zone level", place: "Delhi", start: "2026-10-24", end: "2026-10-26" },
+    fairDate: "2026-11-27",          // next event (start day)
+    achievements: ["🏆 First prize — Malerkotla level (October 2026)", "🏆 First prize — North Zone level, Delhi (October 2026)"],
+    nextEvent: { name: "National level (Akhil Bharatiya)", place: "Gorakhpur", start: "2026-11-27", end: "2026-11-29" },
     targetMinutes: 5,                // aim for the full model explanation
     // Eco-Dost Live: the real-AI version on claude.ai (open it while signed in to Claude)
     ecodostLiveUrl: "https://claude.ai/artifact/3DcE9JqKmTtXjhtSPppDRn"
@@ -42,21 +42,22 @@ window.SITE = {
 
   /* ---------------- DAY-BY-DAY PLAN (date: YYYY-MM-DD) ---------------- */
   plan: [
-    { date: "2026-10-15", go: "viva", label: "Thu 15 Oct", task: "Celebrate! 🎉 Then write down EVERY question the Malerkotla judges asked, what you answered, and anything they said. Send it to your mentor." },
-    { date: "2026-10-16", go: "viva", label: "Fri 16 Oct", task: "❓ Viva → 🎧 Judge mode: 10 questions. Then 🤖 Eco-Dost → 🎲 Quiz me: 10 questions. Ask Rajnish Ma'am about the parent consent letter, the participation proforma and your synopsis copies." },
-    { date: "2026-10-17", go: "trip", label: "Sat 17 Oct", task: "Check the model: repair anything loose, test all 4 demos (solar bulb, EV light, filter, plastic-to-energy bulb). Measure the model (not bigger than 5 × 3 ft) and check that NO part uses thermocol. Start the 🧳 trip kit." },
-    { date: "2026-10-18", go: "walk", label: "Sun 18 Oct", task: "Two full explanations with the timer, standing beside the model. Record one and check speed, filler words and volume." },
-    { date: "2026-10-19", go: "delhi", label: "Mon 19 Oct", task: "Zone-level questions: what is NEW in your model, its limitations, how you would improve it, and what it cost. Then learn the ⭐ top lines in 🏙️ Delhi updates and tick the ones you can say, and read 🌫️ Haze & clean air." },
-    { date: "2026-10-20", go: "thoughts", label: "Tue 20 Oct", task: "Hindi practice: explain three parts of your model in Hindi (judges may ask in Hindi). Use 💭 Thoughts → हिंदी. Start writing your 📝 synopsis: 2 neat copies, with the list of parts." },
-    { date: "2026-10-21", go: "score", label: "Wed 21 Oct", task: "Mock judging at home or school: full explanation + 10 surprise questions from a family member or teacher. Mark yourself in 📊 Score." },
-    { date: "2026-10-22", go: "trip", label: "Thu 22 Oct", task: "Light revision only. Pack the model safely for travel (see 🧳 trip checklist). Charge everything. Ask a grown-up to check the Delhi news once more for anything new." },
-    { date: "2026-10-23", go: "stage", label: "Fri 23 Oct", task: "Rest and travel. Read only your headings, favourite thoughts and the 3 quotes. Sleep early." },
-    { date: "2026-10-24", go: "stage", label: "Sat 24 Oct", task: "North Zone, Delhi — day 1. Set up early, test every demo, warm-up, smile. Note any new questions the judges ask." },
-    { date: "2026-10-25", go: "stage", label: "Sun 25 Oct", task: "Day 2. Same calm routine. Be friendly with other participants — learn from their models too." },
-    { date: "2026-10-26", go: "stage", label: "Mon 26 Oct", task: "Day 3. Last day — give it your best and enjoy every moment! 🌟" }
+    { date: "2026-11-01", go: "viva", label: "Sun 1 Nov", task: "Celebrate your Delhi first prize! 🎉 Then open ❓ Viva → 🏅 Asked by real judges and practise the 4 Delhi questions, especially “What is e-waste?”." },
+    { date: "2026-11-03", go: "delhi", label: "Tue 3 Nov", task: "Read 🏙️ UP & Gorakhpur updates and tick the ⭐ top lines you can say. Judges may ask: “Tell me two schemes of Uttar Pradesh.”" },
+    { date: "2026-11-06", go: "haze", label: "Fri 6 Nov", task: "Read 🌫️ Haze & clean air for UP and Gorakhpur. Learn one line about stubble burning and one about your biogas plant." },
+    { date: "2026-11-09", go: "model", label: "Mon 9 Nov", task: "Check the model after the Delhi trip: repair anything loose and test all 4 demos. Measure it again (not bigger than 5 × 3 ft) and check that NO part uses thermocol." },
+    { date: "2026-11-12", go: "walk", label: "Thu 12 Nov", task: "Two full explanations with the timer, standing beside the model. Record one and check speed, filler words and volume." },
+    { date: "2026-11-15", go: "thoughts", label: "Sun 15 Nov", task: "Hindi practice: explain three parts of your model in Hindi. National judges come from all over India, so be ready in both languages." },
+    { date: "2026-11-18", go: "project", label: "Wed 18 Nov", task: "Write 2 fresh, neat copies of your 📝 synopsis with the list of parts. Ask Rajnish Ma'am for the eligibility and participation proformas." },
+    { date: "2026-11-21", go: "score", label: "Sat 21 Nov", task: "Mock judging: full explanation + 10 surprise questions from a family member or teacher. Mark yourself in 📊 Score." },
+    { date: "2026-11-23", go: "trip", label: "Mon 23 Nov", task: "Start the 🧳 trip journey to Gorakhpur: pack, answer the quick questions and get the family check." },
+    { date: "2026-11-25", go: "stage", label: "Wed 25 Nov", task: "Light revision only: headings, favourite thoughts and the 3 quotes. Travel with your escorting teacher; reach Gorakhpur by 5 pm on 26 November." },
+    { date: "2026-11-27", go: "stage", label: "Fri 27 Nov", task: "National fair — day 1. Set up early, test every demo, warm-up, smile. Note any new questions the judges ask." },
+    { date: "2026-11-28", go: "stage", label: "Sat 28 Nov", task: "Day 2. Same calm routine. Be friendly with other participants — learn from their models too." },
+    { date: "2026-11-29", go: "stage", label: "Sun 29 Nov", task: "Day 3. Last day — give it your best and enjoy every moment! 🌟" }
   ],
 
-  /* ---------------- 🧳 DELHI TRIP CHECKLIST ---------------- */
+  /* ---------------- 🧳 GORAKHPUR TRIP CHECKLIST ---------------- */
   trip: [
     { id: "box", group: "Model", item: "Strong box or carton for the model, with padding (old cloth, newspaper or bubble wrap); write your name and school on it" },
     { id: "loose", group: "Model", item: "Pack small loose parts (bins, buses, car, train, pots, windmill) in a separate labelled bag" },
@@ -72,12 +73,16 @@ window.SITE = {
     { id: "self", group: "You", item: "Water bottle, light snacks, school ID card, comfortable shoes" },
     { id: "synopsis", group: "Fair rules (official)", item: "2 written copies of your synopsis, with the list of parts (Bal Varg must list the parts)" },
     { id: "consent", group: "Fair rules (official)", item: "Parent consent letter — needed at every level" },
-    { id: "proforma", group: "Fair rules (official)", item: "Participation proforma signed by the sanyojaks — ask your school" },
+    { id: "proforma", group: "Fair rules (official)", item: "Participation proforma signed by the Sankul/District/Vibhag, Prant and Kshetriya sanyojaks — ask your school" },
+    { id: "elig", group: "Fair rules (official)", item: "Eligibility proforma from the Kshetra sanyojak: your name, class, school, date of birth and North Zone winner certificate" },
+    { id: "arrive", group: "Fair rules (official)", item: "Reach the fair by 5:00 pm on 26 November 2026 (competitions start 27 November at 9:00 am; book the return only after 5:00 pm on 29 November)" },
+    { id: "teacher", group: "Fair rules (official)", item: "Parents and helpers cannot attend the national fair: you will travel and stay with your escorting teacher. Save your teacher's phone number" },
     { id: "uniform", group: "Fair rules (official)", item: "School uniform — must be worn during the competition" },
     { id: "nothermo", group: "Fair rules (official)", item: "Check every part: NO thermocol in any form (strictly banned). Replace any with cardboard" },
     { id: "size", group: "Fair rules (official)", item: "Measure the model: not bigger than 5 ft × 3 ft (about 152 cm × 91 cm)" },
     { id: "charts", group: "Fair rules (official)", item: "Not more than 2 charts" },
-    { id: "masks", group: "Health (haze season)", item: "2–3 close-fitting N95 masks, in case Delhi's air is Poor (ask your parents first). Cloth masks don't stop the tiny particles" },
+    { id: "masks", group: "Health (haze season)", item: "2–3 close-fitting N95 masks, in case the air on the way or in Gorakhpur is Poor (ask your parents first). Cloth masks don't stop the tiny particles" },
+    { id: "warm", group: "Health (haze season)", item: "Warm clothes: a sweater or jacket, socks and a cap — late-November mornings in eastern UP can be cold and foggy" },
     { id: "meds", group: "Health (haze season)", item: "Your own medicines (for example an asthma inhaler, if you use one), kept in your school bag" }
   ],
 
@@ -719,7 +724,7 @@ window.SITE = {
      versions: "full" (about 5–6 min), "medium" (about 3 min). The 1-minute version is "short".
      Avni: change any line into your own words — just keep the facts. */
   stage: {
-    date: "2026-10-24",
+    date: "2026-11-27",
     sections: [
       { id: "s-open", title: "Opening", seconds: 35, in: ["full", "medium"],
         cover: ["Greet judges, teachers and friends", "Name, class, topic", "Question: where does all this waste go?", "What you will show today"],
@@ -839,14 +844,8 @@ window.SITE = {
   /* ---------------- 🚆 TRIP JOURNEY (fact-checked station facts + quick questions) ---------------- */
   tripGame: {
     arrival: "Delhi, here you come, Avni! Your bag is packed and your hydrogen train has reached the capital. All the best for the North Zone fair on 24–26 October 2026: smile, point at your model, and let it shine! 🌟",
+    version: "gorakhpur",
     stations: [
-      {"name": "Chandigarh", "icon": "🪨", "fact": "Nek Chand built Chandigarh's Rock Garden from waste, like old bangles, tiles, bottles and pots. It opened to the public in 1976.", "hi": "चंडीगढ़ का रॉक गार्डन नेक चंद ने चूड़ियों, टाइलों, बोतलों और चीनी मिट्टी के बर्तनों जैसे कचरे से बनाया था। यह 1976 में आम लोगों के लिए खोला गया।", "link": "Old waste got a new job as art: that is Repurpose, one of your 7Rs.", "source": "Incredible India (Ministry of Tourism), 'Rock Garden' page (started by Nek Chand in 1957, opened in 1976, made from waste materials); Chandigarh Tourism, 'Rock Garden' page (sculptures made from bangles, ceramic pots, tiles, bottles and electric waste)", "sourceDate": "Pages accessed 19 October 2026"},
-      {"name": "Ambala", "icon": "🔬", "fact": "A 2024 news report says Ambala Cantonment has more than 2,000 workshops and factories that make science equipment, like lab glassware and instruments for schools.", "hi": "2024 की एक ख़बर के अनुसार, अंबाला छावनी में 2,000 से ज़्यादा कारख़ाने और वर्कशॉप विज्ञान का सामान बनाते हैं, जैसे प्रयोगशाला के काँच के बर्तन और स्कूलों के उपकरण।", "link": "Labs use glassware like this to test if water is safe to drink. Remember your filter: clear water is not always safe water.", "source": "The Tribune, 'Scientific apparatus makers seek govt support for revival' (Ambala Cantonment: over 2,000 units making glassware, electronics products, educational instruments and other scientific apparatus); The Tribune, 'Ambala scientific manufacturers urge Centre for revival support' (18 December 2024, same figure)", "sourceDate": "2024-06-13"},
-      {"name": "Kurukshetra", "icon": "🪐", "fact": "Kurukshetra has the Kalpana Chawla Memorial Planetarium near Jyotisar, named after the astronaut. It opened on 24 July 2007, and people learn about stars and planets there.", "hi": "कुरुक्षेत्र में ज्योतिसर के पास अंतरिक्ष यात्री कल्पना चावला की याद में बना एक तारामंडल है। यह 24 जुलाई 2007 को खुला। यहाँ लोग तारों और ग्रहों के बारे में सीखते हैं।", "link": "Your solar panel runs on light from the Sun, which is our nearest star.", "source": "Haryana Tourism, 'Kalpana Chawla Memorial Planetarium' page (set up on 24 July 2007 by the Haryana State Council for Science and Technology, for informal astronomy education); Government of Haryana (haryana.gov.in), 'Kalpana Chawla Planetarium (Kurukshetra)' (dedicated on 24.07.2007, built with the National Council of Science Museums)", "sourceDate": "Pages accessed 19 October 2026 (opening date 24 July 2007)"},
-      {"name": "Karnal", "icon": "🚀", "fact": "Astronaut Kalpana Chawla was born in Karnal. In 1997 she flew on Space Shuttle Columbia, which got its electricity from fuel cells, machines that join hydrogen and oxygen.", "hi": "अंतरिक्ष यात्री कल्पना चावला का जन्म करनाल में हुआ था। 1997 में उन्होंने स्पेस शटल कोलंबिया में उड़ान भरी। इस शटल में फ़्यूल सेल नाम की मशीनें हाइड्रोजन और ऑक्सीजन से बिजली बनाती थीं।", "link": "Your hydrogen train uses the same fuel-cell idea. On the shuttle, the water made by the fuel cells became drinking water for the crew!", "source": "NASA astronaut biography 'Kalpana Chawla (Ph.D.)' (Born in Karnal, India; STS-87 Columbia, 19 November to 5 December 1997); NASA Shuttle-Mir history, 'Space Shuttle Sub-Systems' (three fuel cells supply the orbiter's electrical power from hydrogen and oxygen; a by-product is drinking water for the crew)", "sourceDate": "May 2004 (NASA biography)"},
-      {"name": "Panipat", "icon": "🌾", "fact": "A plant in Panipat opened on 10 August 2022. It is built to turn about 2 lakh tonnes of rice straw (parali) a year into ethanol, a fuel that is mixed with petrol.", "hi": "पानीपत में 10 अगस्त 2022 को एक प्लांट शुरू हुआ। यह हर साल लगभग 2 लाख टन धान की पराली से एथेनॉल बना सकता है। एथेनॉल एक ईंधन है जिसे पेट्रोल में मिलाया जाता है।", "link": "Like your plastic-to-energy machine, it gets energy from waste. Straw sent to the plant is not burnt in the fields, so there is less smoke in the air.", "source": "New India Samachar (PIB), 1–15 September 2022, page 37 (IOCL plant, over Rs 900 crore, about 2 lakh tonnes of rice straw and about 3 crore litres of ethanol a year); narendramodi.in, PM to dedicate 2G ethanol plant in Panipat on 10 August 2022 (World Biofuel Day)", "sourceDate": "2022-09-01"},
-      {"name": "Sonipat", "icon": "🚆", "fact": "India's first hydrogen train runs about 89 km between Jind and Sonipat, passing through Gohana. It was started with a green flag on 17 July 2026.", "hi": "भारत की पहली हाइड्रोजन ट्रेन जींद से गोहाना होते हुए सोनीपत तक लगभग 89 किलोमीटर चलती है। इसे 17 जुलाई 2026 को हरी झंडी दिखाई गई।", "link": "This is the real train behind the hydrogen train in your model: it gives out mostly water vapour, not diesel smoke.", "source": "PIB factsheet 'India's First Hydrogen-Powered Train' (16 July 2026: pilot on the Jind–Sonipat section of Northern Railway, inauguration on 17 July 2026); DT Next / IANS, 'PM Modi flags off India's first hydrogen-powered train from Haryana's Jind' (17 July 2026: 89 km Jind–Gohana–Sonipat route)", "sourceDate": "2026-07-17"},
-      {"name": "Delhi", "icon": "🏛️", "fact": "Delhi's Waste to Wonder Park has big models of seven famous world monuments, like the Taj Mahal and the Eiffel Tower. They are made from scrap such as old nuts, bolts and bicycle chains, and the park opened in 2019.", "hi": "दिल्ली के 'वेस्ट टू वंडर' पार्क में दुनिया की सात मशहूर इमारतों के बड़े मॉडल हैं, जैसे ताजमहल और एफ़िल टॉवर। ये पुराने नट-बोल्ट और साइकिल की चेन जैसे कबाड़ से बने हैं। यह पार्क 2019 में खुला।", "link": "Your journey starts and ends with waste turned into art: that is Repurpose, one of your 7Rs!", "source": "Incredible India (Ministry of Tourism), 'Waste to Wonder Park' page (commissioned by the South Delhi Municipal Corporation, inaugurated in 2019; Eiffel Tower from discarded nuts, bolts and rods; Christ the Redeemer from old bicycle chains and gears)", "sourceDate": "Page accessed 19 October 2026 (park opened in 2019)"}
     ],
     questions: [
       {"item": "nothermo", "q": "Which material is strictly banned in your model, in any form?", "o": ["Cardboard", "Thermocol", "Clay"], "answer": 1, "why": "The fair rules ban thermocol in any form. If any part has it, replace it with cardboard."},

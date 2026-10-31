@@ -89,7 +89,7 @@
     if (t === "model") showComp(sub && compById[sub] ? sub : currentComp);
     if (t === "home") renderProgress();
     if (t === "project") renderProjectProgress();
-    if (t === "haze") renderAirNow();
+    if (t === "haze") { renderRoute(); renderAirNow(); }
     if (t === "fun" && window.Fun) window.Fun.render();
     if (t === "3d" && window.Model3D) window.Model3D.start();
     if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) window.Extras.render(t);
@@ -862,7 +862,17 @@
   // ---------- 🌫️ Haze & clean air ----------
   // Live PM2.5 and PM10 come from a free forecast model (CAMS, via Open-Meteo), so the AQI here is only an
   // ESTIMATE made with CPCB's National AQI breakpoints; the official AQI is on CPCB's Sameer app.
-  const AQ_CITIES = { gkp: { name: "Gorakhpur", lat: 26.7606, lon: 83.3732 }, lko: { name: "Lucknow", lat: 26.8467, lon: 80.9462 }, chd: { name: "Chandigarh", lat: 30.7333, lon: 76.7794 } };
+  // The stations on Avni's train route, in order (Chandigarh → Gorakhpur)
+  const AQ_CITIES = {
+    chd: { name: "Chandigarh", state: "Chandigarh", lat: 30.7333, lon: 76.7794 },
+    amb: { name: "Ambala", state: "Haryana", lat: 30.3383, lon: 76.8600 },
+    sre: { name: "Saharanpur", state: "Uttar Pradesh", lat: 29.9640, lon: 77.5460 },
+    mb: { name: "Moradabad", state: "Uttar Pradesh", lat: 28.8386, lon: 78.7733 },
+    bly: { name: "Bareilly", state: "Uttar Pradesh", lat: 28.3670, lon: 79.4304 },
+    lko: { name: "Lucknow", state: "Uttar Pradesh", lat: 26.8467, lon: 80.9462 },
+    gd: { name: "Gonda", state: "Uttar Pradesh", lat: 27.1339, lon: 81.9620 },
+    gkp: { name: "Gorakhpur", state: "Uttar Pradesh", lat: 26.7606, lon: 83.3732 }
+  };
   const aqState = { city: "gkp" };
   function subIndex(c, bands) {
     const A = [[0, 50], [51, 100], [101, 200], [201, 300], [301, 400], [401, 500]];
@@ -877,6 +887,69 @@
   }
   function aqiBand(v) { const B = S.haze.aqi; return B.find(b => v >= b.min && v <= b.max) || (v > B[B.length - 1].max ? B[B.length - 1] : B[0]); }
   const AQ_ICON = ["😊", "🙂", "😐", "😷", "🤢", "☠️"];
+  // the 24 hours up to the latest hour that has already happened, in India time
+  function last24(j) {
+    const nowIST = new Date(Date.now() + (j.utc_offset_seconds || 19800) * 1000).toISOString().slice(0, 13);
+    const T = j.hourly.time; let end = -1;
+    T.forEach((t, i) => { if (t.slice(0, 13) <= nowIST && j.hourly.pm2_5[i] != null) end = i; });
+    if (end < 23) throw new Error("not enough data");
+    const hours = [];
+    for (let i = end - 23; i <= end; i++) hours.push({ t: T[i], pm25: j.hourly.pm2_5[i], pm10: j.hourly.pm10[i] });
+    return hours;
+  }
+  function aqiOf(hours) {
+    const H = S.haze, avg = k => hours.reduce((a, h) => a + (h[k] || 0), 0) / hours.length;
+    const p25 = avg("pm25"), p10 = avg("pm10");
+    return { p25, p10, aqi: Math.max(subIndex(p25, H.pmBreakpoints.pm25), subIndex(p10, H.pmBreakpoints.pm10)) };
+  }
+  // all stations on the route in one request
+  async function loadRoute(force) {
+    const key = "air-route", cached = store.get(key, null);
+    if (!force && cached && Date.now() - cached.at < 30 * 60000) return cached;
+    const ks = Object.keys(AQ_CITIES), cs = ks.map(k => AQ_CITIES[k]);
+    const url = "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=" + cs.map(c => c.lat).join(",") + "&longitude=" + cs.map(c => c.lon).join(",") +
+      "&hourly=pm2_5,pm10&past_days=1&forecast_days=1&timezone=Asia%2FKolkata";
+    const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 20000);
+    try {
+      const r = await fetch(url, { signal: ctl.signal });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      let j = await r.json(); if (!Array.isArray(j)) j = [j];
+      const out = { at: Date.now(), cities: {} };
+      ks.forEach((k, i) => { try { const h = last24(j[i]); out.cities[k] = aqiOf(h); store.set("air-" + k, { at: out.at, hours: h }); } catch (e) { /* skip this one */ } });
+      if (!Object.keys(out.cities).length) throw new Error("no data");
+      store.set(key, out); return out;
+    } catch (e) { return cached ? Object.assign({ stale: true }, cached) : { error: true }; }
+    finally { clearTimeout(tm); }
+  }
+  async function renderRoute(force) {
+    const box = $("#hzRoute"); if (!box || !S.haze) return;
+    const ks = Object.keys(AQ_CITIES);
+    const head = '<h2>🚆 Air along my train route</h2><p class="small muted">Chandigarh → Gorakhpur, station by station. Tap a station to see its hour-by-hour air below.</p>';
+    if (!box.dataset.ready) box.innerHTML = head + '<p class="muted small">Loading all ' + ks.length + " stations…</p>";
+    const d = await loadRoute(force); box.dataset.ready = "1";
+    if (d.error) { box.innerHTML = head + '<p>Could not load the route. Check the internet.</p><button class="btn small ghost" id="hzRouteRetry">↻ Try again</button>'; $("#hzRouteRetry").onclick = () => renderRoute(true); return; }
+    const vals = ks.filter(k => d.cities[k]).map(k => d.cities[k].aqi);
+    const worst = ks.filter(k => d.cities[k]).sort((a, b) => d.cities[b].aqi - d.cities[a].aqi)[0], best = ks.filter(k => d.cities[k]).sort((a, b) => d.cities[a].aqi - d.cities[b].aqi)[0];
+    const max = Math.max(...vals, 100);
+    box.innerHTML = head + '<ol class="hz-route">' + ks.map((k, i) => {
+      const c = AQ_CITIES[k], v = d.cities[k];
+      if (!v) return '<li><button data-rc="' + k + '" class="hz-stop"><span class="hz-dot"></span><b>' + esc(c.name) + '</b><span class="tiny muted">no data</span></button></li>';
+      const b = aqiBand(v.aqi), bi = S.haze.aqi.indexOf(b);
+      return '<li><button data-rc="' + k + '" class="hz-stop' + (k === aqState.city ? " on" : "") + '"><span class="hz-dot" style="background:' + esc(b.color) + '"></span>' +
+        '<span class="hz-st"><b>' + esc(c.name) + '</b><small class="muted">' + (i === 0 ? "start · " : i === ks.length - 1 ? "fair city · " : "") + esc(c.state) + '</small></span>' +
+        '<span class="hz-meter"><i style="width:' + Math.max(6, Math.round(100 * v.aqi / max)) + "%;background:" + esc(b.color) + '"></i></span>' +
+        '<span class="hz-val"><b>' + v.aqi + '</b><small>' + (AQ_ICON[bi] || "") + " " + esc(b.name) + "</small></span></button></li>";
+    }).join("") + "</ol>" +
+      (worst ? '<p class="small">😷 Most haze right now: <b>' + esc(AQ_CITIES[worst].name) + "</b> (" + d.cities[worst].aqi + "). 😊 Cleanest: <b>" + esc(AQ_CITIES[best].name) + "</b> (" + d.cities[best].aqi + ").</p>" : "") +
+      '<p class="small">🧳 Late November often brings fog and haze in north India. Keep a mask handy on the train and at stations, and check this again on 24 November before you leave.</p>' +
+      '<p class="tiny muted">' + (d.stale ? "⚠️ Offline — showing the last saved data. " : "") + "Estimated AQI for the last 24 hours, updated " + esc(new Date(d.at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })) +
+      '. Not the official CPCB AQI. <button class="btn small ghost" id="hzRouteRefresh">↻ Refresh</button></p>';
+    $("#hzRouteRefresh").onclick = () => renderRoute(true);
+    $$("#hzRoute [data-rc]").forEach(btn => btn.onclick = () => {
+      aqState.city = btn.dataset.rc; $$("#hzRoute .hz-stop").forEach(x => x.classList.toggle("on", x === btn)); renderAirNow();
+      $("#hzNow").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
   async function loadAir(force) {
     const c = AQ_CITIES[aqState.city];
     const key = "air-" + aqState.city;
@@ -889,14 +962,7 @@
       const r = await fetch(url, { signal: ctl.signal });
       if (!r.ok) throw new Error("HTTP " + r.status);
       const j = await r.json();
-      // the latest hour that has already happened, in India time
-      const nowIST = new Date(Date.now() + (j.utc_offset_seconds || 19800) * 1000).toISOString().slice(0, 13);
-      const T = j.hourly.time; let end = -1;
-      T.forEach((t, i) => { if (t.slice(0, 13) <= nowIST && j.hourly.pm2_5[i] != null) end = i; });
-      if (end < 23) throw new Error("not enough data");
-      const hours = [];
-      for (let i = end - 23; i <= end; i++) hours.push({ t: T[i], pm25: j.hourly.pm2_5[i], pm10: j.hourly.pm10[i] });
-      const out = { at: Date.now(), hours };
+      const out = { at: Date.now(), hours: last24(j) };
       store.set(key, out);
       return out;
     } catch (e) { return cached ? Object.assign({ stale: true }, cached) : { error: true }; }
@@ -906,8 +972,7 @@
     const box = $("#hzNow"), H = S.haze;
     if (!box || !H) return;
     const c = AQ_CITIES[aqState.city];
-    const seg = '<div class="seg" id="hzCity" role="group" aria-label="City">' + Object.keys(AQ_CITIES).map(k =>
-      '<button data-city="' + k + '"' + (k === aqState.city ? ' class="active"' : "") + ">" + esc(AQ_CITIES[k].name) + "</button>").join("") + "</div>";
+    const seg = '<span class="hz-city-name">📍 ' + esc(c.name) + "</span>";
     box.innerHTML = '<div class="hz-top"><h2>🌫️ Air today</h2>' + seg + '</div><p class="muted small">Loading the latest air data…</p>';
     wireCity();
     const d = await loadAir(force);
@@ -917,9 +982,7 @@
         '<button class="btn small ghost" id="hzRetry">↻ Try again</button><p class="tiny muted">' + esc(H.officialNote || "") + "</p>";
       wireCity(); $("#hzRetry").onclick = () => renderAirNow(true); return;
     }
-    const avg = k => d.hours.reduce((a, h) => a + (h[k] || 0), 0) / d.hours.length;
-    const p25 = avg("pm25"), p10 = avg("pm10");
-    const aqi = Math.max(subIndex(p25, H.pmBreakpoints.pm25), subIndex(p10, H.pmBreakpoints.pm10));
+    const { p25, p10, aqi } = aqiOf(d.hours);
     const band = aqiBand(aqi), bi = H.aqi.indexOf(band);
     const max = Math.max(...d.hours.map(h => h.pm25), 1);
     const hourBand = h => aqiBand(subIndex(h.pm25, H.pmBreakpoints.pm25));

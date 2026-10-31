@@ -50,8 +50,10 @@ window.SITE = {
     { date: "2026-11-15", go: "thoughts", label: "Sun 15 Nov", task: "Hindi practice: explain three parts of your model in Hindi. National judges come from all over India, so be ready in both languages." },
     { date: "2026-11-18", go: "project", label: "Wed 18 Nov", task: "Write 2 fresh, neat copies of your 📝 synopsis with the list of parts. Ask Rajnish Ma'am for the eligibility and participation proformas." },
     { date: "2026-11-21", go: "score", label: "Sat 21 Nov", task: "Mock judging: full explanation + 10 surprise questions from a family member or teacher. Mark yourself in 📊 Score." },
-    { date: "2026-11-23", go: "trip", label: "Mon 23 Nov", task: "Start the 🧳 trip journey to Gorakhpur: pack, answer the quick questions and get the family check." },
-    { date: "2026-11-25", go: "stage", label: "Wed 25 Nov", task: "Light revision only: headings, favourite thoughts and the 3 quotes. Travel with your escorting teacher; reach Gorakhpur by 5 pm on 26 November." },
+    { date: "2026-11-22", go: "trip", label: "Sun 22 Nov", task: "Start the 🧳 trip journey to Gorakhpur: pack, answer the quick questions and get the family check. Pack the model safely in its box." },
+    { date: "2026-11-24", go: "trip", label: "Tue 24 Nov", task: "Last check: every item packed and family-checked, phone and power bank charged, papers in one folder. Light revision only: headings, favourite thoughts and the 3 quotes. Sleep early." },
+    { date: "2026-11-25", go: "trip", label: "Wed 25 Nov", task: "Travel day! 🚆 Go with your escorting teacher. Keep the model box upright and your papers and medicines in your school bag. Read a few 🏙️ UP lines on the way." },
+    { date: "2026-11-26", go: "stage", label: "Thu 26 Nov", task: "Reach the fair by 5:00 pm. Rest, check the model after the journey and repair anything loose. Eat well and sleep early." },
     { date: "2026-11-27", go: "stage", label: "Fri 27 Nov", task: "National fair — day 1. Set up early, test every demo, warm-up, smile. Note any new questions the judges ask." },
     { date: "2026-11-28", go: "stage", label: "Sat 28 Nov", task: "Day 2. Same calm routine. Be friendly with other participants — learn from their models too." },
     { date: "2026-11-29", go: "stage", label: "Sun 29 Nov", task: "Day 3. Last day — give it your best and enjoy every moment! 🌟" }

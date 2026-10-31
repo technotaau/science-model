@@ -51,6 +51,7 @@
       { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "blue" },
       { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
     { group: "🎯 Practise and play", items: [
+      { id: "fun", icon: "🎉", name: "Fun zone", desc: "Your pet, streak, spin wheel, judge game, flash cards and more.", tone: "pink" },
       { id: "viva", icon: "❓", name: "Viva questions", desc: "Answer the way judges ask.", tone: "purple" },
       { id: "ecodost", icon: "🤖", name: "Ask Eco-Dost", desc: "Ask anything about your project and earn ⭐.", tone: "teal" },
       { id: "games", icon: "🎮", name: "Games", desc: "Bin Sorter, 7R Match, Quiz and Memory.", tone: "pink" },
@@ -82,6 +83,8 @@
     if (t === "home") renderProgress();
     if (t === "project") renderProjectProgress();
     if (t === "haze") renderAirNow();
+    if (t === "fun" && window.Fun) window.Fun.render();
+    if (t === "home" && window.Fun) window.Fun.renderTop();
     if (t === "trip") { tripState.lastStation = null; renderTrip(); }
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
     else window.scrollTo(0, 0);
@@ -468,6 +471,7 @@
     return hit / w.length >= 0.34;
   }
   function checkViva(auto) {
+    if (window.Fun) window.Fun.activity();
     V.stopListening();
     const q = vivaCur;
     if (!q || !$("#vivaAns")) return null;
@@ -726,7 +730,7 @@
     if (tripState.lastStation !== null && reachedNow > tripState.lastStation) {
       tripToast(reachedNow === last ? "🎉 You reached " + stations[last].name + "! +3 ⭐" : "🚉 Next stop: " + stations[reachedNow].name + "! A new fun fact is unlocked.");
     }
-    if (done && !store.get("tripBonus", false)) { store.set("tripBonus", true); tripAward(3); }
+    if (done && !store.get("tripBonus", false)) { store.set("tripBonus", true); tripAward(3); if (window.Fun) window.Fun.party(); }
     tripState.lastStation = reachedNow;
   }
   function renderPassport() {
@@ -736,7 +740,7 @@
     const cells = groups.map((g, k) => {
       const its = S.trip.filter(t => t.group === g);
       const ok = its.every(t => packed[t.id] && fam[t.id]);
-      if (ok && !stamps[g]) { stamps[g] = new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short" }); changed = true; tripToast("🛂 New passport stamp: " + g + "!"); }
+      if (ok && !stamps[g]) { stamps[g] = new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short" }); changed = true; tripToast("🛂 New passport stamp: " + g + "!"); if (window.Fun) window.Fun.party(); }
       if (!ok && stamps[g]) { delete stamps[g]; changed = true; }
       const tones = ["green", "blue", "teal", "amber", "purple", "orange", "pink", "slate"];
       const tone = tones[k % tones.length];
@@ -816,9 +820,16 @@
     $("#tripCount").textContent = items.filter(x => packed[x.id]).length + " of " + items.length + " packed";
     $("#tripFam").textContent = items.filter(x => fam[x.id]).length + " checked by family";
   }
+  // backgrounds; some change as the train travels
   function setTripBg(bg) {
     store.set("tripBg", bg);
-    $("#journey").className = "journey bg-" + bg;
+    const { pos } = tripProgress(), last = tripData().stations.length - 1, f = last ? pos / last : 0;
+    const j = $("#journey");
+    let cls = bg;
+    if (bg === "scenery") cls = "scene-" + ["fields", "fields", "forest", "fields", "fields", "city", "lake", "lake"][Math.min(7, Math.floor(pos + 1e-9))];
+    if (bg === "daynight") cls = f < 0.2 ? "sunrise" : f < 0.75 ? "day" : "night";
+    j.className = "journey bg-" + cls;
+    j.style.setProperty("--haze", bg === "haze" ? String(Math.max(0, 0.75 * (1 - f))) : "0");
     $$("#tripBg button").forEach(b => b.classList.toggle("active", b.dataset.bg === bg));
   }
   function renderTrip() {
@@ -830,7 +841,7 @@
       store.set("tripBonus", false); store.set("tripVersion", ver); tripState.lastStation = null;
     }
     renderTripList(); renderJourney(); renderPassport(); updateTripCount();
-    setTripBg(store.get("tripBg", "fields"));
+    setTripBg(store.get("tripBg", "scenery"));
     $$("#tripBg button").forEach(b => b.onclick = () => setTripBg(b.dataset.bg));
   }
 
@@ -1290,6 +1301,7 @@
   renderThoughts();
   if (window.EcoDost) window.EcoDost.init({ store, esc });
   if (window.Games) window.Games.init({ store, esc });
+  if (window.Fun) window.Fun.init({ store, esc });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

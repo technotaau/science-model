@@ -20,6 +20,7 @@ Built by the **TechnoTaau Team**.
 | | 💭 Thoughts · विचार | Lines in English and Hindi to open, link, recover and close |
 | 🎯 Practise and play | ❓ Viva questions | One question at a time; 🎧 Judge mode asks aloud and listens; 🏅 the questions real judges asked |
 | | 🤖 Ask Eco-Dost | Ask anything about the file and the model; quick checks, ⭐ points and badges |
+| | 🎉 Fun zone | Eco-Dost pet that grows with your stars, daily streak, spin the wheel, judge game, flash cards, countdown calendar, trophy shelf, Science Star photo badge and family challenge |
 | | 🎮 Games | Bin Sorter, 7R Match, Swachh Champion Quiz, Model Memory |
 | | 🎙️ Voice coach | Listen & repeat, record & check, pronunciation, mirror, warm-up |
 | | 📊 Score myself | Mark a practice on the 4 official Vigyan Mela heads (out of 40) |

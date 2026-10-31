@@ -52,6 +52,7 @@
           <p class="achieve" id="achieve"></p>
         </div>
       </div>
+      <div id="homePet"></div>
       <div class="card today" id="todayCard" hidden></div>
       <div id="homeTiles"></div>
       <details class="card fold" id="foldProgress"><summary>📈 My progress</summary><div class="progress-tiles" id="progressTiles"></div></details>
@@ -72,8 +73,8 @@
             </div>
             <div class="trip-bg-pick">
               <span class="small muted">Background</span>
-              <div class="seg" id="tripBg" role="group" aria-label="Journey background">
-                <button data-bg="fields">🌾 Fields</button><button data-bg="sunrise">🌅 Sunrise</button><button data-bg="night">🌌 Night</button>
+              <div class="bg-chips" id="tripBg" role="group" aria-label="Journey background">
+                <button data-bg="scenery">🏞️ Changing scenery</button><button data-bg="daynight">🌅 Day to night</button><button data-bg="haze">🌫️ Haze clears</button><button data-bg="model">🏙️ My model</button><button data-bg="festival">🪔 Festival</button><button data-bg="fields">🌾 Fields</button><button data-bg="sunrise">🌄 Sunrise</button><button data-bg="night">🌌 Night</button>
               </div>
             </div>
           </div>
@@ -235,6 +236,11 @@
       </div>
       <div class="chips" id="dlAreas"></div>
       <div class="dl-grid" id="dlList"></div>
+    </section>
+
+    <!-- FUN ZONE -->
+    <section id="tab-fun" class="tab" hidden>
+      <div id="funBody"></div>
     </section>
 
     <!-- GAMES -->
@@ -542,6 +548,7 @@
   <script src="ecodost.js"></script>
   <script src="voice.js"></script>
   <script src="games.js"></script>
+  <script src="fun.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

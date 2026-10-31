@@ -48,6 +48,7 @@
       { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
+      { id: "3d", icon: "🧊", name: "3D model", desc: "Spin my model in 3D and tap any part.", tone: "blue" },
       { id: "walk", icon: "🧭", name: "Walkthrough", desc: "Explain the whole model in the right order.", tone: "teal" },
       { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "blue" },
       { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
@@ -85,6 +86,7 @@
     if (t === "project") renderProjectProgress();
     if (t === "haze") renderAirNow();
     if (t === "fun" && window.Fun) window.Fun.render();
+    if (t === "3d" && window.Model3D) window.Model3D.start();
     if (t === "home" && window.Fun) window.Fun.renderTop();
     if (t === "trip") { tripState.lastStation = null; renderTrip(); }
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1325,6 +1327,7 @@
   if (window.EcoDost) window.EcoDost.init({ store, esc });
   if (window.Games) window.Games.init({ store, esc });
   if (window.Fun) window.Fun.init({ store, esc });
+  if (window.Model3D) window.Model3D.init({ esc });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

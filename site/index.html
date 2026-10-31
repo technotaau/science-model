@@ -243,6 +243,19 @@
       <div id="aboutBody"></div>
     </section>
 
+    <!-- 3D MODEL -->
+    <section id="tab-3d" class="tab" hidden>
+      <div class="card">
+        <h2>🧊 My model in 3D</h2>
+        <p class="small muted">A simple 3D version of my real model (made from my photo and video). The train moves, the windmill and turbine turn.</p>
+        <div id="m3d" class="m3d"></div>
+        <div class="m3d-bar"><button id="m3dReset" class="btn small">↺ Reset view</button></div>
+        <div id="m3dInfo" class="m3d-info" aria-live="polite"></div>
+        <h3>Tap a part</h3>
+        <div id="m3dParts" class="chips"></div>
+      </div>
+    </section>
+
     <!-- FUN ZONE -->
     <section id="tab-fun" class="tab" hidden>
       <div id="funBody"></div>
@@ -308,6 +321,15 @@
           <section class="card"><h2>🎯 Aim</h2><p id="rpAim"></p></section>
           <section class="card"><h2>📋 Objectives</h2><ol id="rpObj"></ol></section>
         </div>
+
+        <section class="card real-model">
+          <h2>📸 My real model</h2>
+          <img src="media/real-model.webp" alt="Avni's real Clean India model on a table, with Phase 1 and Phase 2 boards" class="report-img" loading="lazy">
+          <p class="tiny muted">The real model: Smart City with a hydrogen station, waste-to-energy plant, rain garden, water filtration (stones, charcoal, cotton), waste water treatment, industry, dustbins and the Phase 1 and Phase 2 boards.</p>
+          <details class="no-print"><summary class="small"><b>🎬 Watch a 70-second tour of the model</b></summary>
+            <video src="media/model-tour.mp4" poster="media/model-tour.jpg" controls preload="none" playsinline class="tour-video"></video>
+          </details>
+        </section>
 
         <section class="card model-card">
           <h2>🗺️ My model</h2>
@@ -554,6 +576,7 @@
   <script src="voice.js"></script>
   <script src="games.js"></script>
   <script src="fun.js"></script>
+  <script src="model3d.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

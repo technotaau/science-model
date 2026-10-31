@@ -92,7 +92,7 @@ CONCLUSION: The Clean India Mission is not only a government programme but also 
 - Stones/Gravel/Sand (physical filtration): first line of defence; traps large debris like leaves, twigs, plastics, heavy suspended sediments.
 - Charcoal/Activated Carbon (chemical adsorption): the most critical step for chemical water. Millions of microscopic pores trap organic chemicals, chlorine, heavy metals and volatile organic compounds (VOCs) through adsorption (binding molecules to its surface). Also removes bad odours and discoloration.
 - Cotton/Filter cloth (fine filtration): final physical barrier; traps tiny particles and charcoal dust.
-- Structure: water must flow from the coarsest to the finest material. 1. TOP (inflow): coarse stones and gravel. 2. Second: fine sand. 3. Third: crushed charcoal. 4. BOTTOM: thick layer of cotton or tightly woven cloth.
+- Structure: water must flow from the coarsest to the finest material. 1. TOP (inflow): coarse stones and gravel. 2. Second: fine sand. 3. Third: crushed charcoal. 4. BOTTOM: thick layer of cotton or tightly woven cloth. (Avni's real model has NO sand layer: stones & gravel → charcoal → cotton, confirmed 31 Oct 2026.)
 - Drawing: an upside-down bottle with layers.
 - Quote: "Cleanliness is not a job we should do forcefully. It is a good habit and healthy way of our life!"
 

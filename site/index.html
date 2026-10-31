@@ -55,6 +55,7 @@
       <div id="homePet"></div>
       <div class="card today" id="todayCard" hidden></div>
       <div id="homeTiles"></div>
+      <p id="offlineNote" class="tiny muted offline-note"></p>
       <details class="card fold" id="foldProgress"><summary>📈 My progress</summary><div class="progress-tiles" id="progressTiles"></div></details>
       <details class="card fold"><summary>🏅 How the judges give marks (40)</summary><p class="small muted" id="marksNote"></p><div class="marks" id="marksList"></div></details>
       <details class="card fold"><summary>💬 My three quotes</summary><div class="quotes" id="quotesList"></div></details>
@@ -263,6 +264,17 @@
         <div id="m3dParts" class="chips"></div>
       </div>
     </section>
+
+    <!-- HINDI MODE -->
+    <section id="tab-hindi" class="tab" hidden><div id="hindiBody"></div></section>
+    <!-- NUMBERS MASTER -->
+    <section id="tab-numbers" class="tab" hidden><div id="numbersBody"></div></section>
+    <!-- HOME WASTE DIARY -->
+    <section id="tab-wastediary" class="tab" hidden><div id="wasteBody"></div></section>
+    <!-- TRIP DIARY -->
+    <section id="tab-diary" class="tab" hidden><div id="diaryBody"></div></section>
+    <!-- CHAMPION CERTIFICATE -->
+    <section id="tab-cert" class="tab" hidden><div id="certBody"></div></section>
 
     <!-- FUN ZONE -->
     <section id="tab-fun" class="tab" hidden>
@@ -585,6 +597,8 @@
   <script src="games.js"></script>
   <script src="fun.js"></script>
   <script src="model3d.js"></script>
+  <script src="hindi.js"></script>
+  <script src="extras.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

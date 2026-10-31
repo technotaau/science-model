@@ -1909,7 +1909,7 @@ window.SITE = {
 
     // --- Water
     { topic: "Filtration", level: "easy", q: "What does each layer in your filter do?",
-      points: ["Stones: stop bigger particles", "Sand (if in my model): stops smaller dirt", "Charcoal: traps some colour, smell and impurities", "Cotton: traps fine particles, holds layers"],
+      points: ["Stones: stop bigger particles", "Charcoal: traps some colour, smell and impurities", "Cotton: traps fine particles, holds layers"],
       keywords: ["stone", "charcoal", "cotton", "particle"], follow: "Which layer is at the top in your model, and why?" },
     { topic: "Filtration", level: "medium", q: "The water from your filter looks clean. Can we drink it?",
       points: ["No — not guaranteed safe", "May still have germs (bacteria, viruses)", "May have dissolved chemicals", "Germs: boiling / chlorination / UV; dissolved chemicals: RO or special treatment — and testing"],

@@ -866,3 +866,32 @@ html.visitor #tab-about { display: none !important; }
 .m3d-card { padding: 10px 12px; border-radius: 12px; background: rgba(46,125,50,.08); }
 .m3d-card p { margin: 6px 0 8px; }
 #m3dParts { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* extras: Hindi, numbers, waste diary, trip diary, certificate */
+.offline-note { text-align: center; margin: 12px 8px; }
+.hi-part { border-top: 1px solid var(--line); padding: 8px 0; }
+.hi-part summary { cursor: pointer; }
+.hi-text { font-size: 1.08rem; line-height: 1.75; }
+.row-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.num-q { font-size: 1.15rem; margin: 10px 0; }
+.num-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.num-o.num-right { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+.num-o.num-wrong { background: #c62828; color: #fff; border-color: #c62828; }
+.waste-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+.waste-table th, .waste-table td { padding: 4px; text-align: center; }
+.waste-table input { width: 100%; max-width: 110px; font: inherit; padding: 6px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.waste-svg { width: 100%; max-width: 480px; height: auto; color: var(--ink); }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: middle; }
+.card-lite { background: rgba(46,125,50,.08); border-radius: 12px; padding: 10px 12px; margin: 8px 0; }
+.card-lite .say { font-style: italic; }
+#diaryBody textarea { width: 100%; font: inherit; padding: 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); margin: 8px 0; box-sizing: border-box; }
+#diaryBody input[type=date] { font: inherit; padding: 4px 6px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.dy-photo { cursor: pointer; }
+.dy-entry { border-top: 1px solid var(--line); padding: 10px 0; }
+.dy-img { max-width: 100%; border-radius: 10px; display: block; }
+.dy-text { white-space: pre-wrap; }
+.cert-goals { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 8px; }
+.cert-goals a { display: grid; grid-template-columns: 2em 1fr auto; align-items: center; gap: 4px 8px; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.cert-goals li.ok a { border-color: var(--ok); background: rgba(46,125,50,.08); }
+.cert-goals i { grid-column: 1 / -1; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--ok) var(--p), rgba(127,127,127,.2) var(--p)); }
+.cert-canvas { width: 100%; height: auto; border-radius: 10px; margin: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,.15); }

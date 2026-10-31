@@ -45,15 +45,20 @@
       { id: "delhi", icon: "🏙️", name: "UP & Gorakhpur updates", desc: "Clean India schemes and news from Uttar Pradesh.", tone: "orange" },
       { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air in Gorakhpur, Lucknow and Chandigarh, health tips and how your model helps.", tone: "slate" },
       { id: "about", icon: "🏫", name: "About the fair", desc: "Vidya Bharati, the Vigyan Mela levels, past fairs and Gorakhpur.", tone: "teal" },
+      { id: "diary", icon: "📔", name: "Trip diary", desc: "A photo and a few lines each day: your Gorakhpur memory book.", tone: "pink" },
       { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
       { id: "3d", icon: "🧊", name: "3D model", desc: "Spin my model in 3D and tap any part.", tone: "blue" },
       { id: "walk", icon: "🧭", name: "Walkthrough", desc: "Explain the whole model in the right order.", tone: "teal" },
       { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "blue" },
+      { id: "wastediary", icon: "⚖️", name: "Home waste diary", desc: "Weigh your family's waste for 7 days and get real data for the judges.", tone: "green" },
       { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
     { group: "🎯 Practise and play", items: [
       { id: "fun", icon: "🎉", name: "Fun zone", desc: "Your pet, streak, spin wheel, judge game, flash cards and more.", tone: "pink" },
+      { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "orange" },
+      { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "blue" },
+      { id: "cert", icon: "🏆", name: "Champion certificate", desc: "Finish 6 goals and download a certificate with your name.", tone: "amber" },
       { id: "viva", icon: "❓", name: "Viva questions", desc: "Answer the way judges ask.", tone: "purple" },
       { id: "ecodost", icon: "🤖", name: "Ask Eco-Dost", desc: "Ask anything about your project and earn ⭐.", tone: "teal" },
       { id: "games", icon: "🎮", name: "Games", desc: "Bin Sorter, 7R Match, Quiz and Memory.", tone: "pink" },
@@ -87,6 +92,7 @@
     if (t === "haze") renderAirNow();
     if (t === "fun" && window.Fun) window.Fun.render();
     if (t === "3d" && window.Model3D) window.Model3D.start();
+    if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) window.Extras.render(t);
     if (t === "home" && window.Fun) window.Fun.renderTop();
     if (t === "trip") { tripState.lastStation = null; renderTrip(); }
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1328,6 +1334,7 @@
   if (window.Games) window.Games.init({ store, esc });
   if (window.Fun) window.Fun.init({ store, esc });
   if (window.Model3D) window.Model3D.init({ esc, store });
+  if (window.Extras) window.Extras.init({ S, store, esc });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

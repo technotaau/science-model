@@ -156,7 +156,7 @@
   // ---------- 🗓️ countdown calendar ----------
   const CAL_TASKS = ["Explain your biogas plant in 3 sentences", "Say “What is e-waste?” in your own words", "Play one Bin Sorter round", "Name two UP schemes", "Say your opening line to a mirror", "Explain the 7Rs on your fingers", "Answer one 🏅 real judge question", "Say one Hindi line from Thoughts", "Explain your water filter layers", "Tell Mummy one Delhi or UP fact", "Practise your closing line with a smile", "Explain why haze comes in winter", "Play Model Memory once", "Explain your hydrogen train", "Ask Eco-Dost a new question"];
   function calHTML() {
-    const ev = S().student.nextEvent, start = ev ? ev.start : "2026-11-27";
+    const ev = S().student.nextEvent, start = ev ? (ev.travel || ev.start) : "2026-11-25";  // count down to travel day
     const first = "2026-11-01", t = today(), n = dayDiff(first, start);
     const facts = (window.ECODOST && ECODOST.cards || []).filter(c => c.fun);
     const opened = store.get("funDoors", {});
@@ -165,14 +165,14 @@
       const d = new Date(first + "T00:00:00"); d.setDate(d.getDate() + i); const ds = fmt(d);
       const can = ds <= t, isFair = ds === start, op = opened[ds];
       h += '<button class="door' + (op ? " open" : "") + (isFair ? " fair" : "") + (ds === t ? " today" : "") + '" data-d="' + ds + '" data-i="' + i + '"' + (can ? "" : " disabled") + ' aria-label="' + d.getDate() + ' November">' +
-        (isFair ? "🏆" : op ? "✅" : can ? "🎁" : "🔒") + "<small>" + d.getDate() + " Nov</small></button>";
+        (isFair ? "🚆" : op ? "✅" : can ? "🎁" : "🔒") + "<small>" + d.getDate() + " Nov</small></button>";
     }
     h += '</div><div id="funDoorOut" aria-live="polite"></div>';
     return { h, facts };
   }
   function openDoor(btn, facts) {
     const i = +btn.dataset.i, ds = btn.dataset.d, ev = S().student.nextEvent;
-    if (ev && ds === ev.start) { $("#funDoorOut").innerHTML = '<div class="door-out"><b>🏆 Today is the national fair!</b><p>Breathe, smile and enjoy it. You are ready, Avni! 🌟</p></div>'; party(); return; }
+    if (ev && ds === (ev.travel || ev.start)) { $("#funDoorOut").innerHTML = '<div class="door-out"><b>🚆 Travel day — off to ' + esc(ev.place) + '!</b><p>Have a safe journey, Avni. The national fair is on 27–29 November. You are ready! 🌟</p></div>'; party(); return; }
     const f = facts.length ? facts[(i * 7) % facts.length] : null;
     const op = store.get("funDoors", {}); const first = !op[ds]; op[ds] = true; store.set("funDoors", op);
     if (first) { award(1, "Calendar door"); party(); }
@@ -260,7 +260,7 @@
       '<section class="card fun-box"><h2>🃏 Flash cards</h2><p class="small muted">Tap to flip. Keep the ones you know, practise the rest.</p><div id="funFlash"><button class="btn" id="funFStart">🃏 Start a round</button></div></section>' +
       '<section class="card fun-box"><h2>👨‍👩‍👧 Family challenge</h2><p class="small muted">Mummy or Papa asks 5 questions and scores you.</p><div id="funFam"><button class="btn" id="funFamStart">Start the challenge</button></div></section>' +
       "</div>" +
-      '<section class="card"><h2>🗓️ Countdown calendar</h2><p class="small muted">One door opens each day until the national fair. Each hides a small task and a fun fact.</p>' + cal.h + "</section>" +
+      '<section class="card"><h2>🗓️ Countdown calendar</h2><p class="small muted">One door opens each day until you leave for Gorakhpur on 25 November. Each hides a small task and a fun fact.</p>' + cal.h + "</section>" +
       '<section class="card"><h2>🏆 My trophy shelf</h2><div id="funShelf"></div></section>' +
       '<section class="card"><h2>📸 Science Star photo badge</h2><p class="small muted">Take a photo with your model, and get it in a Science Star frame to save. The photo stays on your phone.</p>' +
       '<label class="btn act photo-btn">📷 Take or choose a photo<input type="file" accept="image/*" capture="user" id="funPhoto" hidden></label><div id="funPhotoOut"></div></section>' +

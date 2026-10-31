@@ -28,7 +28,7 @@ window.SITE = {
     topic: "Clean India Mission and Waste Management",
     fairDate: "2026-11-27",          // next event (start day)
     achievements: ["🏆 First prize — Malerkotla level (October 2026)", "🏆 First prize — North Zone level, Delhi (October 2026)"],
-    nextEvent: { name: "National level (Akhil Bharatiya)", place: "Gorakhpur", start: "2026-11-27", end: "2026-11-29" },
+    nextEvent: { name: "National level (Akhil Bharatiya)", place: "Gorakhpur", start: "2026-11-27", end: "2026-11-29", travel: "2026-11-25" },
     targetMinutes: 5,                // aim for the full model explanation
     // Eco-Dost Live: the real-AI version on claude.ai (open it while signed in to Claude)
     ecodostLiveUrl: "https://claude.ai/artifact/3DcE9JqKmTtXjhtSPppDRn"

@@ -103,7 +103,11 @@
     const fmt = { day: "numeric", month: "short" };
     const when = start.toLocaleDateString("en-IN", fmt) + (total > 1 ? "–" + end.toLocaleDateString("en-IN", fmt) : "");
     const label = ev.name + (ev.place ? " in " + ev.place : "");
-    const text = days > 1 ? "⏳ " + days + " days to the " + label + " (" + when + ")"
+    const tv = ev.travel ? new Date(ev.travel + "T00:00:00") : null, tdays = tv ? Math.round((tv - d0) / 86400000) : null;
+    const text = tv && tdays > 1 ? "⏳ " + tdays + " days until you leave for " + ev.place + " (" + tv.toLocaleDateString("en-IN", fmt) + ") · " + label + ": " + when
+      : tv && tdays === 1 ? "🧳 You leave for " + ev.place + " TOMORROW! Pack, charge everything and sleep early."
+      : tv && tdays === 0 ? "🚆 Travel day! Have a safe journey to " + ev.place + ", Avni. The fair starts on " + start.toLocaleDateString("en-IN", fmt) + "."
+      : days > 1 ? "⏳ " + days + " days to the " + label + " (" + when + ")"
       : days === 1 ? "⏳ The " + label + " starts TOMORROW! Rest well tonight — you are ready."
       : d0 <= end ? "🌟 " + label + " — day " + day + " of " + total + "! Breathe, smile and enjoy it."
       : "🎉 The " + label + " is done — well done, Avni!";

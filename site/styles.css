@@ -753,3 +753,11 @@ details.jr-all[open] > summary { margin-bottom: 10px; }
   details.jr-all { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .jr-rail i, .jr-strain { transition: none; } }
+
+/* the train is the star of the page: big and easy to see */
+.jr-strip { height: 52px; margin-top: 12px; }
+.jr-rail { top: 34px; height: 8px; }
+.jr-sdot { top: 29px; }
+.jr-strain { top: -4px; font-size: 2.4rem; }
+.jr-train { font-size: 2rem; left: -15px; }
+.jr-head b { font-size: 1.1rem; }

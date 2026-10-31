@@ -1,6 +1,6 @@
 /* Offline support: keeps a copy of the website on the phone so it works on the train without internet.
    Network first (so updates arrive when online), saved copy when offline or very slow. */
-const CACHE = "coach-v1";
+const CACHE = "coach-v2";
 const CORE = ["./", "index.html", "styles.css", "content.js", "ecodost-data.js", "ecodost.js", "voice.js", "games.js", "fun.js",
   "model3d.js", "hindi.js", "extras.js", "app.js", "model.jpg", "qr.svg", "media/real-model.webp", "media/model-tour.jpg"];
 const EXTRA = ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
@@ -14,14 +14,17 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const r = e.request;
   if (r.method !== "GET" || r.headers.has("range") || /\.mp4($|\?)/.test(r.url)) return; // video streams from the internet
-  const ok = r.url.startsWith(self.location.origin) || /cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|fonts\.(googleapis|gstatic)\.com/.test(r.url);
+  const own = r.url.startsWith(self.location.origin);
+  const ok = own || /cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|fonts\.(googleapis|gstatic)\.com/.test(r.url);
   if (!ok) return;
   e.respondWith((async () => {
     const cache = await caches.open(CACHE);
-    const net = fetch(r).then(res => { if (res && (res.ok || res.type === "opaque")) cache.put(r, res.clone()); return res; });
+    // our own files: always ask the server for the newest version (skip the browser's short-term cache)
+    const net = fetch(own ? new Request(r, { cache: "no-cache" }) : r).then(res => { if (res && (res.ok || res.type === "opaque")) cache.put(r, res.clone()); return res; });
     const saved = await cache.match(r, { ignoreSearch: r.mode === "navigate" });
     if (!saved) return net.catch(() => caches.match("index.html"));
-    // use the network if it answers quickly, otherwise the saved copy
-    return Promise.race([net.catch(() => saved), new Promise(res => setTimeout(() => res(saved), 3000))]);
+    if (!own) return saved; // libraries and fonts never change
+    // newest version when online; the saved copy only if there is no internet or it takes very long
+    return Promise.race([net.catch(() => saved), new Promise(res => setTimeout(() => res(saved), 10000))]);
   })());
 });

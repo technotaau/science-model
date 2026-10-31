@@ -266,7 +266,10 @@
   // ======================= 📶 OFFLINE =======================
   function offline() {
     const note = $("#offlineNote"); if (!("serviceWorker" in navigator) || !/^https:|^http:\/\/localhost/.test(location.href)) return;
-    navigator.serviceWorker.register("sw.js").then(() => navigator.serviceWorker.ready).then(() => {
+    // when a new version of the website arrives, reload once so the newest pages show
+    const hadController = !!navigator.serviceWorker.controller; let reloaded = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !reloaded) { reloaded = true; location.reload(); } });
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => { reg.update().catch(() => {}); return reg; }).then(() => navigator.serviceWorker.ready).then(() => {
       if (note) note.innerHTML = "📶 <b>Works without internet:</b> this website is saved on this phone, so you can practise on the train too. (The 3D model works offline after you open it once with internet. The video needs internet.)";
     }).catch(() => {});
   }

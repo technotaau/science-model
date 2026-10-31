@@ -42,7 +42,7 @@
   const SECTIONS = [
     { group: "🚀 Get ready for Gorakhpur", items: [
       { id: "stage", icon: "🎤", name: "Stage talk", desc: "Practise your speech, one part at a time.", tone: "blue" },
-      { id: "delhi", icon: "🏙️", name: "Delhi updates", desc: "Clean India news from Delhi (UP updates coming soon).", tone: "orange" },
+      { id: "delhi", icon: "🏙️", name: "UP & Gorakhpur updates", desc: "Clean India schemes and news from Uttar Pradesh.", tone: "orange" },
       { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air in Gorakhpur, Lucknow and Chandigarh, health tips and how your model helps.", tone: "slate" },
       { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
     { group: "📚 Learn my project", items: [

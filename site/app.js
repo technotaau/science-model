@@ -1327,7 +1327,7 @@
   if (window.EcoDost) window.EcoDost.init({ store, esc });
   if (window.Games) window.Games.init({ store, esc });
   if (window.Fun) window.Fun.init({ store, esc });
-  if (window.Model3D) window.Model3D.init({ esc });
+  if (window.Model3D) window.Model3D.init({ esc, store });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

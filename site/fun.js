@@ -284,5 +284,5 @@
     }
     render();
   }
-  window.Fun = { init, render: () => { render(); }, renderTop, party, sound, confetti, activity };
+  window.Fun = { init, render: () => { render(); }, renderTop, party, sound, confetti, activity, award };
 })();

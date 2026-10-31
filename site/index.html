@@ -249,7 +249,15 @@
         <h2>🧊 My model in 3D</h2>
         <p class="small muted">A simple 3D version of my real model (made from my photo and video). The train moves, the windmill and turbine turn.</p>
         <div id="m3d" class="m3d"></div>
-        <div class="m3d-bar"><button id="m3dReset" class="btn small">↺ Reset view</button></div>
+        <div class="m3d-bar">
+          <button id="m3dTour" class="btn small">▶️ Guided tour</button>
+          <button id="m3dFind" class="btn small">🔎 Find it game</button>
+          <button id="m3dRain" class="btn small ghost">🌧️ Rain</button>
+          <button id="m3dWater" class="btn small ghost">💧 Clean the water</button>
+          <button id="m3dNight" class="btn small ghost">🌙 Night</button>
+          <button id="m3dReset" class="btn small ghost">↺ Reset view</button>
+          <label class="small m3d-mute"><input type="checkbox" id="m3dMute"> 🔇 Tour without voice</label>
+        </div>
         <div id="m3dInfo" class="m3d-info" aria-live="polite"></div>
         <h3>Tap a part</h3>
         <div id="m3dParts" class="chips"></div>

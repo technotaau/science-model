@@ -857,7 +857,11 @@ html.visitor #tab-about { display: none !important; }
 /* 3D model */
 .m3d { width: 100%; min-height: 320px; border-radius: 14px; overflow: hidden; background: var(--card, #fff); border: 1px solid rgba(0,0,0,.08); touch-action: none; }
 .m3d canvas { display: block; width: 100% !important; }
-.m3d-bar { display: flex; justify-content: flex-end; margin: 8px 0; }
+.m3d-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
+.m3d-mute { display: inline-flex; gap: 4px; align-items: center; }
+.m3d-find { font-size: 1.15rem; margin: 4px 0; }
+.bad-note { color: #c62828; }
+.linkish { background: none; border: 0; padding: 0; color: var(--act); text-decoration: underline; cursor: pointer; font: inherit; }
 .m3d-info { min-height: 3em; }
 .m3d-card { padding: 10px 12px; border-radius: 12px; background: rgba(46,125,50,.08); }
 .m3d-card p { margin: 6px 0 8px; }

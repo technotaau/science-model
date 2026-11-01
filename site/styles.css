@@ -930,8 +930,8 @@ html.visitor #tab-about { display: none !important; }
 #exPart { font: inherit; padding: 6px; border-radius: 8px; max-width: 100%; }
 
 /* QR stickers and the one-part visitor page */
-html.partview section.tab:not(#tab-part) { display: none !important; }
-html.partview #tab-part { display: block !important; }
+html.visitor.partview section.tab#tab-project { display: none !important; }
+html.visitor.partview section.tab#tab-part { display: block !important; }
 .part-title { font-size: 1.6rem; }
 .sticker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
 .sticker-grid a { color: inherit; text-decoration: none; }

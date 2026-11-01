@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="styles.css">
   <script>
     if (new URLSearchParams(location.search).has("visitor")) document.documentElement.classList.add("visitor");
+    // ?part=<id> comes from a QR sticker on the model: show just that part, like the visitor view
+    if (new URLSearchParams(location.search).has("part")) document.documentElement.classList.add("visitor", "partview");
     // soft light colours (dark text) by default; the 🌙 button switches to dark and the phone remembers it
     (function () { var t = null; try { t = JSON.parse(localStorage.getItem("coach:theme")); } catch (e) {}
       document.documentElement.dataset.theme = t === "dark" ? "dark" : "light"; })();
@@ -271,6 +273,10 @@
       <div class="card" id="practiceRoom"></div>
       <div class="card" id="explain3"></div>
     </section>
+    <!-- ONE PART (opened from a QR sticker on the model) -->
+    <section id="tab-part" class="tab" hidden><div id="partBody"></div></section>
+    <!-- QR STICKERS -->
+    <section id="tab-stickers" class="tab" hidden><div id="stickersBody"></div></section>
     <!-- HINDI MODE -->
     <section id="tab-hindi" class="tab" hidden><div id="hindiBody"></div></section>
     <!-- NUMBERS MASTER -->
@@ -606,6 +612,7 @@
   <script src="hindi.js"></script>
   <script src="extras.js"></script>
   <script src="practice.js"></script>
+  <script src="qr-parts.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

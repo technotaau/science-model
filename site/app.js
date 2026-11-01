@@ -46,6 +46,7 @@
       { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air in Gorakhpur, Lucknow and Chandigarh, health tips and how your model helps.", tone: "slate" },
       { id: "about", icon: "🏫", name: "About the fair", desc: "Vidya Bharati, the Vigyan Mela levels, past fairs and Gorakhpur.", tone: "teal" },
       { id: "diary", icon: "📔", name: "Trip diary", desc: "A photo and a few lines each day: your Gorakhpur memory book.", tone: "pink" },
+      { id: "stickers", icon: "🏷️", name: "QR stickers for my model", desc: "Print small QR codes to stick next to each part of the model.", tone: "teal" },
       { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
@@ -70,12 +71,14 @@
   ];
   const secById = {};
   SECTIONS.forEach(g => g.items.forEach(x => { secById[x.id] = x; }));
-  const tabs = ["home"].concat(Object.keys(secById));
+  const tabs = ["home", "part"].concat(Object.keys(secById));
   // ?visitor in the URL (from the stall QR code) shows only the clean project page
-  const visitor = new URLSearchParams(location.search).has("visitor");
+  // ?part=<id> (from a QR sticker on the model) shows only that part
+  const partView = new URLSearchParams(location.search).get("part");
+  const visitor = new URLSearchParams(location.search).has("visitor") || !!partView;
   function route() {
     const [tab, sub] = (location.hash.slice(1) || "home").split("/");
-    const t = visitor ? "project" : tabs.includes(tab) ? tab : "home";
+    const t = partView ? "part" : visitor ? "project" : tabs.includes(tab) ? tab : "home";
     V.stopSpeaking();
     if (t !== "viva") stopJudge();
     if (t !== "walk" && rehearsal) finishRehearsal(false);
@@ -95,6 +98,8 @@
     if (t === "fun" && window.Fun) window.Fun.render();
     if (t === "3d" && window.Model3D) window.Model3D.start();
     if (t === "practice" && window.Practice) window.Practice.render();
+    if (t === "part") renderPart(partView);
+    if (t === "stickers") renderStickers();
     if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) window.Extras.render(t);
     if (t === "home" && window.Fun) window.Fun.renderTop();
     if (t === "trip") { tripState.lastStation = null; renderTrip(); }
@@ -1376,6 +1381,51 @@
     renderThoughtList();
     const note = () => { $("#thVoiceNote").textContent = V.canSpeak && !V.hasHindiVoice() ? "🔊 Your device has no Hindi voice installed, so 🔊 हिंदी may sound odd or stay silent. On Android: Settings → Text-to-speech → install Hindi. On a laptop, Chrome or Edge usually has one." : ""; };
     note(); setTimeout(note, 1500);
+  }
+
+  // ---------- QR stickers on the model ----------
+  // Lines that are notes for Avni (not for visitors) are left out of the visitor page.
+  const forVisitors = list => (list || []).filter(x => !/Ma'am|confirm|most likely|^\(|^Quote:/i.test(x));
+  function renderPart(id) {
+    const c = compById[id], box = $("#partBody");
+    if (!c) { box.innerHTML = '<div class="card"><h2>Sorry, this part was not found.</h2><p><a class="btn" href="?visitor#project">See the whole project →</a></p></div>'; return; }
+    document.title = c.name + " — " + S.project.title;
+    const quote = (c.say || []).find(x => /^Quote:/i.test(x));
+    const how = forVisitors(c.how), say = forVisitors(c.say);
+    box.innerHTML = '<div class="card part-card"><p class="small muted">🏷️ You scanned a part of ' + esc(S.student.name) + "'s model · " + esc(S.project.title) + "</p>" +
+      '<h2 class="part-title">' + c.icon + " " + esc(c.name) + "</h2>" +
+      (c.inModel ? '<p><b>In the model:</b> ' + esc(c.inModel) + "</p>" : "") +
+      (say.length ? "<h3>💡 What to know</h3><ul>" + say.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "") +
+      (how.length ? "<h3>⚙️ How it works</h3><ol>" + how.map(x => "<li>" + esc(x) + "</li>").join("") + "</ol>" : "") +
+      (quote ? '<p class="pledge">' + esc(quote.replace(/^Quote:\s*/i, "")) + "</p>" : "") +
+      '<div class="row-btns"><button class="btn ghost" id="partSay">🔊 Listen</button><a class="btn" href="?visitor#project">📘 See the whole project</a></div>' +
+      '<p class="tiny muted">' + esc(S.student.name) + " · " + esc(S.student.className) + " · " + esc(S.student.school) + "</p></div>";
+    $("#partSay").onclick = () => { V.stopSpeaking(); V.speak(c.name + ". " + say.concat(how).join(". ")); };
+  }
+  function stickerParts() { return S.components.filter(c => window.QR_PARTS && window.QR_PARTS[c.id]); }
+  function stickerHTML(c) { return '<div class="sticker"><div class="sticker-qr">' + window.QR_PARTS[c.id] + '</div><div class="sticker-name">' + c.icon + " " + esc(c.name.replace(/\s*\(.*\)$/, "")) + '</div><div class="sticker-scan">📱 Scan me!</div></div>'; }
+  function renderStickers() {
+    const box = $("#stickersBody"); if (!box) return;
+    const ps = stickerParts();
+    box.innerHTML = '<div class="card"><h2>🏷️ QR stickers for my model</h2>' +
+      "<p>Stick a small QR code next to each part of your model. When a judge or visitor scans it with a phone camera, a simple page about that part opens.</p>" +
+      '<ol class="small"><li>✋ First ask Rajnish Ma\'am if you may stick them on the model at the fair.</li><li>Tap <b>🖨️ Print stickers</b>. Print on white paper (sticker paper is best).</li><li>Cut them out and stick each one next to its part, where it is easy to scan.</li><li>Test: scan each one with a phone camera before you leave for Gorakhpur.</li></ol>' +
+      '<label class="small">Sticker size <select id="stSize"><option value="3">Small (3 cm)</option><option value="4" selected>Medium (4 cm)</option><option value="5">Large (5 cm)</option></select></label> ' +
+      '<button class="btn" id="stPrint">🖨️ Print stickers</button>' +
+      '<p class="tiny muted">Not on the sheet: the ladder and the digger field (ask Ma\'am what they show first), and the new parts like the rain garden and hydrogen station (no page yet).</p></div>' +
+      '<div class="card"><h3>Preview (' + ps.length + ' stickers)</h3><p class="small muted">Tap a sticker to open the page it shows.</p><div class="sticker-grid">' +
+      ps.map(c => '<a href="?part=' + esc(c.id) + '" target="_blank" rel="noopener">' + stickerHTML(c) + "</a>").join("") + "</div></div>";
+    $("#stPrint").onclick = () => {
+      const cm = +$("#stSize").value, w = window.open("", "_blank");
+      if (!w) { alert("Please allow pop-ups to print the stickers."); return; }
+      w.document.write('<!doctype html><meta charset="utf-8"><title>QR stickers for my model</title><style>' +
+        "@page{margin:10mm}body{font-family:sans-serif;margin:0}.grid{display:flex;flex-wrap:wrap;gap:4mm}" +
+        ".sticker{width:" + cm + "cm;border:0.3mm dashed #999;padding:1.5mm;text-align:center;page-break-inside:avoid;box-sizing:content-box}" +
+        ".sticker-qr svg{width:100%;height:auto;display:block}.sticker-name{font-size:" + (cm * 2.1).toFixed(1) + "pt;font-weight:bold;line-height:1.15;margin-top:1mm}.sticker-scan{font-size:" + (cm * 1.7).toFixed(1) + "pt;color:#2e7d32}" +
+        "h1{font-size:14pt}p{font-size:9pt;color:#555}</style><h1>QR stickers · " + esc(S.student.name) + " · " + esc(S.project.title) + "</h1><p>Cut along the dashed lines.</p><div class=\"grid\">" +
+        ps.map(stickerHTML).join("") + "</div><script>setTimeout(()=>print(),400)<\/script>");
+      w.document.close();
+    };
   }
 
   // ---------- init ----------

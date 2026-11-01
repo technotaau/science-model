@@ -922,7 +922,7 @@ html.visitor #tab-about { display: none !important; }
 .pr-text.pr-hidden { filter: blur(6px); user-select: none; }
 .pr-judge { background: #fff3e0; color: #3e2723; border: 2px solid #fb8c00; border-radius: 12px; padding: 10px 12px; margin: 8px 0; }
 .pr-qtext { font-size: 1.15rem; font-weight: 700; margin: 4px 0; }
-.pr-mirror { position: relative; max-width: 360px; margin: 0 auto 8px; }
+.pr-mirror { position: relative; max-width: min(360px, 60vw); margin: 0 auto 8px; }
 .pr-mirror video { width: 100%; border-radius: 12px; transform: scaleX(-1); display: block; background: #000; }
 .pr-tip { position: absolute; left: 8px; right: 8px; bottom: 8px; background: rgba(0,0,0,.6); color: #fff; border-radius: 10px; padding: 6px 8px; text-align: center; font-weight: 700; }
 .ex-who { margin: 10px 0; display: flex; flex-wrap: wrap; }

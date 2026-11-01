@@ -911,3 +911,20 @@ html.visitor #tab-about { display: none !important; }
 .hz-val small { font-size: .72rem; }
 .hz-city-name { font-weight: 800; }
 @media (max-width: 420px) { .hz-stop { grid-template-columns: 18px 1fr auto; } .hz-meter { grid-column: 2 / 4; grid-row: 2; } }
+
+/* fair-day practice room */
+.pr-set { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0; }
+.pr-stage { margin-top: 10px; border: 2px solid var(--line); border-radius: 14px; padding: 10px; }
+.pr-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.pr-top b { font-size: 1.4rem; }
+.pr-text { font-size: 1.12rem; line-height: 1.8; margin: 8px 0; }
+.pr-text span { margin-right: .3em; }
+.pr-text.pr-hidden { filter: blur(6px); user-select: none; }
+.pr-judge { background: #fff3e0; color: #3e2723; border: 2px solid #fb8c00; border-radius: 12px; padding: 10px 12px; margin: 8px 0; }
+.pr-qtext { font-size: 1.15rem; font-weight: 700; margin: 4px 0; }
+.pr-mirror { position: relative; max-width: 360px; margin: 0 auto 8px; }
+.pr-mirror video { width: 100%; border-radius: 12px; transform: scaleX(-1); display: block; background: #000; }
+.pr-tip { position: absolute; left: 8px; right: 8px; bottom: 8px; background: rgba(0,0,0,.6); color: #fff; border-radius: 10px; padding: 6px 8px; text-align: center; font-weight: 700; }
+.ex-who { margin: 10px 0; display: flex; flex-wrap: wrap; }
+.ex-time { font-weight: 800; font-size: 1.1rem; }
+#exPart { font: inherit; padding: 6px; border-radius: 8px; max-width: 100%; }

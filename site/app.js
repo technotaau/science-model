@@ -56,6 +56,7 @@
       { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
     { group: "🎯 Practise and play", items: [
       { id: "fun", icon: "🎉", name: "Fun zone", desc: "Your pet, streak, spin wheel, judge game, flash cards and more.", tone: "pink" },
+      { id: "practice", icon: "🏟️", name: "Fair-day practice room", desc: "Speech with crowd noise and surprise judge questions, plus Explain it 3 ways.", tone: "slate" },
       { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "orange" },
       { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "blue" },
       { id: "cert", icon: "🏆", name: "Champion certificate", desc: "Finish 6 goals and download a certificate with your name.", tone: "amber" },
@@ -80,6 +81,7 @@
     if (t !== "walk" && rehearsal) finishRehearsal(false);
     if (t !== "stage" && stageRun) endStageRun(false);
     if (t !== "voice") V.stopMedia();
+    if (t !== "practice" && window.Practice) window.Practice.stop();
     if (t !== "games" && window.Games) window.Games.stop();
     if (t !== "ecodost" && t !== "viva" && t !== "voice") V.stopListening();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
@@ -92,6 +94,7 @@
     if (t === "haze") { renderRoute(); renderAirNow(); }
     if (t === "fun" && window.Fun) window.Fun.render();
     if (t === "3d" && window.Model3D) window.Model3D.start();
+    if (t === "practice" && window.Practice) window.Practice.render();
     if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) window.Extras.render(t);
     if (t === "home" && window.Fun) window.Fun.renderTop();
     if (t === "trip") { tripState.lastStation = null; renderTrip(); }
@@ -1398,6 +1401,7 @@
   if (window.Fun) window.Fun.init({ store, esc });
   if (window.Model3D) window.Model3D.init({ esc, store });
   if (window.Extras) window.Extras.init({ S, store, esc });
+  if (window.Practice) window.Practice.init({ S, store, esc });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

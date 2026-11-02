@@ -88,10 +88,11 @@
       '<h2>🏟️ Noisy hall practice</h2><p>The fair hall will be loud, with hundreds of children and teachers. Practise your speech with crowd sounds playing. Sometimes a pretend judge stops you with a question. Answer it out loud, then carry on from where you stopped.</p>' +
       '<div class="pr-set"><span class="small"><b>🔊 Crowd</b></span><div class="seg" id="prLevel">' + ["Off", "Quiet", "Busy", "Very loud"].map((x, i) => '<button data-l="' + i + '"' + (i === store.get("hallLevel", 2) ? ' class="active"' : "") + ">" + x + "</button>").join("") + "</div></div>" +
       '<div class="pr-set"><span class="small"><b>👩‍⚖️ Judge questions</b></span><div class="seg" id="prJudge">' + ["Never", "Sometimes", "Often"].map((x, i) => '<button data-j="' + i + '"' + (i === store.get("hallJudge", 1) ? ' class="active"' : "") + ">" + x + "</button>").join("") + "</div></div>" +
-      '<label class="small pr-set"><input type="checkbox" id="prCam"> 📷 Show me in a mirror (front camera, nothing is recorded)</label><p class="tiny muted" id="prCamNote"></p>' +
+      '<label class="small pr-set"><input type="checkbox" id="prCam"> 📷 Show me in a mirror (front camera, nothing is recorded)</label>' +
+      '<label class="small pr-set"><input type="checkbox" id="prGuideOn" checked> 🧍 Body language guide: keep your face in the oval and your shoulders on the line</label><p class="tiny muted" id="prCamNote"></p>' +
       '<div class="row-btns"><button class="btn" id="prGo">▶️ Start practice</button><button class="btn ghost" id="prStop" hidden>⏹ Finish</button></div>' +
       '<div class="pr-stage" id="prStage" hidden>' +
-      '<div class="pr-mirror" id="prMirror" hidden><video id="prVideo" playsinline muted></video><div class="pr-tip" id="prTip"></div></div>' +
+      '<div class="pr-mirror" id="prMirror" hidden><video id="prVideo" playsinline muted></video><svg class="pr-guide" id="prGuide" viewBox="0 0 100 75" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="27" rx="11" ry="14"/><path d="M22 75 Q24 50 50 46 Q76 50 78 75"/><line x1="50" y1="3" x2="50" y2="8"/></svg><div class="pr-tip" id="prTip"></div></div>' +
       '<div class="pr-top"><b id="prTime">0:00</b><span class="tiny muted" id="prPart"></span></div>' +
       '<div class="pr-judge" id="prQ" hidden></div>' +
       '<div class="pr-text" id="prText"></div>' +
@@ -100,6 +101,7 @@
     $$("#prLevel button").forEach(b => b.onclick = () => { store.set("hallLevel", +b.dataset.l); $$("#prLevel button").forEach(x => x.classList.toggle("active", x === b)); if (run) { +b.dataset.l ? startCrowd(+b.dataset.l) : stopCrowd(); } });
     $$("#prJudge button").forEach(b => b.onclick = () => { store.set("hallJudge", +b.dataset.j); $$("#prJudge button").forEach(x => x.classList.toggle("active", x === b)); });
     $("#prCam").onchange = () => { if ($("#prCam").checked && run) startCam(); else stopCam(); };
+    $("#prGuideOn").onchange = () => { const g = $("#prGuide"); if (g) g.style.display = $("#prGuideOn").checked ? "" : "none"; };
     $("#prGo").onclick = startRun; $("#prStop").onclick = () => endRun(true);
     $("#prNext").onclick = () => showPart(run.part + 1); $("#prPrev").onclick = () => showPart(Math.max(0, run.part - 1));
     $("#prHide").onchange = () => $("#prText").classList.toggle("pr-hidden", $("#prHide").checked);
@@ -154,7 +156,8 @@
     renderRoom();
     $("#prDone").innerHTML = '<div class="card-lite"><p><b>' + (full ? "🎉 Full speech done in the noisy hall!" : "Good practice!") + "</b></p><p>⏱️ Time: " + Math.floor(secs / 60) + " min " + (secs % 60) + " s" +
       (S.student.targetMinutes ? " (your target is about " + S.student.targetMinutes + " minutes)" : "") + "</p><p>👩‍⚖️ Judge questions: " + r.answered + " answered out of " + r.asked + ".</p>" +
-      '<p class="small">💡 Tip: after a judge question, say <i>"Thank you, Ma\'am. As I was saying…"</i> and carry on calmly.</p></div>';
+      '<p class="small">💡 Tip: after a judge question, say <i>"Thank you, Ma\'am. As I was saying…"</i> and carry on calmly.</p>' +
+      '<p class="small"><b>🧍 Body language check: tick what you did</b></p><ul class="cover small">' + ["Stood straight, feet still", "Looked at the judges, not the floor", "Pointed at each part with an open hand", "Smiled at the start and the end", "Didn't play with hair, clothes or the mic", "Paused and nodded when a judge spoke"].map(x => '<li><label><input type="checkbox"> ' + x + "</label></li>").join("") + "</ul></div>";
   }
 
   // ======================= 🗣️ explain it 3 ways =======================
@@ -250,5 +253,5 @@
 
   function render() { if (!run) renderRoom(); renderExplain(); }
   function stop() { if (run) endRun(false); stopCrowd(); stopCam(); clearInterval(ex.timer); }
-  window.Practice = { init(o) { S = o.S; store = o.store; esc = o.esc; }, render, stop };
+  window.Practice = { init(o) { S = o.S; store = o.store; esc = o.esc; }, render, stop, crowd: startCrowd, quiet: stopCrowd };
 })();

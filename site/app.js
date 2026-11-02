@@ -57,6 +57,11 @@
       { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
     { group: "🎯 Practise and play", items: [
       { id: "fun", icon: "🎉", name: "Fun zone", desc: "Your pet, streak, spin wheel, judge game, flash cards and more.", tone: "pink" },
+      { id: "mock", icon: "🧑‍⚖️", name: "Mock judge day", desc: "A full pretend judging: introduction, speech, 5 questions, score out of 40.", tone: "purple" },
+      { id: "rapid", icon: "⚡", name: "Rapid fire", desc: "60 seconds of quick questions. How many can you get?", tone: "amber" },
+      { id: "whatif", icon: "🤔", name: "What if…?", desc: "Tricky thinking questions that smart judges ask.", tone: "teal" },
+      { id: "weak", icon: "🩹", name: "My weak spots", desc: "Every question you found hard, in one place to practise.", tone: "orange" },
+      { id: "family", icon: "👨‍👩‍👧", name: "Teach my family", desc: "Teach a part at home and let your family score you.", tone: "green" },
       { id: "practice", icon: "🏟️", name: "Fair-day practice room", desc: "Speech with crowd noise and surprise judge questions, plus Explain it 3 ways.", tone: "slate" },
       { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "orange" },
       { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "blue" },
@@ -84,7 +89,7 @@
     if (t !== "walk" && rehearsal) finishRehearsal(false);
     if (t !== "stage" && stageRun) endStageRun(false);
     if (t !== "voice") V.stopMedia();
-    if (t !== "practice" && window.Practice) window.Practice.stop();
+    if (t !== "practice" && t !== "mock" && window.Practice) window.Practice.stop();
     if (t !== "games" && window.Games) window.Games.stop();
     if (t !== "ecodost" && t !== "viva" && t !== "voice") V.stopListening();
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
@@ -98,6 +103,7 @@
     if (t === "fun" && window.Fun) window.Fun.render();
     if (t === "3d" && window.Model3D) window.Model3D.start();
     if (t === "practice" && window.Practice) window.Practice.render();
+    if (window.Coach2) window.Coach2.render(t);
     if (t === "part") renderPart(partView);
     if (t === "stickers") renderStickers();
     if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) window.Extras.render(t);
@@ -1452,6 +1458,7 @@
   if (window.Model3D) window.Model3D.init({ esc, store });
   if (window.Extras) window.Extras.init({ S, store, esc });
   if (window.Practice) window.Practice.init({ S, store, esc });
+  if (window.Coach2) window.Coach2.init({ S, store, esc });
   renderProject();
   renderMap();
   const firstTodo = S.presentation.findIndex(p => !stepDone(p));

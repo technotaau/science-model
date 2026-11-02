@@ -940,3 +940,20 @@ html.visitor.partview section.tab#tab-part { display: block !important; }
 .sticker-name { font-weight: 800; font-size: .85rem; line-height: 1.2; margin-top: 4px; }
 .sticker-scan { font-size: .75rem; color: #2e7d32; }
 #stSize { font: inherit; padding: 4px; border-radius: 8px; }
+
+/* more practice */
+.pr-guide { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: rgba(255,255,255,.85); stroke-width: .8; stroke-dasharray: 2 1.5; pointer-events: none; }
+.rf-top { display: flex; justify-content: space-between; font-size: 1.2rem; }
+.rf-q { font-size: 1.2rem; font-weight: 700; margin: 10px 0; }
+.rf-ans { font-size: 1.15rem; color: var(--ok-ink, #1b5e20); font-weight: 800; }
+.btn.big { font-size: 1.1rem; padding: 12px 22px; }
+.wi-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.weak-item { border-top: 1px solid var(--line); padding: 8px 0; }
+.weak-item summary { cursor: pointer; }
+.mj-mark { display: grid; gap: 2px; margin: 8px 0; }
+.mj-mark input { width: 100%; }
+.tf-who { display: grid; gap: 4px; margin: 8px 0; }
+#tfWho, #tfLearn { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); width: 100%; box-sizing: border-box; }
+#tfPart { font: inherit; padding: 6px; border-radius: 8px; max-width: 100%; }
+.tf-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px; margin: 6px 0; }
+.tf-stars button { font-size: 1.5rem; background: none; border: 0; cursor: pointer; padding: 0 2px; }

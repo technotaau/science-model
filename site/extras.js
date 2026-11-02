@@ -82,7 +82,7 @@
     $("#numPlay").innerHTML = '<p class="tiny muted">Question ' + (g.i + 1) + " of " + g.qs.length + " · ✅ " + g.right + '</p><p class="num-q">' + esc(x.q).replace("____", "<b>____</b>") + '</p><div class="num-opts">' +
       opts.map(o => '<button class="btn ghost num-o" data-o="' + esc(o) + '">' + esc(o) + "</button>").join("") + '</div><p id="numWhy" class="small"></p>';
     $$(".num-o").forEach(b => b.onclick = () => {
-      const ok = b.dataset.o === x.a; if (ok) g.right++;
+      const ok = b.dataset.o === x.a; if (ok) g.right++; else if (window.Weak) Weak.add("Numbers master", x.q.replace("____", "…"), x.a + ". " + x.why);
       if (window.Fun && Fun.sound) Fun.sound(ok ? "ok" : "bad");
       $$(".num-o").forEach(c => { c.disabled = true; if (c.dataset.o === x.a) c.classList.add("num-right"); else if (c === b) c.classList.add("num-wrong"); });
       $("#numWhy").innerHTML = (ok ? "✅ Right! " : "❌ It is <b>" + esc(x.a) + "</b>. ") + esc(x.why) + ' <button class="btn small" id="numNext">' + (g.i + 1 < g.qs.length ? "Next →" : "See score") + "</button>";

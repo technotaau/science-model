@@ -111,42 +111,45 @@
     cam.position.set(...VIEWS.judge[0]); ctl.target.set(...VIEWS.judge[1]); ctl.update();
     document.querySelectorAll("[data-msview]").forEach(b => b.onclick = () => view(b.dataset.msview));
 
-    // ---- talking: real recording or computer voice ----
-    let talking = 0, run = null, analyser = null, level = 0;
-    const sub = $("#msSub");
+    // ---- talking: her real recording, or the full speech in her AI voice (computer voice if that file is missing) ----
+    let talking = 0, run = null, analyser = null, level = 0, clip = null;
+    const sub = $("#msSub"), audio = $("#msAudio");
+    const AI = window.AVNI_AI || null;
+    const LABEL = { msRec: "▶ Avni's real voice", msTts: AI ? "▶ Full speech in Avni's voice (AI)" : "▶ Full speech (computer voice)" };
+    function resetButtons() { Object.keys(LABEL).forEach(id => { const b = $("#" + id); if (b) b.textContent = LABEL[id]; }); }
     function stopAll() {
       if (run) { run.stop = true; run = null; }
-      const a = $("#msAudio"); if (a && !a.paused) a.pause();
+      if (audio && !audio.paused) audio.pause();
       if (window.Voice) Voice.stopSpeaking();
-      talking = 0; pointAt(null); sub.textContent = "";
-      $("#msRec").textContent = "▶ Avni's real voice"; $("#msTts").textContent = "▶ Full speech (computer voice)";
+      talking = 0; clip = null; pointAt(null); sub.textContent = ""; resetButtons();
     }
-    // 1. her real recording, with subtitles and pointing from the timed transcript
-    $("#msRec").onclick = () => {
-      if (!REC) return;
-      const a = $("#msAudio");
-      if (!a.paused) { stopAll(); return; }
+    function playClip(c, btn, card, camView) {
+      if (clip === c && !audio.paused) { stopAll(); return; }
       stopAll();
       try {
-        if (!analyser) { const ac = new (window.AudioContext || window.webkitAudioContext)(); const src = ac.createMediaElementSource(a); analyser = ac.createAnalyser(); analyser.fftSize = 512; src.connect(analyser); analyser.connect(ac.destination); analyser.ac = ac; }
+        if (!analyser) { const ac = new (window.AudioContext || window.webkitAudioContext)(); const src = ac.createMediaElementSource(audio); analyser = ac.createAnalyser(); analyser.fftSize = 512; src.connect(analyser); analyser.connect(ac.destination); analyser.ac = ac; }
         if (analyser.ac.state === "suspended") analyser.ac.resume();
       } catch (e) { /* lip movement falls back to a simple wiggle */ }
-      a.currentTime = 0; a.play().catch(() => {}); talking = 1; view("close");
-      $("#msRec").textContent = "⏹ Stop";
-      info.innerHTML = '<div class="m3d-card"><b>🎙️ Avni\'s real voice</b><p class="small">Recorded at her stall in Malerkotla on 10 October 2026, where she won first prize. Watch where she points and read along.</p></div>';
-    };
-    const audio = $("#msAudio");
-    if (audio) {
-      audio.ontimeupdate = () => {
-        if (!REC || !talking || run) return;
-        const t = audio.currentTime, seg = REC.segments.find(s => t >= s.start && t < s.end);
-        sub.textContent = seg ? seg.text : "";
-        pointAt(seg && seg.part ? seg.part : null);
-      };
-      audio.onended = () => { talking = 0; pointAt(null); sub.textContent = ""; $("#msRec").textContent = "▶ Avni's real voice"; view("judge"); };
+      if (audio.getAttribute("src") !== c.src) audio.src = c.src;
+      clip = c; audio.currentTime = 0; audio.play().catch(() => {}); talking = 1; view(camView);
+      $("#" + btn).textContent = "⏹ Stop"; info.innerHTML = card;
     }
-    // 2. the full stage speech, computer voice, part by part
+    audio.ontimeupdate = () => {
+      if (!clip || !talking) return;
+      const t = audio.currentTime, seg = clip.segments.find(s => t >= s.start && t < s.end);
+      sub.textContent = seg ? seg.text : "";
+      pointAt(seg && seg.part ? seg.part : null);
+      if (seg && seg.section && info.dataset.sec !== seg.section) { info.dataset.sec = seg.section; const h = info.querySelector(".ms-sec"); if (h) h.textContent = seg.section; }
+    };
+    audio.onended = () => { talking = 0; clip = null; pointAt(null); sub.textContent = ""; resetButtons(); view("judge"); };
+    // 1. her real recording (Malerkotla)
+    $("#msRec").onclick = () => { if (REC) playClip(REC, "msRec", '<div class="m3d-card"><b>🎙️ Avni\'s real voice</b><p class="small">Recorded at her stall in Malerkotla on 10 October 2026, where she won first prize. Watch where she points and read along.</p></div>', "close"); };
+    // 2. the full stage speech in her AI voice
     $("#msTts").onclick = async () => {
+      if (AI) {
+        playClip(AI, "msTts", '<div class="m3d-card"><b>🤖 Full speech in Avni\'s voice (AI)</b> · <span class="ms-sec small"></span><p class="small">An AI voice made from Avni\'s own recording, with her family\'s permission, for practice. It is <b>not</b> a real recording of Avni. Pace: about ' + AI.wpm + ' words a minute — her target speed. <span class="tiny muted">Voice: XTTS-v2, <a href="https://huggingface.co/coqui/XTTS-v2/blob/main/LICENSE.txt" target="_blank" rel="noopener">Coqui Public Model License</a> (non-commercial).</span></p></div>', "judge");
+        return;
+      }
       if (run) { stopAll(); return; }
       stopAll(); if (!window.Voice) return;
       const me = run = { stop: false }; $("#msTts").textContent = "⏹ Stop"; view("judge");
@@ -162,8 +165,9 @@
           await Voice.speak(chunks[i]);
         }
       }
-      if (run === me) { run = null; talking = 0; pointAt(null); sub.textContent = ""; $("#msTts").textContent = "▶ Full speech (computer voice)"; }
+      if (run === me) { run = null; talking = 0; pointAt(null); sub.textContent = ""; resetButtons(); }
     };
+    resetButtons();
 
     // ---- animation ----
     const buf = new Uint8Array(256);
@@ -175,7 +179,7 @@
       if ($("#tab-mockstage").hidden) { if (talking) stopAll(); return; }
       D.blades.rotation.z += 0.03; D.turbine.rotation.y += 0.06;
       // mouth: real loudness when her recording plays, a gentle wiggle for the computer voice
-      if (talking === 1 && analyser) { analyser.getByteTimeDomainData(buf); let m = 0; for (let i = 0; i < buf.length; i++) m = Math.max(m, Math.abs(buf[i] - 128)); level += ((m / 50) - level) * 0.4; }
+      if (talking === 1 && analyser && clip) { analyser.getByteTimeDomainData(buf); let m = 0; for (let i = 0; i < buf.length; i++) m = Math.max(m, Math.abs(buf[i] - 128)); level += ((m / 50) - level) * 0.4; }
       else level += ((talking ? 0.5 + 0.5 * Math.sin(now / 70) : 0) - level) * 0.3;
       mouth.scale.y = 0.35 + Math.min(1.2, level) * 0.9;
       // body: breathe; turn to the part (or to the judges) and lift the pointer

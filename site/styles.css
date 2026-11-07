@@ -1000,3 +1000,39 @@ h1 .ic, h2 .ic, h3 .ic { color: var(--brand); vertical-align: -.15em; }
 
 .report-img, #mapImg { height: auto; }
 .home-pet-link { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+
+/* ================= QC fixes (7 Nov 2026) ================= */
+/* long links and words never push the page sideways */
+main { overflow-wrap: break-word; }
+.hz-health p, .sources a, .tiny a { overflow-wrap: anywhere; }
+/* cards scrolled into view stay below the sticky header (and above the phone menu bar) */
+html { scroll-padding-top: 84px; }
+@media (min-width: 761px) and (max-width: 980px) { html { scroll-padding-top: 110px; } }
+@media (max-width: 760px) { html { scroll-padding-bottom: 88px; } }
+/* toasts sit above the phone menu bar */
+@media (max-width: 760px) { .ed-toast { bottom: 96px; } }
+/* readable placeholders in both themes */
+::placeholder { color: var(--muted); opacity: 1; }
+/* answered quiz buttons stay readable: the right/wrong answer is what the child must read */
+.num-o:disabled, .gm-opt:disabled:not(.gone) { opacity: 1; }
+/* bigger tap areas on phones */
+@media (max-width: 760px) {
+  label:has(> input[type=checkbox]), label:has(> input[type=radio]) { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
+  input[type=range] { min-height: 44px; }
+  details > summary { min-height: 44px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .dl-area a, .sec a, #askList li > a { display: inline-block; padding: 8px 0; }
+  .hz-bar { min-width: 12px; }
+}
+/* model photo: smaller dots on phones so neighbouring parts don't overlap */
+@media (max-width: 480px) {
+  .hot { width: 24px; height: 24px; border-width: 2px; font-size: .72rem; }
+  .hot::before { inset: -4px; }
+  .hot.ask::after { top: -7px; right: -7px; width: 12px; height: 12px; font-size: .55rem; }
+  .hot.active { transform: translate(-50%, -50%) scale(1.15); }
+}
+/* tablet: keep the header on one line */
+@media (min-width: 761px) and (max-width: 980px) {
+  .brand-sub { display: none; }
+  .tabs a { padding: 8px 8px; font-size: .9rem; }
+  .brand-title { font-size: 1.05rem; }
+}

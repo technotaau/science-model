@@ -81,6 +81,22 @@
   // ?part=<id> (from a QR sticker on the model) shows only that part
   const partView = new URLSearchParams(location.search).get("part");
   const visitor = new URLSearchParams(location.search).has("visitor") || !!partView;
+  // load a script once, when a page first needs it
+  const loading = {};
+  function need(src) {
+    if (!loading[src]) loading[src] = new Promise((ok, no) => {
+      const el = document.createElement("script"); el.src = src;
+      el.onload = ok; el.onerror = () => { delete loading[src]; el.remove(); no(new Error(src)); };
+      document.body.appendChild(el);
+    });
+    return loading[src];
+  }
+  let ecoReady = null;
+  function needEcoDost() {
+    if (!ecoReady) ecoReady = need("ecodost-data.js").then(() => { if (window.EcoDost && window.EcoDost.init) window.EcoDost.init({ store, esc }); })
+      .catch(e => { ecoReady = null; throw e; });
+    return ecoReady;
+  }
   function route() {
     const [tab, sub] = (location.hash.slice(1) || "home").split("/");
     const t = partView ? "part" : visitor ? "project" : tabs.includes(tab) ? tab : "home";
@@ -100,13 +116,17 @@
     if (t === "home") renderProgress();
     if (t === "project") renderProjectProgress();
     if (t === "haze") { renderRoute(); renderAirNow(); }
-    if (t === "fun" && window.Fun) window.Fun.render();
+    if (t === "fun" && window.Fun) { window.Fun.render(); needEcoDost().then(() => { if (!$("#tab-fun").hidden) window.Fun.render(); }).catch(() => {}); }
+    if (t === "ecodost") needEcoDost().catch(() => { const b = $("#tab-ecodost"); if (b && !b.querySelector(".ed-offline")) b.insertAdjacentHTML("afterbegin", '<p class="card ed-offline">Could not load Eco-Dost. Check the internet and open this page again.</p>'); });
     if (t === "3d" && window.Model3D) window.Model3D.start();
     if (t === "practice" && window.Practice) window.Practice.render();
     if (window.Coach2) window.Coach2.render(t);
     if (t === "part") renderPart(partView);
-    if (t === "stickers") renderStickers();
-    if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) window.Extras.render(t);
+    if (t === "stickers") need("qr-parts.js").then(() => { if (!$("#tab-stickers").hidden) renderStickers(); }).catch(() => {});
+    if (window.Extras && ["hindi", "numbers", "wastediary", "diary", "cert"].includes(t)) {
+      if (t === "hindi" || t === "cert") need("hindi.js").then(() => { if (!$("#tab-" + t).hidden) window.Extras.render(t); }).catch(() => window.Extras.render(t));
+      else window.Extras.render(t);
+    }
     if (t === "home" && window.Fun) window.Fun.renderTop();
     if (t === "trip") { tripState.lastStation = null; renderTrip(); }
     if (t === "model" && sub) $("#compDetail").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1452,7 +1472,9 @@
   renderAbout();
   renderTrip();
   renderThoughts();
-  if (window.EcoDost) window.EcoDost.init({ store, esc });
+  // Big files load only when a page needs them, so Home opens fast on a slow phone connection.
+  // Until Eco-Dost's 400 KB of answers arrive, stars won elsewhere are saved straight to the same place.
+  if (window.EcoDost && !window.EcoDost.award) window.EcoDost.award = n => { const e = store.get("ecodost", {}); e.points = (e.points || 0) + n; store.set("ecodost", e); };
   if (window.Games) window.Games.init({ store, esc });
   if (window.Fun) window.Fun.init({ store, esc });
   if (window.Model3D) window.Model3D.init({ esc, store });

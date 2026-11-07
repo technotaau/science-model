@@ -9,7 +9,8 @@
   <meta name="theme-color" content="#1f6f50">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="styles.css">
   <script>
     if (new URLSearchParams(location.search).has("visitor")) document.documentElement.classList.add("visitor");
@@ -372,7 +373,7 @@
 
         <section class="card model-card">
           <h2>🗺️ My model</h2>
-          <img src="media/model.webp" width="1400" height="700" decoding="async" alt="Pictorial photo of the Clean India model" class="report-img">
+          <img src="media/model.webp" width="1400" height="700" decoding="async" alt="Pictorial photo of the Clean India model" class="report-img" loading="lazy">
           <p class="tiny muted">Pictorial photo. All parts are on one green wooden base: Smart City on the left, Centre in the middle, Smart Village on the right, and demonstrations at the front.</p>
           <div id="rpParts"></div>
         </section>
@@ -424,7 +425,7 @@
 
       <div class="map-wrap">
         <div class="map" id="map">
-          <img src="media/model.webp" width="1400" height="700" decoding="async" alt="Pictorial photo of the Clean India model on a green base" id="mapImg">
+          <img src="media/model.webp" width="1400" height="700" decoding="async" alt="Pictorial photo of the Clean India model on a green base" id="mapImg" loading="lazy">
         </div>
         <p class="tiny muted">The photo is pictorial, so your real model may look slightly different.</p>
       </div>
@@ -609,19 +610,16 @@
 
   <footer class="foot" id="foot">Built by the TechnoTaau Team for Avni's science fair</footer>
 
-  <script src="icons.js"></script>
-  <script src="content.js"></script>
-  <script src="ecodost-data.js"></script>
-  <script src="ecodost.js"></script>
-  <script src="voice.js"></script>
-  <script src="games.js"></script>
-  <script src="fun.js"></script>
-  <script src="model3d.js"></script>
-  <script src="hindi.js"></script>
-  <script src="extras.js"></script>
-  <script src="practice.js"></script>
-  <script src="qr-parts.js"></script>
-  <script src="coach2.js"></script>
-  <script src="app.js"></script>
+  <script src="icons.js" defer></script>
+  <script src="content.js" defer></script>
+  <script src="ecodost.js" defer></script>
+  <script src="voice.js" defer></script>
+  <script src="games.js" defer></script>
+  <script src="fun.js" defer></script>
+  <script src="model3d.js" defer></script>
+  <script src="extras.js" defer></script>
+  <script src="practice.js" defer></script>
+  <script src="coach2.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

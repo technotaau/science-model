@@ -31,7 +31,7 @@
         points: [
           { t: "On 29 April 2025, CM Yogi Adityanath inaugurated a Garbage Transfer Station (GTS) at Chargawan, Gorakhpur, and watched a live demonstration.", src: "Video captions; Amar Ujala, Patrika" },
           { t: "It cost ₹9.89 crore and can handle 200 tonnes of waste a day. It was built by Gorakhpur Nagar Nigam under the National Clean Air Programme, and it is fully mechanised.", src: "Video captions; news reports; Nagar Nigam" },
-          { t: "What a transfer station does: small door-to-door vehicles bring the city's waste here. It is pressed (compacted) and loaded into big closed containers, which carry it in bulk, covered, to the processing plant. At Chargawan, wet and dry waste are compacted separately.", src: "SWM Rules 2016 definition; Newstrack (one source for wet/dry)" },
+          { t: "What a transfer station does: small door-to-door vehicles bring the city's waste here. It is pressed (compacted) and loaded into big closed containers, which carry it in bulk, covered, to the processing plant. At Chargawan, wet and dry waste are compacted separately.", src: "Solid Waste Management Rules (2026, earlier 2016) definition; Newstrack (one source for wet/dry)" },
           { t: "Why it helps: fewer open garbage heaps on roads, fewer trips by small vehicles, and covered transport — so less smell, flies and mosquitoes.", src: "How transfer stations work" },
           { t: "The CM said the Chargawan station is for door-to-door waste collection from 20 wards in the north of Gorakhpur. A second one, at Lal Diggi, was being built then; now both stations (200 tonnes a day each) are working.", src: "Video (CM's speech); Nagar Nigam; report to the National Green Tribunal, 2026" },
           { t: "The CM explained the chain: when people throw garbage on roads and into drains, the drains block, dirty water collects, mosquitoes breed — and mosquitoes spread diseases like encephalitis, malaria and dengue. Gorakhpur was once known for dirt, mosquitoes and disease; now people get a clean, beautiful environment.", src: "Video (CM's speech); news reports" },
@@ -45,10 +45,10 @@
     ],
     context: [
       { t: "India's net-zero year is 2070. The Prime Minister announced it at the COP26 climate summit in Glasgow, UK, on 1 November 2021. Net zero means a country adds no more greenhouse gases to the air than it removes.", src: "PIB" },
-      { t: "Since May 2026 Gorakhpur's Municipal Commissioner is Ajay Jain. (Gaurav Singh Sogarwal, seen in video 1, moved to Maharajganj as District Magistrate.) The Mayor is still Dr. Mangalesh Srivastava.", src: "News reports, May 2026" },
+      { t: "The Municipal Commissioner in video 1 was Gaurav Singh Sogarwal; officers change posts often, so don't name today's Commissioner unless an adult checks it. The Mayor is Dr. Mangalesh Srivastava.", src: "Video; news reports" },
       { t: "Later, on 23 April 2026, CM Yogi opened an Eco Park built where 2.26 lakh tonnes of old waste had been scientifically removed, and launched the Swachh School Abhiyan for over 1 lakh children, to make Gorakhpur a seven-star garbage-free city.", src: "PTI (ThePrint), 23 Apr 2026" },
       { t: "The charcoal plant being built with NTPC at Suthani (500 tonnes a day) was delayed by technical problems in 2026. Say it is being set up, not that it is working.", src: "ETV Bharat, 12 Jun 2026" },
-      { t: "Swachh Survekshan 2025-26 results are expected in November 2026. If Gorakhpur wins something, this page will be updated.", src: "Our note, 7 Nov 2026" }
+      { t: "Swachh Survekshan 2025-26 results are expected in November 2026 (reported for 11 Nov, not yet official). Until they are announced, always say “in Swachh Survekshan 2024-25” for any rank or award.", src: "Our note, 7 Nov 2026" }
     ],
     model: [
       "My five dustbins show segregation at source. Gorakhpur's transfer station even compacts wet and dry waste separately — it only works if people separate first.",
@@ -91,7 +91,6 @@
       ["Cost of the Chargawan transfer station?", "₹9.89 crore"],
       ["India's net-zero target year?", "2070"],
       ["Where does dry waste get sorted for recycling?", "MRF (Material Recovery Facility)"],
-      ["How many wards does the Chargawan transfer station serve?", "20 wards (north Gorakhpur)"],
       ["Three diseases spread by mosquitoes?", "Encephalitis, malaria, dengue"]
     ]
   };

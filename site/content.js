@@ -1102,7 +1102,7 @@ window.SITE = {
   /* ---------------- THINGS TO CONFIRM WITH RAJNISH MA'AM ----------------
      Until these are confirmed, the website shows them as “Ask Ma'am”. */
   confirmList: [
-    { id: "phase2years", q: "The Phase 2 board on my model says “2020–2047”. Swachh Bharat Mission Phase 2 started in 2020-21 in villages (2021 in cities, as SBM-Urban 2.0) and was planned for about five years; 2047 is the “Viksit Bharat” goal. Should I change the board, or explain it as “Phase 2 started in 2020, and our dream is a clean, developed India by 2047”?" },
+    { id: "phase2years", q: "The Phase 2 board on my model says “2020–2047”. Swachh Bharat Mission Phase 2 started in 2020-21 in villages (2021 in cities, as SBM-Urban 2.0) news in November 2026 reports that the village phase has been extended to March 2028; 2047 is the “Viksit Bharat” goal. Should I change the board, or explain it as “Phase 2 started in 2020, and our dream is a clean, developed India by 2047”?" },
     { id: "redesign", q: "One 7R cloud on my model says “Redesign”, but my project file lists “Repurpose”. Which word should I use when I explain the 7Rs?" },
     { id: "qrstickers", q: "May I stick small QR code stickers next to the parts of my model at the fair (see 🏷️ QR stickers)?" },
     { id: "bins", q: "Does our model follow Chandigarh's bin system (BLACK = domestic hazardous waste, RED = sanitary waste)? And what does the YELLOW bin stand for — biomedical waste? Where do expired medicines go — black or red?" },

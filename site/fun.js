@@ -154,7 +154,7 @@
   }
 
   // ---------- 🗓️ countdown calendar ----------
-  const CAL_TASKS = ["Explain your biogas plant in 3 sentences", "Say “What is e-waste?” in your own words", "Play one Bin Sorter round", "Name two UP schemes", "Say your opening line to a mirror", "Explain the 7Rs on your fingers", "Answer one 🏅 real judge question", "Say one Hindi line from Thoughts", "Explain your water filter layers", "Tell Mummy one Delhi or UP fact", "Practise your closing line with a smile", "Explain why haze comes in winter", "Play Model Memory once", "Explain your hydrogen train", "Ask Eco-Dost a new question"];
+  const CAL_TASKS = ["Explain your biogas plant in 3 sentences", "Say “What is e-waste?” in your own words", "Play one Bin Sorter round", "Name two UP schemes", "Say your opening line to a mirror", "Explain the 7Rs on your fingers", "Answer one 🏅 real judge question", "Say one Hindi line from Thoughts", "Explain your water filter layers", "Tell Mummy one UP or Gorakhpur fact", "Practise your closing line with a smile", "Explain why haze comes in winter", "Play Model Memory once", "Explain your hydrogen train", "Ask Eco-Dost a new question"];
   function calHTML() {
     const ev = S().student.nextEvent, start = ev ? (ev.travel || ev.start) : "2026-11-25";  // count down to travel day
     const first = "2026-11-01", t = today(), n = dayDiff(first, start);

@@ -19,7 +19,7 @@
           { t: "More than 500 people took part: students of DDU Gorakhpur University, social organisations, corporators and the Nagar Nigam team.", src: "Video; PIB says 500+" },
           { t: "In a few hours Ram Ghat was made garbage-free. About 170 kg of single-use plastic and other waste was collected and sent to the MRF (Material Recovery Facility) for scientific disposal and recycling.", src: "Video; PIB says 170 kg" },
           { t: "The Mayor started 'Paint My Ghat' (पेंट माई घाट): fine-arts students paint the ghats so they look beautiful, with messages like “मेरा घाट, मेरी जिम्मेदारी”.", src: "Video; PIB" },
-          { t: "Why ghats? This year the survey also checks river towns: assessors visit the ghats and give marks for daily sweeping, twin litter bins, no garbage dumps nearby — and even paintings at the ghat.", src: "Swachh Survekshan 2025-26 toolkit (MoHUA)" },
+          { t: "Why ghats? In Swachh Survekshan 2025-26, the survey also checks river towns: assessors visit the ghats and give marks for daily sweeping, twin litter bins, no garbage dumps nearby — and even paintings at the ghat.", src: "Swachh Survekshan 2025-26 toolkit (MoHUA)" },
           { t: "The Commissioner said Gorakhpur's target is first place in the country among river towns, and that such drives will be held every Sunday with the public. This was his target, not a result.", src: "Video" }
         ]
       },

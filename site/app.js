@@ -63,7 +63,7 @@
       { id: "whatif", icon: "🤔", name: "What if…?", desc: "Tricky thinking questions that smart judges ask.", tone: "purple" },
       { id: "weak", icon: "🩹", name: "My weak spots", desc: "Every question you found hard, in one place to practise.", tone: "purple" },
       { id: "family", icon: "👨‍👩‍👧", name: "Teach my family", desc: "Teach a part at home and let your family score you.", tone: "purple" },
-      { id: "mockstage", icon: "🎭", name: "Gorakhpur mock stage", desc: "Virtual Avni presents your model to the judges, with your real voice.", tone: "purple" },
+      { id: "mockstage", icon: "🎭", name: "Gorakhpur mock stage", desc: "Virtual Avni presents your model to the judges, with your real Malerkotla clip and an AI copy of your voice.", tone: "purple" },
       { id: "practice", icon: "🏟️", name: "Fair-day practice room", desc: "Speech with crowd noise and surprise judge questions, plus Explain it 3 ways.", tone: "purple" },
       { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "purple" },
       { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "purple" },
@@ -545,7 +545,7 @@
       '<div id="judgeStatus"></div>' +
       (judgeOn ? "" : '<div class="viva-row">' + speakBtn("vivaSpeak", "🔊 Hear the question") +
       (V.canListen ? '<button class="btn small act mic" id="vivaMic">🎤 Answer by speaking</button>' : "") + "</div>") +
-      '<textarea id="vivaAns" rows="4" placeholder="Answer in your own words first — type it, or press 🎤 and speak."></textarea>' +
+      '<textarea id="vivaAns" rows="4" placeholder="Answer in your own words first — type it, or press the microphone button and speak."></textarea>' +
       '<div class="viva-row"><button class="btn" id="vivaCheck">Check my answer</button></div>' +
       '<div id="vivaResult"></div>';
     if ($("#vivaSpeak")) $("#vivaSpeak").onclick = () => { V.stopSpeaking(); V.speak(q.q); };
@@ -1145,7 +1145,7 @@
     $("#aboutBody").innerHTML = h;
   }
 
-  // ---------- 🏙️ Delhi updates ----------
+  // ---------- 🏙️ UP & Gorakhpur updates (data in S.delhi) ----------
   const dlState = { lang: "both", area: "all" };
   function dlCard(d) {
     const known = !!store.get("delhiKnown", {})[d.id];
@@ -1189,7 +1189,7 @@
       return;
     }
     $("#dlIntro").textContent = D.intro || "";
-    $("#dlChecked").textContent = D.checked ? "Facts checked on " + D.checked + ". News changes fast — look again on 23 October before you travel." : "";
+    $("#dlChecked").textContent = D.checked ? "Facts checked on " + D.checked + ". News changes fast — look again on 23 November before you travel." : "";
     if (D.opener) {
       $("#dlOpener").hidden = false;
       $("#dlOpener").innerHTML = '<b>🎤 A line to open with in Gorakhpur</b><p class="dl-say">' + esc(D.opener) + "</p>" +

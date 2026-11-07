@@ -734,7 +734,7 @@ window.SITE = {
 
   /* ---------------- 🎤 STAGE PRESENTATION ----------------
      The speech is built from Avni's own project file and her practised opening.
-     versions: "full" (about 5–6 min), "medium" (about 3 min). The 1-minute version is "short".
+     versions: "full" (about 5 min), "medium" (about 3 min). The 1-minute version is "short".
      Avni: change any line into your own words — just keep the facts. */
   stage: {
     date: "2026-11-27",

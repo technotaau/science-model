@@ -1,8 +1,8 @@
 /* Offline support: keeps a copy of the website on the phone so it works on the train without internet.
    Network first (so updates arrive when online), saved copy when offline or very slow. */
-const CACHE = "coach-v5";
+const CACHE = "coach-v6";
 const CORE = ["./", "index.html", "styles.css", "content.js", "ecodost-data.js", "ecodost.js", "voice.js", "games.js", "fun.js",
-  "model3d.js", "hindi.js", "extras.js", "practice.js", "qr-parts.js", "coach2.js", "app.js", "model.jpg", "qr.svg", "media/real-model.webp", "media/model-tour.jpg"];
+  "icons.js", "model3d.js", "hindi.js", "extras.js", "practice.js", "qr-parts.js", "coach2.js", "app.js", "media/model.webp", "qr.svg", "media/real-model.webp", "media/model-tour.jpg"];
 const EXTRA = ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
   "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"];
 self.addEventListener("install", e => {

@@ -15,7 +15,7 @@
     h2: { name: "⛽ Hydrogen station", text: "Fills hydrogen for clean vehicles. A fuel cell joins hydrogen with oxygen to make electricity; the main by-products are water vapour and heat." },
     train: { name: "🚆 Hydrogen train", text: "Like India's first hydrogen train on the Jind–Sonipat route in Haryana (July 2026): mainly water vapour comes out, not diesel smoke.", comp: "train" },
     bus: { name: "🚌 Electric buses", text: "One electric bus carries many people with no tailpipe smoke.", comp: "bus" },
-    wte: { name: "💡 Waste to energy plant", text: "Conveyor belt → combustion chamber → turbine → electricity storage. Only for waste that cannot be recycled, in plants with pollution control — never open burning.", comp: "wte" },
+    wte: { name: "💡 Waste to energy plant", text: "Conveyor belt → combustion chamber (the heat makes steam) → the steam turns a turbine → a generator makes electricity, which can be stored or sent to the grid. Only for waste that cannot be recycled, in plants with pollution control — never open burning.", comp: "wte" },
     map: { name: "🇮🇳 Reducing carbon emission", text: "India's journey to cut pollution: clean energy, clean transport and less waste.", comp: "india" },
     rain: { name: "🌧️ Rain garden", text: "A garden that soaks up rainwater, so less dirty water runs off into drains." },
     mountain: { name: "🏔️ Mountain and river", text: "Clean rivers start in the mountains. Keeping waste out of rivers keeps the water clean for everyone." },
@@ -27,7 +27,7 @@
     factory: { name: "🏭 Industry", text: "Factories must treat their dirty water before it reaches rivers.", comp: "factory" },
     wwt: { name: "🌊 Waste water treatment", text: "Dirty water is cleaned before it is reused or sent to a river.", comp: "factory" },
     swachh: { name: "🧹 Swachh Bharat", text: "Swachh Bharat Mission was launched on 2 October 2014: toilets for all and clean surroundings." },
-    boards: { name: "📋 Phase 1 and Phase 2 boards", text: "The goals of the Clean India Mission: toilets and an open-defecation-free India, then keeping it clean and managing all solid waste." }
+    boards: { name: "📋 Phase 1 and Phase 2 boards", text: "The goals of the Clean India Mission: Phase 1, toilets and an open-defecation-free India; Phase 2, staying ODF and managing solid and liquid waste (ODF Plus)." }
   };
 
   function start() {

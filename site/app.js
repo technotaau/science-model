@@ -38,41 +38,41 @@
   const zoneName = { city: "Smart City", centre: "Centre / Park", village: "Smart Village", front: "Front demonstrations" };
 
   // ---------- router ----------
-  // Every page, grouped as they appear on the Home menu. tone = the page's soft colour.
+  // Every page, grouped as they appear on the Home menu. tone = the colour of its group (one calm colour per group).
   const SECTIONS = [
     { group: "🚀 Get ready for Gorakhpur", items: [
       { id: "stage", icon: "🎤", name: "Stage talk", desc: "Practise your speech, one part at a time.", tone: "blue" },
-      { id: "delhi", icon: "🏙️", name: "UP & Gorakhpur updates", desc: "Clean India schemes and news from Uttar Pradesh.", tone: "orange" },
-      { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air in Gorakhpur, Lucknow and Chandigarh, health tips and how your model helps.", tone: "slate" },
-      { id: "about", icon: "🏫", name: "About the fair", desc: "Vidya Bharati, the Vigyan Mela levels, past fairs and Gorakhpur.", tone: "teal" },
-      { id: "diary", icon: "📔", name: "Trip diary", desc: "A photo and a few lines each day: your Gorakhpur memory book.", tone: "pink" },
-      { id: "stickers", icon: "🏷️", name: "QR stickers for my model", desc: "Print small QR codes to stick next to each part of the model.", tone: "teal" },
-      { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "amber" }] },
+      { id: "delhi", icon: "🏙️", name: "UP & Gorakhpur updates", desc: "Clean India schemes and news from Uttar Pradesh.", tone: "blue" },
+      { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air at every station from Chandigarh to Gorakhpur, health tips and how your model helps.", tone: "blue" },
+      { id: "about", icon: "🏫", name: "About the fair", desc: "Vidya Bharati, the Vigyan Mela levels, past fairs and Gorakhpur.", tone: "blue" },
+      { id: "diary", icon: "📔", name: "Trip diary", desc: "A photo and a few lines each day: your Gorakhpur memory book.", tone: "blue" },
+      { id: "stickers", icon: "🏷️", name: "QR stickers for my model", desc: "Print small QR codes to stick next to each part of the model.", tone: "blue" },
+      { id: "trip", icon: "🧳", name: "Trip checklist", desc: "Pack everything and follow the fair rules.", tone: "blue" }] },
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
-      { id: "3d", icon: "🧊", name: "3D model", desc: "Spin my model in 3D and tap any part.", tone: "blue" },
-      { id: "walk", icon: "🧭", name: "Walkthrough", desc: "Explain the whole model in the right order.", tone: "teal" },
-      { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "blue" },
+      { id: "3d", icon: "🧊", name: "3D model", desc: "Spin my model in 3D and tap any part.", tone: "green" },
+      { id: "walk", icon: "🧭", name: "Walkthrough", desc: "Explain the whole model in the right order.", tone: "green" },
+      { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "green" },
       { id: "wastediary", icon: "⚖️", name: "Home waste diary", desc: "Weigh your family's waste for 7 days and get real data for the judges.", tone: "green" },
-      { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "purple" }] },
+      { id: "thoughts", icon: "💭", name: "Thoughts · विचार", desc: "Good lines to open, link, and finish.", tone: "green" }] },
     { group: "🎯 Practise and play", items: [
-      { id: "fun", icon: "🎉", name: "Fun zone", desc: "Your pet, streak, spin wheel, judge game, flash cards and more.", tone: "pink" },
+      { id: "fun", icon: "🎉", name: "Fun zone", desc: "Your pet, streak, spin wheel, judge game, flash cards and more.", tone: "purple" },
       { id: "mock", icon: "🧑‍⚖️", name: "Mock judge day", desc: "A full pretend judging: introduction, speech, 5 questions, score out of 40.", tone: "purple" },
-      { id: "rapid", icon: "⚡", name: "Rapid fire", desc: "60 seconds of quick questions. How many can you get?", tone: "amber" },
-      { id: "whatif", icon: "🤔", name: "What if…?", desc: "Tricky thinking questions that smart judges ask.", tone: "teal" },
-      { id: "weak", icon: "🩹", name: "My weak spots", desc: "Every question you found hard, in one place to practise.", tone: "orange" },
-      { id: "family", icon: "👨‍👩‍👧", name: "Teach my family", desc: "Teach a part at home and let your family score you.", tone: "green" },
-      { id: "practice", icon: "🏟️", name: "Fair-day practice room", desc: "Speech with crowd noise and surprise judge questions, plus Explain it 3 ways.", tone: "slate" },
-      { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "orange" },
-      { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "blue" },
-      { id: "cert", icon: "🏆", name: "Champion certificate", desc: "Finish 6 goals and download a certificate with your name.", tone: "amber" },
+      { id: "rapid", icon: "⚡", name: "Rapid fire", desc: "60 seconds of quick questions. How many can you get?", tone: "purple" },
+      { id: "whatif", icon: "🤔", name: "What if…?", desc: "Tricky thinking questions that smart judges ask.", tone: "purple" },
+      { id: "weak", icon: "🩹", name: "My weak spots", desc: "Every question you found hard, in one place to practise.", tone: "purple" },
+      { id: "family", icon: "👨‍👩‍👧", name: "Teach my family", desc: "Teach a part at home and let your family score you.", tone: "purple" },
+      { id: "practice", icon: "🏟️", name: "Fair-day practice room", desc: "Speech with crowd noise and surprise judge questions, plus Explain it 3 ways.", tone: "purple" },
+      { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "purple" },
+      { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "purple" },
+      { id: "cert", icon: "🏆", name: "Champion certificate", desc: "Finish 6 goals and download a certificate with your name.", tone: "purple" },
       { id: "viva", icon: "❓", name: "Viva questions", desc: "Answer the way judges ask.", tone: "purple" },
-      { id: "ecodost", icon: "🤖", name: "Ask Eco-Dost", desc: "Ask anything about your project and earn ⭐.", tone: "teal" },
-      { id: "games", icon: "🎮", name: "Games", desc: "Bin Sorter, 7R Match, Quiz and Memory.", tone: "pink" },
-      { id: "voice", icon: "🎙️", name: "Voice coach", desc: "Speak clearly, slowly and confidently.", tone: "green" },
-      { id: "score", icon: "📊", name: "Score myself", desc: "Mark a practice out of 40, like the judges.", tone: "amber" }] },
+      { id: "ecodost", icon: "🤖", name: "Ask Eco-Dost", desc: "Ask anything about your project and earn ⭐.", tone: "purple" },
+      { id: "games", icon: "🎮", name: "Games", desc: "Bin Sorter, 7R Match, Quiz and Memory.", tone: "purple" },
+      { id: "voice", icon: "🎙️", name: "Voice coach", desc: "Speak clearly, slowly and confidently.", tone: "purple" },
+      { id: "score", icon: "📊", name: "Score myself", desc: "Mark a practice out of 40, like the judges.", tone: "purple" }] },
     { group: "👩‍🏫 For Rajnish Ma'am", items: [
-      { id: "ask", icon: "📝", name: "Check with Ma'am", desc: "Things to confirm with your teacher.", tone: "orange" }] }
+      { id: "ask", icon: "📝", name: "Check with Ma'am", desc: "Things to confirm with your teacher.", tone: "amber" }] }
   ];
   const secById = {};
   SECTIONS.forEach(g => g.items.forEach(x => { secById[x.id] = x; }));
@@ -227,7 +227,7 @@
   }
 
   // ---------- model map ----------
-  // Hotspot positions (% of photo width / height). Adjust if you replace model.jpg.
+  // Hotspot positions (% of photo width / height). Adjust if you replace media/model.webp.
   const hotspots = {
     solar: [19, 20], citytoilets: [9, 46], ev: [25, 42], bus: [20, 63], train: [16, 86],
     india: [45, 24], ladder: [44, 55], windmill: [54, 12], pots: [38, 50], plasticman: [55, 40],

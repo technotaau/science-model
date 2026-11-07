@@ -98,7 +98,7 @@
     const seg = 360 / WHEEL.length, cols = ["var(--t-blue)", "var(--t-purple)", "var(--t-pink)", "var(--t-teal)", "var(--t-green)", "var(--t-orange)"];
     const grad = WHEEL.map((w, i) => cols[i] + " " + (i * seg) + "deg " + ((i + 1) * seg) + "deg").join(",");
     return '<div class="wheel-wrap"><div class="wheel-pin" aria-hidden="true">▼</div><div class="wheel" id="funWheel" style="background:conic-gradient(' + grad + ')">' +
-      WHEEL.map((w, i) => '<span style="transform:rotate(' + (i * seg + seg / 2) + 'deg) translateY(-38%)">' + w.e + "</span>").join("") + "</div></div>" +
+      WHEEL.map((w, i) => '<span style="transform:rotate(' + (i * seg + seg / 2) + 'deg) translateY(-70px)">' + w.e + "</span>").join("") + "</div></div>" +
       '<button class="btn" id="funSpin">🎡 Spin!</button><div id="funSpinOut" aria-live="polite"></div>';
   }
 
@@ -190,7 +190,7 @@
       g.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, pad, pad, iw, ih);
       g.strokeStyle = "#f8e8cc"; g.lineWidth = 14; g.strokeRect(pad, pad, iw, ih);
       g.fillStyle = "#fffbf3"; g.textAlign = "center";
-      g.font = "bold 82px 'Baloo 2', sans-serif"; g.fillText("⭐ Science Star ⭐", W / 2, H - 230);
+      g.font = "bold 82px Nunito, sans-serif"; g.fillText("⭐ Science Star ⭐", W / 2, H - 230);
       const st = S().student;
       g.font = "600 46px Nunito, sans-serif"; g.fillText(st.name + " · " + st.className, W / 2, H - 160);
       g.font = "40px Nunito, sans-serif"; g.fillText("Clean India Mission and Waste Management", W / 2, H - 105);

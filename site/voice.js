@@ -40,9 +40,10 @@
   }
   // Clean text for speaking: remove *stress* marks, emojis and brackets like (press)
   function clean(t) {
-    return String(t).replace(/\*/g, "").replace(/\((?:press|activate)\)/gi, "")
-      .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{2190}-\u{21FF}]/gu, "")
-      .replace(/→/g, " to ").replace(/↔/g, " to ").replace(/\s+/g, " ").trim();
+    // arrows are read as "to" first, then every emoji is removed
+    t = String(t).replace(/\*/g, "").replace(/\((?:press|activate)\)/gi, "").replace(/\s*[→↔]\s*/g, " to ");
+    t = t.replace(/(?:[\u{1F1E6}-\u{1F1FF}]{2}|\p{Extended_Pictographic}|[\u{2605}\u{2606}\u{FE0F}\u{200D}\u{20E3}])/gu, "");
+    return t.replace(/\s+/g, " ").trim();
   }
   let speakToken = 0;
   function speak(text, opts) {

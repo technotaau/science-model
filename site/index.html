@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Clean India Model Coach</title>
   <meta name="description" content="Science-fair preparation for Clean India Mission and Waste Management: model tour, presentation walkthrough, viva practice, voice and self-scoring.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f6f50' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5'/%3E%3Cpath d='M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12'/%3E%3Cpath d='m14 16-3 3 3 3'/%3E%3Cpath d='M8.293 13.596 7.196 9.5 3.1 10.598'/%3E%3Cpath d='m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843'/%3E%3Cpath d='m13.378 9.633 4.096 1.098 1.097-4.096'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#1f6f50">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     if (new URLSearchParams(location.search).has("visitor")) document.documentElement.classList.add("visitor");
     // ?part=<id> comes from a QR sticker on the model: show just that part, like the visitor view
     if (new URLSearchParams(location.search).has("part")) document.documentElement.classList.add("visitor", "partview");
-    // soft light colours (dark text) by default; the 🌙 button switches to dark and the phone remembers it
+    // soft light colours (dark text) by default; the moon button switches to dark and the phone remembers it
     (function () { var t = null; try { t = JSON.parse(localStorage.getItem("coach:theme")); } catch (e) {}
       document.documentElement.dataset.theme = t === "dark" ? "dark" : "light"; })();
   </script>
@@ -371,7 +372,7 @@
 
         <section class="card model-card">
           <h2>🗺️ My model</h2>
-          <img src="model.jpg" alt="Pictorial photo of the Clean India model" class="report-img">
+          <img src="media/model.webp" width="1400" height="700" decoding="async" alt="Pictorial photo of the Clean India model" class="report-img">
           <p class="tiny muted">Pictorial photo. All parts are on one green wooden base: Smart City on the left, Centre in the middle, Smart Village on the right, and demonstrations at the front.</p>
           <div id="rpParts"></div>
         </section>
@@ -423,7 +424,7 @@
 
       <div class="map-wrap">
         <div class="map" id="map">
-          <img src="model.jpg" alt="Pictorial photo of the Clean India model on a green base" id="mapImg">
+          <img src="media/model.webp" width="1400" height="700" decoding="async" alt="Pictorial photo of the Clean India model on a green base" id="mapImg">
         </div>
         <p class="tiny muted">The photo is pictorial, so your real model may look slightly different.</p>
       </div>
@@ -608,6 +609,7 @@
 
   <footer class="foot" id="foot">Built by the TechnoTaau Team for Avni's science fair</footer>
 
+  <script src="icons.js"></script>
   <script src="content.js"></script>
   <script src="ecodost-data.js"></script>
   <script src="ecodost.js"></script>

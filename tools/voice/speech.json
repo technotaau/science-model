@@ -3,11 +3,12 @@
   "id": "s-open",
   "title": "Opening",
   "sentences": [
-   "Good morning, respected judges, teachers and my dear friends. Jai Hind!",
+   "The best waste is the waste we never create.",
+   "Good morning, respected judges, teachers and dear friends. Jai Hind!",
    "I am Avni Choudhary from Class 6, and my topic is Clean India Mission and Waste Management.",
-   "Every day, we throw away plastic, food, fruit peels, paper and bottles.",
+   "Every day, we throw away plastic, peels and paper.",
    "But — where does all this waste go?",
-   "Today, I will show you how we can manage our waste, and how small steps can make a big difference."
+   "Let me show you how to keep our land, water and air clean."
   ]
  },
  {
@@ -15,63 +16,50 @@
   "title": "Clean India Mission",
   "sentences": [
    "The Clean India Mission, or Swachh Bharat Abhiyan, was launched on 2 October 2014 by Prime Minister Narendra Modi, on Mahatma Gandhi's birth anniversary.",
-   "It started with toilets for everyone, because using toilets protects our health and our water.",
-   "In our cities alone, more than 63 lakh home toilets and more than 6 lakh community and public toilet seats were built — more than the target.",
-   "Today, the mission has grown into ODF Plus: about 5.7 lakh villages stay open-defecation free and manage their garbage and dirty water."
+   "Its first big goal was toilets for everyone, for our health and our water.",
+   "Cities alone built over 63 lakh home toilets.",
+   "Today, about 5.7 lakh villages are ODF Plus — free from open defecation, and managing their waste."
   ]
  },
  {
   "id": "s-waste",
   "title": "Waste management & segregation",
   "sentences": [
-   "Waste management means separating waste where it is made, collecting it, transporting it, recycling or treating it, and safely disposing of it.",
-   "The most important step is the first one — segregation at source.",
-   "Wet waste, like peels and leftover food, can become compost or biogas.",
-   "Dry waste, like paper, metal and glass, can be recycled.",
+   "Waste management has five main steps: separate, collect, transport, recycle or treat, and safely dispose.",
+   "The first step is the most important — segregation at source.",
+   "In my five bins, wet waste, like peels, becomes compost or biogas, and dry waste, like paper and metal, is recycled.",
    "Mixed waste becomes garbage.",
    "Separated waste becomes a resource."
   ]
  },
  {
   "id": "s-plastic",
-  "title": "Plastic, eco-bricks & the Plastic Man",
+  "title": "Plastic & the Plastic Man",
   "sentences": [
-   "Single-use plastics, like carry bags, straws and wrappers, are used for a few minutes but stay in our environment for a very long time.",
-   "One idea from my project is the eco-brick — a plastic bottle packed tightly with clean, dry plastic waste, which can be used to build things.",
-   "And Professor Rajagopalan Vasudevan, the Plastic Man of India, found a way to use waste plastic to build roads.",
-   "He received the Padma Shri in 2018."
+   "Then there is single-use plastic.",
+   "A carry bag is used for a few minutes, but it stays in nature for years and years.",
+   "But Professor Rajagopalan Vasudevan, the Plastic Man of India, showed how waste plastic can help make roads.",
+   "He got the Padma Shri in 2018."
   ]
  },
  {
   "id": "s-7r",
   "title": "The 7Rs",
   "sentences": [
-   "We often hear about the 3Rs, but my project goes one step further, with the 7Rs: Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, and Recover.",
-   "They teach us one important lesson: the best waste is the waste we never create."
+   "Not just the 3Rs — my project has 7Rs: Refuse, Reduce, Reuse — Repair, Repurpose — Recycle and Recover.",
+   "Remember my first line?",
+   "The best waste is the waste we never create."
   ]
  },
  {
   "id": "s-wte",
   "title": "Waste to energy",
   "sentences": [
-   "Waste that cannot be recycled can still give us energy.",
-   "In a biogas plant, tiny microbes break down wet waste without oxygen and make biogas for cooking and electricity.",
-   "In waste-to-energy plants, non-recyclable waste is burnt at very high temperatures, in closed plants with pollution control.",
-   "The heat makes steam, and the steam turns a turbine to make electricity.",
+   "The last R, Recover, means getting energy back from waste.",
+   "In a biogas plant, microbes break down wet waste without oxygen and make biogas for cooking.",
+   "Leftover waste that cannot be recycled can be burnt in a closed waste-to-energy plant, with pollution control.",
+   "The heat makes steam, which turns a turbine to make electricity.",
    "But remember — we must never burn plastic in the open."
-  ]
- },
- {
-  "id": "s-green",
-  "title": "Green energy & the hydrogen train",
-  "sentences": [
-   "A clean India also needs clean air.",
-   "Green energy comes from sources that do not run out and cause very little pollution, like the sun and the wind.",
-   "Solar panels turn sunlight into electricity, and wind turbines turn moving air into electricity.",
-   "In July 2026, India crossed 300 gigawatts of clean, non-fossil power — on the way to its goal of 500 gigawatts by 2030.",
-   "India is also working on green hydrogen.",
-   "On 17 July 2026, India's first hydrogen train was flagged off on the Jind–Sonipat route in Haryana.",
-   "Instead of diesel smoke, its main by-product is water vapour."
   ]
  },
  {
@@ -79,11 +67,22 @@
   "title": "Clean water & rivers",
   "sentences": [
    "Clean water is precious.",
-   "In my project, I made a multi-layer filter.",
-   "Water flows from the coarsest layer to the finest: stones and gravel, then charcoal, and finally cotton.",
-   "The water comes out clearer — but clear water is not always safe to drink.",
-   "Factories must treat their wastewater in effluent treatment plants, and cities need sewage treatment plants, so that dirty water never flows straight into our rivers.",
-   "And we must never throw garbage or puja waste into rivers — it should go into special collection bins."
+   "My filter has layers, from coarse to fine: stones and gravel, charcoal, and cotton.",
+   "It comes out clearer — but clear water is not always safe to drink.",
+   "Factories need effluent treatment plants, and cities need sewage treatment plants, so dirty water is cleaned before it reaches our rivers.",
+   "Here in Gorakhpur, people cleaned Ram Ghat on the Rapti, and sent about 170 kilos of plastic and other waste for sorting and recycling.",
+   "Rivers are not dustbins."
+  ]
+ },
+ {
+  "id": "s-green",
+  "title": "Green energy & the hydrogen train",
+  "sentences": [
+   "Last, a clean India also needs clean air.",
+   "Energy from the sun and the wind does not run out, and causes very little pollution.",
+   "Solar panels and windmills turn this energy into electricity.",
+   "India has crossed 300 gigawatts of clean power capacity, and aims for 500 by 2030. On 17 July 2026, India's first hydrogen train was flagged off on the Jind–Sonipat line in Haryana.",
+   "Instead of diesel smoke, it gives out mainly water vapour."
   ]
  },
  {
@@ -92,10 +91,11 @@
   "sentences": [
    "So, what can we do?",
    "Stop littering.",
-   "Segregate waste at home and in school.",
+   "Segregate waste at home and school.",
    "Say no to single-use plastic.",
-   "Plant trees, use public transport, and spread awareness.",
-   "The Clean India Mission is not only a government programme — it is a responsibility for every citizen.",
+   "Plant trees.",
+   "And my question — where does all this waste go?",
+   "If we separate it, it can come back as compost, energy and new things.",
    "A clean India is not just a dream; it is a responsibility we share.",
    "Thank you. Jai Hind!"
   ]

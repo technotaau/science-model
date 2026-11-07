@@ -287,6 +287,26 @@
     <section id="tab-whatif" class="tab" hidden><div id="whatifBody"></div></section>
     <section id="tab-weak" class="tab" hidden><div id="weakBody"></div></section>
     <section id="tab-family" class="tab" hidden><div id="familyBody"></div></section>
+    <!-- GORAKHPUR MOCK STAGE -->
+    <section id="tab-mockstage" class="tab" hidden>
+      <div class="card">
+        <h2>🎭 Gorakhpur mock stage</h2>
+        <p class="small muted">A practice mock-up of your stall at the 24th national Vigyan Mela, Gorakhpur: virtual Avni presents your model to the judges. Virtual Avni is a cartoon figure, not a photo.</p>
+        <div id="msCanvas" class="m3d"></div>
+        <p class="ms-sub" id="msSub" aria-live="polite"></p>
+        <div class="m3d-bar">
+          <button id="msRec" class="btn small">▶ Avni's real voice</button>
+          <button id="msTts" class="btn small act">▶ Full speech (computer voice)</button>
+          <button class="btn small ghost" data-msview="judge">👀 Judge's view</button>
+          <button class="btn small ghost" data-msview="audience">👥 Audience view</button>
+          <button class="btn small ghost" data-msview="close">🔍 Close-up</button>
+        </div>
+        <audio id="msAudio" src="media/avni-malerkotla.m4a" preload="none"></audio>
+        <div id="msInfo" class="m3d-info"></div>
+      </div>
+      <div class="card" id="msCoach"></div>
+    </section>
+
     <!-- MA'AM'S VIDEOS -->
     <section id="tab-videos" class="tab" hidden><div id="videosBody"></div></section>
     <!-- HINDI MODE -->
@@ -622,6 +642,8 @@
   <script src="games.js" defer></script>
   <script src="fun.js" defer></script>
   <script src="model3d.js" defer></script>
+  <script src="avni-recording.js" defer></script>
+  <script src="mockstage.js" defer></script>
   <script src="extras.js" defer></script>
   <script src="practice.js" defer></script>
   <script src="coach2.js" defer></script>

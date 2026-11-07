@@ -63,6 +63,7 @@
       { id: "whatif", icon: "🤔", name: "What if…?", desc: "Tricky thinking questions that smart judges ask.", tone: "purple" },
       { id: "weak", icon: "🩹", name: "My weak spots", desc: "Every question you found hard, in one place to practise.", tone: "purple" },
       { id: "family", icon: "👨‍👩‍👧", name: "Teach my family", desc: "Teach a part at home and let your family score you.", tone: "purple" },
+      { id: "mockstage", icon: "🎭", name: "Gorakhpur mock stage", desc: "Virtual Avni presents your model to the judges, with your real voice.", tone: "purple" },
       { id: "practice", icon: "🏟️", name: "Fair-day practice room", desc: "Speech with crowd noise and surprise judge questions, plus Explain it 3 ways.", tone: "purple" },
       { id: "hindi", icon: "🇮🇳", name: "Hindi mode · हिंदी", desc: "Your speech and main answers in Hindi.", tone: "purple" },
       { id: "numbers", icon: "🔢", name: "Numbers master", desc: "Quick game: remember the important dates and numbers.", tone: "purple" },
@@ -120,6 +121,8 @@
     if (t === "fun" && window.Fun) { window.Fun.render(); needEcoDost().then(() => { if (!$("#tab-fun").hidden) window.Fun.render(); }).catch(() => {}); }
     if (t === "ecodost") needEcoDost().catch(() => { const b = $("#tab-ecodost"); if (b && !b.querySelector(".ed-offline")) b.insertAdjacentHTML("afterbegin", '<p class="card ed-offline">Could not load Eco-Dost. Check the internet and open this page again.</p>'); });
     if (t === "3d" && window.Model3D) window.Model3D.start();
+    if (t === "mockstage" && window.MockStage) window.MockStage.render();
+    if (t !== "mockstage" && window.MockStage) window.MockStage.stop();
     if (t === "videos" && window.Videos) window.Videos.render(esc, store);
     if (t === "practice" && window.Practice) window.Practice.render();
     if (window.Coach2) window.Coach2.render(t);
@@ -1528,6 +1531,7 @@
   if (window.Model3D) window.Model3D.init({ esc, store });
   if (window.Extras) window.Extras.init({ S, store, esc });
   if (window.Practice) window.Practice.init({ S, store, esc });
+  if (window.MockStage) window.MockStage.init({ S, store, esc });
   if (window.Coach2) window.Coach2.init({ S, store, esc });
   renderProject();
   renderMap();

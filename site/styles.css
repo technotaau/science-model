@@ -1049,3 +1049,7 @@ html { scroll-padding-top: 84px; }
 .note-ask { background: var(--ask-bg); color: var(--ask-ink); border-radius: 10px; padding: 8px 10px; }
 html.visitor #tab-videos { display: none !important; }
 .note-ok { background: var(--ok-bg); color: var(--ok-ink); border-radius: 10px; padding: 8px 10px; }
+
+/* Gorakhpur mock stage */
+.ms-sub { min-height: 3em; margin: 8px 0 0; padding: 8px 12px; border-radius: 10px; background: var(--surface-2); font-weight: 700; text-align: center; }
+.ms-sub:empty { visibility: hidden; }

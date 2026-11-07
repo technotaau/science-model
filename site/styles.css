@@ -1021,7 +1021,6 @@ html { scroll-padding-top: 84px; }
   input[type=range] { min-height: 44px; }
   details > summary { min-height: 44px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .dl-area a, .sec a, #askList li > a { display: inline-block; padding: 8px 0; }
-  .hz-bar { min-width: 12px; }
 }
 /* model photo: smaller dots on phones so neighbouring parts don't overlap */
 @media (max-width: 480px) {

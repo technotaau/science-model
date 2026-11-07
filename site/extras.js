@@ -49,7 +49,7 @@
       { q: "It was launched on ____ October 2014, Gandhi Ji's birth anniversary.", a: "2", o: ["2", "14", "15", "26"], why: "2 October is Gandhi Jayanti." },
       { q: "In cities, more than ____ lakh home toilets were built.", a: "63", o: ["6", "36", "63", "630"], why: "More than 63 lakh home toilets: more than the target." },
       { q: "More than ____ lakh community and public toilet seats were built in cities.", a: "6", o: ["6", "16", "60", "63"], why: "More than 6 lakh community and public toilet seats." },
-      { q: "About ____ lakh villages are ODF Plus.", a: "5.7", o: ["1.5", "5.7", "7.5", "57"], why: "About 5.7 lakh villages manage garbage and dirty water too." },
+      { q: "About ____ lakh villages are ODF Plus.", a: "5.7", o: ["1.5", "5.7", "7.5", "57"], why: "About 5.7 lakh villages are ODF Plus: free from open defecation and managing their waste." },
       { q: "My project goes beyond the 3Rs to the ____ Rs.", a: "7", o: ["4", "5", "7", "10"], why: "Refuse, Reduce, Reuse, Repair, Repurpose, Recycle, Recover." },
       { q: "The Plastic Man of India got the Padma Shri in ____.", a: "2018", o: ["2014", "2016", "2018", "2022"], why: "Prof. Rajagopalan Vasudevan, Padma Shri 2018." },
       { q: "In July 2026, India crossed ____ gigawatts of non-fossil power.", a: "300", o: ["100", "200", "300", "500"], why: "300 GW crossed; the goal is 500 GW by 2030." },

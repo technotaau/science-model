@@ -205,7 +205,7 @@
       judge: "E-waste is discarded electrical and electronic equipment. It contains hazardous substances such as lead, mercury and cadmium, and valuable metals such as copper, silver and gold. In India, the E-Waste (Management) Rules 2022, in force from 1 April 2023, cover 106 types of equipment and use Extended Producer Responsibility, so producers must meet recycling targets through registered recyclers." },
     { id: "sbm", name: "🚻 Swachh Bharat and toilets",
       kid: "Everyone should have a toilet at home, so nobody has to go outside. That keeps us healthy and keeps our water clean.",
-      friend: "Swachh Bharat Mission was started on 2 October 2014 to give everyone a toilet and keep India clean. Now villages go one step further with ODF Plus: they also manage their garbage and dirty water.",
+      friend: "Swachh Bharat Mission was started on 2 October 2014 to give everyone a toilet and keep India clean. Now villages go one step further with ODF Plus: they also manage their waste — garbage, dirty water, or both.",
       judge: "Swachh Bharat Mission began on 2 October 2014 with the goal of an open-defecation-free India, because open defecation spreads disease and pollutes water. In cities, more than 63 lakh household toilets and more than 6 lakh community and public toilet seats were built. In villages, Phase 2 (from 2020) focuses on staying ODF and on solid and liquid waste management, which is called ODF Plus; about 5.7 lakh villages are ODF Plus." },
     { id: "plastic", name: "🧴 Plastic, eco-bricks and the Plastic Man",
       kid: "We push clean plastic wrappers tightly into a bottle until it is hard like a brick. Then we can build things with it, instead of throwing the plastic away!",

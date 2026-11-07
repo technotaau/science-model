@@ -43,6 +43,7 @@
     { group: "🚀 Get ready for Gorakhpur", items: [
       { id: "stage", icon: "🎤", name: "Stage talk", desc: "Practise your speech, one part at a time.", tone: "blue" },
       { id: "delhi", icon: "🏙️", name: "UP & Gorakhpur updates", desc: "Clean India schemes and news from Uttar Pradesh.", tone: "blue" },
+      { id: "videos", icon: "🎬", name: "Ma'am's videos", desc: "Two Gorakhpur cleanliness news videos: key points, model links and viva questions.", tone: "blue" },
       { id: "haze", icon: "🌫️", name: "Haze & clean air", desc: "Air at every station from Chandigarh to Gorakhpur, health tips and how your model helps.", tone: "blue" },
       { id: "about", icon: "🏫", name: "About the fair", desc: "Vidya Bharati, the Vigyan Mela levels, past fairs and Gorakhpur.", tone: "blue" },
       { id: "diary", icon: "📔", name: "Trip diary", desc: "A photo and a few lines each day: your Gorakhpur memory book.", tone: "blue" },
@@ -119,6 +120,7 @@
     if (t === "fun" && window.Fun) { window.Fun.render(); needEcoDost().then(() => { if (!$("#tab-fun").hidden) window.Fun.render(); }).catch(() => {}); }
     if (t === "ecodost") needEcoDost().catch(() => { const b = $("#tab-ecodost"); if (b && !b.querySelector(".ed-offline")) b.insertAdjacentHTML("afterbegin", '<p class="card ed-offline">Could not load Eco-Dost. Check the internet and open this page again.</p>'); });
     if (t === "3d" && window.Model3D) window.Model3D.start();
+    if (t === "videos" && window.Videos) window.Videos.render(esc, store);
     if (t === "practice" && window.Practice) window.Practice.render();
     if (window.Coach2) window.Coach2.render(t);
     if (t === "part") renderPart(partView);

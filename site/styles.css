@@ -1035,3 +1035,10 @@ html { scroll-padding-top: 84px; }
   .tabs a { padding: 8px 8px; font-size: .9rem; }
   .brand-title { font-size: 1.05rem; }
 }
+
+/* focus mode on Home */
+#homeFocus .tile-group { margin-top: 14px; }
+.focus-note { margin: -4px 0 10px; }
+.ht-status { display: inline-block; margin-top: 4px; font-size: .8rem; font-weight: 700; color: var(--tone-ink) !important; background: var(--tone); border-radius: 99px; padding: 1px 9px; align-self: flex-start; }
+.more-wrap { text-align: center; margin: 18px 0 6px; }
+.more-btn { min-height: 44px; }

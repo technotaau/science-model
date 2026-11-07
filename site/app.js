@@ -113,7 +113,7 @@
     const sec = secById[t];
     document.title = (sec ? sec.name + " · " : "") + "Clean India Model Coach";
     if (t === "model") showComp(sub && compById[sub] ? sub : currentComp);
-    if (t === "home") renderProgress();
+    if (t === "home") { renderProgress(); renderFocus(); }
     if (t === "project") renderProjectProgress();
     if (t === "haze") { renderRoute(); renderAirNow(); }
     if (t === "fun" && window.Fun) { window.Fun.render(); needEcoDost().then(() => { if (!$("#tab-fun").hidden) window.Fun.render(); }).catch(() => {}); }
@@ -182,10 +182,54 @@
   }
   function renderHomeTiles() {
     $("#homeTiles").innerHTML = SECTIONS.map(g => '<h2 class="tile-group">' + esc(g.group) + '</h2><div class="tiles">' +
-      g.items.filter(x => sectionShown(x.id)).map(x =>
-        '<a class="home-tile" href="#' + x.id + '" style="--tone:var(--t-' + x.tone + ');--tone-ink:var(--t-' + x.tone + '-ink)">' +
-        '<span class="ht-icon" aria-hidden="true">' + x.icon + '</span><span class="ht-text"><b>' + esc(x.name) + "</b><span>" + esc(x.desc) + "</span></span></a>").join("") +
+      g.items.filter(x => sectionShown(x.id)).map(x => tileHTML(x)).join("") +
       "</div>").join("");
+  }
+  // ---------- focus mode ----------
+  // Home shows only the 6 tools that matter most before the national fair; everything else is under "More".
+  // From 22 Nov (packing starts) the trip checklist moves to the top.
+  function todayISO() { const n = new Date(); return n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0"); }
+  function focusIds() {
+    const travel = (S.student.nextEvent && S.student.nextEvent.travel) || "9999-12-31";
+    const packing = todayISO() >= "2026-11-22" && todayISO() <= travel;
+    return packing ? ["trip", "stage", "model", "viva", "weak", "mock"] : ["stage", "model", "viva", "mock", "weak", "hindi"];
+  }
+  // one honest line of progress under each focus tool
+  function focusStatus(id) {
+    const viva = store.get("viva", {}), tried = Object.keys(viva).length;
+    if (id === "viva") return tried + " of " + S.viva.length + " questions tried";
+    if (id === "weak") {
+      const n = Object.values(viva).filter(v => v && v.of && v.got / v.of < 0.6).length + store.get("weak", []).length;
+      return n ? n + " to practise" : tried ? "Nothing to fix right now" : "Fills up as you practise";
+    }
+    if (id === "mock") { const m = store.get("mockLast", null); return m ? "Last score " + m.total + "/40 (" + m.date + ")" : "Not done yet: try it this week"; }
+    if (id === "hindi") { const h = store.get("hindiHeard", {}); return Object.keys(h).length + " of 9 speech parts heard"; }
+    if (id === "stage") { const r = store.get("lastStageRun", null); return r ? "Last full run: " + Math.floor(r.total / 60) + " min " + (r.total % 60) + " s" : "No full run yet"; }
+    if (id === "model") { const d = store.get("stepsDone", {}); const n = S.presentation.filter(p => d[p.id] !== undefined ? d[p.id] : p.done).length; return n + " of " + S.presentation.length + " explanation steps practised"; }
+    if (id === "trip") { const t = store.get("trip", {}), items = S.trip || []; return items.filter(x => t[x.id]).length + " of " + items.length + " things packed"; }
+    return "";
+  }
+  function tileHTML(x, status) {
+    return '<a class="home-tile" href="#' + x.id + '" style="--tone:var(--t-' + x.tone + ');--tone-ink:var(--t-' + x.tone + '-ink)">' +
+      '<span class="ht-icon" aria-hidden="true">' + x.icon + '</span><span class="ht-text"><b>' + esc(x.name) + "</b><span>" + esc(x.desc) + "</span>" +
+      (status ? '<span class="ht-status">' + esc(status) + "</span>" : "") + "</span></a>";
+  }
+  function renderFocus() {
+    const box = $("#homeFocus"); if (!box) return;
+    const ids = focusIds().filter(id => secById[id] && sectionShown(id));
+    box.innerHTML = '<h2 class="tile-group">🎯 My focus for Gorakhpur</h2><p class="small muted focus-note">These 6 matter most. Do today\'s task first, then pick one of these.</p><div class="tiles">' +
+      ids.map(id => tileHTML(secById[id], focusStatus(id))).join("") + "</div>";
+  }
+  function initMore() {
+    const btn = $("#moreBtn"), all = $("#homeTiles"); if (!btn || !all) return;
+    const total = SECTIONS.reduce((a, g) => a + g.items.filter(x => sectionShown(x.id)).length, 0);
+    const show = open => {
+      all.hidden = !open; btn.setAttribute("aria-expanded", String(open));
+      btn.textContent = open ? "Hide the other pages" : "More: all " + total + " pages";
+      store.set("homeMore", open);
+    };
+    btn.onclick = () => show(all.hidden);
+    show(!!store.get("homeMore", false));
   }
   // today's task from the plan, with a button to the page it needs
   function renderToday() {
@@ -1465,6 +1509,8 @@
   addPageHeads();
   renderHome();
   renderHomeTiles();
+  renderFocus();
+  initMore();
   renderToday();
   renderStage();
   renderDelhi();

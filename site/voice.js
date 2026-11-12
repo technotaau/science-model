@@ -291,11 +291,15 @@
     if (!docs) buildDocs();
     const qt = toks(q);
     if (!qt.length) return [];
+    const qn = norm(q).join(" ");
     return docs.map(d => {
       let s = 0;
       qt.forEach(w => { if (d.tt.includes(w)) s += 3; if (d.tb.includes(w)) s += 1; });
-      return { d, s: s / qt.length };
-    }).filter(x => x.s > 0.6).sort((a, b) => b.s - a.s).slice(0, 3);
+      s = s / qt.length;
+      const tn = norm(d.title).join(" ");
+      if (tn === qn) s += 10; else if (tn.startsWith(qn) || qn.startsWith(tn)) s += 2;
+      return { d, s, len: d.tt.length };
+    }).filter(x => x.s > 0.6).sort((a, b) => b.s - a.s || a.len - b.len).slice(0, 3);
   }
   function initAsk() {
     const run = () => {

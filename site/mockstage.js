@@ -141,6 +141,7 @@
       pointAt(seg && seg.part ? seg.part : null);
       if (seg && seg.section && info.dataset.sec !== seg.section) { info.dataset.sec = seg.section; const h = info.querySelector(".ms-sec"); if (h) h.textContent = seg.section; }
     };
+    audio.onerror = () => { if (!clip) return; const wasAI = clip === AI; stopAll(); info.innerHTML = '<div class="m3d-card"><b>📶 This needs internet</b><p class="small">The ' + (wasAI ? "AI-voice speech" : "recording") + ' could not load. Connect to the internet and press ▶ again.</p></div>'; };
     audio.onended = () => { talking = 0; clip = null; pointAt(null); sub.textContent = ""; resetButtons(); view("judge"); };
     // 1. her real recording (Malerkotla)
     $("#msRec").onclick = () => { if (REC) playClip(REC, "msRec", '<div class="m3d-card"><b>🎙️ Avni\'s real voice</b><p class="small">Recorded at her stall in Malerkotla on 10 October 2026, where she won first prize. Watch where she points and read along.</p></div>', "close"); };

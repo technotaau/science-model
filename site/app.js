@@ -114,7 +114,7 @@
     tabs.forEach(n => { $("#tab-" + n).hidden = n !== t; });
     $$("#tabs a").forEach(a => a.classList.toggle("active", a.dataset.tab === t));
     const sec = secById[t];
-    document.title = (sec ? sec.name + " · " : "") + "Clean India Model Coach";
+    document.title = visitor ? (partView ? document.title : S.project.title + " — " + S.student.name) : (sec ? sec.name + " · " : "") + "Clean India Model Coach";
     if (t === "model") showComp(sub && compById[sub] ? sub : currentComp);
     if (t === "home") { renderProgress(); renderFocus(); }
     if (t === "project") renderProjectProgress();
@@ -1488,11 +1488,11 @@
       "<p>Stick a small QR code next to each part of your model. When a judge or visitor scans it with a phone camera, a simple page about that part opens.</p>" +
       '<ol class="small"><li>✋ First ask Rajnish Ma\'am if you may stick them on the model at the fair.</li><li>Tap <b>🖨️ Print stickers</b>. Print on white paper (sticker paper is best).</li><li>Cut them out and stick each one next to its part, where it is easy to scan.</li><li>Test: scan each one with a phone camera before you leave for Gorakhpur.</li></ol>' +
       '<label class="small">Sticker size <select id="stSize"><option value="3">Small (3 cm)</option><option value="4" selected>Medium (4 cm)</option><option value="5">Large (5 cm)</option></select></label> ' +
-      '<button class="btn" id="stPrint">🖨️ Print stickers</button>' +
+      '<button class="btn" id="stkPrint">🖨️ Print stickers</button>' +
       '<p class="tiny muted">Not on the sheet: the ladder and the digger field (ask Ma\'am what they show first), and the new parts like the rain garden and hydrogen station (no page yet).</p></div>' +
       '<div class="card"><h3>Preview (' + ps.length + ' stickers)</h3><p class="small muted">Tap a sticker to open the page it shows.</p><div class="sticker-grid">' +
       ps.map(c => '<a href="?part=' + esc(c.id) + '" target="_blank" rel="noopener">' + stickerHTML(c) + "</a>").join("") + "</div></div>";
-    $("#stPrint").onclick = () => {
+    $("#stkPrint").onclick = () => {
       const cm = +$("#stSize").value, w = window.open("", "_blank");
       if (!w) { alert("Please allow pop-ups to print the stickers."); return; }
       w.document.write('<!doctype html><meta charset="utf-8"><title>QR stickers for my model</title><style>' +

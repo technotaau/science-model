@@ -177,7 +177,7 @@
     const op = store.get("funDoors", {}); const first = !op[ds]; op[ds] = true; store.set("funDoors", op);
     if (first) { award(1, "Calendar door"); party(); }
     $("#funDoorOut").innerHTML = '<div class="door-out"><b>🎁 ' + esc(btn.querySelector("small").textContent) + "</b><p>📝 <b>Task:</b> " + esc(CAL_TASKS[i % CAL_TASKS.length]) + "</p>" + (f ? "<p>💡 <b>Fun fact:</b> " + esc(f.fun) + "</p>" : "") + "</div>";
-    btn.classList.add("open"); btn.firstChild.textContent = "✅";
+    btn.classList.add("open"); { const ic = btn.firstElementChild && btn.firstElementChild.tagName !== "SMALL" ? btn.firstElementChild : null; if (ic) ic.outerHTML = "<span>✅</span>"; else btn.insertAdjacentHTML("afterbegin", "<span>✅</span>"); }
   }
 
   // ---------- 📸 photo badge ----------

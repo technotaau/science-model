@@ -775,8 +775,8 @@ details.jr-all[open] > summary { margin-bottom: 10px; }
 .journey.bg-scene-city { background: linear-gradient(180deg, #1d2447 0%, #3b2f5c 55%, #7a4a5c 100%); }
 .journey.bg-scene-lake { background: linear-gradient(180deg, #d6ecf6 0%, #b9dbe9 50%, #6fa9c4 100%); }
 .journey.bg-day { background: linear-gradient(180deg, #a9d4f2 0%, #d8ecf8 60%, #e9f2dc 100%); }
-.journey.bg-model { background: linear-gradient(rgba(255,251,243,.72), rgba(255,251,243,.72)), url("model.jpg") center / cover; }
-:root[data-theme="dark"] .journey.bg-model { background: linear-gradient(rgba(27,32,30,.78), rgba(27,32,30,.78)), url("model.jpg") center / cover; }
+.journey.bg-model { background: linear-gradient(rgba(255,251,243,.72), rgba(255,251,243,.72)), url("media/model.webp") center / cover; }
+:root[data-theme="dark"] .journey.bg-model { background: linear-gradient(rgba(27,32,30,.78), rgba(27,32,30,.78)), url("media/model.webp") center / cover; }
 .journey.bg-festival { background: radial-gradient(circle at 15% 20%, #f6b26b 0 6%, transparent 7%), radial-gradient(circle at 85% 35%, #e06c8f 0 5%, transparent 6%), radial-gradient(circle at 25% 80%, #7cc4a8 0 5%, transparent 6%), radial-gradient(circle at 80% 85%, #f2d16b 0 6%, transparent 7%), repeating-conic-gradient(from 0deg at 50% 50%, #fbe3c4 0 15deg, #f8d3b0 15deg 30deg); }
 .journey.bg-festival::after { content: "✦  ✧  ✦  ✧  ✦"; color: #e0a526; position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; font-size: 1.3rem; z-index: 0; }
 .journey.bg-haze { background: linear-gradient(rgba(190,182,165,var(--haze, 0)), rgba(170,165,150,var(--haze, 0))), linear-gradient(180deg, #8ec9f0 0%, #cfe8f6 60%, #e3efd2 100%); transition: background .8s; }

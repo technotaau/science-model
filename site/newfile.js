@@ -28,7 +28,29 @@
       say: "This year's International E-Waste Day theme was “Fast Tech: Don't bin it, bring it!” — small gadgets like cables and earphones must go to e-waste collection, not the dustbin.",
       src: "WEEE Forum (International E-Waste Day 2026); UN/ITU Global E-waste Monitor 2024; CPCB / Lok Sabha reply (2024-25 figure)"
     },
-    biodrainage: null, // filled after checking (see below)
+    biodrainage: {
+      points: [
+        "Biodrainage means removing extra water from waterlogged land using plants instead of pipes or pumps. Scientists at ICAR-CSSRI, Karnal call deep-rooted trees like eucalyptus “bio-pumps”.",
+        "How it works: roots take up water (absorption) → water travels up the trunk through xylem pipes (conduction, or ascent of sap) → almost all of it, about 97 to 99 out of every 100 drops, escapes as vapour, mostly through tiny holes in the leaves called stomata (transpiration).",
+        "Deep roots: in Haryana trials eucalyptus roots reached about 3 to 4.5 metres, down to the wet soil just above the water table; near a canal in Rajasthan, at least 10 metres.",
+        "How much water: one 5-year-old eucalyptus tree in Hisar, Haryana gave off about 15 litres a day in winter and 45–55 litres a day in summer — about 31 litres a day on average (measured with sap-flow sensors in the trunk).",
+        "It is slow: in Hisar, strip plantations lowered the water table by about 0.85 metres in 3 years; next to a leaking canal in Rajasthan (Indira Gandhi Nahar Project), plantations lowered it by about 14–15 metres in 6–7 years."
+      ],
+      fix: "Four fixes for your file: (1) one tree gives off about 15–55 litres a day (about 31 on average), not 40–100; (2) the water table falls over years, not “a few days”; (3) HRTS means High Rate Transpiration System — it was developed by CSIR-NEERI, Nagpur and is used only for wastewater that is already treated; we found no proof that paper mills in Punjab and Haryana “widely” use it; (4) in your tree diagram, water going up the trunk is “conduction / ascent of sap” — “translocation” means food moving through the phloem.",
+      benefits: [
+        "Reduces waterlogging in low-lying or badly drained fields: in Haryana, wheat between the tree rows gave 2.2 tonnes per hectare, against 0.6 in nearby waterlogged fields.",
+        "Helps the topsoil: with the water table lower, salty water no longer rises to the surface by capillary action, so the top soil becomes less salty.",
+        "Low cost: no electricity or fuel — the trees use the sun's energy. The wood can also be sold."
+      ],
+      cautions: [
+        "Eucalyptus drinks a lot of water, so it suits only waterlogged or salty land with shallow groundwater — not dry areas, where it can lower water that farmers need.",
+        "Trees take the water but leave the salt behind; salt can collect deeper in the soil, so the land must be checked.",
+        "It takes land and time: about 2 years before the water table starts to fall, and crops right next to the trees grow a little less.",
+        "HRTS is the last step after a treatment plant, never a replacement: only treated wastewater may be used, groundwater must be watched, and it does not count as “zero liquid discharge”."
+      ],
+      say: "Trees can work like natural pumps: their roots drink extra water and their leaves breathe it out as vapour. But it is slow, and it is used only on waterlogged land and for wastewater that is already treated — my model's waste water treatment part comes first.",
+      src: "Ram, Dagar et al., Current Science 100(11), 2011 (ICAR-CSSRI Karnal); FAO Biodrainage report (2002); CPCB guidelines (2019); NCERT"
+    },
     news: [
       {
         title: "760 study tables made from recycled PoP idols", tag: "Links to my Eco-friendly Ganesha",
@@ -53,21 +75,43 @@
         fix: "In your file, “Ek Din, Ek Ghanta, Ek Saath” is the name of the 1 October one-hour cleaning, not the campaign's theme. The theme was “Swachhata Mein Sahbhag; Swachh Bharat, Viksit Bharat”."
       }
     ],
-    viva: [],  // filled after checking
-    rapid: []
+    viva: [
+      { level: "easy", q: "What is e-waste? What does WEEE stand for?", points: ["Electrical or electronic items thrown away because they are broken, old, unwanted or at the end of their life", "WEEE = Waste Electrical and Electronic Equipment", "Easy test: anything with a plug, a cable or a battery", "Give it to a collection point or registered recycler, not the dustbin"], keywords: ["electrical", "electronic", "weee", "plug", "battery"], follow: "Why should e-waste not go in the dustbin?" },
+      { level: "medium", q: "What was the theme of International E-Waste Day 2026?", points: ["14 October 2026, the 9th International E-Waste Day, by the WEEE Forum", "Theme: “Fast Tech: Don't bin it, bring it!”", "Fast tech: small, cheap, short-lived gadgets bought on impulse — earphones, cables, USB adapters, LED string lights, mini fans, toys, single-use vapes", "Bring them to e-waste collection so metals can be recovered"], keywords: ["fast tech", "bin", "bring", "14 october"], follow: "Name three fast-tech items in your house." },
+      { level: "easy", q: "Tell us your Green Electronics pledge.", points: ["Use electronics in a way that is good for the environment", "Use devices responsibly, so less e-waste is made", "Repair, reuse, refurbish, recover and recycle", "Work together for a cleaner, greener India"], keywords: ["repair", "reuse", "recycle", "pledge"], follow: "Which part of the pledge can you do at home?" },
+      { level: "easy", q: "What is biodrainage?", points: ["Removing extra water from waterlogged land with plants instead of pipes or pumps", "Roots absorb water; leaves give it out as vapour (transpiration)", "Scientists call deep-rooted trees like eucalyptus “bio-pumps”"], keywords: ["waterlogged", "roots", "transpiration", "pump"], follow: "Why is eucalyptus chosen?" },
+      { level: "medium", q: "How much water does one eucalyptus tree give off, and how fast does biodrainage work?", points: ["About 15 L a day in winter to 45–55 L in summer, about 31 L a day on average (5-year-old trees, Hisar, Haryana)", "Measured with sap-flow sensors in the trunk", "Slow: about 0.85 m lower water table in 3 years in Haryana; about 14–15 m in 6–7 years near a canal in Rajasthan"], keywords: ["litres", "31", "years", "sap-flow"], follow: "Why is it slow?" },
+      { level: "hard", q: "Does biodrainage remove salt? Can we pour factory wastewater straight onto trees?", points: ["No — trees take the water but leave the salt; topsoil improves but salt can collect deeper", "Wastewater must be treated first to pollution-board standards", "HRTS (High Rate Transpiration System, CSIR-NEERI) uses only treated wastewater, between tree ridges", "It is not zero liquid discharge; groundwater must be watched"], keywords: ["salt", "treated", "hrts", "neeri"], follow: "Which part of your model treats the water first?" },
+      { level: "medium", q: "What is the difference between conduction (ascent of sap) and translocation in a plant?", points: ["Conduction / ascent of sap: water and minerals go UP through xylem", "Translocation: food made in the leaves moves through phloem to other parts", "Transpiration: water leaves as vapour, mostly through stomata"], keywords: ["xylem", "phloem", "water", "food"], follow: "Which one pulls water up a tall tree?" },
+      { level: "easy", q: "How can old PoP idols be recycled?", points: ["Broken PoP idols are ground into powder, mixed with organic glue, moulded and dried for 6–8 hours (“Murticycle”)", "More than 3,200 kg became 760 study tables in about 2 years; each saves about 5.4 kg of CO₂", "Mumbai immerses about 1.5 lakh PoP idols a year — about 675 tonnes of waste", "Better still: clay idols, like my Ganesha, which break down easily in water"], keywords: ["pop", "study table", "760", "clay"], follow: "Why is PoP bad for rivers?" },
+      { level: "easy", q: "What happened on 1 October 2026 under Swachhata Hi Seva?", points: ["“Ek Din, Ek Ghanta, Ek Saath”: one hour of cleaning together across India at 8 am", "Swachhata Hi Seva 2026 theme: “Swachhata Mein Sahbhag; Swachh Bharat, Viksit Bharat”", "In Chandigarh, CRPF, SBI and PNB teams cleaned places and planted trees (Ek Ped Maa Ke Naam)"], keywords: ["ek ghanta", "1 october", "sahbhag", "chandigarh"], follow: "What did you do on that day?" }
+    ],
+    rapid: [
+      ["WEEE stands for?", "Waste Electrical and Electronic Equipment"],
+      ["International E-Waste Day 2026 theme?", "Fast Tech: Don't bin it, bring it!"],
+      ["Date of International E-Waste Day?", "14 October"],
+      ["Trees used as 'bio-pumps' in biodrainage?", "Eucalyptus"],
+      ["Water leaves a leaf through tiny holes called?", "Stomata"],
+      ["Water moving up a tree through xylem is called?", "Conduction / ascent of sap"],
+      ["Food moving through phloem is called?", "Translocation"],
+      ["How many study tables were made from recycled PoP?", "760"]
+    ]
   };
 
+  // new questions join the main viva list
+  if (window.SITE && Array.isArray(window.SITE.viva)) window.NEWFILE.viva.forEach(v => window.SITE.viva.push(Object.assign({ topic: "My file: new pages" }, v)));
+
   // her tree diagram, drawn simply: roots absorb → water moves up the trunk → leaves transpire
-  const TREE = '<svg viewBox="0 0 320 300" class="nf-tree" role="img" aria-label="Tree diagram: absorption by roots, water moving up the trunk, transpiration from leaves">' +
+  const TREE = '<svg viewBox="0 0 340 320" class="nf-tree" role="img" aria-label="Tree diagram: absorption by roots, water moving up the trunk, transpiration from leaves">' +
     '<ellipse cx="160" cy="95" rx="105" ry="75" fill="#3f8f3f"/><rect x="146" y="150" width="28" height="95" fill="#795548"/>' +
     '<path d="M160 245 L120 285 M160 245 L200 285 M160 245 L160 292 M150 250 L95 270 M170 250 L225 270" stroke="#795548" stroke-width="6" fill="none" stroke-linecap="round"/>' +
     '<line x1="0" y1="248" x2="320" y2="248" stroke="#8d6e63" stroke-width="2"/>' +
     '<g fill="#1e88e5"><path d="M60 290 l18 -6 -18 -6z"/><path d="M262 290 l-18 -6 18 -6z"/></g>' +
     '<g stroke="#1e88e5" stroke-width="4" fill="#1e88e5"><line x1="160" y1="235" x2="160" y2="165"/><path d="M152 170 l8 -14 8 14z"/></g>' +
     '<g fill="#64b5f6"><circle cx="110" cy="35" r="5"/><circle cx="160" cy="18" r="5"/><circle cx="212" cy="35" r="5"/><circle cx="135" cy="8" r="4"/><circle cx="188" cy="10" r="4"/></g>' +
-    '<text x="250" y="40" font-size="13" fill="currentColor">Transpiration</text><text x="250" y="55" font-size="11" fill="currentColor">(leaves)</text>' +
-    '<text x="182" y="200" font-size="13" fill="currentColor">Water moves up</text><text x="182" y="215" font-size="11" fill="currentColor">(trunk)</text>' +
-    '<text x="4" y="275" font-size="13" fill="currentColor">Absorption (roots)</text></svg>';
+    '<text x="236" y="22" font-size="13" fill="currentColor">Transpiration</text><text x="236" y="37" font-size="11" fill="currentColor">(leaves, stomata)</text>' +
+    '<text x="182" y="198" font-size="13" fill="currentColor">Conduction:</text><text x="182" y="213" font-size="11" fill="currentColor">water goes up (xylem)</text>' +
+    '<text x="160" y="314" font-size="13" fill="currentColor" text-anchor="middle">Absorption (roots take up water)</text></svg>';
 
   function render(esc, store) {
     const N = window.NEWFILE, box = document.querySelector("#newfileBody"); if (!box) return;

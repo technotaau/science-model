@@ -48,7 +48,7 @@
     box.innerHTML = '<div class="card"><h2>⚡ Rapid fire round</h2><p>At the national fair, judges sometimes fire quick questions. You have <b>60 seconds</b>. Say the answer out loud, tap 👀 to check, then mark yourself honestly.</p>' +
       '<p class="small">🏅 Best: <b>' + best + '</b> right in 60 seconds</p><button class="btn" id="rfGo">▶️ Start</button><div id="rfPlay"></div></div>';
     $("#rfGo").onclick = () => {
-      rf = { qs: shuffle(RAPID.concat(window.VIDEOS ? window.VIDEOS.rapid : [])), i: 0, right: 0, miss: [], end: Date.now() + 60000 };
+      rf = { qs: shuffle(RAPID.concat(window.VIDEOS ? window.VIDEOS.rapid : [], window.NEWFILE ? window.NEWFILE.rapid : [])), i: 0, right: 0, miss: [], end: Date.now() + 60000 };
       $("#rfGo").hidden = true; rfShow();
       rf.t = setInterval(() => { const left = Math.max(0, Math.ceil((rf.end - Date.now()) / 1000)); const el = $("#rfTime"); if (el) el.textContent = "⏱️ " + left + " s"; if (left <= 0) rfEnd(); }, 250);
     };

@@ -1053,3 +1053,8 @@ html.visitor #tab-videos { display: none !important; }
 /* Gorakhpur mock stage */
 .ms-sub { min-height: 3em; margin: 8px 0 0; padding: 8px 12px; border-radius: 10px; background: var(--surface-2); font-weight: 700; text-align: center; }
 .ms-sub:empty { visibility: hidden; }
+
+/* New in my file */
+.nf-tree-wrap { max-width: 340px; margin: 6px auto 10px; color: var(--ink); }
+.nf-tree { width: 100%; height: auto; display: block; }
+.pledge-list li { margin: 4px 0; }

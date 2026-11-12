@@ -48,7 +48,7 @@
       { t: "The Municipal Commissioner in video 1 was Gaurav Singh Sogarwal; officers change posts often, so don't name today's Commissioner unless an adult checks it. The Mayor is Dr. Mangalesh Srivastava.", src: "Video; news reports" },
       { t: "Later, on 23 April 2026, CM Yogi opened an Eco Park built where 2.26 lakh tonnes of old waste had been scientifically removed, and launched the Swachh School Abhiyan for over 1 lakh children, to make Gorakhpur a seven-star garbage-free city.", src: "PTI (ThePrint), 23 Apr 2026" },
       { t: "The charcoal plant being built with NTPC at Suthani (500 tonnes a day) was delayed by technical problems in 2026. Say it is being set up, not that it is working.", src: "ETV Bharat, 12 Jun 2026" },
-      { t: "Swachh Survekshan 2025-26 results are expected in November 2026 (reported for 11 Nov, not yet official). Until they are announced, always say “in Swachh Survekshan 2024-25” for any rank or award.", src: "Our note, 7 Nov 2026" }
+      { t: "Swachh Survekshan 2025-26 results came out on 11 November 2026. Varanasi won 3rd place in the new River Front Town category, and Lucknow was 3rd among big cities. We found no 2025-26 award for Gorakhpur yet, so for Gorakhpur say “in Swachh Survekshan 2024-25”.", src: "News reports, 11–12 Nov 2026" }
     ],
     model: [
       "My five dustbins show segregation at source. Gorakhpur's transfer station even compacts wet and dry waste separately — it only works if people separate first.",

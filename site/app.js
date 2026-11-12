@@ -52,6 +52,7 @@
     { group: "📚 Learn my project", items: [
       { id: "model", icon: "🗺️", name: "My model", desc: "Tap any part: what it is and what to say.", tone: "green" },
       { id: "3d", icon: "🧊", name: "3D model", desc: "Spin my model in 3D and tap any part.", tone: "green" },
+      { id: "newfile", icon: "📒", name: "New in my file", desc: "E-waste Day 2026, biodrainage, and news from your new file pages.", tone: "green" },
       { id: "walk", icon: "🧭", name: "Walkthrough", desc: "Explain the whole model in the right order.", tone: "green" },
       { id: "project", icon: "📘", name: "Project report", desc: "Report, written synopsis and stall QR card.", tone: "green" },
       { id: "wastediary", icon: "⚖️", name: "Home waste diary", desc: "Weigh your family's waste for 7 days and get real data for the judges.", tone: "green" },
@@ -124,6 +125,7 @@
     if (t === "mockstage" && window.MockStage) window.MockStage.render();
     if (t !== "mockstage" && window.MockStage) window.MockStage.stop();
     if (t === "videos" && window.Videos) window.Videos.render(esc, store);
+    if (t === "newfile" && window.NewFile) window.NewFile.render(esc, store);
     if (t === "practice" && window.Practice) window.Practice.render();
     if (window.Coach2) window.Coach2.render(t);
     if (t === "part") renderPart(partView);

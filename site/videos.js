@@ -14,7 +14,7 @@
         channel: "Gorakhpur News", when: "Early 2026 (video posted about 23 Feb 2026; reported by MoHUA on PIB, 23 Mar 2026)",
         points: [
           { t: "Gorakhpur Nagar Nigam held a big 'स्वच्छता महापर्व' (cleanliness festival) at Ram Ghat, on the bank of the Rapti river.", src: "Video; PIB, 23 Mar 2026" },
-          { t: "The theme was “स्वच्छता की नई पहल – बढ़ाएं हाथ, करें सफाई साथ”. This is the official theme of Swachh Survekshan 2025-26, India's national cleanliness survey.", src: "Video; PIB" },
+          { t: "The theme was “स्वच्छता की नई पहल – बढ़ाएं हाथ, करें सफाई साथ”. This was the official theme of Swachh Survekshan 2025-26, India's national cleanliness survey (results announced on 11 November 2026).", src: "Video; PIB" },
           { t: "Mayor Dr. Mangalesh Srivastava and Municipal Commissioner Gaurav Singh Sogarwal picked up a broom and a shovel themselves (shramdaan), to speed up Gorakhpur's preparation for Swachh Survekshan 2025-26.", src: "Video" },
           { t: "More than 500 people took part: students of DDU Gorakhpur University, social organisations, corporators and the Nagar Nigam team.", src: "Video; PIB says 500+" },
           { t: "In a few hours Ram Ghat was made garbage-free. About 170 kg of single-use plastic and other waste was collected and sent to the MRF (Material Recovery Facility) for scientific disposal and recycling.", src: "Video; PIB says 170 kg" },
@@ -59,7 +59,7 @@
       "Like Paint My Ghat, my model uses art and colour to spread the message of cleanliness."
     ],
     hindi: [
-      "गोरखपुर नगर निगम ने राप्ती नदी के राम घाट पर स्वच्छता महापर्व मनाया और लगभग 170 किलो प्लास्टिक कचरा रीसाइक्लिंग के लिए एमआरएफ भेजा।",
+      "गोरखपुर नगर निगम ने राप्ती नदी के राम घाट पर स्वच्छता महापर्व मनाया और लगभग 170 किलो प्लास्टिक और दूसरा कचरा रीसाइक्लिंग के लिए एमआरएफ भेजा।",
       "स्वच्छ सर्वेक्षण 2025-26 की थीम है: स्वच्छता की नई पहल – बढ़ाएं हाथ, करें सफाई साथ।",
       "29 अप्रैल 2025 को मुख्यमंत्री योगी जी ने चरगांवा में 9.89 करोड़ रुपये से बने, 200 टन प्रतिदिन क्षमता वाले गार्बेज ट्रांसफर स्टेशन का लोकार्पण किया।",
       "भारत ने 2070 तक नेट ज़ीरो का लक्ष्य रखा है।"

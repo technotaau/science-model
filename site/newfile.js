@@ -48,7 +48,7 @@
         "It takes land and time: about 2 years before the water table starts to fall, and crops right next to the trees grow a little less.",
         "HRTS is the last step after a treatment plant, never a replacement: only treated wastewater may be used, groundwater must be watched, and it does not count as “zero liquid discharge”."
       ],
-      say: "Trees can work like natural pumps: their roots drink extra water and their leaves breathe it out as vapour. But it is slow, and it is used only on waterlogged land and for wastewater that is already treated — my model's waste water treatment part comes first.",
+      say: "Trees can work like natural pumps: their roots take up extra water and their leaves give it out as vapour — that is transpiration. But it is slow, and it is used only on waterlogged land and for wastewater that is already treated — in real life an effluent treatment plant comes first, like the treatment step shown in my model.",
       src: "Ram, Dagar et al., Current Science 100(11), 2011 (ICAR-CSSRI Karnal); FAO Biodrainage report (2002); CPCB guidelines (2019); NCERT"
     },
     news: [
@@ -60,13 +60,13 @@
           "How: the PoP is separated from broken idols, ground into powder again, mixed with a special organic glue, put into moulds and dried for 6–8 hours.",
           "In about 2 years, more than 3,200 kg of PoP became 760 study tables. Each table saves about 5.4 kg of carbon dioxide. They make 12 kinds of products, like table lamps and pen stands."
         ],
-        say: "PoP idols don't break down in water — but they can be recycled into study tables. That is why my Ganesha is made of clay: it breaks down easily in water.",
+        say: "PoP idols don't break down easily in water — but they can be recycled into study tables. That is why my Ganesha is made of clay: it breaks down easily in water.",
         src: "The Better India (25 Sep 2026), ETV Bharat (24 Sep 2026)"
       },
       {
         title: "Chandigarh's own drives on 1 October 2026 (Swachhata Hi Seva 2026)", tag: "My home city",
         points: [
-          "Swachhata Hi Seva 2026 was India's cleanliness fortnight before Gandhi Jayanti. Its theme: “Swachhata Mein Sahbhag; Swachh Bharat, Viksit Bharat”.",
+          "Swachhata Hi Seva 2026 was India's cleanliness campaign that started on 17 September 2026, ahead of Gandhi Jayanti. Its theme: “Swachhata Mein Sahbhag; Swachh Bharat, Viksit Bharat”.",
           "On 1 October, people all over India did one hour of cleaning together at 8 am: “Ek Din, Ek Ghanta, Ek Saath” (one day, one hour, together).",
           "In Chandigarh that day, the CRPF's 13th Battalion ran a big cleanliness drive, State Bank of India's Sector-17 office ran a cleaning and tree-planting drive (Ek Ped Maa Ke Naam), and Punjab National Bank cleaned a Sector-17 park and planted saplings at a government school in Maloya."
         ],
@@ -76,7 +76,7 @@
       }
     ],
     viva: [
-      { level: "easy", q: "What is e-waste? What does WEEE stand for?", points: ["Electrical or electronic items thrown away because they are broken, old, unwanted or at the end of their life", "WEEE = Waste Electrical and Electronic Equipment", "Easy test: anything with a plug, a cable or a battery", "Give it to a collection point or registered recycler, not the dustbin"], keywords: ["electrical", "electronic", "weee", "plug", "battery"], follow: "Why should e-waste not go in the dustbin?" },
+      { level: "easy", q: "What does WEEE stand for, and what is an easy test to know if something is e-waste?", points: ["Electrical or electronic items thrown away because they are broken, old, unwanted or at the end of their life", "WEEE = Waste Electrical and Electronic Equipment", "Easy test: anything with a plug, a cable or a battery", "Give it to a collection point or registered recycler, not the dustbin"], keywords: ["electrical", "electronic", "weee", "plug", "battery"], follow: "Why should e-waste not go in the dustbin?" },
       { level: "medium", q: "What was the theme of International E-Waste Day 2026?", points: ["14 October 2026, the 9th International E-Waste Day, by the WEEE Forum", "Theme: “Fast Tech: Don't bin it, bring it!”", "Fast tech: small, cheap, short-lived gadgets bought on impulse — earphones, cables, USB adapters, LED string lights, mini fans, toys, single-use vapes", "Bring them to e-waste collection so metals can be recovered"], keywords: ["fast tech", "bin", "bring", "14 october"], follow: "Name three fast-tech items in your house." },
       { level: "easy", q: "Tell us your Green Electronics pledge.", points: ["Use electronics in a way that is good for the environment", "Use devices responsibly, so less e-waste is made", "Repair, reuse, refurbish, recover and recycle", "Work together for a cleaner, greener India"], keywords: ["repair", "reuse", "recycle", "pledge"], follow: "Which part of the pledge can you do at home?" },
       { level: "easy", q: "What is biodrainage?", points: ["Removing extra water from waterlogged land with plants instead of pipes or pumps", "Roots absorb water; leaves give it out as vapour (transpiration)", "Scientists call deep-rooted trees like eucalyptus “bio-pumps”"], keywords: ["waterlogged", "roots", "transpiration", "pump"], follow: "Why is eucalyptus chosen?" },

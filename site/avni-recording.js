@@ -25,7 +25,7 @@ window.AVNI_RECORDING = {
     '<li>✅ <b>Strong opening:</b> she starts with a quote (“The best waste is the waste we never create”), then greets the judges and says her name and topic. Keep exactly this.</li>' +
     '<li>✅ <b>A good reason:</b> “Why I chose this topic” and the question “where does all this waste go?” make judges curious.</li>' +
     '<li>✅ <b>Correct facts:</b> 2 October 2014, PM Narendra Modi, Mahatma Gandhi, Phase 1 and Phase 2.</li>' +
-    '<li>⚠️ <b>Too fast:</b> about <b>160 words a minute</b> in this clip. Aim for <b>110–140</b>, especially in a noisy hall. Pause for one breath after every main idea.</li>' +
+    '<li>⚠️ <b>Too fast:</b> about <b>160 words a minute</b> in this clip. Aim for about <b>100–140</b>, especially in a noisy hall. Pause for one breath after every main idea.</li>' +
     '<li>⚠️ <b>Small English fixes:</b> “where does all this waste <b>go</b>” (not “goes”); “two <b>phases</b>” (not “two phase”); “how small steps can make a <b>big difference</b>”.</li>' +
     '<li>💡 <b>Better words:</b> say Gandhi Ji’s <b>birth anniversary</b> (2 October) rather than “in the memory of”. And for Phase 2 add: “Phase 2 means staying ODF and managing solid and liquid waste — ODF Plus.”</li>' +
     '<li>💡 <b>One long pause</b> (about 3 seconds) came after “Swachh Bharat Abhiyan”. A planned pause is good; if it was a memory gap, practise the line “It was launched on 2 October 2014…” until it flows.</li>' +

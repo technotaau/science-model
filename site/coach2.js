@@ -22,7 +22,7 @@
   const RAPID = [
     ["Swachh Survekshan 2025-26 results came out on?", "11 November 2026"], ["Who gave the Swachh Survekshan 2025-26 awards?", "President Droupadi Murmu"],
     ["Which edition of Swachh Survekshan was 2025-26?", "The 10th"], ["Chandigarh's place among 3–10 lakh cities in 2025-26?", "2nd"],
-    ["Lucknow's place among cities over 10 lakh in 2025-26?", "3rd"], ["Who topped the Super Swachh League in 2025-26?", "Navi Mumbai"],
+    ["Lucknow's place among cities over 10 lakh in 2025-26?", "3rd"], ["Who topped the Super Swachh League in 2025-26?", "Navi Mumbai"], ["Top 3 cities with 3–10 lakh people in 2025-26?", "Ujjain, Chandigarh, Guntur"],
     ["Main gas in biogas?", "Methane"], ["What comes out of a hydrogen train?", "Mainly water vapour (and heat)"],
     ["When was Swachh Bharat Mission launched?", "2 October 2014"], ["Who launched it?", "PM Narendra Modi"],
     ["Bin colour for wet waste?", "Green"], ["Bin colour for dry waste?", "Blue"],

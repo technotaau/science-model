@@ -1,6 +1,6 @@
 /* Offline support: keeps a copy of the website on the phone so it works on the train without internet.
    Network first (so updates arrive when online), saved copy when offline or very slow. */
-const CACHE = "coach-v19";
+const CACHE = "coach-v20";
 const CORE = ["./", "index.html", "styles.css", "content.js", "videos.js", "newfile.js", "ecodost-data.js", "ecodost.js", "voice.js", "games.js", "fun.js",
   "icons.js", "model3d.js", "avni-recording.js", "avni-ai.js", "mockstage.js", "hindi.js", "extras.js", "practice.js", "qr-parts.js", "coach2.js", "app.js", "media/model.webp", "qr.svg", "media/real-model.webp", "media/model-tour.jpg"];
 const EXTRA = ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",

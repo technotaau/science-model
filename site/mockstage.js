@@ -12,9 +12,9 @@
 
   // which model part each stage-speech section talks about (in order)
   const SECTION_PARTS = {
-    "s-open": ["boards"], "s-sbm": ["swachh", "boards"], "s-waste": ["bins"], "s-plastic": ["bins", "boards"],
-    "s-7r": ["boards"], "s-wte": ["biogas", "wte"], "s-green": ["city", "windmill", "train", "h2"],
-    "s-water": ["mountain", "filter", "factory", "wwt"], "s-close": ["boards"]
+    "s-open": ["boards"], "s-sbm": ["swachh", "boards"], "s-city": ["city", "train", "h2"], "s-roads": ["city", "rain"],
+    "s-water": ["filter", "wwt", "mountain"], "s-waste": ["bins", "boards"], "s-village": ["hut", "biogas"],
+    "s-wte": ["wte"], "s-reuse": ["bins"], "s-close": ["boards"]
   };
 
   function start() {
@@ -148,7 +148,7 @@
     // 2. the full stage speech in her AI voice
     $("#msTts").onclick = async () => {
       if (AI) {
-        playClip(AI, "msTts", '<div class="m3d-card"><b>🤖 Full speech in Avni\'s voice (AI)</b> · <span class="ms-sec small"></span><p class="small">An AI voice made from Avni\'s own recording, with her family\'s permission, for practice. It is <b>not</b> a real recording of Avni. Pace: about ' + AI.wpm + ' words a minute — her target speed. <span class="tiny muted">Voice: XTTS-v2, <a href="https://huggingface.co/coqui/XTTS-v2/blob/main/LICENSE.txt" target="_blank" rel="noopener">Coqui Public Model License</a> (non-commercial).</span></p></div>', "judge");
+        playClip(AI, "msTts", '<div class="m3d-card"><b>🤖 Full speech in Avni\'s voice (AI)</b> · <span class="ms-sec small"></span><p class="small">An AI voice made from Avni\'s own recording of 21 November, with her family\'s permission, for practice. It is <b>not</b> a real recording of Avni. Pace: about ' + AI.wpm + ' words a minute — her target speed. <span class="tiny muted">Voice: XTTS-v2, <a href="https://huggingface.co/coqui/XTTS-v2/blob/main/LICENSE.txt" target="_blank" rel="noopener">Coqui Public Model License</a> (non-commercial).</span></p></div>', "judge");
         return;
       }
       if (run) { stopAll(); return; }

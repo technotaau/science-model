@@ -13,7 +13,7 @@ path = ModelManager().download_model("tts_models/multilingual/multi-dataset/xtts
 if os.path.isfile(path): path = os.path.dirname(path)
 cfg = XttsConfig(); cfg.load_json(os.path.join(path, "config.json"))
 m = Xtts.init_from_config(cfg); m.load_checkpoint(cfg, checkpoint_dir=path, eval=True)
-gpt, spk = m.get_conditioning_latents(audio_path=["ref1.wav", "ref2.wav", "ref3.wav"], gpt_cond_len=30, max_ref_length=30)
+gpt, spk = m.get_conditioning_latents(audio_path=["ref1.wav", "ref2.wav", "ref3.wav", "ref4.wav"], gpt_cond_len=30, max_ref_length=30)
 print("loaded", round(time.time() - t0), "s", flush=True)
 
 def say(text, out, speed=0.92):

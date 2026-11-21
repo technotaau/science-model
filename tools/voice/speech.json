@@ -4,100 +4,105 @@
   "title": "Opening",
   "sentences": [
    "The best waste is the waste we never create.",
-   "Good morning, respected judges, teachers and dear friends. Jai Hind!",
-   "I am Avni Choudhary from Class 6, and my topic is Clean India Mission and Waste Management.",
-   "Every day, we throw away plastic, peels and paper.",
-   "But — where does all this waste go?",
-   "Let me show you how to keep our land, water and air clean."
+   "Jai Hind, respected judges.",
+   "I am Avni Choudhary from Class 6, and my model is on Clean India Mission and Waste Management.",
+   "A beautiful India is not made only with beautiful buildings and roads, but with clean surroundings and responsible people.",
+   "Every day, we throw away plastic, paper and food peels.",
+   "But — where does all this waste go?"
   ]
  },
  {
   "id": "s-sbm",
   "title": "Clean India Mission",
   "sentences": [
-   "The Clean India Mission, or Swachh Bharat Abhiyan, was launched on 2 October 2014 by Prime Minister Narendra Modi, on Mahatma Gandhi's birth anniversary.",
-   "Its first big goal was toilets for everyone, for our health and our water.",
-   "Cities alone built over 63 lakh home toilets.",
-   "Today, about 5.7 lakh villages are ODF Plus — free from open defecation, and managing their waste."
+   "The Clean India Mission, or Swachh Bharat Abhiyan, was launched on 2 October 2014 by Prime Minister Shri Narendra Modi ji, on Mahatma Gandhi ji's birth anniversary.",
+   "In Phase 1, the goal was to make India open defecation free.",
+   "In Phase 2, the goal is ODF Plus: to keep that status, and to manage solid and liquid waste."
+  ]
+ },
+ {
+  "id": "s-city",
+  "title": "Smart city & the hydrogen train",
+  "sentences": [
+   "This is my smart city, with green energy to reduce carbon emissions.",
+   "The solar panels on the houses use energy from the sun, and this charging station charges the electric car with solar electricity.",
+   "This is India's first hydrogen train.",
+   "It was flagged off on 17 July 2026, and it runs about 89 kilometres, from Jind to Sonipat in Haryana.",
+   "It gives out no smoke — only water vapour and heat."
+  ]
+ },
+ {
+  "id": "s-roads",
+  "title": "Plastic roads & the rain garden",
+  "sentences": [
+   "This is Professor Rajagopalan Vasudevan, the Plastic Man of India.",
+   "He showed how waste plastic can help build roads, and he got the Padma Shri in 2018.",
+   "Next to the road is my rain garden.",
+   "It soaks up rainwater from roofs and roads, reduces flooding and helps refill the groundwater."
+  ]
+ },
+ {
+  "id": "s-water",
+  "title": "Clean water, rivers & Ganesha",
+  "sentences": [
+   "This is my wastewater treatment plant.",
+   "Dirty water is cleaned in layers: stones stop leaves and packets, charcoal removes the smell, and cotton traps fine dirt.",
+   "The water comes out clearer, but a real plant also removes germs before it goes back to a river.",
+   "Here in Gorakhpur, people cleaned Ram Ghat on the Rapti river, and sent about 170 kilos of plastic and other waste for recycling.",
+   "Rivers are not dustbins.",
+   "My eco-friendly Ganesha is made of clay and pulses.",
+   "Unlike Plaster of Paris, the clay breaks down easily in water, and the pulses are natural and biodegradable."
   ]
  },
  {
   "id": "s-waste",
-  "title": "Waste management & segregation",
+  "title": "Waste segregation & the 7Rs",
   "sentences": [
-   "Waste management has five main steps: separate, collect, transport, recycle or treat, and safely dispose.",
-   "The first step is the most important — segregation at source.",
-   "In my five bins, wet waste, like peels, becomes compost or biogas, and dry waste, like paper and metal, is recycled.",
-   "Mixed waste becomes garbage.",
-   "Separated waste becomes a resource."
+   "Now, waste segregation: separating waste where it is made.",
+   "Wet waste, like peels, becomes compost or biogas.",
+   "Dry waste, like plastic, paper, metal and glass, can be recycled.",
+   "Mixed waste becomes garbage; separated waste becomes a resource.",
+   "And the 7Rs, like Refuse, Reduce and Reuse, help us make less waste."
   ]
  },
  {
-  "id": "s-plastic",
-  "title": "Plastic & the Plastic Man",
+  "id": "s-village",
+  "title": "Biogas village",
   "sentences": [
-   "Then there is single-use plastic.",
-   "A carry bag is used for a few minutes, but it stays in nature for years and years.",
-   "But Professor Rajagopalan Vasudevan, the Plastic Man of India, showed how waste plastic can help make roads.",
-   "He got the Padma Shri in 2018."
-  ]
- },
- {
-  "id": "s-7r",
-  "title": "The 7Rs",
-  "sentences": [
-   "Not just the 3Rs — my project has 7Rs: Refuse, Reduce, Reuse — Repair, Repurpose — Recycle and Recover.",
-   "Remember my first line?",
-   "The best waste is the waste we never create."
+   "In my village, this biogas plant takes wet waste, cow dung and water.",
+   "Bacteria break it down without oxygen, and make methane and carbon dioxide.",
+   "This biogas is used for cooking and for electricity, like the light in this hut."
   ]
  },
  {
   "id": "s-wte",
   "title": "Waste to energy",
   "sentences": [
-   "The last R, Recover, means getting energy back from waste.",
-   "In a biogas plant, microbes break down wet waste without oxygen and make biogas for cooking.",
-   "Leftover waste that cannot be recycled can be burnt in a closed waste-to-energy plant, with pollution control.",
-   "The heat makes steam, which turns a turbine to make electricity.",
-   "But remember — we must never burn plastic in the open."
+   "Single-use plastic is hard to recycle.",
+   "In a waste-to-energy plant, waste that cannot be recycled is burnt in a closed chamber with pollution control.",
+   "The heat makes steam, the steam spins a turbine, and we get electricity.",
+   "But we must never burn plastic in the open.",
+   "Another way is eco-bricks: plastic bottles packed tightly with clean, dry plastic, used to build benches and small walls."
   ]
  },
  {
-  "id": "s-water",
-  "title": "Clean water & rivers",
+  "id": "s-reuse",
+  "title": "Best out of waste",
   "sentences": [
-   "Clean water is precious.",
-   "My filter has layers, from coarse to fine: stones and gravel, charcoal, and cotton.",
-   "It comes out clearer — but clear water is not always safe to drink.",
-   "Factories need effluent treatment plants, and cities need sewage treatment plants, so dirty water is cleaned before it reaches our rivers.",
-   "Here in Gorakhpur, people cleaned Ram Ghat on the Rapti, and sent about 170 kilos of plastic and other waste for sorting and recycling.",
-   "Rivers are not dustbins."
-  ]
- },
- {
-  "id": "s-green",
-  "title": "Green energy & the hydrogen train",
-  "sentences": [
-   "Last, a clean India also needs clean air.",
-   "Energy from the sun and the wind does not run out, and causes very little pollution.",
-   "Solar panels and windmills turn this energy into electricity.",
-   "India has crossed 300 gigawatts of clean power capacity, and aims for 500 by 2030. On 17 July 2026, India's first hydrogen train was flagged off on the Jind–Sonipat line in Haryana.",
-   "Instead of diesel smoke, it gives out mainly water vapour."
+   "My Swachh Bharat waste collector shows the machines that clean our roads.",
+   "I made it from old toy-car tyres, a motor, a light and cardboard.",
+   "My wall hanging is made from spoons, bangles and pistachio shells.",
+   "Waste can be used in many ways."
   ]
  },
  {
   "id": "s-close",
-  "title": "Our duties & conclusion",
+  "title": "Conclusion",
   "sentences": [
-   "So, what can we do?",
-   "Stop littering.",
-   "Segregate waste at home and school.",
-   "Say no to single-use plastic.",
-   "Plant trees.",
-   "And my question — where does all this waste go?",
-   "If we separate it, it can come back as compost, energy and new things.",
-   "A clean India is not just a dream; it is a responsibility we share.",
-   "Thank you. Jai Hind!"
+   "I do not want to define my India by its waste.",
+   "I want to define its beauty by the way it reduces, reuses and recycles, and uses green energy.",
+   "The best waste is the waste we never create.",
+   "Thank you. Jai Hind! Jai Bharat!"
   ]
  }
 ]

@@ -17,7 +17,7 @@
     bus: { name: "🚌 Electric buses", text: "One electric bus carries many people with no tailpipe smoke.", comp: "bus" },
     wte: { name: "💡 Waste to energy plant", text: "Conveyor belt → combustion chamber (the heat makes steam) → the steam turns a turbine → a generator makes electricity, which can be stored or sent to the grid. Only for waste that cannot be recycled, in plants with pollution control — never open burning.", comp: "wte" },
     map: { name: "🇮🇳 Reducing carbon emission", text: "India's journey to cut pollution: clean energy, clean transport and less waste.", comp: "india" },
-    rain: { name: "🌧️ Rain garden", text: "A garden that soaks up rainwater, so less dirty water runs off into drains." },
+    rain: { name: "🌧️ Rain garden", text: "A shallow garden beside the road that soaks up rainwater from roofs and roads: less flooding, and it helps refill the groundwater.", comp: "raingarden" },
     mountain: { name: "🏔️ Mountain and river", text: "Clean rivers start in the mountains. Keeping waste out of rivers keeps the water clean for everyone." },
     windmill: { name: "🌬️ Windmill", text: "Uses moving air (wind) to make electricity without burning anything.", comp: "windmill" },
     filter: { name: "💧 Water filtration", text: "Dirty water flows through stones & gravel → charcoal → cotton and comes out clearer. Clearer is not the same as safe to drink.", comp: "filter" },
